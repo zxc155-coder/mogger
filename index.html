@@ -390,18 +390,18 @@
     box-shadow:
       0 16px 32px -16px rgba(0,30,120,.7),
       0 0 0 1px rgba(120,170,255,.06);
-    display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
+    display:grid;grid-template-columns:repeat(6,1fr);gap:2px;
     z-index:10;
     margin-bottom:env(safe-area-inset-bottom);
   }
   nav.tabs button{
     position:relative;
-    padding:9px 4px 7px;border-radius:18px;
-    color:#7e9bd0;font-size:10px;letter-spacing:.06em;font-weight:600;
+    padding:9px 2px 7px;border-radius:16px;
+    color:#7e9bd0;font-size:9.5px;letter-spacing:.04em;font-weight:600;
     display:flex;flex-direction:column;align-items:center;gap:3px;
     transition:color .2s ease;
   }
-  nav.tabs svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;
+  nav.tabs svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;
     stroke-linecap:round;stroke-linejoin:round}
   nav.tabs button.on{
     color:#eaf1ff;
@@ -471,10 +471,87 @@
     opacity:.5;pointer-events:none;z-index:-1;
   }
 
+  /* =========================================================
+     FACE-SHAPE PICKER (Hair screen)
+  ========================================================= */
+  .shape-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    margin-top:6px;
+  }
+  .shape{
+    position:relative;padding:14px 10px 12px;border-radius:16px;
+    background:linear-gradient(180deg,rgba(15,30,75,.5),rgba(8,18,50,.55));
+    border:1px solid rgba(120,170,255,.22);
+    color:#dfeaff;font-weight:700;font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;text-align:center;
+    transition:transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .shape:active{transform:scale(.96)}
+  .shape .glyph{
+    display:block;width:42px;height:42px;margin:0 auto 6px;
+    border:1.6px solid #7fb1ff;background:rgba(120,170,255,.08);
+    box-shadow:inset 0 0 14px rgba(120,170,255,.18),0 0 14px rgba(80,140,255,.25);
+  }
+  .shape[data-s="oval"]    .glyph{border-radius:50% / 60%}
+  .shape[data-s="round"]   .glyph{border-radius:50%}
+  .shape[data-s="square"]  .glyph{border-radius:8px}
+  .shape[data-s="rect"]    .glyph{border-radius:8px;width:30px;height:48px;margin-top:-3px}
+  .shape[data-s="heart"]   .glyph{
+    background:rgba(120,170,255,.08);
+    border:0;
+    width:44px;height:42px;
+    clip-path:polygon(50% 100%, 0 35%, 0 15%, 25% 0, 50% 20%, 75% 0, 100% 15%, 100% 35%);
+    box-shadow:inset 0 0 0 1.6px #7fb1ff;
+  }
+  .shape[data-s="diamond"] .glyph{transform:rotate(45deg);width:34px;height:34px;border-radius:6px}
+  .shape.on{
+    border-color:#7fb1ff;
+    box-shadow:0 0 0 1px rgba(120,170,255,.4),0 0 24px rgba(80,140,255,.45);
+    background:linear-gradient(180deg,rgba(40,80,200,.45),rgba(10,30,90,.55));
+  }
+  .shape.on .glyph{
+    border-color:#cfe2ff;box-shadow:inset 0 0 18px rgba(180,210,255,.4),0 0 22px rgba(120,170,255,.65);
+  }
+  .shape-result h3.shape-title{
+    font-size:20px;font-weight:800;color:#eaf1ff;margin-bottom:2px;
+    background:linear-gradient(180deg,#fff,#86b3ff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .shape-result .meta{font-size:12px;color:#8aa5d6;margin-bottom:10px}
+  .shape-result ul{
+    list-style:none;padding:0;margin:8px 0 4px;display:flex;flex-direction:column;gap:7px;
+  }
+  .shape-result ul li{
+    position:relative;padding:8px 10px 8px 30px;
+    background:rgba(8,18,50,.45);
+    border:1px solid rgba(120,170,255,.15);
+    border-radius:10px;
+    font-size:13.5px;color:#dfeaff;
+  }
+  .shape-result ul.yes li::before{
+    content:"✓";position:absolute;left:10px;top:7px;
+    color:#9affc8;font-weight:800;
+  }
+  .shape-result ul.no  li::before{
+    content:"×";position:absolute;left:11px;top:5px;
+    color:#ff9aa9;font-weight:800;font-size:16px;
+  }
+  .shape-result h4{
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:#9bbcff;font-weight:700;margin:14px 0 4px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .shape-result h4::before{
+    content:"";width:6px;height:6px;border-radius:50%;
+    background:#5b9dff;box-shadow:0 0 8px 1px #5b9dff;
+  }
+
   /* small screens */
   @media (max-width:380px){
     .goal h2.title{font-size:30px}
     .cd-unit b{font-size:20px}
+    nav.tabs button{font-size:8.5px;padding:8px 1px 6px}
+    nav.tabs svg{width:16px;height:16px}
   }
 </style>
 </head>
@@ -568,6 +645,12 @@
         </span>
         Тело<br><small>Штанга · турник · резина</small>
       </button>
+      <button data-go="hair">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M4 18c0-6 3-12 8-12s8 6 8 12"/><path d="M7 18c0-4 2-9 5-9s5 5 5 9"/></svg>
+        </span>
+        Стрижка<br><small>Подбор по форме лица</small>
+      </button>
       <button data-go="tips">
         <span class="ico">
           <svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c1 1 2 2 2 4h4c0-2 1-3 2-4a6 6 0 0 0-4-10Z"/></svg>
@@ -593,7 +676,7 @@
   ============================================================ -->
   <section id="screen-face" class="screen">
     <div class="sec-head">
-      <div><h2>Лицо</h2><p>Челюсть · скулы · убрать отёк</p></div>
+      <div><h2>Лицо</h2><p>Mewing · ramus · скулы · впалые щёки · глаза · брови</p></div>
     </div>
 
     <div class="card">
@@ -658,6 +741,116 @@
           <p>Тыльной стороной кистей быстрыми лёгкими похлопываниями пройдись от середины подбородка вдоль челюсти к ушам. 1–2 минуты.</p>
         </div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Ramus + роллер (угол челюсти)</h2>
+      <p class="muted" style="font-size:13px;margin-bottom:12px">
+        Ramus — вертикальная часть нижней челюсти от угла до сустава. Чем плотнее и развитее массетер на нём, тем угловатее и маскулиннее линия челюсти. Делать 5–7 дней/нед.
+      </p>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Массаж массетера роллером</h4>
+        <p>Веди роллер (нефрит, кварц, металл — без разницы) <b>снизу вверх</b> от угла нижней челюсти к виску по жевательной мышце. По 1–2 минуты с каждой стороны, давление умеренное. Делает мышцу плотнее и подтягивает контур.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Холодный нефритовый роллер по утрам</h4>
+        <p>Положи роллер в холодильник на ночь. Утром: лоб → виски, нос → уши, центр подбородка → уши, шея → ключицы. По 30 сек на зону. Дренаж + тонус сосудов.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Mewing с выдвижением челюсти</h4>
+        <p>Сильное mewing + слегка выдвини нижнюю челюсть так, чтобы нижние резцы оказались перед верхними. Удерживай 30 сек × 5 подходов. Прокачивает ramus и подбородок.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Изометрический жим челюстью</h4>
+        <p>Кулаки под угол нижней челюсти с обеих сторон, пытаешься «опустить» челюсть вниз, кулаки удерживают. 10 сек × 6 повторов. Целевая нагрузка на массетер.</p>
+      </div></div>
+      <div class="step"><div class="n">5</div><div>
+        <h4>Жвачка на ramus</h4>
+        <p>Жуй <b>дальними молярами</b>, а не передними зубами. Mastic gum / Falim 20–30 мин/день. Чувствуется именно угол челюсти, а не вся челюсть.</p>
+      </div></div>
+      <div class="step"><div class="n">6</div><div>
+        <h4>Сжатие зубов (clenches)</h4>
+        <p>3–4 подхода по 30 сек: сильно сжимай зубы, чувствуй массетер. Можно с куском жвачки между молярами для нагрузки. Дай мышце день отдыха каждые 2–3 дня — она растёт в отдыхе.</p>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Впалые щёки (hollow cheeks)</h2>
+      <p class="muted" style="font-size:13px;margin-bottom:12px">
+        Впадина под скулой = <b>низкий % жира</b> + тонус буккальной мышцы + сухость кожи. Питание и анти-отёк делают 70% работы, упражнения — оставшиеся 30%. Без сухого тела впадин не будет.
+      </p>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Fish face hold</h4>
+        <p>Втяни щёки внутрь, как «рыбка». Удерживай 30 сек × 5 подходов. Целевая мышца — buccinator (щёчная).</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Mouthwash (воздушное полоскание)</h4>
+        <p>Набери воздуха, с силой перегоняй из одной щеки в другую — как полоскание. 60 сек × 3 подхода. Тонизирует щёки и поднимает скулу.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Воздушные перекаты</h4>
+        <p>Надуй щёки воздухом, перекатывай по кругу: левая щека → над губой → правая щека → под губой. 10 кругов × 3 подхода.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Подъём скулы изнутри</h4>
+        <p>Кончик языка прижми к внутренней стороне щеки и «выталкивай» вверх к скуле. 10 раз × 3 на каждую сторону.</p>
+      </div></div>
+      <div class="step"><div class="n">5</div><div>
+        <h4>«O» с максимальным растяжением</h4>
+        <p>Открой рот в форме «О» широко, верхняя губа давит вниз, почувствуй натяжение под скулой. Удерживай 15 сек × 6 повторов.</p>
+      </div></div>
+      <div class="step"><div class="n">6</div><div>
+        <h4>Smile + resistance</h4>
+        <p>Положи указательные пальцы на скуловые кости. Улыбнись максимально, пальцы слегка прижимают кожу к кости (не дают скулам идти вверх). 10 повторов × 3.</p>
+      </div></div>
+      <p class="muted" style="font-size:12.5px;margin-top:10px">
+        <b>Главный фактор:</b> впадина под скулой проявляется при body fat &lt; 12–14%. Сухое тело + анти-отёк → впадина «выходит» сама. Без этого никакие упражнения не нарисуют то, что закрыто жиром.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Глаза и брови</h2>
+      <p class="muted" style="font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;color:#9bbcff;font-weight:700">
+        Глаза — против мешков и нависшего века
+      </p>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Холодные ложки / ледяные кубики</h4>
+        <p>2 чайные ложки в морозилке 5 мин → приложи к закрытым векам на 30 сек × 4 раза. Сужает сосуды, убирает мешки и тёмные круги мгновенно.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Лёгкий дренаж под глазом</h4>
+        <p>Безымянным пальцем (самый слабый — не растянешь кожу) от внутреннего угла глаза → под нижним веком → к виску. По 10 раз. Лимфа уходит в висок.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Подъём века (изометрия)</h4>
+        <p>Указательные пальцы поставь на брови, мягко тяни вверх. Закрой глаза, чувствуй сопротивление века. 10 сек × 8 повторов. Подтягивает верхнее веко.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Зрачковые круги</h4>
+        <p>Голова неподвижна. Зрачки по большому кругу 10 раз → в обратную сторону 10 раз. Снимает усталость и тонизирует круговую мышцу глаза.</p>
+      </div></div>
+
+      <div class="divider"></div>
+
+      <p class="muted" style="font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;color:#9bbcff;font-weight:700">
+        Брови — густые и мужественные
+      </p>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Касторовое масло на ночь</h4>
+        <p>1 раз в день, чистая бровь, ватной палочкой тонкий слой по росту волос. Густеют за 4–8 недель. Утром умой обычным гелем.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Щёточка spoolie каждое утро</h4>
+        <p>30 сек расчёсывания по росту волос → стимулирует фолликулы и держит форму. Стоит копейки.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Не выщипывай</h4>
+        <p>Естественная густая бровь = маскулинность. Можно только подстригать длинные торчащие волоски по верхнему краю. Никаких тонких линий.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Форма под форму лица</h4>
+        <p>Круглое — прямая угловатая бровь. Квадратное — мягкий изгиб. Удлинённое — горизонтальная бровь. Подробнее во вкладке <b>«Волосы»</b>.</p>
+      </div></div>
     </div>
 
     <div class="card">
@@ -859,6 +1052,71 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       HAIR (face-shape → hairstyle picker)
+  ============================================================ -->
+  <section id="screen-hair" class="screen">
+    <div class="sec-head">
+      <div><h2>Стрижка и борода</h2><p>Подбор по форме лица</p></div>
+    </div>
+
+    <div class="card">
+      <h2>Как определить форму</h2>
+      <p style="font-size:14px;line-height:1.55">
+        Стань перед зеркалом при ровном свете, волосы убери назад. Сравни четыре величины:
+      </p>
+      <div class="list" style="margin-top:10px">
+        <div class="item"><h3><span class="dot"></span>Лоб</h3><p>Ширина по самой широкой линии лба (обычно посредине).</p></div>
+        <div class="item"><h3><span class="dot"></span>Скулы</h3><p>Ширина в самой выступающей точке скул.</p></div>
+        <div class="item"><h3><span class="dot"></span>Челюсть</h3><p>Ширина от угла нижней челюсти до угла.</p></div>
+        <div class="item"><h3><span class="dot"></span>Длина</h3><p>От верхней границы лба до кончика подбородка.</p></div>
+      </div>
+      <p class="muted" style="font-size:13px;margin-top:10px">
+        Дальше — выбери тип по описаниям ниже и тапни на форму. Если сомневаешься — посмотри «Овал» (это универсал).
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Твоя форма</h2>
+      <div class="shape-grid" id="shape-grid">
+        <button class="shape" data-s="oval"   ><span class="glyph"></span>Овал</button>
+        <button class="shape" data-s="round"  ><span class="glyph"></span>Круг</button>
+        <button class="shape" data-s="square" ><span class="glyph"></span>Квадрат</button>
+        <button class="shape" data-s="rect"   ><span class="glyph"></span>Удлинённое</button>
+        <button class="shape" data-s="heart"  ><span class="glyph"></span>Сердце</button>
+        <button class="shape" data-s="diamond"><span class="glyph"></span>Ромб</button>
+      </div>
+    </div>
+
+    <div class="card shape-result" id="shape-result">
+      <h3 class="shape-title" id="shape-title">Овал</h3>
+      <div class="meta"      id="shape-meta">Универсальная форма — идёт почти всё</div>
+      <p class="muted"       id="shape-desc" style="font-size:13.5px;line-height:1.55"></p>
+
+      <h4>Что подойдёт (стрижки)</h4>
+      <ul class="yes" id="shape-yes"></ul>
+
+      <h4>Чего избегать</h4>
+      <ul class="no"  id="shape-no"></ul>
+
+      <h4>Борода</h4>
+      <p id="shape-beard" style="font-size:13.5px;color:#dfeaff;line-height:1.55"></p>
+
+      <h4>Как попросить у барбера</h4>
+      <p id="shape-barber" style="font-size:13.5px;color:#dfeaff;line-height:1.55"></p>
+    </div>
+
+    <div class="card">
+      <h2>Общие правила</h2>
+      <details><summary>Стрижка каждые 3–4 недели</summary><p>Без регулярности любая техника разваливается. Поставь напоминание.</p></details>
+      <details><summary>Шампунь по типу</summary><p>Жирные волосы — легкий, без силиконов, частый. Сухие — увлажняющий раз в 2–3 дня.</p></details>
+      <details><summary>Стайлинг: минимум</summary><p>Матовая глина (clay) или помада (pomade) — хватает одного баночка. Никаких жирных гелей — мокрый вид убивает всё.</p></details>
+      <details><summary>Не пересушивай феном</summary><p>Горячий воздух ломает волосы. Суши на воздухе или прохладным феном.</p></details>
+      <details><summary>Шёлковая / сатиновая наволочка</summary><p>Не ломает волос ночью и не даёт зажимов на лице.</p></details>
+      <details><summary>Никакого хвоста/пучка (если отступает висок)</summary><p>Для высоких висков это убийство. Лучше fade или плотная стрижка средней длины.</p></details>
+    </div>
+  </section>
+
 </main>
 
 <!-- ============================================================
@@ -880,6 +1138,10 @@
   <button data-go="body" role="tab">
     <svg viewBox="0 0 24 24"><path d="M3 12h2M19 12h2M7 8v8M17 8v8M7 12h10"/></svg>
     Тело
+  </button>
+  <button data-go="hair" role="tab">
+    <svg viewBox="0 0 24 24"><path d="M4 18c0-6 3-12 8-12s8 6 8 12"/><path d="M7 18c0-4 2-9 5-9s5 5 5 9"/></svg>
+    Стрижка
   </button>
   <button data-go="tips" role="tab">
     <svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c1 1 2 2 2 4h4c0-2 1-3 2-4a6 6 0 0 0-4-10Z"/></svg>
@@ -1031,6 +1293,103 @@
       if (navigator.vibrate) navigator.vibrate(5);
     }, {passive:true});
   });
+
+  // ========= FACE-SHAPE → HAIR PICKER =========
+  const SHAPES = {
+    oval: {
+      title: 'Овал',
+      meta:  'Универсальная форма — идёт почти всё',
+      desc:  'Скулы самая широкая часть, лоб чуть уже скул, челюсть уже лба, подбородок мягко сужается. Лицевые линии плавные.',
+      yes:   ['Short crop — короткая текстурированная', 'Side part (пробор сбоку) — классика', 'Slick back — зачёс назад', 'Undercut + textured top', 'Quiff с объёмом сверху', 'French crop'],
+      no:    ['Длинные чёлки, закрывающие лоб (прячут овал)', 'Стрижки с одинаковой длиной со всех сторон'],
+      beard: 'Подходит почти любая. Оптимум: короткая аккуратная стрижка бороды 3–6 мм с чёткими линиями. Можно и полную — если растёт ровно.',
+      barber:'«Коротко по бокам (taper / fade 1–3), верх 4–7 см с текстурой, можно пробор сбоку». Стайлинг — матовая глина.'
+    },
+    round: {
+      title: 'Круг',
+      meta:  'Длина ≈ ширине, мягкие линии',
+      desc:  'Скулы самая широкая часть, подбородок мягкий, без выраженных углов. Цель стрижки — визуально вытянуть лицо и добавить углов.',
+      yes:   ['Pompadour — сильный объём сверху', 'High & tight (коротко по бокам, высоко сверху)', 'Quiff с высотой', 'Undercut + высокая верхняя часть', 'Side part с высоким объёмом на одной стороне', 'Spiky textured top'],
+      no:    ['Прямые чёлки и «mushroom» — округляют ещё сильнее', 'Боб/из одной длины — визуально расширяет', 'Объёмные бока — делают лицо ещё круглее'],
+      beard: 'Строящая «треугольная»: короткая на щёках, длиннее на подбородке (van dyke, anchor, balbo). Визуально вытягивает овал.',
+      barber:'«Совсем коротко по бокам (skin/low fade), верх оставь 6–9 см для высокого объёма вверх, можно пробор сбоку».'
+    },
+    square: {
+      title: 'Квадрат',
+      meta:  'Мужественная форма — смягчи углы текстурой',
+      desc:  'Лоб, скулы и челюсть примерно одинаковой ширины, угловатый подбородок. Одна из самых мужественных форм — не прячь, подчеркни.',
+      yes:   ['Textured crop — фактура смягчает углы', 'Side part с пробором', 'Quiff — объём, но не слишком высокий', 'Messy fringe / лёгкая чёлка', 'Средняя длина сверху (4–7 см)'],
+      no:    ['Буз или военный с прямыми линиями — делают лицо ещё квадратнее', 'Плоские/«блинчиком» стрижки'],
+      beard: 'Короткая, слегка закруглённая по линии челюсти борода (3–6 мм). Длинная борода будет избыточно утяжелять низ.',
+      barber:'«Mid fade по бокам, верх 4–6 см с текстурой, укладка набок, линия роста не острыми углами».'
+    },
+    rect: {
+      title: 'Удлинённое / Прямоугольное',
+      meta:  'Длина больше ширины — добавь визуальной ширины',
+      desc:  'Лоб, скулы и челюсть примерно равны, длина заметно больше. Цель — «укоротить» лицо за счёт объёма по бокам и чёлки.',
+      yes:   ['Средняя длина с текстурой', 'French crop с чёлкой', 'Side part с объёмом по бокам', 'Fringe (чёлка) — визуально укорачивает', 'Caesar cut'],
+      no:    ['Высокие quiff / pompadour — вытягивают ещё сильнее', 'Очень короткие бока с большим верхом', 'Длинные одинаковые по всей голове'],
+      beard: 'Короткая, полная по щекам — даёт ширину внизу. Избегай длинных «козлиных» бород — вытягивают лицо.',
+      barber:'«Оставь объём по бокам (низкий fade или taper), верх 4–5 см без высоты, попробуем чёлку».'
+    },
+    heart: {
+      title: 'Сердце',
+      meta:  'Широкий лоб, узкий подбородок',
+      desc:  'Лоб шире челюсти, подбородок V-образный. Цель — визуально сбалансировать верх и низ — не раздувать верх.',
+      yes:   ['Side part с лёгким объёмом', 'Textured fringe (чёлка) — прячет лоб', 'Средняя длина с объёмом по бокам', 'Не очень короткие виски'],
+      no:    ['Высокие объёмы сверху — раздувают верх', 'Undercut с маленьким верхом — выделяет узкий подбородок', 'Открытый лоб с зачёсом назад — расширяет верх'],
+      beard: 'Полная, удлинённая на подбородке — «расширяет» низ и балансирует лоб. Самый выигрышный вариант для этой формы.',
+      barber:'«Средняя длина сверху, объём по бокам (не слишком короткие виски), лёгкая чёлка набок».'
+    },
+    diamond: {
+      title: 'Ромб / Diamond',
+      meta:  'Скулы шире лба и челюсти',
+      desc:  'Скулы — самая широкая часть, лоб и челюсть уже, подбородок острый. Одна из самых «модельных» форм. Цель — добавить объём на лоб и смягчить выступающие скулы.',
+      yes:   ['Side fringe с объёмом', 'Textured top, средняя длина', 'Чёлка + бока средней длины', 'French crop — работает на 100%', 'Light quiff с чёлкой'],
+      no:    ['Совсем коротко по бокам с большим высоким верхом', 'Полностью открытый лоб и зачёс назад — выделяет скулы', 'Плоские стрижки без фактуры'],
+      beard: 'Полная, с акцентом на челюсть и подбородок — даёт ширину в нижней трети лица и балансирует скулы.',
+      barber:'«Средняя длина, чёлка на лоб или набок, виски не под ноль, taper по бокам».'
+    }
+  };
+  const grid       = document.getElementById('shape-grid');
+  const $title     = document.getElementById('shape-title');
+  const $meta      = document.getElementById('shape-meta');
+  const $desc      = document.getElementById('shape-desc');
+  const $yes       = document.getElementById('shape-yes');
+  const $no        = document.getElementById('shape-no');
+  const $beard     = document.getElementById('shape-beard');
+  const $barber    = document.getElementById('shape-barber');
+  const SHAPE_KEY  = 'mogger.faceShape';
+
+  function applyShape(key){
+    const s = SHAPES[key];
+    if (!s) return;
+    $title.textContent  = s.title;
+    $meta.textContent   = s.meta;
+    $desc.textContent   = s.desc;
+    $yes.innerHTML      = s.yes.map(t => '<li>' + t + '</li>').join('');
+    $no.innerHTML       = s.no.map(t  => '<li>' + t + '</li>').join('');
+    $beard.textContent  = s.beard;
+    $barber.textContent = s.barber;
+    document.querySelectorAll('.shape').forEach(b =>
+      b.classList.toggle('on', b.dataset.s === key)
+    );
+    localStorage.setItem(SHAPE_KEY, key);
+  }
+  grid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.shape');
+    if (!btn) return;
+    applyShape(btn.dataset.s);
+    if (navigator.vibrate) navigator.vibrate(8);
+  });
+  applyShape(localStorage.getItem(SHAPE_KEY) || 'oval');
+
+  // ========= SERVICE WORKER for offline =========
+  if ('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
 })();
 </script>
 </body>
