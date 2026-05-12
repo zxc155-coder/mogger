@@ -131,8 +131,7 @@
   /* =========================================================
      SCREENS
   ========================================================= */
-  .screen{display:none;animation:fadeUp .45s ease both}
-  .screen.active{display:block}
+  /* .screen rules consolidated below — see SCREEN TRANSITIONS section */
   @keyframes fadeUp{
     from{opacity:0;transform:translateY(10px)}
     to  {opacity:1;transform:translateY(0)}
@@ -546,12 +545,173 @@
     background:#5b9dff;box-shadow:0 0 8px 1px #5b9dff;
   }
 
+  /* =========================================================
+     STREAK + ACHIEVEMENT
+  ========================================================= */
+  .streak-card{
+    display:flex;align-items:center;gap:14px;
+    padding:14px 16px;
+  }
+  .flame{
+    position:relative;width:48px;height:54px;flex:0 0 auto;
+    filter:drop-shadow(0 0 14px rgba(255,150,80,.55));
+  }
+  .flame svg{width:100%;height:100%}
+  .flame.cold{filter:drop-shadow(0 0 6px rgba(80,140,255,.35));opacity:.7}
+  .flame.cold path[fill="url(#fire)"]{fill:rgba(120,170,255,.22)!important}
+  @keyframes flicker{
+    0%,100%{transform:scale(1)}
+    50%   {transform:scale(1.06) rotate(-1.5deg)}
+  }
+  .flame .core{transform-origin:50% 80%;animation:flicker 1.4s ease-in-out infinite}
+  .streak-num{
+    font-size:32px;font-weight:900;color:#fff;
+    background:linear-gradient(180deg,#ffe7c7,#ffae5c);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    line-height:1;letter-spacing:-.02em;
+  }
+  .streak-card .meta{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9bbcff}
+  .streak-card .label{font-size:14px;font-weight:700;color:#eaf1ff;margin-top:2px}
+
+  .badges{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+    margin-top:10px;
+  }
+  .badge{
+    position:relative;aspect-ratio:1/1;border-radius:14px;
+    background:linear-gradient(180deg,rgba(15,30,75,.45),rgba(8,18,50,.55));
+    border:1px solid rgba(120,170,255,.18);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    color:#7e9bd0;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
+    text-align:center;padding:8px 4px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .badge svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;
+    stroke-linecap:round;stroke-linejoin:round}
+  .badge.unlocked{
+    color:#ffd58a;border-color:rgba(255,200,120,.5);
+    background:linear-gradient(180deg,rgba(70,40,10,.4),rgba(20,8,2,.55));
+    box-shadow:0 0 22px rgba(255,170,60,.35),inset 0 0 18px rgba(255,170,60,.12);
+    animation:badgePop .5s cubic-bezier(.2,1.2,.6,1) both;
+  }
+  @keyframes badgePop{
+    0%  {transform:scale(.4);opacity:0}
+    60% {transform:scale(1.18);opacity:1}
+    100%{transform:scale(1)}
+  }
+
+  /* =========================================================
+     SUB-PICKERS (chips: hair texture, length, beard density, eye shape, skin)
+  ========================================================= */
+  .chips{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;
+  }
+  .chip{
+    padding:9px 12px;border-radius:999px;
+    background:rgba(10,25,65,.55);
+    border:1px solid rgba(120,170,255,.22);
+    color:#bccae6;font-size:12.5px;font-weight:600;letter-spacing:.04em;
+    transition:.15s ease;
+  }
+  .chip:active{transform:scale(.96)}
+  .chip.on{
+    color:#eaf1ff;border-color:#7fb1ff;
+    background:linear-gradient(180deg,rgba(60,120,255,.4),rgba(20,50,150,.45));
+    box-shadow:0 0 0 1px rgba(120,170,255,.35),0 0 18px rgba(80,140,255,.4);
+  }
+  .chips-label{
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:#9bbcff;font-weight:700;margin:14px 0 4px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .chips-label::before{
+    content:"";width:6px;height:6px;border-radius:50%;
+    background:#5b9dff;box-shadow:0 0 8px 1px #5b9dff;
+  }
+
+  /* Mini eye-shape picker glyphs (svg-based, scales w/ chip) */
+  .chips.eye .chip{display:flex;align-items:center;gap:8px}
+  .chips.eye .chip svg{width:16px;height:10px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+  /* =========================================================
+     CONFETTI CANVAS
+  ========================================================= */
+  #confetti{
+    position:fixed;inset:0;pointer-events:none;z-index:9999;
+  }
+
+  /* =========================================================
+     SCREEN TRANSITIONS (swipe between tabs)
+  ========================================================= */
+  .screen{display:none}
+  .screen.active{display:block;animation:screenIn .35s cubic-bezier(.2,.8,.2,1) both}
+  .screen.leaving-left   {animation:screenOutL .25s ease-in both}
+  .screen.leaving-right  {animation:screenOutR .25s ease-in both}
+  .screen.entering-left  {animation:screenInL  .3s cubic-bezier(.2,.8,.2,1) both}
+  .screen.entering-right {animation:screenInR  .3s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes screenIn   {from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none}}
+  @keyframes screenOutL {to  {opacity:0;transform:translateX(-30px)}}
+  @keyframes screenOutR {to  {opacity:0;transform:translateX(30px)}}
+  @keyframes screenInL  {from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:none}}
+  @keyframes screenInR  {from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+
+  /* =========================================================
+     TOAST
+  ========================================================= */
+  .toast{
+    position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom));
+    transform:translateX(-50%) translateY(20px);
+    background:rgba(10,30,90,.85);backdrop-filter:blur(14px);
+    border:1px solid rgba(120,170,255,.4);
+    padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#eaf1ff;
+    box-shadow:0 12px 32px -6px rgba(0,30,120,.7),0 0 18px rgba(80,140,255,.35);
+    opacity:0;transition:.25s cubic-bezier(.2,.8,.2,1);z-index:1000;
+    pointer-events:none;letter-spacing:.04em;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* active tab pulse */
+  nav.tabs button.on::before{
+    content:"";position:absolute;inset:0;border-radius:16px;
+    box-shadow:0 0 0 0 rgba(120,170,255,.55);
+    animation:tabpulse 1.6s ease-out infinite;pointer-events:none;
+  }
+  @keyframes tabpulse{
+    0%  {box-shadow:0 0 0 0 rgba(120,170,255,.45)}
+    100%{box-shadow:0 0 0 14px rgba(120,170,255,0)}
+  }
+
+  /* Animated gradient on goal title */
+  .goal h2.title{
+    background-size:200% 200%;
+    animation:titleshift 6s ease-in-out infinite;
+  }
+  @keyframes titleshift{
+    0%,100%{background-position:0 0}
+    50%   {background-position:100% 100%}
+  }
+
+  /* line-draw on SVGs in section heads */
+  .sec-head svg path,.sec-head svg circle{
+    stroke-dasharray:200;stroke-dashoffset:200;
+    animation:draw 1.2s ease-out forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  /* hue accent variable */
+  :root{
+    --accent-h: 220;
+    --accent: hsl(var(--accent-h) 100% 64%);
+    --accent-deep: hsl(var(--accent-h) 90% 40%);
+  }
+
   /* small screens */
   @media (max-width:380px){
     .goal h2.title{font-size:30px}
     .cd-unit b{font-size:20px}
     nav.tabs button{font-size:8.5px;padding:8px 1px 6px}
     nav.tabs svg{width:16px;height:16px}
+    .badges{grid-template-columns:repeat(3,1fr)}
   }
 </style>
 </head>
@@ -659,6 +819,71 @@
       </button>
     </div>
 
+    <div class="card streak-card" style="margin-top:14px">
+      <div class="flame" id="flame">
+        <svg viewBox="0 0 48 54" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="fire" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%"  stop-color="#ff5e2a"/>
+              <stop offset="55%" stop-color="#ffaf3f"/>
+              <stop offset="100%" stop-color="#ffe7a3"/>
+            </linearGradient>
+          </defs>
+          <path class="core" fill="url(#fire)"
+            d="M24 2c2 7-6 9-6 16 0 4 3 7 5 7 0-4-1-7 1-10 1 4 6 7 6 13 0 4-3 7-3 10 6-3 11-9 11-17 0-9-7-12-14-19Z"/>
+          <path fill="rgba(255,200,120,.55)"
+            d="M22 28c-4 2-7 6-7 11 0 7 5 12 12 12s12-5 12-12c0-3-1-6-3-8-2 4-6 6-9 6-2 0-4-1-5-2 1-2 0-5 0-7Z"/>
+        </svg>
+      </div>
+      <div class="grow">
+        <div class="meta">streak</div>
+        <div class="row" style="gap:8px;align-items:baseline">
+          <span class="streak-num" id="streak-num">0</span>
+          <span style="font-size:14px;color:#9bbcff">дней подряд</span>
+        </div>
+        <div class="label" id="streak-label">Закрой чек-лист сегодня и начни серию</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Достижения</h2>
+      <p class="muted" style="font-size:12.5px">Открываются по мере выполнения чек-листа и продержки серии.</p>
+      <div class="badges" id="badges">
+        <div class="badge" data-id="d1"      data-need="Закрой 1 день">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>Старт</span>
+        </div>
+        <div class="badge" data-id="d3"      data-need="3 дня подряд">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-3 5-6 7-6 11a6 6 0 0 0 12 0c0-4-3-6-6-11Z"/></svg>
+          <span>Огонь 3</span>
+        </div>
+        <div class="badge" data-id="d7"      data-need="Неделя без срыва">
+          <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
+          <span>Неделя</span>
+        </div>
+        <div class="badge" data-id="d14"     data-need="2 недели">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-6 4 2 8-6-5-6 5 2-8-6-4h7Z"/></svg>
+          <span>Звезда</span>
+        </div>
+        <div class="badge" data-id="d30"     data-need="Месяц подряд">
+          <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <span>Луна</span>
+        </div>
+        <div class="badge" data-id="hydra"   data-need="7 дней воды 3 л">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-4 5-6 8-6 11a6 6 0 0 0 12 0c0-3-2-6-6-11Z"/></svg>
+          <span>Гидро</span>
+        </div>
+        <div class="badge" data-id="iron"    data-need="12 тренировок">
+          <svg viewBox="0 0 24 24"><path d="M3 12h2M19 12h2M7 8v8M17 8v8M7 12h10"/></svg>
+          <span>Железо</span>
+        </div>
+        <div class="badge" data-id="mogger"  data-need="100% цели">
+          <svg viewBox="0 0 24 24"><path d="M3 19 L3 7 L12 16 L21 7 L21 19"/></svg>
+          <span>MOGGER</span>
+        </div>
+      </div>
+    </div>
+
     <div class="card" style="margin-top:14px">
       <h2>Правило дня</h2>
       <p id="quote" class="glow" style="font-size:16px;font-weight:600">
@@ -667,6 +892,18 @@
       <p class="muted" style="font-size:12px;margin-top:8px">
         Тапни, чтобы сменить →
       </p>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Цвет приложения</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:8px">Тапни — сменится акцентный оттенок.</p>
+      <div class="chips" id="accent-chips">
+        <button class="chip on" data-h="220">Сапфир</button>
+        <button class="chip" data-h="200">Лёд</button>
+        <button class="chip" data-h="260">Аметист</button>
+        <button class="chip" data-h="180">Циан</button>
+        <button class="chip" data-h="280">Магента</button>
+      </div>
     </div>
 
   </section>
@@ -854,12 +1091,173 @@
     </div>
 
     <div class="card">
+      <h2>Шея, hyoid, platysma (двойной подбородок)</h2>
+      <p class="muted" style="font-size:13px;margin-bottom:10px">
+        Подъязычная кость (hyoid) и platysma (тонкая мышца передней части шеи) держат «второй подбородок».
+        Если их подтянуть — линия челюсти видна сразу.
+      </p>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Hyoid lift — язык к нёбу + глотание</h4>
+        <p>Прижми язык к нёбу сильно. Сделай медленный глоток. Чувствуй, как мышцы под челюстью включаются. 15 повторов × 3 подхода.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Platysma stretch (оскал шеи)</h4>
+        <p>Голова прямо. Резко напряги шею, оттяни уголки рта вниз и в стороны, обнажи нижние зубы. Чувствуй вертикальные тяжи. Удерживай 5 сек × 10.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Wide-mouth ceiling pull</h4>
+        <p>Голову закинь назад, смотри в потолок. Высуни нижнюю челюсть вперёд, удерживай 8 сек × 10. Прорабатывает дно подбородка.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Tongue chewing — жевание языком</h4>
+        <p>Сожми зубы, язык активно «жуёт» нёбо, как будто что-то перемалывает. 2 минуты. Незаметно для окружающих, но мощно.</p>
+      </div></div>
+      <div class="step"><div class="n">5</div><div>
+        <h4>Sleep on back / без подушки-горки</h4>
+        <p>Сон лицом в подушку = утренний отёк + морщины. Спина + тонкая подушка под шею. Шёлковая наволочка обязательна.</p>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Pterygoid + buccal massage (intraoral)</h2>
+      <p class="muted" style="font-size:13px;margin-bottom:10px">
+        Латеральная крыловидная мышца (lateral pterygoid) и щёчная мышца изнутри — там, куда не достанешь снаружи.
+        Делается чистыми пальцами или массажером pterygoid через рот.
+      </p>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Buccal release</h4>
+        <p>Указательным пальцем (помой руки) изнутри щеки сделай мягкое разминание ткани между щекой и зубами. 30 сек на каждую сторону. Снимает зажим, поднимает скулу.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Pterygoid trigger point</h4>
+        <p>Открой рот, проведи пальцем вверх за верхним коренным зубом до упора — там pterygoid. Лёгкое давление 10 сек × 5. Снимает напряжение челюсти (особенно если скрипишь зубами).</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>SCM trigger release</h4>
+        <p>Большим и указательным пальцами захвати грудино-ключично-сосцевидную мышцу (наклон головы → выделяется тяж сбоку шеи). Прокатывай по длине 60 сек × 2. Снимает отёк и поднимает лимфу.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Suboccipital release (затылок)</h4>
+        <p>Ляг на спину, под основание черепа — 2 теннисных мяча в носке. Лежи 2–3 минуты. Расслабляет subocc, улучшает дренаж и осанку головы.</p>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Лоб + межбровье (анти-морщины)</h2>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Frontalis release</h4>
+        <p>Ладонью прижми лоб, пальцы наверху. Попробуй поднять брови — ладонь не даёт. 10 сек × 8. Снимает «привычное» поднятие бровей (источник морщин лба).</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Anti-frown isometric</h4>
+        <p>Указательные пальцы между бровями, разводи их в стороны, одновременно пытайся «нахмуриться». 10 сек × 8. Разглаживает «11-ку» (вертикальные складки между бровей).</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Mirror check каждый час</h4>
+        <p>На рабочем столе и в телефоне поставь «mirror-check» напоминание — заметь, не хмуришься ли. За 4–6 недель привычка хмуриться уходит — морщины разглаживаются.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Ботокс — последний вариант</h4>
+        <p>Если морщины глубокие и упражнения за 8 недель не дали эффекта — рассмотри минимальную дозу. Но это уход, не первая линия.</p>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Нос — массаж и дыхание</h2>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Носовое дыхание 24/7</h4>
+        <p>Рот закрыт всегда. Кислород через нос — лучше насыщение, меньше отёка, лучше прикус. Если ловишь себя на дыхании ртом — закрой и сделай 5 циклов носом.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Mouth tape ночью</h4>
+        <p>Спецлента на ночь (или micropore 3M) на губы вертикально. Заставляет дышать носом во сне. Уходит сухость во рту, утренний отёк лица, храп. Не клей если есть проблемы с носом.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Buteyko light breathing</h4>
+        <p>Сядь прямо. Дыши носом так тихо и неглубоко, чтобы перо у носа не шевелилось. 5 минут × 2 в день. Тренирует терпимость к CO₂, снимает заложенность.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Массаж переносицы и крыльев</h4>
+        <p>Подушечками пальцев лёгкими круговыми движениями переносица → крылья носа → к щекам. 60 сек. Снимает отёк и улучшает приток воздуха.</p>
+      </div></div>
+      <div class="step"><div class="n">5</div><div>
+        <h4>Если перегородка искривлена</h4>
+        <p>Хроническая заложенность одной ноздри, храп, отёк лица → не пытайся «выровнять» самостоятельно. Это к ЛОР-у. Септопластика реально работает.</p>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Губы и улыбка</h2>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Скраб + вазелин на ночь</h4>
+        <p>1×/нед лёгкий пилинг (сахар + мёд, 30 сек). Каждую ночь — тонкий слой вазелина / Aquaphor. Губы перестают сохнуть и трескаться.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Anti-marionette pull</h4>
+        <p>Большие пальцы в уголки рта изнутри, тяни их в стороны и вверх. 5 сек × 10. Разглаживает «марионеточные» линии вокруг рта.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Smile lift — поднятие уголков</h4>
+        <p>Языком надави на одну щёку изнутри, той же стороной слегка «улыбнись». 8 сек × 6 на каждую сторону. Тренирует zygomaticus major — поднимает уголки рта.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Whitening strips schedule</h4>
+        <p>Crest 3D или аналог: 30 минут раз в 2 дня, 14 дней курс. Раз в полгода. Резко улучшает «общее впечатление от лица».</p>
+      </div></div>
+      <div class="step"><div class="n">5</div><div>
+        <h4>Не облизывай губы</h4>
+        <p>Слюна сушит кожу губ ещё сильнее. Привычка облизывать = вечно сухие губы. Замена: бальзам.</p>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Кожа — режим под тип</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:8px">Тапни на свой тип кожи.</p>
+      <div class="chips" id="skin-chips">
+        <button class="chip on" data-s="oily">Жирная</button>
+        <button class="chip"     data-s="dry">Сухая</button>
+        <button class="chip"     data-s="combo">Комбинированная</button>
+        <button class="chip"     data-s="sensitive">Чувствительная</button>
+        <button class="chip"     data-s="normal">Нормальная</button>
+      </div>
+
+      <div class="chips-label" style="margin-top:14px">Утро</div>
+      <p id="skin-am" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+
+      <div class="chips-label">Вечер</div>
+      <p id="skin-pm" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+
+      <div class="chips-label">Что обязательно</div>
+      <p id="skin-must" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+
+      <div class="chips-label">Чего избегать</div>
+      <p id="skin-avoid" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+
+      <p class="muted" style="font-size:12.5px;margin-top:10px">
+        <b>Базовое правило для всех:</b> SPF 30+ каждое утро — даже зимой, даже в пасмурную погоду. Это единственный реально работающий «анти-возрастной» продукт.
+      </p>
+    </div>
+
+    <div class="card">
       <h2>Расширенный комплекс (3×/нед)</h2>
       <details><summary>Подъём языка к носу</summary><p>Открой рот, вытяни язык максимально вверх к носу, удержи 5 сек. 3×10. Прорабатывает подбородок и подъязычную область.</p></details>
       <details><summary>«Рыбка»</summary><p>Втяни щёки внутрь, чтобы получилась «рыбка», попробуй улыбнуться. Удерживай 10 сек. 3×10. Скулы и щёки.</p></details>
       <details><summary>Сопротивление подбородку</summary><p>Кулак под подбородок, пытаешься открыть рот, кулак удерживает. 10 сек × 5 повторов. Жевательные + подъязычные мышцы.</p></details>
       <details><summary>«О» и «И»</summary><p>Сильно произноси губами «О» — «И» — «О» — «И», утрировано. 3×15. Тонизирует мышцы рта.</p></details>
       <details><summary>Растяжка передней части шеи</summary><p>Голову назад, нижнюю челюсть выдвинь вперёд и улыбнись «уголками вверх». 5 сек × 10 повторов. Линия челюсти + шея.</p></details>
+      <details><summary>Cheek vacuum — 3 угла</summary><p>Втяни щёки и удерживай: 10 сек прямо, 10 сек улыбаясь, 10 сек «О». 3 круга. Активирует buccinator под разными углами.</p></details>
+      <details><summary>Whistling — свист 60 сек</summary><p>Свисти разную мелодию 1 минуту. Это полная активация круговой мышцы рта. Делает губы более выразительными.</p></details>
+      <details><summary>Kah-kah-kah (мягкое нёбо)</summary><p>Громко повторяй «КА-КА-КА» 30 раз × 3 подхода. Тренирует мягкое нёбо — снижает храп и подтягивает подъязычную зону.</p></details>
+      <details><summary>Tongue twister speed drill</summary><p>Произноси быстро 30 секунд: «Карл у Клары украл кораллы…». Активирует всю артикуляционную мускулатуру за раз.</p></details>
+      <details><summary>Sing scales (распевка)</summary><p>До-ре-ми-фа-соль-ля-си-до на максимальном открытии рта. 3 раза вверх и вниз. Снимает зажим челюсти.</p></details>
+    </div>
+
+    <div class="card">
+      <h2>Прогрессивный план — 8 недель</h2>
+      <details><summary>Неделя 1–2: разгон</summary><p>Mewing 24/7, лёд на лицо, лимфодренаж 5 мин/день, mastic gum 20 мин, вода 3 л, sleep tape, шёлковая наволочка. Спокойно входим в режим.</p></details>
+      <details><summary>Неделя 3–4: активная фаза</summary><p>Добавляешь все упражнения на ramus (5×/нед), platysma stretch (ежедневно), buccal release 2×/нед, posture isometric. Делаешь фото в одинаковом освещении.</p></details>
+      <details><summary>Неделя 5–6: пик</summary><p>Все упражнения + контрастные процедуры (лёд / горячее полотенце). Замер прогресса по чек-листу — должно быть 5+ серий по 5 дней.</p></details>
+      <details><summary>Неделя 7–8: финиш</summary><p>Тонкая настройка: skin routine, борода/стрижка, осанка. Фотографируешь под одним светом — сравни с week 1. Должна быть видна разница в овале и отёке.</p></details>
     </div>
   </section>
 
@@ -993,13 +1391,91 @@
     </div>
 
     <div class="card">
+      <h2>Разминка (5 мин — обязательно)</h2>
+      <details><summary>Скакалка / бег на месте 2 мин</summary><p>Разогрев сердца и кровотока. Если нет скакалки — высокие колени на месте.</p></details>
+      <details><summary>Динамический грудной круг</summary><p>Руки в замок над головой, наклоняйся в стороны. 10 повторов. Раскрытие грудного.</p></details>
+      <details><summary>Махи руками вперёд-назад</summary><p>10×2. Разогрев плечевого пояса.</p></details>
+      <details><summary>Тазобедренные круги</summary><p>10 в каждую сторону. Перед приседом — обязательно.</p></details>
+      <details><summary>Wall slides (скольжение по стене)</summary><p>Спиной к стене, руки в позиции «W», скользи вверх до «Y» и обратно. 10 повторов. Открывает грудной и плечи.</p></details>
+    </div>
+
+    <div class="card">
+      <h2>Темп и подходы (как делать чисто)</h2>
+      <details><summary>Темп 2–0–1</summary><p>2 секунды эксцентрик (опускание), 0 пауза, 1 секунда концентрик (подъём). Базовое правило для роста мышц.</p></details>
+      <details><summary>Темп 4–1–1 для слабых точек</summary><p>4 секунды опускание = больше времени под нагрузкой. Идеально для плеч и груди где не чувствуется работа мышцы.</p></details>
+      <details><summary>Отдых: база 2–3 мин, изоляция 60–90 сек</summary><p>Жим, тяга, присед — отдыхай 2–3 минуты. Махи, бицепс, трицепс — 60–90 сек.</p></details>
+      <details><summary>RPE / «отказ –2»</summary><p>В каждом подходе оставляй 2 чистых повтора в запасе. Это даёт максимум роста с минимумом усталости.</p></details>
+      <details><summary>Прогрессия: +повтор или +вес</summary><p>Каждую неделю либо +1 повтор в подходе, либо +2.5 кг на штангу. Без прогрессии — нет роста.</p></details>
+    </div>
+
+    <div class="card">
+      <h2>Резина — отдельная программа</h2>
+      <p class="muted" style="font-size:13px;margin-bottom:10px">Если штанга и турник не доступны — резина + bodyweight это полноценная замена на 60–80%.</p>
+      <details><summary>Махи с резиной в стороны</summary><p>Резину под ногу, тянешь в сторону до уровня плеча. 4×15. Дельты.</p></details>
+      <details><summary>Тяга резины к подбородку</summary><p>Стоя на резине, тяга вверх вдоль корпуса. 4×12. Трапеция + средняя дельта.</p></details>
+      <details><summary>Face pulls с резиной (закреплена)</summary><p>Закрепи резину на турнике на уровне лица. Тяга к лицу, локти высоко. 4×15. Здоровье плеч + задняя дельта.</p></details>
+      <details><summary>Banded push-up</summary><p>Резину через спину, держишь в ладонях. Отжимания с доп. сопротивлением. 4×макс. Грудь.</p></details>
+      <details><summary>Тяга в наклоне с резиной</summary><p>Под обе ноги, наклон 45°, тяга к поясу. 4×12. Спина.</p></details>
+      <details><summary>Bicep curl с резиной</summary><p>Стоя на резине, сгибание рук. 3×15. Бицепс.</p></details>
+      <details><summary>Tricep pushdown с резиной</summary><p>Закрепи резину сверху. Разгибания на трицепс. 3×15.</p></details>
+      <details><summary>Banded squat</summary><p>Резину под ноги, концы держишь у плеч. Присед. 4×12. Ноги.</p></details>
+      <details><summary>Lateral band walks</summary><p>Резина чуть выше колен. Боковые шаги в полуприседе. 3×15 шагов в каждую сторону. Ягодицы.</p></details>
+      <details><summary>Pull-apart</summary><p>Резину перед грудью, разводи в стороны до сведения лопаток. 3×20. Осанка + задняя дельта.</p></details>
+    </div>
+
+    <div class="card">
+      <h2>Осанка и шея (анти-tech-neck)</h2>
+      <div class="step"><div class="n">1</div><div>
+        <h4>Wall angels</h4>
+        <p>Спиной к стене (затылок, лопатки, таз, пятки касаются). Руки в позиции «W», скользи вверх до «Y», обратно. 3×10. Главное анти-сутулость упражнение.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>Doorway chest stretch</h4>
+        <p>В дверном проёме, локоть 90°, делаешь шаг вперёд. По 30 сек на каждую сторону, 2 подхода. Раскрывает забитый грудной от компьютера.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>Dead bug</h4>
+        <p>Лёжа на спине, ноги и руки вверх. Опускай противоположные руку/ногу, поясница прижата. 3×10 на сторону. Стабилизация корпуса.</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div>
+        <h4>Chin tuck (3 подхода)</h4>
+        <p>Сидя или стоя у стены — двойной подбородок наоборот. 3×20, удержание 3 сек. Возвращает голову на её место.</p>
+      </div></div>
+      <div class="step"><div class="n">5</div><div>
+        <h4>Каждый час — minute reset</h4>
+        <p>Поставь напоминание. Каждый час встал, проверил осанку: лопатки сведены, голова над плечами, выдох животом. 60 секунд.</p>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Заминка + растяжка (10 мин)</h2>
+      <details><summary>90/90 hip stretch</summary><p>Сидя на полу, ноги под углом 90°/90°. Наклоняйся к передней ноге. По 30 сек × 2 на сторону. Раскрывает таз.</p></details>
+      <details><summary>Couch stretch (квадрицепс + сгибатель бедра)</summary><p>На колене перед диваном, заднюю ногу подними на диван. По 45 сек × 2. После долгого сидения — критично.</p></details>
+      <details><summary>Pigeon pose</summary><p>Раскрывает ягодицы и внешнюю сторону бедра. 60 сек на сторону.</p></details>
+      <details><summary>Растяжка задней цепи</summary><p>Ноги на ширине плеч, медленный наклон вниз. Хватаешься за голени. 60 сек.</p></details>
+      <details><summary>Шея — 4 направления</summary><p>Вниз, назад, влево, вправо. По 20 сек. После тренировки спины обязательно.</p></details>
+    </div>
+
+    <div class="card">
       <h2>Питание (грубый каркас)</h2>
       <div class="list">
         <div class="item"><h3><span class="dot"></span>Белок 1.8–2.2 г/кг</h3><p>Яйца, курица, говядина, рыба, творог (если переносишь молочку).</p></div>
         <div class="item"><h3><span class="dot"></span>Углеводы — рис, гречка, овсянка, картофель</h3><p>Вокруг тренировки. Овощи каждый приём пищи.</p></div>
         <div class="item"><h3><span class="dot"></span>Жиры — оливковое масло, орехи, яйца, рыба</h3><p>~25–30% калорий. Не бойся жиров.</p></div>
         <div class="item"><h3><span class="dot"></span>Дефицит 300–500 ккал</h3><p>Чтобы реально сушиться к концу августа. Минус 0.5–0.8 кг/нед — норма.</p></div>
+        <div class="item"><h3><span class="dot"></span>Креатин 5 г/день</h3><p>Самая изученная добавка в спорте. +5–10% к силе и объёмам мышц. Дешёвый. Принимай ежедневно, без «загрузки».</p></div>
+        <div class="item"><h3><span class="dot"></span>Витамин D + магний</h3><p>D3 2000–4000 IU + магний глицинат на ночь. Тестостерон, сон, иммунитет.</p></div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Сон — главный анаболик</h2>
+      <details><summary>7.5–9 часов / ночь</summary><p>Не «5 часов хватит». Меньше 7 — нет восстановления, нет роста, есть отёк.</p></details>
+      <details><summary>Отбой до 23:30</summary><p>Час сна до полуночи стоит двух после. Гормональный фон зависит от времени отхода ко сну.</p></details>
+      <details><summary>Прохладная спальня (18–19°C)</summary><p>Глубокий сон возможен только в холоде. Открой окно или включи кондиционер.</p></details>
+      <details><summary>Темнота + тишина</summary><p>Маска для сна + беруши, если шумно. Сон в темноте = больше мелатонина = лучше восстановление.</p></details>
+      <details><summary>Без экранов за 60 мин до сна</summary><p>Свет от телефона убивает мелатонин. Если не можешь без — режим Night Shift на максимум + минимум яркости.</p></details>
+      <details><summary>Без кофеина после 14:00</summary><p>Период полувыведения кофеина 5–7 часов. Утренний кофе ок, после обеда — нет.</p></details>
     </div>
   </section>
 
@@ -1107,6 +1583,63 @@
     </div>
 
     <div class="card">
+      <h2>Текстура волос</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">Тапни — подберём подходящие стрижки и стайлинг.</p>
+      <div class="chips" id="texture-chips">
+        <button class="chip on" data-t="straight">Прямые</button>
+        <button class="chip"     data-t="wavy">Волнистые</button>
+        <button class="chip"     data-t="curly">Кудрявые</button>
+        <button class="chip"     data-t="coily">Жёсткие/курчавые</button>
+        <button class="chip"     data-t="thin">Тонкие</button>
+      </div>
+      <p id="texture-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+    </div>
+
+    <div class="card">
+      <h2>Длина волос</h2>
+      <div class="chips" id="length-chips">
+        <button class="chip"     data-l="buzz">Buzz / 0–1 см</button>
+        <button class="chip on"  data-l="short">Короткие (2–5 см)</button>
+        <button class="chip"     data-l="medium">Средние (6–10 см)</button>
+        <button class="chip"     data-l="long">Длинные (10+ см)</button>
+      </div>
+      <p id="length-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+    </div>
+
+    <div class="card">
+      <h2>Контраст: цвет волос ↔ кожа</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">Тёмные волосы + светлая кожа = высокий контраст. Светлые волосы + светлая кожа = низкий.</p>
+      <div class="chips" id="contrast-chips">
+        <button class="chip on" data-c="high">Высокий</button>
+        <button class="chip"    data-c="medium">Средний</button>
+        <button class="chip"    data-c="low">Низкий</button>
+      </div>
+      <p id="contrast-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+    </div>
+
+    <div class="card">
+      <h2>Форма глаз — бровь под глаз</h2>
+      <div class="chips eye" id="eye-chips">
+        <button class="chip on" data-e="almond"><svg viewBox="0 0 24 14"><path d="M2 7 Q12 -2 22 7 Q12 16 2 7Z"/><circle cx="12" cy="7" r="2.4" fill="currentColor"/></svg>Миндаль</button>
+        <button class="chip" data-e="round"><svg viewBox="0 0 24 14"><circle cx="12" cy="7" r="6"/><circle cx="12" cy="7" r="2.4" fill="currentColor"/></svg>Круглые</button>
+        <button class="chip" data-e="hooded"><svg viewBox="0 0 24 14"><path d="M2 6 Q12 -1 22 6"/><path d="M2 7 Q12 14 22 7"/><circle cx="12" cy="8" r="2" fill="currentColor"/></svg>Нависшие</button>
+        <button class="chip" data-e="mono"><svg viewBox="0 0 24 14"><path d="M2 7 Q12 0 22 7 Q12 11 2 7Z"/><circle cx="12" cy="7" r="2" fill="currentColor"/></svg>Монолид</button>
+        <button class="chip" data-e="deep"><svg viewBox="0 0 24 14"><path d="M2 8 Q12 -2 22 8"/><path d="M3 8 Q12 12 21 8"/><circle cx="12" cy="8" r="1.8" fill="currentColor"/></svg>Глубокие</button>
+      </div>
+      <p id="eye-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+    </div>
+
+    <div class="card">
+      <h2>Плотность бороды</h2>
+      <div class="chips" id="beard-chips">
+        <button class="chip on" data-b="patchy">Патчи / неровная</button>
+        <button class="chip"    data-b="medium">Средняя</button>
+        <button class="chip"    data-b="full">Полная</button>
+      </div>
+      <p id="beard-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+    </div>
+
+    <div class="card">
       <h2>Общие правила</h2>
       <details><summary>Стрижка каждые 3–4 недели</summary><p>Без регулярности любая техника разваливается. Поставь напоминание.</p></details>
       <details><summary>Шампунь по типу</summary><p>Жирные волосы — легкий, без силиконов, частый. Сухие — увлажняющий раз в 2–3 дня.</p></details>
@@ -1114,6 +1647,8 @@
       <details><summary>Не пересушивай феном</summary><p>Горячий воздух ломает волосы. Суши на воздухе или прохладным феном.</p></details>
       <details><summary>Шёлковая / сатиновая наволочка</summary><p>Не ломает волос ночью и не даёт зажимов на лице.</p></details>
       <details><summary>Никакого хвоста/пучка (если отступает висок)</summary><p>Для высоких висков это убийство. Лучше fade или плотная стрижка средней длины.</p></details>
+      <details><summary>Минимальный уход за волосами</summary><p>Шампунь, кондиционер, лёгкое масло (1–2 капли арганового на кончики раз в 2–3 дня). Всё.</p></details>
+      <details><summary>Если выпадают / лезут</summary><p>Минералы (цинк, железо, магний), белок 1.8 г/кг, сон 8 ч, минимум стресса. Если за 6 мес не лучше — трихолог + миноксидил.</p></details>
     </div>
   </section>
 
@@ -1383,6 +1918,399 @@
     if (navigator.vibrate) navigator.vibrate(8);
   });
   applyShape(localStorage.getItem(SHAPE_KEY) || 'oval');
+
+  // ========= GENERIC CHIP PICKER =========
+  function chipPicker(containerId, attr, dataMap, outId, storeKey){
+    const box = document.getElementById(containerId);
+    const out = document.getElementById(outId);
+    if (!box || !out) return;
+    function apply(key){
+      const text = dataMap[key];
+      if (!text) return;
+      out.innerHTML = text;
+      box.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('on', c.dataset[attr] === key)
+      );
+      if (storeKey) localStorage.setItem(storeKey, key);
+    }
+    box.addEventListener('click', e => {
+      const c = e.target.closest('.chip');
+      if (!c) return;
+      apply(c.dataset[attr]);
+      if (navigator.vibrate) navigator.vibrate(6);
+    });
+    const stored = storeKey && localStorage.getItem(storeKey);
+    const fallback = (box.querySelector('.chip.on') || box.querySelector('.chip'))?.dataset[attr];
+    apply(stored || fallback);
+  }
+
+  // ========= SKIN TYPE PICKER =========
+  const SKIN = {
+    oily: {
+      am:    '<b>Утро:</b> мягкий гель-cleanser → ниацинамид 5% → лёгкий гель-увлажнитель → SPF 30+ (oil-free).',
+      pm:    '<b>Вечер:</b> двойное очищение (мицеллярка/масло + гель) → салициловая 2% (BHA) 2–3×/нед → лёгкий увлажнитель.',
+      must:  'Ниацинамид (сужает поры), салициловая кислота, цинк PCA, лёгкие текстуры (gel/lotion).',
+      avoid: 'Тяжёлые кремы и масла, плотные тональные, мытьё горячей водой, агрессивные скрабы — отвечают усилением жирности.'
+    },
+    dry: {
+      am:    '<b>Утро:</b> молочко/cream cleanser → гиалуроновая сыворотка → жирный крем → SPF 30+.',
+      pm:    '<b>Вечер:</b> масло/балм-cleanser → тонер с пантенолом → керамидный/жирный ночной крем. Ретинол 2×/нед поверх крема.',
+      must:  'Гиалуроновая кислота, керамиды, сквалан, пантенол, мягкие масла (jojoba, шиповник).',
+      avoid: 'Мыло, спирт, SLS, агрессивная кислота. Только мягкие cleanser-ы.'
+    },
+    combo: {
+      am:    '<b>Утро:</b> мягкий гель → ниацинамид → лёгкий увлажнитель → SPF 30+.',
+      pm:    '<b>Вечер:</b> двойное очищение → BHA 2×/нед на T-зону → гиалуронка на щёки → лёгкий ночной.',
+      must:  'Зональный подход: на T-зону — кислоты/ниацинамид. На щёки — гиалуронка/керамиды.',
+      avoid: 'Один и тот же агрессивный продукт на всё лицо. Тяжёлые кремы поверх T-зоны.'
+    },
+    sensitive: {
+      am:    '<b>Утро:</b> очень мягкий cream cleanser → центелла/пантенол сыворотка → успокаивающий крем → mineral SPF (цинк).',
+      pm:    '<b>Вечер:</b> мягкое очищение → центелла/пантенол → крем с керамидами.',
+      must:  'Центелла азиатская, пантенол, керамиды, овсяные экстракты, физический SPF (zinc oxide).',
+      avoid: 'Спирт, отдушки, эфирные масла, ретинол (или вводи очень медленно — 1×/нед), скрабы, перебор с кислотами.'
+    },
+    normal: {
+      am:    '<b>Утро:</b> мягкий cleanser → антиокс/витамин C → лёгкий увлажнитель → SPF 30+.',
+      pm:    '<b>Вечер:</b> двойное очищение 2×/нед → ретинол 3×/нед → увлажнитель.',
+      must:  'Витамин C, ретинол с прогрессией, SPF. Хорошие базовые продукты без излишеств.',
+      avoid: 'Не ленись и не перебарщивай — главное правило для нормальной кожи.'
+    }
+  };
+  // Skin picker — fills 4 outputs at once
+  (function(){
+    const map = SKIN;
+    const out = {
+      am: document.getElementById('skin-am'),
+      pm: document.getElementById('skin-pm'),
+      must: document.getElementById('skin-must'),
+      avoid: document.getElementById('skin-avoid')
+    };
+    const box = document.getElementById('skin-chips');
+    function apply(key){
+      const d = map[key]; if (!d) return;
+      out.am.innerHTML = d.am;
+      out.pm.innerHTML = d.pm;
+      out.must.innerHTML = d.must;
+      out.avoid.innerHTML = d.avoid;
+      box.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('on', c.dataset.s === key)
+      );
+      localStorage.setItem('mogger.skin', key);
+    }
+    box.addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      apply(c.dataset.s);
+      if (navigator.vibrate) navigator.vibrate(6);
+    });
+    apply(localStorage.getItem('mogger.skin') || 'oily');
+  })();
+
+  // ========= HAIR TEXTURE PICKER =========
+  chipPicker('texture-chips', 't', {
+    straight: '<b style="color:#eaf1ff">Прямые волосы:</b> крепко держат форму. Идеальны для side part, slick back, short crop, quiff. Стайлинг: матовая глина или помада. Часто моются — выбирай мягкий шампунь без сульфатов.',
+    wavy:     '<b style="color:#eaf1ff">Волнистые:</b> золотая середина — работают почти все стрижки. Лучше всего смотрятся textured crop, French crop, messy fringe. Используй морскую соль-спрей для подчёркивания волны.',
+    curly:    '<b style="color:#eaf1ff">Кудрявые:</b> объёмные и характерные. Носят высокий top с короткими боками, taper fade, curly fringe. Никогда не суши под полотенцем (frizz). Сушка диффузором, крем для кудрей.',
+    coily:    '<b style="color:#eaf1ff">Жёсткие/курчавые:</b> taper fade, buzz, line-up, sponge twists, по форме головы. Раз в 2–3 дня — увлажняющее масло (jojoba/ши). Шампунь мягкий, 1×/нед.',
+    thin:     '<b style="color:#eaf1ff">Тонкие волосы:</b> избегай длинных стрижек (видна редкость). Buzz, short crop, French crop — твои лучшие друзья. Объём — за счёт матовой глины (не помады). Если редеют — миноксидил/трихолог.'
+  }, 'texture-out', 'mogger.hairTexture');
+
+  // ========= HAIR LENGTH PICKER =========
+  chipPicker('length-chips', 'l', {
+    buzz:   '<b style="color:#eaf1ff">Buzz (0–1 см):</b> минимум ухода, максимум контраста с бородой. Подчёркивает форму черепа. Идеально если волосы редкие или редеют. Стрижка раз в 2–3 нед.',
+    short:  '<b style="color:#eaf1ff">Короткие (2–5 см):</b> универсал. Можно делать crop, fade, side part. Стайлинг — глина 5 сек. Освежай каждые 3–4 недели.',
+    medium: '<b style="color:#eaf1ff">Средние (6–10 см):</b> больше вариативности — quiff, slick back, side part с укладкой. Требуют стайлинга каждое утро (3–5 мин). Глина или помада.',
+    long:   '<b style="color:#eaf1ff">Длинные (10+ см):</b> man bun, low pony, длинный slick back. Нужны: кондиционер каждое мытьё, масло на кончики 2×/нед, шёлковая наволочка. Подходит только если волосы качественные.'
+  }, 'length-out', 'mogger.hairLength');
+
+  // ========= CONTRAST PICKER =========
+  chipPicker('contrast-chips', 'c', {
+    high:   '<b style="color:#eaf1ff">Высокий контраст:</b> темные брови, темная щетина, чёткие линии стрижки (sharp fade, line-up). Носи однотонные тёмные и чисто-белые вещи. Лицо выглядит «графично». Избегай размытых пастельных тонов — они тебя гасят.',
+    medium: '<b style="color:#eaf1ff">Средний контраст:</b> универсально. Любые стрижки и одежда. Тёплые и холодные оттенки оба работают.',
+    low:    '<b style="color:#eaf1ff">Низкий контраст:</b> блонд/светлая кожа или седина. Лучше работают мягкие переходы (taper, не sharp fade). Серые и пастельные оттенки в одежде. Тёмные брови — придают «акцент» лицу.'
+  }, 'contrast-out', 'mogger.contrast');
+
+  // ========= EYE SHAPE PICKER =========
+  chipPicker('eye-chips', 'e', {
+    almond:'<b style="color:#eaf1ff">Миндалевидные:</b> идеальная форма — подходят все типы бровей. Лучше всего смотрится слегка изогнутая, с лёгким подъёмом к концу. Не трогай форму, только подровняй стрелы.',
+    round: '<b style="color:#eaf1ff">Круглые:</b> сделай бровь чуть длиннее естественной — визуально удлинит глаз. Чёткий изгиб (arch) в верхней точке. Никаких очень коротких или закруглённых бровей — увеличат «круглость».',
+    hooded:'<b style="color:#eaf1ff">Нависшие веки:</b> чуть приподнятая бровь с акцентом на хвостик. Чем выше и тоньше хвост — тем более «открытым» выглядит глаз. Если бровь низкая — глаз кажется ещё более прикрытым.',
+    mono:  '<b style="color:#eaf1ff">Монолид (без складки):</b> прямая горизонтальная бровь без сильного изгиба — балансирует. Не делай арку — будет негармонично. Поддерживай плотность брови — она «обрамляет» глаз.',
+    deep:  '<b style="color:#eaf1ff">Глубоко посаженные:</b> естественная густая бровь без сильного арка. Не делай тонкую — глаз ещё глубже «утонет». Касторовое масло на ночь для густоты.'
+  }, 'eye-out', 'mogger.eye');
+
+  // ========= BEARD DENSITY PICKER =========
+  chipPicker('beard-chips', 'b', {
+    patchy:'<b style="color:#eaf1ff">Патчи / неровная:</b> 1) Не отращивай в надежде «заполнится» — будет смотреться неопрятно. 2) Лучший вариант — короткая щетина 3–5 мм по всей длине (триммер с фиксированной длиной). 3) Минидоксил 5% локально на пустые места 1×/день, 4–6 мес. 4) Чёткий line-up у барбера. 5) Никотин и алкоголь — враги роста бороды.',
+    medium:'<b style="color:#eaf1ff">Средняя плотность:</b> 1) Идеально для короткой бороды 6–12 мм. 2) Триммер раз в 4–5 дней. 3) Масло для бороды (jojoba/argan) ежедневно — мягкость и блеск. 4) Линию реза подчёркивает барбер раз в 2–3 нед. 5) Под форму лица: круг → треугольная, квадрат → закруглённая, овал → любая.',
+    full:  '<b style="color:#eaf1ff">Полная борода:</b> 1) Можно носить и длинную, и короткую — обе работают. 2) Шампунь для бороды 2×/нед, кондиционер раз в неделю, масло каждый день. 3) Расчёска (boar bristle) утром — даёт направление и блеск. 4) Триммер для линий — line-up по щекам и шее. 5) Шея — НЕ под кадыком, а на пол-сантиметра выше. Это правило №1 опрятной бороды.'
+  }, 'beard-out', 'mogger.beard');
+
+  // ========= ACCENT COLOR PICKER =========
+  (function(){
+    const box = document.getElementById('accent-chips');
+    if (!box) return;
+    const KEY = 'mogger.accent';
+    function set(h){
+      document.documentElement.style.setProperty('--accent-h', h);
+      box.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('on', c.dataset.h === h)
+      );
+      localStorage.setItem(KEY, h);
+    }
+    box.addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      set(c.dataset.h);
+      if (navigator.vibrate) navigator.vibrate(6);
+    });
+    set(localStorage.getItem(KEY) || '220');
+  })();
+
+  // ========= STREAK + ACHIEVEMENTS =========
+  const STREAK_KEY = 'mogger.streak';
+  function todayISO(){ return new Date().toISOString().slice(0,10); }
+  function dayDelta(a, b){
+    const A = new Date(a + 'T00:00:00');
+    const B = new Date(b + 'T00:00:00');
+    return Math.round((B - A) / 86400000);
+  }
+  function computeStreak(){
+    // Walk back over recent days, find consecutive ones where ALL tasks were completed.
+    let n = 0;
+    const today = new Date();
+    for (let i = 0; i < 60; i++){
+      const d = new Date(today.getTime() - i*86400000);
+      const k = 'mogger.day.' + d.toISOString().slice(0,10);
+      const st = JSON.parse(localStorage.getItem(k) || '{}');
+      const completed = tasks.every(t => !!st[t.id]);
+      if (completed) n++;
+      else if (i === 0) {
+        // today not yet completed — streak is whatever yesterday's was
+        continue;
+      } else break;
+    }
+    return n;
+  }
+  function checklistDoneToday(){
+    return tasks.every(t => !!state[t.id]);
+  }
+  function trainingDaysCount(){
+    // count days where 'train' task was checked in last 60 days
+    let c = 0;
+    const today = new Date();
+    for (let i = 0; i < 60; i++){
+      const d = new Date(today.getTime() - i*86400000);
+      const k = 'mogger.day.' + d.toISOString().slice(0,10);
+      const st = JSON.parse(localStorage.getItem(k) || '{}');
+      if (st.train) c++;
+    }
+    return c;
+  }
+  function waterDaysInRow(){
+    let n = 0;
+    const today = new Date();
+    for (let i = 0; i < 30; i++){
+      const d = new Date(today.getTime() - i*86400000);
+      const k = 'mogger.day.' + d.toISOString().slice(0,10);
+      const st = JSON.parse(localStorage.getItem(k) || '{}');
+      if (st.water) n++; else break;
+    }
+    return n;
+  }
+
+  const flame = document.getElementById('flame');
+  const streakNum = document.getElementById('streak-num');
+  const streakLabel = document.getElementById('streak-label');
+
+  function refreshStreak(){
+    const n = computeStreak();
+    streakNum.textContent = n;
+    flame.classList.toggle('cold', n === 0);
+    streakLabel.textContent = n === 0
+      ? 'Закрой чек-лист сегодня и начни серию'
+      : (n === 1 ? 'Первый день. Не сорвись завтра.' :
+         n < 7 ? 'Огонь разгорается — держи серию.' :
+         n < 14 ? 'Неделя — это уже привычка.' :
+         n < 30 ? 'Зверь. Продолжай.' : 'Месяц подряд. Это уже не план — это ты.');
+  }
+
+  const badges = document.getElementById('badges');
+  function refreshBadges(){
+    const streak = computeStreak();
+    const water = waterDaysInRow();
+    const trainings = trainingDaysCount();
+    const checked = checklistDoneToday();
+
+    // Goal progress (from existing tick)
+    const now = Date.now();
+    const total = deadline.getTime() - startMs;
+    const done  = now - startMs;
+    const pct   = (done/total)*100;
+
+    const unlocks = {
+      d1:     streak >= 1 || checked,
+      d3:     streak >= 3,
+      d7:     streak >= 7,
+      d14:    streak >= 14,
+      d30:    streak >= 30,
+      hydra:  water >= 7,
+      iron:   trainings >= 12,
+      mogger: pct >= 99.5
+    };
+
+    let newlyUnlocked = [];
+    const KEY = 'mogger.achv';
+    const prev = JSON.parse(localStorage.getItem(KEY) || '{}');
+    badges.querySelectorAll('.badge').forEach(b => {
+      const id = b.dataset.id;
+      const u = !!unlocks[id];
+      const wasU = !!prev[id];
+      b.classList.toggle('unlocked', u);
+      b.title = b.dataset.need;
+      if (u && !wasU) newlyUnlocked.push(b.querySelector('span').textContent);
+    });
+    localStorage.setItem(KEY, JSON.stringify(unlocks));
+
+    if (newlyUnlocked.length){
+      newlyUnlocked.forEach((name, i) => {
+        setTimeout(() => {
+          toast('Новое достижение: ' + name);
+          if (name === 'MOGGER') confetti(180);
+          else confetti(60);
+        }, i * 800);
+      });
+    }
+  }
+
+  // Re-render streak/badges every time checklist changes
+  const _origRender = render;
+  window.__moggerRender = function(){
+    _origRender();
+    refreshStreak();
+    refreshBadges();
+  };
+  // monkey-patch the toggle handler by re-rendering inline
+  listEl.addEventListener('click', () => setTimeout(window.__moggerRender, 0));
+  document.getElementById('reset-day').addEventListener('click', () =>
+    setTimeout(window.__moggerRender, 100));
+  window.__moggerRender();
+  // refresh periodically (date rolls over)
+  setInterval(() => { refreshStreak(); refreshBadges(); }, 60000);
+
+  // ========= TOAST =========
+  const toastEl = document.createElement('div');
+  toastEl.className = 'toast';
+  document.body.appendChild(toastEl);
+  let toastTimer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2800);
+  }
+
+  // ========= CONFETTI =========
+  const cnv = document.createElement('canvas');
+  cnv.id = 'confetti';
+  document.body.appendChild(cnv);
+  function confetti(count = 80){
+    const ctx = cnv.getContext('2d');
+    const W = cnv.width = window.innerWidth;
+    const H = cnv.height = window.innerHeight;
+    const parts = [];
+    const colors = ['#7fb1ff','#3a7bff','#b388ff','#ffd58a','#9affc8','#ffae5c'];
+    for (let i = 0; i < count; i++){
+      parts.push({
+        x: W/2 + (Math.random()-0.5)*60,
+        y: H*0.3 + (Math.random()-0.5)*40,
+        vx: (Math.random()-0.5)*9,
+        vy: -Math.random()*12 - 4,
+        g: 0.35 + Math.random()*0.15,
+        s: 4 + Math.random()*5,
+        c: colors[(Math.random()*colors.length)|0],
+        r: Math.random()*Math.PI,
+        vr: (Math.random()-0.5)*0.3
+      });
+    }
+    let frames = 0;
+    function step(){
+      ctx.clearRect(0,0,W,H);
+      let alive = 0;
+      parts.forEach(p => {
+        p.vy += p.g; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+        if (p.y < H + 30) {
+          alive++;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.r);
+          ctx.fillStyle = p.c;
+          ctx.fillRect(-p.s/2, -p.s/2, p.s, p.s*0.6);
+          ctx.restore();
+        }
+      });
+      frames++;
+      if (alive > 0 && frames < 400) requestAnimationFrame(step);
+      else ctx.clearRect(0,0,W,H);
+    }
+    step();
+  }
+
+  // ========= TAB SWIPE NAVIGATION =========
+  (function(){
+    const order = ['home','face','depuff','body','hair','tips'];
+    function currentId(){
+      const a = document.querySelector('.screen.active');
+      if (!a) return 'home';
+      return a.id.replace('screen-','');
+    }
+    let sx = 0, sy = 0, t0 = 0;
+    const root = document.querySelector('main') || document.body;
+    root.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) return;
+      // Ignore swipes that start inside interactive nav, chips, buttons
+      const target = e.target.closest('button, .chip, .shape, details');
+      if (target) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      t0 = Date.now();
+    }, {passive:true});
+    root.addEventListener('touchend', e => {
+      if (!sx) return;
+      const tch = e.changedTouches[0];
+      const dx = tch.clientX - sx;
+      const dy = tch.clientY - sy;
+      const dt = Date.now() - t0;
+      sx = 0;
+      if (dt > 600) return;
+      if (Math.abs(dx) < 80 || Math.abs(dy) > Math.abs(dx)) return;
+      const cur = currentId();
+      const idx = order.indexOf(cur);
+      let target = null;
+      if (dx < 0 && idx < order.length - 1) target = order[idx+1];
+      if (dx > 0 && idx > 0)                target = order[idx-1];
+      if (target){
+        document.querySelector('nav.tabs button[data-go="' + target + '"]').click();
+        if (navigator.vibrate) navigator.vibrate(6);
+      }
+    }, {passive:true});
+  })();
+
+  // ========= PARALLAX STARS =========
+  (function(){
+    const stars = document.querySelector('.stars');
+    if (!stars) return;
+    let lastY = 0, ticking = false;
+    window.addEventListener('scroll', () => {
+      lastY = window.scrollY;
+      if (!ticking){
+        ticking = true;
+        requestAnimationFrame(() => {
+          stars.style.transform = 'translateY(' + (lastY * -0.08).toFixed(1) + 'px)';
+          ticking = false;
+        });
+      }
+    }, {passive:true});
+  })();
 
   // ========= SERVICE WORKER for offline =========
   if ('serviceWorker' in navigator){
