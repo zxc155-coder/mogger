@@ -859,53 +859,102 @@
   }
 
   /* =========================================================
-     FACE RATING — daily 1-10 with history bars
+     FACE RATING — detailed multi-param + history + tier badge
   ========================================================= */
   .face-rate-row{
     display:flex;align-items:center;gap:14px;
     margin:14px 0 4px;
   }
+  .face-rate-row .left{flex:1;display:flex;flex-direction:column;gap:2px}
   .face-rate-num{
     font-size:54px;font-weight:900;line-height:1;
     color:#fff;
     text-shadow:0 0 24px hsla(var(--accent-h), 100%, 70%, .55);
-    min-width:80px;
   }
   .face-rate-emoji{font-size:42px;line-height:1;filter:drop-shadow(0 4px 10px hsla(var(--accent-h),100%,40%,.4))}
-  .face-rate-slider{
+  .rate-tier{
+    display:inline-block;align-self:flex-start;
+    padding:4px 10px;border-radius:999px;
+    font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    margin-top:2px;
+  }
+  .rate-tier[data-t="untested"]{background:hsla(var(--accent-h), 30%, 25%, .6);color:hsl(var(--accent-h) 30% 80%)}
+  .rate-tier[data-t="subhuman"]{background:hsla(0, 80%, 25%, .85);color:#fff;box-shadow:0 0 12px hsla(0,80%,50%,.5)}
+  .rate-tier[data-t="ltn"]{background:hsla(15, 85%, 38%, .9);color:#fff}
+  .rate-tier[data-t="mtn"]{background:hsla(50, 85%, 42%, .92);color:#221700}
+  .rate-tier[data-t="htn"]{background:hsla(140, 70%, 38%, .92);color:#001a0a}
+  .rate-tier[data-t="chad"]{background:linear-gradient(135deg,hsl(45,100%,55%),hsl(15,100%,55%));color:#1a0a00;box-shadow:0 0 16px hsla(35,100%,60%,.6)}
+  .rate-tier[data-t="gigachad"]{background:linear-gradient(135deg,#fff,hsl(45,100%,75%));color:#000;box-shadow:0 0 22px hsla(45,100%,80%,.8)}
+
+  .rate-params{
+    margin-top:10px;
+    display:flex;flex-direction:column;gap:7px;
+  }
+  .rate-row{
+    padding:8px 10px 10px;
+    border-radius:10px;
+    background:hsla(var(--accent-h), 50%, 8%, .55);
+    border:1px solid hsla(var(--accent-h), 60%, 22%, .35);
+  }
+  .rate-row .top{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-bottom:5px;
+  }
+  .rate-row .rate-name{
+    font-size:11.5px;font-weight:700;
+    color:hsl(var(--accent-h) 70% 88%);
+    letter-spacing:.02em;
+  }
+  .rate-row .rate-val{
+    font-size:15px;font-weight:900;color:#fff;
+    min-width:22px;text-align:right;
+  }
+  .rate-row .rate-hint{
+    font-size:10.5px;color:hsl(var(--accent-h) 25% 65%);
+    margin-top:4px;line-height:1.4;
+  }
+  .rate-row input[type=range]{
     -webkit-appearance:none;appearance:none;
-    width:100%;height:14px;border-radius:8px;
+    display:block;width:100%;height:8px;border-radius:6px;
     background:linear-gradient(90deg,
       hsl(0 70% 45%) 0%,
-      hsl(30 90% 50%) 25%,
-      hsl(60 95% 55%) 50%,
-      hsl(120 75% 50%) 75%,
+      hsl(20 88% 50%) 25%,
+      hsl(50 92% 55%) 50%,
+      hsl(120 70% 50%) 75%,
       hsl(var(--accent-h) 100% 60%) 100%);
     outline:none;
-    box-shadow:inset 0 2px 6px rgba(0,0,0,.45);
-    margin-top:6px;
+    box-shadow:inset 0 1px 4px rgba(0,0,0,.45);
   }
-  .face-rate-slider::-webkit-slider-thumb{
+  .rate-row input[type=range]::-webkit-slider-thumb{
     -webkit-appearance:none;appearance:none;
-    width:26px;height:26px;border-radius:50%;
+    width:20px;height:20px;border-radius:50%;
     background:#fff;
-    border:3px solid hsl(var(--accent-h) 100% 60%);
-    box-shadow:0 0 14px hsla(var(--accent-h), 100%, 70%, .85);
+    border:2px solid hsl(var(--accent-h) 100% 60%);
+    box-shadow:0 0 8px hsla(var(--accent-h), 100%, 70%, .85);
     cursor:pointer;
   }
-  .face-rate-slider::-moz-range-thumb{
-    width:26px;height:26px;border-radius:50%;
+  .rate-row input[type=range]::-moz-range-thumb{
+    width:20px;height:20px;border-radius:50%;
     background:#fff;
-    border:3px solid hsl(var(--accent-h) 100% 60%);
-    box-shadow:0 0 14px hsla(var(--accent-h), 100%, 70%, .85);
+    border:2px solid hsl(var(--accent-h) 100% 60%);
+    box-shadow:0 0 8px hsla(var(--accent-h), 100%, 70%, .85);
     cursor:pointer;
   }
-  .face-rate-scale{
-    display:flex;justify-content:space-between;
-    font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
-    color:hsl(var(--accent-h) 35% 65%);
-    margin-top:6px;
+  .rate-row.unrated input[type=range]::-webkit-slider-thumb{background:hsl(var(--accent-h) 30% 60%)}
+  .rate-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .rate-actions button,
+  .rate-actions .up-btn{
+    flex:1;min-width:90px;padding:9px 10px;border-radius:9px;
+    background:hsla(var(--accent-h), 60%, 18%, .6);
+    border:1px solid hsla(var(--accent-h), 70%, 50%, .35);
+    color:hsl(var(--accent-h) 100% 92%);font-weight:700;font-size:12px;
+    cursor:pointer;
+    text-align:center;
+    display:flex;align-items:center;justify-content:center;
   }
+  .rate-actions button:active,
+  .rate-actions .up-btn:active{transform:scale(.97)}
+  .ltn-doom a.doom-btn{text-decoration:none}
   .face-history-head{
     display:flex;justify-content:space-between;align-items:center;
     margin-top:16px;
@@ -943,6 +992,129 @@
   .face-bar.empty > span{
     background:hsla(var(--accent-h), 30%, 30%, .35);
     min-height:3px;
+  }
+
+  /* LTN doom banner shown when low overall triggers UPAST */
+  .ltn-doom{
+    margin-top:10px;padding:10px 12px;border-radius:10px;
+    background:linear-gradient(135deg,hsla(0,80%,30%,.55),hsla(15,85%,40%,.4));
+    border:1px solid hsla(0,90%,55%,.45);
+    color:#fff;font-size:12.5px;line-height:1.5;
+    display:none;
+  }
+  .ltn-doom.on{display:block;animation:doom-pulse 2.6s ease-in-out infinite alternate}
+  @keyframes doom-pulse{
+    0%{box-shadow:0 0 10px hsla(0,90%,50%,.45)}
+    100%{box-shadow:0 0 26px hsla(0,90%,55%,.85)}
+  }
+  .ltn-doom .doom-row{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+  .ltn-doom .doom-btn{
+    background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.35);
+    color:#fff;border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:700;cursor:pointer;
+    white-space:nowrap;
+  }
+
+  /* =========================================================
+     COSMETICS LIST — affordable products per skin type
+  ========================================================= */
+  .cosm-out{margin-top:8px}
+  .cosm-group{
+    margin-top:12px;padding:10px 12px;
+    background:hsla(var(--accent-h), 50%, 9%, .55);
+    border:1px solid hsla(var(--accent-h), 60%, 22%, .35);
+    border-radius:10px;
+  }
+  .cosm-group h4{
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 100% 88%);
+    margin-bottom:6px;
+  }
+  .cosm-group ul{list-style:none;padding:0;margin:0}
+  .cosm-group li{
+    font-size:12.5px;line-height:1.55;color:hsl(var(--accent-h) 40% 92%);
+    padding:5px 0;
+    border-top:1px dashed hsla(var(--accent-h), 40%, 30%, .35);
+  }
+  .cosm-group li:first-child{border-top:none}
+  .cosm-group li b{color:#fff}
+  .cosm-group li .price{
+    color:hsl(var(--accent-h) 100% 75%);font-size:11.5px;font-weight:700;
+    margin-left:6px;white-space:nowrap;
+  }
+
+  /* =========================================================
+     ANCHOR NAV — quick jump chips at top of long sections
+  ========================================================= */
+  .anchor-nav{
+    display:flex;gap:6px;overflow-x:auto;
+    padding:2px 0 8px;
+    margin:-4px 0 10px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .anchor-nav::-webkit-scrollbar{display:none}
+  .anchor-nav a{
+    flex-shrink:0;
+    padding:7px 12px;border-radius:999px;
+    background:hsla(var(--accent-h), 50%, 14%, .6);
+    border:1px solid hsla(var(--accent-h), 70%, 45%, .35);
+    color:hsl(var(--accent-h) 100% 90%);
+    font-size:11.5px;font-weight:700;letter-spacing:.02em;
+    text-decoration:none;white-space:nowrap;
+  }
+  .anchor-nav a:active{transform:scale(.96)}
+  .anchor-nav a.on{
+    background:hsla(var(--accent-h), 100%, 55%, .9);
+    color:#fff;
+    border-color:hsla(var(--accent-h), 100%, 70%, .9);
+    box-shadow:0 0 12px hsla(var(--accent-h), 100%, 60%, .5);
+  }
+
+  /* =========================================================
+     INVERSION MASK — facial symmetry preview
+  ========================================================= */
+  .inv-tools{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .inv-tools label, .inv-tools button{
+    flex:1;min-width:120px;
+    padding:11px 10px;border-radius:10px;
+    background:hsla(var(--accent-h), 60%, 20%, .55);
+    border:1px solid hsla(var(--accent-h), 70%, 50%, .35);
+    color:hsl(var(--accent-h) 100% 92%);
+    font-size:12.5px;font-weight:700;text-align:center;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .inv-tools input[type=file]{display:none}
+  .inv-tools button:active, .inv-tools label:active{transform:scale(.97)}
+  .inv-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;
+  }
+  .inv-cell{
+    background:hsla(var(--accent-h),50%,8%,.6);
+    border:1px solid hsla(var(--accent-h),60%,25%,.3);
+    border-radius:10px;overflow:hidden;
+    aspect-ratio:3/4;position:relative;
+    display:flex;align-items:center;justify-content:center;
+    color:hsl(var(--accent-h) 30% 65%);font-size:11px;text-align:center;padding:8px;
+  }
+  .inv-cell canvas{display:block;width:100%;height:100%;object-fit:cover}
+  .inv-cell canvas:not(.on){display:none}
+  .inv-cell .ph{display:none;font-size:10.5px;color:hsl(var(--accent-h) 30% 60%);padding:0 6px;text-align:center}
+  .inv-cell canvas:not(.on) + .ph,
+  .inv-cell:not(:has(canvas.on)) .ph{display:block}
+  .inv-cell .lbl{
+    position:absolute;top:6px;left:6px;
+    font-size:9px;letter-spacing:.1em;font-weight:800;
+    color:#fff;text-transform:uppercase;
+    background:hsla(0,0%,0%,.55);padding:3px 6px;border-radius:5px;
+  }
+  .inv-axis{
+    margin-top:10px;display:flex;align-items:center;gap:8px;
+  }
+  .inv-axis input[type=range]{flex:1}
+  .inv-axis .ax-val{
+    font-size:11px;color:hsl(var(--accent-h) 35% 75%);min-width:54px;text-align:right;
   }
 
   /* =========================================================
@@ -1210,35 +1382,97 @@
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>Рейт лица сегодня</h2>
+      <h2>Рейт внешности · разбор по параметрам</h2>
       <p class="muted" style="font-size:12.5px;margin-bottom:2px">
-        Честно — на сколько лицо тянет 1–10? Замеряй каждый день, без жалости и без подъёб.
+        Оценивай каждый параметр 1–10 без жалости. Общий — среднее. Тир:
+        SUBHUMAN / LTN / MTN / HTN / CHAD по сумме.
       </p>
+
       <div class="face-rate-row">
-        <div class="face-rate-num" id="face-rate-num">—</div>
+        <div class="left">
+          <div class="face-rate-num" id="face-rate-num">—</div>
+          <div class="rate-tier" id="rate-tier" data-t="untested">UNTESTED</div>
+        </div>
         <div class="face-rate-emoji" id="face-rate-emoji">🪞</div>
       </div>
-      <input
-        type="range"
-        min="1"
-        max="10"
-        step="1"
-        value="5"
-        class="face-rate-slider"
-        id="face-rate-slider"
-        aria-label="Face rating today (1-10)"
-      />
-      <div class="face-rate-scale">
-        <span>1 · трэш</span>
-        <span>5 · норм</span>
-        <span>10 · хайтн</span>
+
+      <div class="rate-params" id="rate-params">
+        <div class="rate-row unrated" data-rp="ramus">
+          <div class="top">
+            <span class="rate-name">Рамус · ширина челюсти</span>
+            <span class="rate-val">—</span>
+          </div>
+          <input type="range" min="1" max="10" step="1" value="5" aria-label="Ramus" />
+          <div class="rate-hint">Угол челюсти и ширина у уха. Чем выраженнее ramus — тем мужественнее.</div>
+        </div>
+        <div class="rate-row unrated" data-rp="cheek">
+          <div class="top">
+            <span class="rate-name">Скулы · midface</span>
+            <span class="rate-val">—</span>
+          </div>
+          <input type="range" min="1" max="10" step="1" value="5" aria-label="Cheekbones" />
+          <div class="rate-hint">Выраженность скул, короткая midface, hollow cheeks. Длинная midface — минус.</div>
+        </div>
+        <div class="rate-row unrated" data-rp="masc">
+          <div class="top">
+            <span class="rate-name">Маскулинность общая</span>
+            <span class="rate-val">—</span>
+          </div>
+          <input type="range" min="1" max="10" step="1" value="5" aria-label="Masculinity" />
+          <div class="rate-hint">Brow ridge, борода, толщина шеи, sharpness. «Soft» = низко.</div>
+        </div>
+        <div class="rate-row unrated" data-rp="eye">
+          <div class="top">
+            <span class="rate-name">Hunter eyes · взгляд</span>
+            <span class="rate-val">—</span>
+          </div>
+          <input type="range" min="1" max="10" step="1" value="5" aria-label="Hunter eyes" />
+          <div class="rate-hint">Positive canthal tilt, низкий orbital, deep-set. Round/прищур = низко.</div>
+        </div>
+        <div class="rate-row unrated" data-rp="nose">
+          <div class="top">
+            <span class="rate-name">Нос · projection</span>
+            <span class="rate-val">—</span>
+          </div>
+          <input type="range" min="1" max="10" step="1" value="5" aria-label="Nose" />
+          <div class="rate-hint">Прямая спинка, тонкий tip, нормальная projection. Картошка/курносость минус.</div>
+        </div>
+        <div class="rate-row unrated" data-rp="oval">
+          <div class="top">
+            <span class="rate-name">Овал · кожа · tightness</span>
+            <span class="rate-val">—</span>
+          </div>
+          <input type="range" min="1" max="10" step="1" value="5" aria-label="Skin and oval" />
+          <div class="rate-hint">Чёткий овал, отсутствие отёка, ровная кожа, лоу-bodyfat в лице.</div>
+        </div>
+      </div>
+
+      <div class="rate-actions">
+        <button type="button" id="rate-clear">Сбросить день</button>
+        <button type="button" id="rate-fill5">Поставить 5/10 везде</button>
+        <label class="up-btn" for="upast-file" title="Свой UPAST mp3">🎵 mp3</label>
+        <input type="file" id="upast-file" accept="audio/*" hidden>
+      </div>
+
+      <div class="ltn-doom" id="ltn-doom" role="alert">
+        <div class="doom-row">
+          <div>
+            <b>LTN MODE.</b> Лицо &lt;4. Жми, копи, тренируй — пока не выйдешь в MTN.
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0">
+            <a class="doom-btn" id="doom-apple" href="https://music.apple.com/us/album/upast-ep/1875387622?l=ru" target="_blank" rel="noopener">UPAST ▶︎</a>
+            <button type="button" class="doom-btn" id="doom-mute">Заткнуть</button>
+          </div>
+        </div>
       </div>
 
       <div class="face-history-head">
-        <span class="meta">14 дней</span>
+        <span class="meta">14 дней · общий</span>
         <span class="face-stats" id="face-stats">средн. — · тренд —</span>
       </div>
       <div class="face-history" id="face-history" role="img" aria-label="Face rating history"></div>
+
+      <audio id="upast-audio" loop preload="auto" playsinline></audio>
     </div>
 
     <div class="card" style="margin-top:14px">
@@ -1472,7 +1706,46 @@
       <div><h2>Лицо</h2><p>Mewing · ramus · скулы · впалые щёки · глаза · брови</p></div>
     </div>
 
-    <div class="card">
+    <!-- Quick section nav (anchors) -->
+    <div class="anchor-nav" id="anchor-nav-face">
+      <a href="#face-inv">Инверсия</a>
+      <a href="#face-base">База</a>
+      <a href="#face-hands">Руки</a>
+      <a href="#face-yoga">Йога лица</a>
+      <a href="#face-massage">Массаж</a>
+      <a href="#face-cosm">Косметика</a>
+      <a href="#face-skin">Кожа</a>
+    </div>
+
+    <div class="card" id="face-inv">
+      <h2>Маска «Инверсия» · симметрия</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Зеркальное отражение левой и правой половины лица. Так видно асимметрию,
+        которую обычное зеркало уже «привыкло» тебе показывать симметрично.
+        Снимай анфас при ровном свете, нос строго по центру.
+      </p>
+      <div class="inv-tools">
+        <label for="inv-file">📷 Загрузить фото</label>
+        <input type="file" id="inv-file" accept="image/*" capture="user">
+        <button type="button" id="inv-clear">Очистить</button>
+      </div>
+      <div class="inv-axis">
+        <span class="muted" style="font-size:11px">Ось симметрии</span>
+        <input type="range" id="inv-axis" min="30" max="70" step="1" value="50" aria-label="Symmetry axis">
+        <span class="ax-val" id="inv-axis-val">50%</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-cell"><span class="lbl">ОРИГИНАЛ</span><canvas id="inv-orig"></canvas><span class="ph" id="inv-ph-orig">Нет фото</span></div>
+        <div class="inv-cell"><span class="lbl">ЛЕВАЯ × 2</span><canvas id="inv-left"></canvas><span class="ph" id="inv-ph-left">—</span></div>
+        <div class="inv-cell"><span class="lbl">ПРАВАЯ × 2</span><canvas id="inv-right"></canvas><span class="ph" id="inv-ph-right">—</span></div>
+      </div>
+      <p class="muted" style="font-size:11.5px;margin-top:8px">
+        Если «левая × 2» и «правая × 2» сильно отличаются — это и есть твоя асимметрия. Чаще
+        всего фиксится осанкой, mewing-ом ровно (не на один бок) и сном на спине.
+      </p>
+    </div>
+
+    <div class="card" id="face-base" style="margin-top:14px">
       <h2>База — делать каждый день</h2>
       <div class="step">
         <div class="n">1</div>
@@ -1766,7 +2039,84 @@
       </div></div>
     </div>
 
-    <div class="card">
+    <div class="card" id="face-hands">
+      <h2>Упражнения лица руками</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Только пальцы / костяшки / ладони. Без gua sha и валиков — всё, что нужно, у тебя
+        уже есть. Делай чистыми руками, по сухой коже или поверх крема. 5–10 мин/день.
+      </p>
+      <details><summary>Buccinator release (буккальный самомассаж)</summary><p>Чистый большой палец заведи в рот за щёку. Большой палец внутри, указательный снаружи — щипай мышцу щеки от уголка рта к жевательной. 30–60 сек на каждую сторону. Расслабляет «надутые» щёки, помогает выйти буккальному жиру визуально.</p></details>
+      <details><summary>Masseter release (жевательная)</summary><p>Сожми челюсти — найди бугор жевательной мышцы. Костяшками или подушечками пальцев — мелкие круги, 60 сек/сторона. Снимает зажим, делает челюсть тоньше у тех, кто скрипит зубами.</p></details>
+      <details><summary>Temporalis release (виски)</summary><p>Подушечки 4 пальцев на виски, рот приоткрыт. Круги назад-вверх 60 сек. Снимает напряжение, поднимает «уголки глаз».</p></details>
+      <details><summary>Jawline sculpt (подушки большого + указательного)</summary><p>Указательный под челюстью, большой над — щипай по линии от подбородка к уху, 10 проходов/сторона. Делает контур чётче.</p></details>
+      <details><summary>Lymph drain — 3 круга</summary><p>1) От середины лба к вискам, 2) от носа по скулам к ушам, 3) от подбородка вниз по шее к ключицам. По 5–8 раз каждый. Утром, после умывания. Сразу убирает отёк.</p></details>
+      <details><summary>Cheekbone lift (костяшки)</summary><p>Костяшки 4 пальцев под скулой, подталкивай вверх-наружу. 30 сек/сторона. Поднимает midface, добавляет визуальной «подтяжки».</p></details>
+      <details><summary>Crow's feet smooth (уголки глаз)</summary><p>Указательным пальцем — мягкие круги от внешнего угла глаза к виску. Без растяжки кожи! 30 сек/сторона. Расслабляет orbicularis oculi.</p></details>
+      <details><summary>Forehead press (лоб)</summary><p>Ладонь на лоб, прижми сильно — попытайся «поднять брови» против сопротивления. 5 сек × 10. Качает frontalis без появления морщин.</p></details>
+      <details><summary>Brow ridge lift (надбровка)</summary><p>Большие пальцы под бровями, толкай вверх. Закрой глаза против сопротивления. 5 сек × 10. Делает взгляд более deep-set / hunter.</p></details>
+      <details><summary>Nasolabial smooth (носогубка)</summary><p>Указательный + средний — от уголка губ к крыльям носа маленькие круги, потом по щеке вверх. 60 сек/сторона. Поднимает уголки рта.</p></details>
+      <details><summary>Platysma stretch (передняя шея)</summary><p>Голову назад, нижняя губа вниз и наружу — «бульдог». Ладонью гладь от подбородка к ключице. 30 сек × 3. Подтягивает кожу шеи.</p></details>
+      <details><summary>Tongue chop (под подбородок)</summary><p>Кулак под подбородок снизу — пробуй опустить нижнюю челюсть, кулак удерживает. 10 сек × 5. Изоляция жевательной + подъязычной зоны.</p></details>
+      <details><summary>Cold spoons trick (ложки из морозилки)</summary><p>Две металлические ложки в морозилку на 15 мин. Кладёшь под глаза 30–60 сек. Мгновенный де-пафф «iron-eyes».</p></details>
+      <details><summary>Knuckle scrape — gua sha без gua sha</summary><p>Костяшки сжатого кулака. Поверх крема — от центра лица к ушам и вниз по шее. 5 мин/всё лицо. Тот же эффект что у gua sha-пластины.</p></details>
+      <details><summary>Eye orbit press (8 точек)</summary><p>Подушечкой большого пальца — 8 точек вокруг глазницы (по часовой). Прижимай 2 сек × 2 круга/глаз. Снимает усталость + уменьшает мешки.</p></details>
+      <details><summary>Smile press isometric</summary><p>Двумя указательными прижимай уголки губ — пытайся улыбнуться против сопротивления. 5 сек × 10. Подтягивает уголки рта.</p></details>
+      <p class="muted" style="font-size:11.5px;margin-top:10px">
+        <b>Когда работает / когда нет:</b> результат от массажа = снижение отёка + расслабление зажимов + лимфа. Кости и реальную «маскулинизацию» это не двинет — там нужно
+        mewing + chewing + body composition + сон.
+      </p>
+    </div>
+
+    <div class="card" id="face-yoga" style="margin-top:14px">
+      <h2>Face Yoga — программа на 7 дней</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">Каждый день — одна короткая сессия. К концу недели лицо более «собрано».</p>
+      <details><summary>Понедельник · Скулы (cheek lift)</summary><p>«О» формой губ — улыбайся уголками вверх, удерживай 10 сек × 10. + указательные на скулах, подталкивай вверх по 30 сек/сторона.</p></details>
+      <details><summary>Вторник · Челюсть</summary><p>Mastic gum 20 мин + tongue chop под подбородок 5×10 сек + sopротивление подбородку (кулак) 5×10 сек.</p></details>
+      <details><summary>Среда · Глаза + брови</summary><p>Brow ridge lift × 10, eye orbit press 8 точек × 2, cold spoons 60 сек. Делает взгляд яснее.</p></details>
+      <details><summary>Четверг · Лоб + виски</summary><p>Forehead press isometric ×10, temporalis circles 60 сек/сторона. Снимает «вечерний» застой.</p></details>
+      <details><summary>Пятница · Носогубка + рот</summary><p>«О-И-О-И» 3×15, smile press ×10, nasolabial smoothing 60 сек/сторона.</p></details>
+      <details><summary>Суббота · Шея + платизма</summary><p>Platysma stretch 30×3, наклоны головы по 8 направлениям с лёгкой растяжкой. Не забывай — шея делает 50% линии челюсти.</p></details>
+      <details><summary>Воскресенье · Полная лимфа</summary><p>15 мин полного дренажа: лоб → виски → скулы → уши → шея → ключицы. + холодный душ на лицо в конце. «Reset day».</p></details>
+    </div>
+
+    <div class="card" id="face-massage" style="margin-top:14px">
+      <h2>Лимфодренаж — пошагово 5 минут утром</h2>
+      <ol style="margin-left:18px;font-size:13.5px;line-height:1.7;color:hsl(var(--accent-h) 100% 92%)">
+        <li><b>0:00–0:30</b> · Ладонями погладь шею сверху вниз к ключицам (20 раз) — «открываешь дренаж».</li>
+        <li><b>0:30–1:30</b> · Подушечками пальцев от середины лба к вискам, потом виски — мягкие круги.</li>
+        <li><b>1:30–2:30</b> · От носа по скулам к ушам — указательным + средним.</li>
+        <li><b>2:30–3:30</b> · Под глазами — от внутреннего угла к внешнему (только лёгкие касания, без оттягивания кожи).</li>
+        <li><b>3:30–4:30</b> · По челюсти — от подбородка к ушам, потом за уши вниз по шее.</li>
+        <li><b>4:30–5:00</b> · Финал — от ушей по шее к ключицам, погладь 20 раз. «Закрываешь» дренаж.</li>
+      </ol>
+      <p class="muted" style="font-size:12px;margin-top:6px">
+        Каждое движение — <b>в одну сторону</b>, без оттягивания и трения. Лёгкое касание — лимфа лежит близко к коже.
+        Делать по сухой коже либо поверх крема/масла.
+      </p>
+    </div>
+
+    <div class="card" id="face-cosm" style="margin-top:14px">
+      <h2>Косметика · автоподбор</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:8px">
+        Выбираешь тип кожи ниже — продукты автоматически меняются. Подобрано из
+        <b>дешёвых, но реально работающих</b> марок (CeraVe / The Ordinary / Cosrx / Cetaphil / Bioderma /
+        Garnier / Compliment / Mixit). Никаких дорогих брендов «за упаковку».
+      </p>
+      <div class="chips" id="cosm-chips">
+        <button class="chip on" data-c="oily">Жирная</button>
+        <button class="chip"     data-c="dry">Сухая</button>
+        <button class="chip"     data-c="combo">Комбинированная</button>
+        <button class="chip"     data-c="sensitive">Чувствительная</button>
+        <button class="chip"     data-c="acne">Акне</button>
+        <button class="chip"     data-c="normal">Нормальная</button>
+      </div>
+      <div id="cosm-out" class="cosm-out"></div>
+      <p class="muted" style="font-size:11px;margin-top:10px">
+        Перед новым активом (кислоты, ретинол) — патч-тест за ухом 3 дня. SPF 30+ утром, иначе всё бесполезно.
+      </p>
+    </div>
+
+    <div class="card" id="face-skin">
       <h2>Кожа — режим под тип</h2>
       <p class="muted" style="font-size:12.5px;margin-bottom:8px">Тапни на свой тип кожи.</p>
       <div class="chips" id="skin-chips">
@@ -1938,6 +2288,10 @@
       <button class="chip" data-prog="bodyweight" role="tab" aria-selected="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M8 9l4 2 4-2M9 22l3-9 3 9"/></svg>
         Своё тело
+      </button>
+      <button class="chip" data-prog="cardio" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12c2 0 3-3 5-3s3 6 5 6 3-6 5-6 2 3 3 3"/></svg>
+        Кардио
       </button>
     </div>
 
@@ -2153,6 +2507,146 @@
 
     </div><!-- /bodyweight group -->
 
+    <!-- =========== CARDIO PROGRAM =========== -->
+    <div class="equip-group" data-prog="cardio">
+
+      <div class="anchor-nav">
+        <a href="#cardio-base">База</a>
+        <a href="#cardio-zone2">Zone 2</a>
+        <a href="#cardio-hiit">HIIT</a>
+        <a href="#cardio-norv">Норвег 4×4</a>
+        <a href="#cardio-run">Бег</a>
+        <a href="#cardio-walk">Ходьба</a>
+        <a href="#cardio-stairs">Лестница</a>
+        <a href="#cardio-mix">Микс-конд.</a>
+      </div>
+
+      <div class="card" id="cardio-base">
+        <h2>Кардио · принцип</h2>
+        <p>Цель — выжечь жир (видны черты лица), поднять VO₂max и не убить рекавери от силовой.</p>
+        <div class="divider"></div>
+        <div class="row">
+          <div class="ring" style="--p:80%"><span>80/20</span></div>
+          <div class="grow">
+            <div style="font-size:14px;font-weight:700">80% Zone 2 · 20% HIIT</div>
+            <p class="muted" style="font-size:12.5px;margin-top:3px">Большая часть — низкая интенсивность (можешь говорить). Меньшая — короткие максимумы (не можешь говорить).</p>
+          </div>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:8px">
+          <b>Минимум в неделю:</b> 150 мин Zone 2 + 1–2 HIIT-сессии 15–25 мин.
+          <b>Сухость лица</b> = дефицит ккал + кардио + соль/вода + сон. Без дефицита кардио не «вытянет жир».
+        </p>
+      </div>
+
+      <div class="card" id="cardio-zone2" style="margin-top:14px">
+        <h2>Zone 2 · основа сжигания</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          ЧСС ≈ 60–70% максимума (220 − возраст). Можешь говорить полными фразами, но петь не можешь.
+          Это <b>«базовая выносливость»</b> + сжигание жира + не нагружает рекавери.
+        </p>
+        <details><summary>Вариант 1 · Быстрая ходьба 45–60 мин</summary><p>Темп ~6 км/ч, легко в горку. Лучше всего — на улице утром, под подкаст. 4–6×/нед.</p></details>
+        <details><summary>Вариант 2 · Лёгкий бег 30–45 мин</summary><p>Пульс ровный, без рывков. Дыхание носом если получается. 3×/нед — золотой стандарт.</p></details>
+        <details><summary>Вариант 3 · Велосипед / эллипс 45–60 мин</summary><p>Не убивает колени. Сопротивление умеренное, темп ровный.</p></details>
+        <details><summary>Вариант 4 · Скакалка с отдыхом 30 мин</summary><p>2 мин лёгких прыжков + 30 сек отдыха. 8–10 кругов. Лёгкий темп.</p></details>
+        <details><summary>Вариант 5 · Плавание 30–45 мин</summary><p>Кроль или брасс в спокойном темпе. Лучший вариант если беспокоят колени/спина.</p></details>
+      </div>
+
+      <div class="card" id="cardio-hiit" style="margin-top:14px">
+        <h2>HIIT · короткие максимумы</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          Делать <b>1–2 раза в неделю максимум.</b> Не в день силовой ног.
+          Цель — VO₂max + жиросжигание после тренировки.
+        </p>
+        <details><summary>Tabata · 4 минуты, 8 интервалов</summary><p>20 сек на max / 10 сек отдых. Выбери: спринт, скакалка, бёрпи, jumping jacks. 4 раунда подряд = 16 мин. Сжигает огромно при мизерном времени.</p></details>
+        <details><summary>30/30 · 15 минут</summary><p>30 сек интенсивно / 30 сек отдых. 15 циклов. Подходит для бега, велика, скакалки. Самый универсальный HIIT.</p></details>
+        <details><summary>Спринт-протокол 6×30 сек</summary><p>5 мин разминки. 6 спринтов по 30 сек на 95% усилия / 3 мин ходьбы. Финиш — 5 мин заминки. Метаболически жёсткий, но 25 мин и готово.</p></details>
+        <details><summary>EMOM 15 минут</summary><p>Каждую минуту — 15 бёрпи (или 30 jumping jacks, или 50 jump rope). Остаток минуты отдыхаешь. 15 раундов.</p></details>
+        <details><summary>10–20–30</summary><p>Бег: 30 сек лёгко → 20 сек средне → 10 сек спринт. Без пауз × 5 раз = 5 мин блок. Между блоками 2 мин ходьбы. 3–4 блока. Датский научный протокол, очень эффективный.</p></details>
+        <details><summary>Пирамида · 6 раундов</summary><p>10 → 20 → 30 → 30 → 20 → 10 сек на максимум. Между раундами 30 сек отдыха. Бёрпи или mountain climbers.</p></details>
+      </div>
+
+      <div class="card" id="cardio-norv" style="margin-top:14px">
+        <h2>Норвежский 4×4 · топ для VO₂max</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          Протокол лучше любого HIIT по росту VO₂max (исследования NTNU). 1–2×/нед.
+          Делать на беге, велике или гребле.
+        </p>
+        <div class="step"><div class="n">1</div><div><h4>Разминка 10 мин</h4><p>Лёгкий бег / езда, пульс растёт.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Интервал 4 мин @ 85–95% max ЧСС</h4><p>Очень тяжело. Может говорить отрывисто 2–3 слова.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Активный отдых 3 мин</h4><p>Лёгкий темп, пульс падает до ~70%.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>Повторить интервал ×4</h4><p>4 × (4 мин hard + 3 мин easy) = 28 мин.</p></div></div>
+        <div class="step"><div class="n">5</div><div><h4>Заминка 5 мин</h4><p>Лёгкий темп + дыхание.</p></div></div>
+        <p class="muted" style="font-size:12px;margin-top:6px"><b>Итого:</b> ~45 мин. Эффект — лучший в мире прирост сердца. Не делай чаще 2×/нед.</p>
+      </div>
+
+      <div class="card" id="cardio-run" style="margin-top:14px">
+        <h2>Бег · программа с нуля до 5 км</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          Если вообще не бегал — это план на 8 недель. Бегаешь 3 раза в неделю с днём отдыха.
+        </p>
+        <details><summary>Неделя 1–2 · Run/Walk</summary><p>5 мин ходьбы разминка. Потом 8 циклов: <b>60 сек бег / 90 сек ходьба</b>. Заминка 5 мин ходьбы. 3×/нед.</p></details>
+        <details><summary>Неделя 3–4 · Чуть дольше бег</summary><p>5 мин ходьбы. 8 циклов: <b>90 сек бег / 90 сек ходьба</b>. 3×/нед.</p></details>
+        <details><summary>Неделя 5–6 · Стабильный бег</summary><p>5 мин ходьбы. 6 циклов: <b>3 мин бег / 90 сек ходьба</b>. 3×/нед.</p></details>
+        <details><summary>Неделя 7 · 5×4 мин</summary><p>5 мин ходьбы. 5 циклов: <b>4 мин бег / 90 сек ходьба</b>. 3×/нед.</p></details>
+        <details><summary>Неделя 8 · 5 км без остановки</summary><p>Лёгкий темп, главное — не остановиться. Можно медленно. Финал плана. Дальше — наращивай скорость или дистанцию.</p></details>
+        <p class="muted" style="font-size:12px;margin-top:6px">
+          <b>Правила:</b> кроссы — не на асфальте если можно. Технику смотри: средняя постановка стопы, корпус слегка вперёд, руки 90°.
+        </p>
+      </div>
+
+      <div class="card" id="cardio-walk" style="margin-top:14px">
+        <h2>Ходьба · самое недооценённое</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          Не убивает рекавери, жжёт жир, чинит спину/осанку. Цель — <b>10 000 шагов в день</b>.
+        </p>
+        <details><summary>Утренняя ходьба натощак 30–45 мин</summary><p>Сразу после пробуждения, перед едой. Сжигает жир напрямую. Бодрит лучше кофе.</p></details>
+        <details><summary>Ходьба после еды 15 мин</summary><p>Через 15 мин после ужина — 15 мин прогулки. Понижает сахар в крови, помогает пищеварению.</p></details>
+        <details><summary>Incline walk 12-3-30</summary><p>Беговая дорожка: наклон 12° / 3 миль/ч (4.8 км/ч) / 30 мин. Сжигает как лёгкий бег, но щадит колени.</p></details>
+        <details><summary>Rucking · ходьба с рюкзаком</summary><p>Рюкзак 8–12 кг + 45–60 мин ходьбы. Качает спину, плечи, ноги. Военный стандарт. Лучше беговой дорожки.</p></details>
+        <details><summary>Walking workouts (под аудио)</summary><p>Слушай подкаст / аудиокнигу — 60 мин пройдут незаметно. 60 мин × 7 = 7 ч/нед кардио.</p></details>
+      </div>
+
+      <div class="card" id="cardio-stairs" style="margin-top:14px">
+        <h2>Лестница · подъёмы</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          Доступно везде. Жёстче дорожки, проще спринтов.
+        </p>
+        <details><summary>5×5 минут</summary><p>5 минут вверх-вниз в среднем темпе. 90 сек отдыха. 5 раундов. ~30 минут.</p></details>
+        <details><summary>Лестница-спринты 6×30 сек</summary><p>30 сек максимум вверх / 90 сек спокойного спуска. 6 раундов. ~12 минут плотно.</p></details>
+        <details><summary>Через ступеньку (стрит-вариант)</summary><p>Шагай через одну ступеньку. Растягивает шаг, активирует ягодицы. 15 минут.</p></details>
+        <details><summary>Двойные шаги + отжимания</summary><p>1 этаж вверх через ступеньку → 10 отжиманий → следующий этаж. 10 этажей. Жёсткий circuit.</p></details>
+      </div>
+
+      <div class="card" id="cardio-mix" style="margin-top:14px">
+        <h2>Микс-кондишн (без инвентаря)</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          Короткие плотные комплексы. Делать дома, в номере, на улице.
+        </p>
+        <details><summary>«Угол 100» · 10 мин</summary><p>100 jumping jacks → 100 mountain climbers → 100 высоких колен → 100 бёрпи. Чем быстрее тем лучше.</p></details>
+        <details><summary>Death by Burpee</summary><p>Минута 1 — 1 бёрпи. Минута 2 — 2 бёрпи. … И так пока успеваешь уложиться в минуту. Жесть после 8-й.</p></details>
+        <details><summary>Circuit 5×5 мин</summary><p>Раунд: 20 jump squat → 20 push-up → 20 jump lunge → 20 mountain climber → 30 сек plank. Без пауз. 5 раундов с 60 сек отдыха.</p></details>
+        <details><summary>«Тысяча» · 30–40 мин</summary><p>1000 повторов суммарно: 200 jumping jacks + 100 push-up + 200 mountain climbers + 100 squat + 200 high-knees + 100 burpee + 100 sit-up. Можно делить на блоки.</p></details>
+        <details><summary>Tabata-mix</summary><p>4 цикла по 4 мин (8×20/10): 1) burpees, 2) mountain climbers, 3) jumping jacks, 4) jump squats. 60 сек отдыха между циклами. ~20 мин = +500 ккал.</p></details>
+        <details><summary>«5 минут перед сном» — анти-стресс</summary><p>1 мин лёгких прыжков → 1 мин high knees → 1 мин планка → 1 мин стретч → 1 мин дыхание 4-7-8. Снимает напряжение дня.</p></details>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h2>Сжигание лица · сценарий 6 нед</h2>
+        <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+          Если цель — чтобы вылезли скулы и челюсть. Жир уходит с лица последним, но уходит.
+        </p>
+        <div class="step"><div class="n">1</div><div><h4>Ккал в дефицит 300–500</h4><p>TDEE минус 400. Белок 1.8–2.2 г/кг. Сахар/быстрые углей минимум.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>5×/нед Zone 2 по 45 мин</h4><p>Ходьба / бег / велик. По утрам натощак если можно.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>2×/нед HIIT 15–20 мин</h4><p>Tabata или Норвег 4×4. Не в день ног.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>3×/нед силовая</h4><p>Сохраняет мышцу при дефиците. Иначе теряешь и мышцу, и черты.</p></div></div>
+        <div class="step"><div class="n">5</div><div><h4>Соль / вода / сон</h4><p>Натрий ≤ 2.5г. Вода 3 л. Сон 8 ч. Без этого лицо в отёке независимо от ккал.</p></div></div>
+        <p class="muted" style="font-size:12px;margin-top:6px">
+          Замер раз в неделю: фото утром натощак при одинаковом свете. Не смотри в зеркало каждый день — глаз привыкает.
+        </p>
+      </div>
+
+    </div><!-- /cardio group -->
+
     <div class="card">
       <h2>Разминка (5 мин — обязательно)</h2>
       <details><summary>Скакалка / бег на месте 2 мин</summary><p>Разогрев сердца и кровотока. Если нет скакалки — высокие колени на месте.</p></details>
@@ -2247,10 +2741,23 @@
   ============================================================ -->
   <section id="screen-tips" class="screen">
     <div class="sec-head">
-      <div><h2>Советы</h2><p>Реально работает по всему интернету</p></div>
+      <div><h2>Советы</h2><p>По разделам: лицо · тело · сон · еда · кожа · mindset</p></div>
     </div>
 
-    <div class="card">
+    <div class="anchor-nav" id="tips-filter" data-filter="all">
+      <a href="#" data-cat="all">Все</a>
+      <a href="#" data-cat="habits">Привычки</a>
+      <a href="#" data-cat="sleep">Сон</a>
+      <a href="#" data-cat="food">Еда</a>
+      <a href="#" data-cat="skin">Кожа</a>
+      <a href="#" data-cat="body">Тело</a>
+      <a href="#" data-cat="supp">Suppl.</a>
+      <a href="#" data-cat="mind">Mindset</a>
+      <a href="#" data-cat="mog">Mogging</a>
+      <a href="#" data-cat="myth">Мифы</a>
+    </div>
+
+    <div class="card" data-cat="habits">
       <h2>Мощные привычки</h2>
       <details open><summary>Холод утром</summary><p>30–60 сек ледяной воды на лицо + контрастный душ. Сужает сосуды, тонизирует кожу, снимает мешки, даёт энергию лучше кофе.</p></details>
       <details><summary>Mewing 24/7 + дыхание носом</summary><p>Это «бесплатная пластика». Через 3–6 месяцев меняется овал лица. Главное — постоянство, не делай «через раз».</p></details>
@@ -2264,7 +2771,7 @@
       <details><summary>Сон до 23:30</summary><p>Гормональный фон, тестостерон, рост мышц, кожа. Один из топ-факторов по эффекту.</p></details>
     </div>
 
-    <div class="card">
+    <div class="card" data-cat="food">
       <h2>Что убрать полностью до сентября</h2>
       <div class="list">
         <div class="item"><h3><span class="dot"></span>Алкоголь</h3><p>0 мл. Даёт отёк и системное воспаление на 1–3 дня после.</p><span class="pill red">ноль</span></div>
@@ -2275,14 +2782,14 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-cat="skin">
       <h2>Скин-минимум</h2>
       <details><summary>Утро</summary><p>Умывание прохладной водой → лёгкий гель → SPF 30+ если выходишь на улицу.</p></details>
       <details><summary>Вечер</summary><p>Очищение (гель или мицеллярная) → крем-увлажнение. 1–2 раза в неделю — мягкий пилинг (BHA/AHA).</p></details>
       <details><summary>Без фанатизма</summary><p>Не вали на лицо 10 средств. Чем меньше — тем чище и спокойнее кожа.</p></details>
     </div>
 
-    <div class="card">
+    <div class="card" data-cat="supp">
       <h2>Supplements — что, когда, сколько</h2>
       <p class="muted" style="font-size:12.5px">Без хайпа и магии. Только то что реально работает по исследованиям.</p>
       <div class="list">
@@ -2319,7 +2826,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-cat="body">
       <h2>Recovery — восстановление</h2>
       <p class="muted" style="font-size:12.5px">Прогресс не в зале, а между тренировками. Без recovery — застой и травмы.</p>
       <div class="list">
@@ -2340,7 +2847,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-cat="mog">
       <h2>Pro-фишки — что почти никто не делает</h2>
       <p class="muted" style="font-size:12.5px">30 малоизвестных техник, которые дают результат через 2–4 нед.</p>
       <div class="acc">
@@ -2377,7 +2884,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-cat="food">
       <h2>Меню — что есть на сушке</h2>
       <p class="muted" style="font-size:12.5px">Простые рецепты на каждый день. Базируйся на белке + овощах.</p>
       <div class="acc">
@@ -2391,7 +2898,24 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-cat="sleep">
+      <h2>Сон · полный протокол</h2>
+      <p class="muted" style="font-size:12.5px">Сон — №1 по эффекту на лицо. Плохой сон отменяет всё остальное.</p>
+      <details><summary>Расписание · в одно время</summary><p>Ложись и вставай в одно время даже по выходным (±30 мин). Циркадные ритмы — самый сильный фактор глубокого сна.</p></details>
+      <details><summary>Тёплый свет вечером, холодный утром</summary><p>За 2 ч до сна — только тёплые лампы 2700K, очки blue-light. Утром — солнечный свет в окно/глаза 10 мин.</p></details>
+      <details><summary>Прохладная спальня 18–19°C</summary><p>Тело отдаёт тепло — мозг даёт команду на глубокий сон. Жара = поверхностный сон = отёк.</p></details>
+      <details><summary>Тёмная комната = blackout</summary><p>Шторы blackout либо маска для сна. Даже мелкий свет от зарядки роняет мелатонин.</p></details>
+      <details><summary>Без экрана за 60 мин до сна</summary><p>Поставь телефон в режим «не беспокоить». Читай бумажную книгу либо просто валяйся.</p></details>
+      <details><summary>Кофе обрезать в 13:30</summary><p>Период полураспада кофеина 5–6 ч. Поздний кофе = меньше глубокого сна, утром отёк.</p></details>
+      <details><summary>Алкоголь = убитый REM</summary><p>Даже 1 бокал. Засыпаешь быстрее, но REM-сон рушится. Утром лицо опухшее.</p></details>
+      <details><summary>Eating window</summary><p>Последний приём за 2.5–3 ч до сна. Активное переваривание = меньше глубокого сна.</p></details>
+      <details><summary>Mouth tape + спина</summary><p>3M micropore вертикально на губах. Спишь на спине. Это вдвоём убирают утренний отёк за 7 дней.</p></details>
+      <details><summary>NSDR 10–20 мин днём</summary><p>Если плохо спал ночью — Yoga Nidra записи компенсируют 1 час сна.</p></details>
+      <details><summary>Прогрессивная мышечная релаксация</summary><p>Лёжа: напряги стопы 5 сек → расслабь 10 сек → икры → бёдра → пресс → грудь → плечи → лицо. К концу — спишь.</p></details>
+      <details><summary>4-7-8 дыхание</summary><p>Вдох носом 4 сек → задержка 7 сек → выдох ртом 8 сек. 4 цикла. Включает парасимпатику. Засыпаешь за минуты.</p></details>
+    </div>
+
+    <div class="card" data-cat="mind">
       <h2>Менталка</h2>
       <details><summary>Дисциплина &gt; мотивация</summary><p>Мотивация заканчивается через неделю. Работают только повторяющиеся действия. Ставь будильник, чек-лист, без переговоров.</p></details>
       <details><summary>Никаких «чит-дней»</summary><p>До 31 августа — режим без срывов. Один чит-день откатывает на 3–5 дней.</p></details>
@@ -2818,6 +3342,212 @@
     const fallback = (box.querySelector('.chip.on') || box.querySelector('.chip'))?.dataset[attr];
     apply(stored || fallback);
   }
+
+  // ========= TIPS CATEGORY FILTER =========
+  (function(){
+    const nav = document.getElementById('tips-filter');
+    if (!nav) return;
+    const screen = document.getElementById('screen-tips');
+    if (!screen) return;
+    const cards = Array.from(screen.querySelectorAll('.card[data-cat]'));
+
+    function apply(cat){
+      nav.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.cat === cat));
+      cards.forEach(c => {
+        c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+      });
+      try { localStorage.setItem('mogger.tips.cat', cat); } catch(_){}
+    }
+    nav.addEventListener('click', e => {
+      const a = e.target.closest('a[data-cat]');
+      if (!a) return;
+      e.preventDefault();
+      apply(a.dataset.cat);
+      if (navigator.vibrate) navigator.vibrate(6);
+    });
+    apply(localStorage.getItem('mogger.tips.cat') || 'all');
+  })();
+
+  // ========= COSMETICS AUTO-PICKER (affordable, by skin type) =========
+  const COSM = {
+    oily: {
+      'Очищение': [
+        { n:'CeraVe Foaming Cleanser', d:'мягкая пена, не сушит', p:'≈700₽' },
+        { n:'Cosrx Low pH Good Morning Gel', d:'pH 5, BHA в составе', p:'≈900₽' },
+        { n:'Garnier Pure Active гель', d:'бюджет, цинк + салицилка', p:'≈350₽' },
+      ],
+      'Тоник / актив': [
+        { n:'The Ordinary Niacinamide 10% + Zinc 1%', d:'сужает поры, контроль себума', p:'≈900₽' },
+        { n:'Cosrx BHA Blackhead Power Liquid', d:'салицилка 4%, разгрузка пор', p:'≈1100₽' },
+        { n:'Stopproblem салициловый тоник', d:'дешёвый, рабочий', p:'≈200₽' },
+      ],
+      'Увлажнение': [
+        { n:'Neutrogena Hydro Boost Gel', d:'гиалуронка, ничего лишнего', p:'≈1100₽' },
+        { n:'CeraVe Facial Moisturizing Lotion AM', d:'лёгкая, не комедогенна', p:'≈1100₽' },
+        { n:'Mixit Hyaluronic gel', d:'российский бюджет', p:'≈400₽' },
+      ],
+      'SPF (обязательно утром)': [
+        { n:'Beauty of Joseon Relief Sun SPF50+', d:'не блестит, идеален под жирную', p:'≈1300₽' },
+        { n:'Cosrx Aloe Soothing Sun Cream SPF50', d:'лёгкий, не комедогенный', p:'≈900₽' },
+        { n:'Garnier Ambre Solaire SPF50', d:'аптечный бюджет', p:'≈450₽' },
+      ],
+      'Активы (2-3×/нед)': [
+        { n:'The Ordinary Retinol 0.2% in Squalane', d:'старт ретинола', p:'≈900₽' },
+        { n:'The Ordinary AHA 30% + BHA 2%', d:'пилинг 1×/нед, 10 минут', p:'≈900₽' },
+      ],
+    },
+    dry: {
+      'Очищение': [
+        { n:'CeraVe Hydrating Cleanser', d:'кремовый, без сульфатов', p:'≈800₽' },
+        { n:'Cetaphil Gentle Skin Cleanser', d:'классика для сухой', p:'≈700₽' },
+        { n:'Bioderma Sensibio H2O мицеллярка', d:'снимает без смыва', p:'≈900₽' },
+      ],
+      'Тоник / актив': [
+        { n:'The Ordinary Hyaluronic Acid 2% + B5', d:'влагозамок', p:'≈900₽' },
+        { n:'Cosrx Snail Mucin 96%', d:'успокаивает, увлажняет', p:'≈1300₽' },
+        { n:'Mixit Centella Tonic', d:'бюджет, центелла', p:'≈350₽' },
+      ],
+      'Увлажнение': [
+        { n:'CeraVe Moisturizing Cream', d:'банка, керамиды, жирно', p:'≈1300₽' },
+        { n:'Beauty of Joseon Dynasty Cream', d:'питательный, без липкости', p:'≈1300₽' },
+        { n:'Compliment крем с керамидами', d:'аптека, бюджет', p:'≈250₽' },
+      ],
+      'SPF': [
+        { n:'Beauty of Joseon Relief Sun SPF50+', d:'не сушит, увлажняющий', p:'≈1300₽' },
+        { n:'La Roche-Posay Anthelios UVMune SPF50', d:'если бюджет позволяет', p:'≈2200₽' },
+      ],
+      'Активы (2-3×/нед)': [
+        { n:'The Ordinary Retinol 0.2% in Squalane', d:'поверх крема', p:'≈900₽' },
+        { n:'The Ordinary Squalane Oil', d:'на ночь, замок', p:'≈900₽' },
+      ],
+    },
+    combo: {
+      'Очищение': [
+        { n:'CeraVe Foaming Cleanser', d:'мягкая пена для всех зон', p:'≈700₽' },
+        { n:'Cosrx Low pH Good Morning Gel', d:'универсальный', p:'≈900₽' },
+      ],
+      'Тоник / актив': [
+        { n:'The Ordinary Niacinamide 10%', d:'на T-зону', p:'≈900₽' },
+        { n:'The Ordinary Hyaluronic Acid 2%', d:'на щёки', p:'≈900₽' },
+        { n:'Cosrx BHA Blackhead Power Liquid', d:'2×/нед на T-зону', p:'≈1100₽' },
+      ],
+      'Увлажнение': [
+        { n:'CeraVe AM/PM Lotion', d:'лёгкий, на всё лицо', p:'≈1100₽' },
+        { n:'Cosrx Hyaluronic Hydra Power Essence', d:'универсальный', p:'≈1200₽' },
+      ],
+      'SPF': [
+        { n:'Beauty of Joseon Relief Sun SPF50+', d:'универсал', p:'≈1300₽' },
+        { n:'Cosrx Aloe Sun Cream SPF50', d:'для комби-кожи', p:'≈900₽' },
+      ],
+      'Активы (2-3×/нед)': [
+        { n:'The Ordinary Retinol 0.2%', d:'на всё лицо', p:'≈900₽' },
+      ],
+    },
+    sensitive: {
+      'Очищение': [
+        { n:'Bioderma Sensibio H2O', d:'без смывания', p:'≈900₽' },
+        { n:'Cetaphil Gentle Skin Cleanser', d:'не сушит', p:'≈700₽' },
+        { n:'Avène Tolérance Extrême очищение', d:'термальная вода', p:'≈1300₽' },
+      ],
+      'Тоник / актив': [
+        { n:'Cosrx Centella Blemish Cream', d:'успокаивает', p:'≈1200₽' },
+        { n:'The Ordinary Niacinamide 5% (мягче)', d:'низкий процент', p:'≈900₽' },
+        { n:'Purito Centella Toner', d:'без отдушек', p:'≈1100₽' },
+      ],
+      'Увлажнение': [
+        { n:'La Roche-Posay Toleriane Sensitive', d:'минимум ингредиентов', p:'≈1500₽' },
+        { n:'Avène Tolérance Cream', d:'для реактивной кожи', p:'≈1700₽' },
+        { n:'CeraVe Moisturizing Cream', d:'керамиды', p:'≈1300₽' },
+      ],
+      'SPF (только минеральный)': [
+        { n:'Avène Mineral SPF50', d:'цинк, без химии', p:'≈1700₽' },
+        { n:'La Roche-Posay Anthelios Mineral SPF50', d:'для аллергиков', p:'≈2200₽' },
+      ],
+      'Что НЕ брать': [
+        { n:'Спирт, отдушки, эфирные масла', d:'триггеры покраснений', p:'' },
+        { n:'Ретинол / кислоты на старте', d:'через 2-3 мес адаптации', p:'' },
+      ],
+    },
+    acne: {
+      'Очищение': [
+        { n:'CeraVe SA Cleanser (салицилка)', d:'для жирной + угрей', p:'≈1100₽' },
+        { n:'Cosrx Good Morning Gel', d:'pH-friendly + BHA', p:'≈900₽' },
+        { n:'Effaclar Gel (La Roche-Posay)', d:'аптечный гель', p:'≈1400₽' },
+      ],
+      'Точечные': [
+        { n:'Cosrx Acne Pimple Master Patch', d:'наклейки на воспаления', p:'≈400₽' },
+        { n:'The Ordinary Salicylic Acid 2% Solution', d:'точечно на узел', p:'≈900₽' },
+        { n:'Базирон AC 5% (бензоил пероксид)', d:'аптека, по рецепту в РФ', p:'≈900₽' },
+      ],
+      'Тоник / актив': [
+        { n:'The Ordinary Niacinamide 10% + Zinc', d:'контроль себума', p:'≈900₽' },
+        { n:'Paula\u2019s Choice 2% BHA Liquid', d:'если бюджет', p:'≈2400₽' },
+        { n:'Cosrx BHA Blackhead Power Liquid', d:'дешевле, тот же эффект', p:'≈1100₽' },
+      ],
+      'Увлажнение': [
+        { n:'CeraVe AM Lotion', d:'не комедогенно', p:'≈1100₽' },
+        { n:'Cosrx Oil-free Moisturizer', d:'снежная влага', p:'≈1300₽' },
+      ],
+      'SPF': [
+        { n:'Beauty of Joseon Relief Sun SPF50+', d:'для acne-prone', p:'≈1300₽' },
+        { n:'La Roche-Posay Anthelios SPF50', d:'фотозащита под кислоты', p:'≈2200₽' },
+      ],
+      'Внутрь / врач': [
+        { n:'Дерматолог', d:'если узлы / cysts — нужна изотретиноин-терапия. Не тяни.', p:'' },
+        { n:'Молочка: убрать на 8 нед', d:'связь молоко ↔ акне доказана', p:'' },
+      ],
+    },
+    normal: {
+      'Очищение': [
+        { n:'CeraVe Hydrating Cleanser', d:'мягкая база', p:'≈800₽' },
+        { n:'Cosrx Low pH Cleanser', d:'универсал', p:'≈900₽' },
+      ],
+      'Тоник / актив': [
+        { n:'The Ordinary Vitamin C Suspension 23%', d:'утро, антиокс', p:'≈900₽' },
+        { n:'The Ordinary Niacinamide 10%', d:'вечером', p:'≈900₽' },
+      ],
+      'Увлажнение': [
+        { n:'CeraVe AM/PM Lotion', d:'базовый увлажнитель', p:'≈1100₽' },
+        { n:'Beauty of Joseon Dynasty Cream', d:'если хочешь побогаче', p:'≈1300₽' },
+      ],
+      'SPF': [
+        { n:'Beauty of Joseon Relief Sun SPF50+', d:'дефолт', p:'≈1300₽' },
+        { n:'Garnier Ambre Solaire SPF50', d:'если совсем бюджет', p:'≈450₽' },
+      ],
+      'Активы (3×/нед)': [
+        { n:'The Ordinary Retinal 0.2% Emulsion', d:'на ночь', p:'≈1500₽' },
+        { n:'The Ordinary AHA 30% + BHA 2%', d:'1×/нед пилинг', p:'≈900₽' },
+      ],
+    },
+  };
+  (function(){
+    const box = document.getElementById('cosm-chips');
+    const out = document.getElementById('cosm-out');
+    if (!box || !out) return;
+    function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    function render(key){
+      const groups = COSM[key];
+      if (!groups){ out.innerHTML = ''; return; }
+      const html = Object.keys(groups).map(name => {
+        const items = groups[name].map(it =>
+          `<li><b>${esc(it.n)}</b> — ${esc(it.d)}${it.p ? `<span class="price">${esc(it.p)}</span>` : ''}</li>`
+        ).join('');
+        return `<div class="cosm-group"><h4>${esc(name)}</h4><ul>${items}</ul></div>`;
+      }).join('');
+      out.innerHTML = html;
+      box.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('on', c.dataset.c === key)
+      );
+      try { localStorage.setItem('mogger.cosm', key); } catch(_){}
+    }
+    box.addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      render(c.dataset.c);
+      if (navigator.vibrate) navigator.vibrate(6);
+    });
+    const initial = localStorage.getItem('mogger.cosm') || localStorage.getItem('mogger.skin') || 'oily';
+    render(COSM[initial] ? initial : 'oily');
+  })();
 
   // ========= SKIN TYPE PICKER =========
   const SKIN = {
@@ -3290,23 +4020,32 @@
     pickerFor('energy-row', 'mogger.energy');
   })();
 
-  // ========= FACE RATING (daily 1-10 + 14-day history) =========
+  // ========= FACE RATING (multi-param + tier + UPAST trigger) =========
   (function(){
-    const slider = document.getElementById('face-rate-slider');
     const numEl  = document.getElementById('face-rate-num');
     const emEl   = document.getElementById('face-rate-emoji');
+    const tierEl = document.getElementById('rate-tier');
     const hist   = document.getElementById('face-history');
     const stats  = document.getElementById('face-stats');
-    if (!slider || !hist) return;
+    const paramsBox = document.getElementById('rate-params');
+    const clearBtn  = document.getElementById('rate-clear');
+    const fillBtn   = document.getElementById('rate-fill5');
+    const doomEl    = document.getElementById('ltn-doom');
+    const muteBtn   = document.getElementById('doom-mute');
+    const audioEl   = document.getElementById('upast-audio');
+    if (!numEl || !hist || !paramsBox) return;
 
+    const PARAMS = ['ramus','cheek','masc','eye','nose','oval'];
     const PREFIX = 'mogger.face.';
-    function dayKey(d){ return PREFIX + d.toISOString().slice(0,10); }
     function isoDay(offset){
-      const d = new Date();
-      d.setDate(d.getDate() - offset);
+      const d = new Date(); d.setDate(d.getDate() - offset);
       return d.toISOString().slice(0,10);
     }
+    function dayKeyOverall(d){ return PREFIX + d; }
+    function dayKeyParams(d){ return PREFIX + d + '.params'; }
+
     function emojiFor(v){
+      if (v == null) return '🪞';
       if (v <= 2) return '💀';
       if (v <= 4) return '😬';
       if (v <= 5) return '😐';
@@ -3315,35 +4054,189 @@
       if (v <= 9) return '🔥';
       return '👑';
     }
+    function tierFor(v){
+      if (v == null)       return { id:'untested', label:'UNTESTED' };
+      if (v < 2)           return { id:'subhuman', label:'SUBHUMAN' };
+      if (v < 4)           return { id:'ltn',      label:'LTN' };
+      if (v < 6)           return { id:'mtn',      label:'MTN' };
+      if (v < 8)           return { id:'htn',      label:'HTN' };
+      if (v < 9.5)         return { id:'chad',     label:'CHAD' };
+      return                      { id:'gigachad', label:'GIGACHAD' };
+    }
+
+    // ----- UPAST audio (only plays when overall is rated and < 4) -----
+    let audioCtx = null;
+    let synthNodes = null;
+    let usingHtmlAudio = false;
+    let userMutedToday = false;
+
+    function startSynth(){
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return false;
+        if (!audioCtx) audioCtx = new Ctx();
+        if (synthNodes) return true;
+        // Anxious sub-bass doom loop: two low oscillators + slow tremolo
+        const o1 = audioCtx.createOscillator();
+        const o2 = audioCtx.createOscillator();
+        const lfo = audioCtx.createOscillator();
+        const lfoGain = audioCtx.createGain();
+        const gain = audioCtx.createGain();
+        o1.type = 'sawtooth'; o1.frequency.value = 55;       // A1
+        o2.type = 'square';   o2.frequency.value = 41.2;     // E1
+        lfo.type = 'sine';    lfo.frequency.value = 0.7;
+        lfoGain.gain.value = 0.06;
+        gain.gain.value = 0.001;
+        lfo.connect(lfoGain).connect(gain.gain);
+        o1.connect(gain); o2.connect(gain);
+        gain.connect(audioCtx.destination);
+        o1.start(); o2.start(); lfo.start();
+        gain.gain.linearRampToValueAtTime(0.13, audioCtx.currentTime + 1.2);
+        synthNodes = { o1, o2, lfo, gain };
+        return true;
+      } catch(_){ return false; }
+    }
+    function stopSynth(){
+      if (!synthNodes || !audioCtx) return;
+      try {
+        synthNodes.gain.gain.cancelScheduledValues(audioCtx.currentTime);
+        synthNodes.gain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+        setTimeout(() => {
+          try { synthNodes.o1.stop(); synthNodes.o2.stop(); synthNodes.lfo.stop(); } catch(_){}
+          synthNodes = null;
+        }, 500);
+      } catch(_){ synthNodes = null; }
+    }
+    function startUpast(){
+      if (userMutedToday) return;
+      // Priority: user-uploaded mp3 (localStorage) > bundled file > synth
+      const custom = localStorage.getItem('mogger.upast.audio');
+      const url = custom || './upast.mp3';
+      audioEl.src = url;
+      audioEl.volume = 0.85;
+      const p = audioEl.play();
+      if (p && p.catch){
+        p.then(() => { usingHtmlAudio = true; })
+         .catch(() => { usingHtmlAudio = false; startSynth(); });
+      } else {
+        usingHtmlAudio = false; startSynth();
+      }
+    }
+
+    // Custom UPAST file upload — saves to localStorage as data URL
+    const upastFile = document.getElementById('upast-file');
+    upastFile && upastFile.addEventListener('change', e => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      if (f.size > 4_500_000){
+        alert('Файл больше 4.5MB, не поместится. Сожми/обрежь mp3 до ~3 мин.');
+        upastFile.value = '';
+        return;
+      }
+      const r = new FileReader();
+      r.onload = ev => {
+        try {
+          localStorage.setItem('mogger.upast.audio', ev.target.result);
+          alert('UPAST сохранён. Сыграет при общем рейте <4.');
+        } catch(_){
+          alert('Не хватает места в localStorage. Удали старые фото или используй файл поменьше.');
+        }
+      };
+      r.readAsDataURL(f);
+      upastFile.value = '';
+    });
+    function stopUpast(){
+      try { audioEl.pause(); audioEl.currentTime = 0; } catch(_){}
+      usingHtmlAudio = false;
+      stopSynth();
+    }
+    muteBtn && muteBtn.addEventListener('click', () => {
+      userMutedToday = true;
+      stopUpast();
+      doomEl.classList.remove('on');
+    });
+
+    // ----- read/write storage -----
+    function readParams(date){
+      try {
+        const raw = localStorage.getItem(dayKeyParams(date));
+        if (!raw) return null;
+        const o = JSON.parse(raw);
+        const hasAny = PARAMS.some(p => Number.isFinite(o[p]));
+        return hasAny ? o : null;
+      } catch(_){ return null; }
+    }
+    function writeParams(date, obj){
+      try { localStorage.setItem(dayKeyParams(date), JSON.stringify(obj)); } catch(_){}
+    }
+    function readOverall(date){
+      const raw = localStorage.getItem(dayKeyOverall(date));
+      if (raw == null || raw === '') return null;
+      const n = Number(raw); return isNaN(n) ? null : n;
+    }
+    function writeOverall(date, v){
+      try { localStorage.setItem(dayKeyOverall(date), String(v)); } catch(_){}
+    }
+    function deleteToday(date){
+      try {
+        localStorage.removeItem(dayKeyOverall(date));
+        localStorage.removeItem(dayKeyParams(date));
+      } catch(_){}
+    }
+
+    function computeOverall(obj){
+      const vals = PARAMS.map(p => obj[p]).filter(v => Number.isFinite(v));
+      if (!vals.length) return null;
+      return vals.reduce((s,n) => s+n, 0) / vals.length;
+    }
+
+    function paint(overall){
+      if (overall == null){
+        numEl.textContent = '—';
+        emEl.textContent  = '🪞';
+        const t = tierFor(null);
+        tierEl.textContent = t.label;
+        tierEl.dataset.t = t.id;
+        return;
+      }
+      const rounded = Math.round(overall * 10) / 10;
+      numEl.textContent = rounded.toFixed(1);
+      emEl.textContent  = emojiFor(rounded);
+      const t = tierFor(rounded);
+      tierEl.textContent = t.label;
+      tierEl.dataset.t = t.id;
+
+      // UPAST trigger: overall < 4 (LTN / SUBHUMAN)
+      const isLtn = rounded < 4;
+      doomEl.classList.toggle('on', isLtn && !userMutedToday);
+      if (isLtn){ startUpast(); } else { stopUpast(); }
+    }
 
     function renderHistory(){
       const days = 14;
       hist.innerHTML = '';
       const vals = [];
-      const todayISOStr = isoDay(0);
+      const today = isoDay(0);
       for (let i = days - 1; i >= 0; i--){
-        const k = PREFIX + isoDay(i);
-        const raw = localStorage.getItem(k);
-        const v = raw !== null && raw !== '' ? Number(raw) : null;
+        const d = isoDay(i);
+        const v = readOverall(d);
         const bar = document.createElement('div');
         bar.className = 'face-bar';
-        if (v === null) bar.classList.add('empty');
-        if (isoDay(i) === todayISOStr) bar.classList.add('today');
+        if (v == null) bar.classList.add('empty');
+        if (d === today) bar.classList.add('today');
         const fill = document.createElement('span');
-        const h = v === null ? 6 : Math.max(8, (v / 10) * 100);
+        const h = v == null ? 6 : Math.max(8, (v / 10) * 100);
         fill.style.height = h + '%';
-        bar.title = isoDay(i) + (v !== null ? ` · ${v}/10` : ' · нет данных');
+        bar.title = d + (v != null ? ` · ${v.toFixed(1)}/10` : ' · нет данных');
         bar.appendChild(fill);
         hist.appendChild(bar);
-        if (v !== null) vals.push({ v, day: i });
+        if (v != null) vals.push({ v, day: i });
       }
-
       if (!vals.length){
         stats.innerHTML = 'средн. — · тренд —';
         return;
       }
       const avg = vals.reduce((s,x) => s + x.v, 0) / vals.length;
-      // trend: last 7 vs prior 7
       const recent = vals.filter(x => x.day < 7).map(x => x.v);
       const prior  = vals.filter(x => x.day >= 7).map(x => x.v);
       let trendStr = '—';
@@ -3360,40 +4253,194 @@
       stats.innerHTML = `средн. <b>${avg.toFixed(1)}</b> · тренд ${trendStr}`;
     }
 
-    function paint(v){
-      numEl.textContent = String(v);
-      emEl.textContent  = emojiFor(v);
+    function paintRows(state){
+      paramsBox.querySelectorAll('.rate-row[data-rp]').forEach(row => {
+        const k = row.dataset.rp;
+        const input = row.querySelector('input[type=range]');
+        const valEl = row.querySelector('.rate-val');
+        const v = state[k];
+        if (Number.isFinite(v)){
+          row.classList.remove('unrated');
+          input.value = v;
+          valEl.textContent = String(v);
+        } else {
+          row.classList.add('unrated');
+          input.value = 5;
+          valEl.textContent = '—';
+        }
+      });
     }
 
-    function save(v){
-      try { localStorage.setItem(dayKey(new Date()), String(v)); } catch(_){}
-    }
+    // current day state in memory
+    const today = isoDay(0);
+    let state = readParams(today) || {};
 
-    // initial
-    const stored = localStorage.getItem(dayKey(new Date()));
-    const initial = stored !== null && stored !== '' && !isNaN(Number(stored))
-      ? Number(stored) : null;
-    if (initial !== null){
-      slider.value = initial;
-      paint(initial);
-    } else {
-      // unrated today: keep slider at 5 but show "—"
-      slider.value = 5;
-      numEl.textContent = '—';
-      emEl.textContent  = '🪞';
-    }
+    // initial paint
+    paintRows(state);
+    const ov = computeOverall(state);
+    paint(ov);
+    renderHistory();
 
-    slider.addEventListener('input', e => {
-      const v = Number(e.target.value);
-      paint(v);
-      save(v);
+    paramsBox.addEventListener('input', e => {
+      const input = e.target.closest('input[type=range]');
+      if (!input) return;
+      const row = input.closest('.rate-row[data-rp]');
+      const k = row.dataset.rp;
+      const v = Number(input.value);
+      state[k] = v;
+      row.classList.remove('unrated');
+      row.querySelector('.rate-val').textContent = String(v);
+      writeParams(today, state);
+      const overall = computeOverall(state);
+      if (overall != null) writeOverall(today, Math.round(overall * 10) / 10);
+      paint(overall);
       renderHistory();
     });
-    slider.addEventListener('change', () => {
-      if (navigator.vibrate) navigator.vibrate(8);
+    paramsBox.addEventListener('change', () => {
+      if (navigator.vibrate) navigator.vibrate(6);
     });
 
-    renderHistory();
+    clearBtn && clearBtn.addEventListener('click', () => {
+      state = {};
+      deleteToday(today);
+      userMutedToday = false;
+      stopUpast();
+      doomEl.classList.remove('on');
+      paintRows(state);
+      paint(null);
+      renderHistory();
+    });
+    fillBtn && fillBtn.addEventListener('click', () => {
+      state = {};
+      PARAMS.forEach(p => state[p] = 5);
+      writeParams(today, state);
+      writeOverall(today, 5);
+      paintRows(state);
+      paint(5);
+      renderHistory();
+    });
+  })();
+
+  // ========= INVERSION MASK (facial symmetry) =========
+  (function(){
+    const file  = document.getElementById('inv-file');
+    const clear = document.getElementById('inv-clear');
+    const axis  = document.getElementById('inv-axis');
+    const axisVal = document.getElementById('inv-axis-val');
+    const cOrig  = document.getElementById('inv-orig');
+    const cLeft  = document.getElementById('inv-left');
+    const cRight = document.getElementById('inv-right');
+    if (!file || !cOrig || !cLeft || !cRight) return;
+
+    const STORAGE_KEY = 'mogger.inv.photo';
+    const AXIS_KEY    = 'mogger.inv.axis';
+    let sourceImg = null;
+
+    function drawAll(){
+      if (!sourceImg) return;
+      const a = Number(axis.value) / 100;
+      axisVal.textContent = (a * 100).toFixed(0) + '%';
+
+      // Original
+      const w = sourceImg.naturalWidth, h = sourceImg.naturalHeight;
+      cOrig.width = w; cOrig.height = h;
+      const cx = cOrig.getContext('2d');
+      cx.clearRect(0,0,w,h);
+      cx.drawImage(sourceImg, 0, 0);
+      // Draw axis guide
+      cx.strokeStyle = 'rgba(255,255,255,.6)';
+      cx.lineWidth = Math.max(1, w * 0.004);
+      cx.setLineDash([w*0.02, w*0.015]);
+      cx.beginPath();
+      cx.moveTo(w * a, 0); cx.lineTo(w * a, h);
+      cx.stroke();
+      cx.setLineDash([]);
+      cOrig.classList.add('on');
+
+      const cutX = Math.round(w * a);
+
+      // Left half mirrored: draw left half, then mirror it to the right
+      cLeft.width = w; cLeft.height = h;
+      const cl = cLeft.getContext('2d');
+      cl.clearRect(0,0,w,h);
+      // left half (0..cutX)
+      cl.drawImage(sourceImg, 0, 0, cutX, h, 0, 0, cutX, h);
+      // mirror onto right half
+      cl.save();
+      cl.translate(w, 0); cl.scale(-1, 1);
+      cl.drawImage(sourceImg, 0, 0, cutX, h, 0, 0, cutX, h);
+      cl.restore();
+      cLeft.classList.add('on');
+
+      // Right half mirrored
+      cRight.width = w; cRight.height = h;
+      const cr = cRight.getContext('2d');
+      cr.clearRect(0,0,w,h);
+      // right half (cutX..w)
+      cr.drawImage(sourceImg, cutX, 0, w - cutX, h, cutX, 0, w - cutX, h);
+      // mirror onto left half
+      cr.save();
+      cr.translate(w, 0); cr.scale(-1, 1);
+      cr.drawImage(sourceImg, cutX, 0, w - cutX, h, 0, 0, w - cutX, h);
+      cr.restore();
+      cRight.classList.add('on');
+    }
+
+    function loadFromDataUrl(url){
+      if (!url){
+        sourceImg = null;
+        [cOrig, cLeft, cRight].forEach(c => c.classList.remove('on'));
+        return;
+      }
+      const im = new Image();
+      im.onload = () => { sourceImg = im; drawAll(); };
+      im.src = url;
+    }
+
+    file.addEventListener('change', e => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = ev => {
+        const im = new Image();
+        im.onload = () => {
+          // Resize to max 1024px for storage
+          const maxDim = 1024;
+          const scale = Math.min(1, maxDim / Math.max(im.width, im.height));
+          const c = document.createElement('canvas');
+          c.width = (im.width * scale)|0;
+          c.height = (im.height * scale)|0;
+          c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+          try {
+            const data = c.toDataURL('image/jpeg', 0.86);
+            localStorage.setItem(STORAGE_KEY, data);
+            loadFromDataUrl(data);
+          } catch(err){
+            alert('Не хватает места в localStorage. Удали старые фото.');
+          }
+        };
+        im.src = ev.target.result;
+      };
+      r.readAsDataURL(f);
+      file.value = '';
+    });
+
+    clear.addEventListener('click', () => {
+      if (!confirm('Удалить фото и инверсию?')) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(_){}
+      loadFromDataUrl(null);
+    });
+
+    axis.addEventListener('input', () => {
+      try { localStorage.setItem(AXIS_KEY, axis.value); } catch(_){}
+      drawAll();
+    });
+
+    // Initial load from storage
+    const savedAxis = localStorage.getItem(AXIS_KEY);
+    if (savedAxis !== null) { axis.value = savedAxis; axisVal.textContent = savedAxis + '%'; }
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) loadFromDataUrl(saved);
   })();
 
   // ========= EQUIPMENT TABS (body screen) =========
@@ -3420,7 +4467,7 @@
     });
 
     const saved = localStorage.getItem(KEY);
-    const valid = ['barbell','jumprope','bodyweight'];
+    const valid = ['barbell','jumprope','bodyweight','cardio'];
     activate(valid.includes(saved) ? saved : 'barbell');
   })();
 
