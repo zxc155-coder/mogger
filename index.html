@@ -1626,6 +1626,123 @@
     color:hsl(var(--accent-h) 100% 85%);padding:10px 14px;border-radius:10px;font-weight:700;font-size:13px;
   }
 
+  /* REST / FAST timers */
+  .rest-presets{ display:flex;gap:6px;flex-wrap:wrap;justify-content:center }
+  .rest-presets button{
+    padding:5px 10px;border-radius:8px;
+    background:hsla(var(--accent-h),60%,14%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.12);
+    color:hsl(var(--accent-h) 30% 70%);font-size:11.5px;font-weight:700;
+  }
+  .rest-presets button.on{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;border-color:transparent;
+  }
+  .rest-disp{
+    text-align:center;font-size:48px;font-weight:800;
+    color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.04em;
+    padding:14px 0 4px;
+  }
+  .rest-disp.warning{ color:hsl(28 100% 60%) }
+  .rest-disp.done{ color:hsl(140 80% 60%);animation:pulse 1s infinite }
+  @keyframes pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+
+  /* RECORDS grid */
+  .rec-grid{ display:grid;grid-template-columns:1fr 1fr;gap:8px }
+  .rec-cell{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:8px;
+  }
+  .rec-cell .rec-name{ font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:hsl(var(--accent-h) 30% 70%);font-weight:700 }
+  .rec-cell .rec-val{ font-size:22px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums }
+  .rec-cell .rec-date{ font-size:10px;color:hsl(var(--accent-h) 30% 60%);margin-top:2px }
+  .rec-cell .rec-input{ display:flex;gap:4px;margin-top:6px }
+  .rec-cell .rec-input input{
+    flex:1;background:hsla(var(--accent-h),60%,8%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.15);
+    border-radius:6px;padding:5px 7px;color:#fff;font-size:13px;font-weight:600;
+  }
+  .rec-cell .rec-input button{
+    padding:5px 9px;border-radius:6px;
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;font-weight:700;font-size:12px;
+  }
+  .rec-cell.pr{ border-color:hsl(140 80% 50%);box-shadow:0 0 12px hsla(140,80%,50%,.3) }
+
+  /* 1RM */
+  .rm-result{
+    text-align:center;font-size:28px;font-weight:800;color:hsl(var(--accent-h) 100% 75%);
+    margin-top:8px;font-variant-numeric:tabular-nums;
+  }
+  .rm-percent{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:8px;
+  }
+  .rm-percent > div{
+    background:hsla(var(--accent-h),60%,11%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.1);
+    border-radius:6px;padding:5px 4px;text-align:center;
+  }
+  .rm-percent .pp{ font-size:9.5px;color:hsl(var(--accent-h) 30% 65%) }
+  .rm-percent b{ display:block;font-size:13px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums }
+
+  /* HEATMAP */
+  .heat-grid{
+    display:grid;grid-template-columns:repeat(7,1fr);gap:3px;
+  }
+  .heat-grid .heat-cell{
+    aspect-ratio:1/1;border-radius:4px;
+    background:hsla(var(--accent-h),60%,15%,.4);
+    border:1px solid hsla(var(--accent-h),100%,73%,.08);
+    position:relative;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:9px;font-weight:700;color:hsl(var(--accent-h) 30% 50%);
+  }
+  .heat-grid .heat-cell.h1{ background:hsla(var(--accent-h),65%,30%,.5); color:hsl(var(--accent-h) 30% 75%) }
+  .heat-grid .heat-cell.h2{ background:hsla(var(--accent-h),70%,42%,.6); color:hsl(var(--accent-h) 30% 85%) }
+  .heat-grid .heat-cell.h3{ background:hsla(var(--accent-h),80%,52%,.75); color:#fff }
+  .heat-grid .heat-cell.h4{ background:hsla(var(--accent-h),90%,60%,.9); color:#fff;box-shadow:0 0 6px hsla(var(--accent-h),100%,65%,.35) }
+  .heat-legend{
+    display:flex;align-items:center;gap:4px;font-size:10px;
+    color:hsl(var(--accent-h) 30% 65%);margin-top:6px;justify-content:center;
+  }
+  .heat-legend .hl{ width:11px;height:11px;border-radius:3px;border:1px solid hsla(var(--accent-h),100%,73%,.08) }
+  .heat-legend .hl0{ background:hsla(var(--accent-h),60%,15%,.4) }
+  .heat-legend .hl1{ background:hsla(var(--accent-h),65%,30%,.5) }
+  .heat-legend .hl2{ background:hsla(var(--accent-h),70%,42%,.6) }
+  .heat-legend .hl3{ background:hsla(var(--accent-h),80%,52%,.75) }
+  .heat-legend .hl4{ background:hsla(var(--accent-h),90%,60%,.9) }
+
+  /* BEST grid */
+  .best-grid{ display:grid;grid-template-columns:repeat(2,1fr);gap:8px }
+  .best-cell{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:9px 10px;
+  }
+  .best-cell .lbl{ font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:hsl(var(--accent-h) 30% 70%);font-weight:700 }
+  .best-cell b{ font-size:17px;font-weight:800;color:#fff;display:block;font-variant-numeric:tabular-nums }
+  .best-cell .sub{ font-size:10px;color:hsl(var(--accent-h) 30% 60%);margin-top:2px }
+
+  /* GOALS */
+  .goals-list{ display:flex;flex-direction:column;gap:6px }
+  .goal-card{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:8px 10px;
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .goal-card .gname{ font-size:13px;font-weight:700;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:6px }
+  .goal-card .gname .gx{ font-size:13px;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;padding:2px 5px }
+  .goal-card .gmeta{ font-size:10px;color:hsl(var(--accent-h) 30% 65%);display:flex;justify-content:space-between }
+  .goal-card .gbar{
+    height:6px;border-radius:3px;background:hsla(var(--accent-h),60%,18%,.5);overflow:hidden;
+  }
+  .goal-card .gbar > div{
+    height:100%;background:linear-gradient(90deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    transition:width .6s ease;
+  }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3746,9 +3863,223 @@
       <a href="#stats-weight">Вес</a>
       <a href="#stats-measure">Замеры</a>
       <a href="#stats-workout">Тренировки</a>
+      <a href="#stats-rest">Rest</a>
+      <a href="#stats-records">Рекорды</a>
+      <a href="#stats-1rm">1RM</a>
+      <a href="#stats-cardio">Кардио</a>
       <a href="#stats-food">Питание</a>
+      <a href="#stats-fasting">Фастинг</a>
+      <a href="#stats-sleep">Сон</a>
+      <a href="#stats-steps">Шаги</a>
+      <a href="#stats-vitals">Витал</a>
+      <a href="#stats-heatmap">Тепло-карта</a>
+      <a href="#stats-best">Лучшее</a>
+      <a href="#stats-goals">Цели</a>
       <a href="#stats-face">Лицо</a>
       <a href="#stats-data">Бэкап</a>
+    </div>
+
+    <!-- ============ REST TIMER ============ -->
+    <div class="card" id="stats-rest" style="margin-top:14px">
+      <h2>Rest timer · между подходами</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Запусти таймер после подхода. Пикнет и завибрирует когда выйдет время.
+      </p>
+      <div class="rest-presets" id="rest-presets">
+        <button data-s="60">60</button>
+        <button data-s="90" class="on">90</button>
+        <button data-s="120">120</button>
+        <button data-s="180">180</button>
+        <button data-s="240">240</button>
+        <button data-s="300">300</button>
+      </div>
+      <div class="rest-disp"><span id="rest-disp">01:30</span></div>
+      <div class="row" style="gap:6px;justify-content:center;margin-top:6px">
+        <button id="rest-start" type="button" class="pri">▶ Старт</button>
+        <button id="rest-reset" type="button" class="ghost">Сброс</button>
+      </div>
+      <div class="dl-mini" style="justify-content:center;margin-top:6px">
+        Последнее: <b id="rest-last">—</b>
+      </div>
+    </div>
+
+    <!-- ============ MAX REP RECORDS ============ -->
+    <div class="card" id="stats-records" style="margin-top:14px">
+      <h2>Bodyweight рекорды</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Максимум за раз. PR подсвечивается при превышении предыдущего.
+      </p>
+      <div class="rec-grid" id="rec-grid"></div>
+      <p class="muted" style="font-size:11px;margin-top:6px">
+        Все записи логируются с датой. Авто-streak показывается ниже.
+      </p>
+    </div>
+
+    <!-- ============ 1RM EPLEY CALCULATOR ============ -->
+    <div class="card" id="stats-1rm" style="margin-top:14px">
+      <h2>1RM калькулятор (Epley)</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Прикинь максимальный 1 повтор по формуле Epley: <b>1RM = вес × (1 + повт/30)</b>.
+      </p>
+      <div class="row" style="gap:6px">
+        <input type="number" id="rm-w" placeholder="вес кг" step="0.5" min="0" style="flex:1" inputmode="decimal">
+        <input type="number" id="rm-r" placeholder="повт (1-20)" min="1" max="20" style="flex:1" inputmode="numeric">
+        <button id="rm-calc" type="button" class="pri">Считать</button>
+      </div>
+      <div class="rm-result" id="rm-result">—</div>
+      <div class="rm-percent" id="rm-percent"></div>
+    </div>
+
+    <!-- ============ CARDIO LOG ============ -->
+    <div class="card" id="stats-cardio" style="margin-top:14px">
+      <h2>Кардио · лог сессий</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Бег, ходьба, велосипед, скакалка. Логируется отдельно от силовых.
+      </p>
+      <div class="row" style="gap:6px;flex-wrap:wrap">
+        <select id="cardio-type" style="flex:1;min-width:90px">
+          <option value="run">🏃 Бег</option>
+          <option value="walk">🚶 Ходьба</option>
+          <option value="bike">🚴 Велосипед</option>
+          <option value="rope">🪢 Скакалка</option>
+          <option value="swim">🏊 Плавание</option>
+          <option value="row">🚣 Гребля</option>
+          <option value="hike">🥾 Поход</option>
+          <option value="other">⋯ Другое</option>
+        </select>
+        <input type="number" id="cardio-min" placeholder="мин" min="1" max="600" style="flex:0 0 70px" inputmode="numeric">
+        <input type="number" id="cardio-km" placeholder="км (опц)" step="0.1" min="0" style="flex:0 0 85px" inputmode="decimal">
+        <button id="cardio-add" type="button" class="pri">+</button>
+      </div>
+      <div class="log-list" id="cardio-log" style="margin-top:8px"></div>
+    </div>
+
+    <!-- ============ FASTING TIMER ============ -->
+    <div class="card" id="stats-fasting" style="margin-top:14px">
+      <h2>Интервальное голодание</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Запусти таймер когда поел последний раз. Окно еды/окно голода считается автоматически.
+      </p>
+      <div class="rest-presets" id="fast-presets">
+        <button data-h="14">14:10</button>
+        <button data-h="16" class="on">16:8</button>
+        <button data-h="18">18:6</button>
+        <button data-h="20">20:4</button>
+        <button data-h="24">24h OMAD</button>
+      </div>
+      <div class="rest-disp"><span id="fast-disp">—</span></div>
+      <div class="row" style="gap:6px;justify-content:center;margin-top:6px">
+        <button id="fast-start" type="button" class="pri">▶ Старт сейчас</button>
+        <button id="fast-stop" type="button" class="ghost">⏹ Стоп</button>
+      </div>
+      <div class="dl-mini" style="justify-content:center;margin-top:6px">
+        Цель: <b id="fast-goal">16h</b> · Прошло: <b id="fast-elapsed">0h 0m</b>
+      </div>
+    </div>
+
+    <!-- ============ SLEEP HISTORY ============ -->
+    <div class="card" id="stats-sleep" style="margin-top:14px">
+      <h2>Сон — история</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Из «Лог дня» на главной. Цель 7-9 ч.
+      </p>
+      <div class="chart-wrap" id="sleep-chart-wrap">
+        <div class="chart-empty">Запиши сон в «Лог дня» — появится график.</div>
+      </div>
+      <div class="dl-mini" id="sleep-summary" style="justify-content:center;margin-top:6px">—</div>
+    </div>
+
+    <!-- ============ STEPS HISTORY ============ -->
+    <div class="card" id="stats-steps" style="margin-top:14px">
+      <h2>Шаги — история</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Из «Лог дня» на главной. Цель 10k.
+      </p>
+      <div class="chart-wrap" id="steps-chart-wrap">
+        <div class="chart-empty">Запиши шаги в «Лог дня» — появится график.</div>
+      </div>
+      <div class="dl-mini" id="steps-summary" style="justify-content:center;margin-top:6px">—</div>
+    </div>
+
+    <!-- ============ VITALS (HR/BP/RHR/Body fat) ============ -->
+    <div class="card" id="stats-vitals" style="margin-top:14px">
+      <h2>Витал · HR / BP / RHR / % жира</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Раз в день утром на пустой желудок. Можно пропускать.
+      </p>
+      <div class="dl-grid">
+        <div class="dl-cell">
+          <label class="dl-lbl">HR покоя</label>
+          <input type="number" id="v-rhr" placeholder="60" min="30" max="200" inputmode="numeric">
+          <div class="dl-mini" id="v-rhr-hint">норма 60-80</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Давление</label>
+          <div class="row" style="gap:4px">
+            <input type="number" id="v-sys" placeholder="120" min="60" max="220" inputmode="numeric" style="flex:1">
+            <input type="number" id="v-dia" placeholder="80" min="40" max="140" inputmode="numeric" style="flex:1">
+          </div>
+          <div class="dl-mini" id="v-bp-hint">норма ~120/80</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">% жира</label>
+          <input type="number" id="v-bf" placeholder="15" step="0.1" min="3" max="60" inputmode="decimal">
+          <div class="dl-mini">визуально / весами</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Температура °C</label>
+          <input type="number" id="v-temp" placeholder="36.6" step="0.1" min="34" max="42" inputmode="decimal">
+          <div class="dl-mini">если меришь</div>
+        </div>
+      </div>
+      <button id="v-save" type="button" class="pri" style="width:100%;margin-top:6px">Записать витал на сегодня</button>
+      <div class="log-list" id="v-log" style="margin-top:8px"></div>
+    </div>
+
+    <!-- ============ MONTHLY HEATMAP ============ -->
+    <div class="card" id="stats-heatmap" style="margin-top:14px">
+      <h2>Тепло-карта · 35 дней</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Каждая клетка = день. Цвет = % выполнения чек-листа. Тапни — откроется день.
+      </p>
+      <div class="heat-grid" id="heat-grid"></div>
+      <div class="heat-legend">
+        <span>меньше</span>
+        <span class="hl hl0"></span>
+        <span class="hl hl1"></span>
+        <span class="hl hl2"></span>
+        <span class="hl hl3"></span>
+        <span class="hl hl4"></span>
+        <span>больше</span>
+      </div>
+    </div>
+
+    <!-- ============ BEST STATS (longest streak, best day, 30-vs-30) ============ -->
+    <div class="card" id="stats-best" style="margin-top:14px">
+      <h2>Лучшие показатели</h2>
+      <div class="best-grid" id="best-grid"></div>
+    </div>
+
+    <!-- ============ MULTI-GOAL ============ -->
+    <div class="card" id="stats-goals" style="margin-top:14px">
+      <h2>Цели · мульти</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Поставь до 6 целей с дедлайнами. Прогресс считается автоматом если связан с метрикой.
+      </p>
+      <div class="goals-list" id="goals-list"></div>
+      <div class="row" style="gap:6px;margin-top:6px;flex-wrap:wrap">
+        <input id="goal-name" placeholder="название (напр. 75 кг)" style="flex:1;min-width:120px" maxlength="40">
+        <select id="goal-metric" style="flex:0 0 110px">
+          <option value="weight">Вес</option>
+          <option value="face">Рейт лица</option>
+          <option value="workouts">Тренировок</option>
+          <option value="nofap">No-fap дней</option>
+          <option value="custom">Свободная</option>
+        </select>
+        <input type="number" id="goal-target" placeholder="цель" step="0.1" style="flex:0 0 70px" inputmode="decimal">
+        <input type="date" id="goal-date" style="flex:0 0 130px">
+        <button id="goal-add" type="button" class="pri">+</button>
+      </div>
     </div>
 
     <!-- Weight tracker -->
@@ -5158,6 +5489,7 @@
     {id:'screen', t:'Без соц-сетей после 22:00',d:'Сон до 23:30'},
     {id:'sleep',  t:'Сон 7–9 ч на спине',   d:'Подушка чуть выше'}
   ];
+  window.tasks = tasks;
   const dayKey = 'mogger.day.' + new Date().toISOString().slice(0,10);
   const state = JSON.parse(localStorage.getItem(dayKey) || '{}');
   const listEl = document.getElementById('daily-list');
@@ -7508,6 +7840,553 @@
     });
     pick();
     refreshCount();
+  })();
+
+  // ========= REST TIMER =========
+  (function(){
+    const disp = document.getElementById('rest-disp');
+    const presets = document.getElementById('rest-presets');
+    const startBtn = document.getElementById('rest-start');
+    const resetBtn = document.getElementById('rest-reset');
+    const lastEl = document.getElementById('rest-last');
+    if (!disp) return;
+    let preset = 90, remaining = 90, ticking = false, iv = null;
+    function fmt(s){ s=Math.max(0,Math.floor(s)); const m=Math.floor(s/60), sec=s%60; return (m<10?'0':'')+m+':'+(sec<10?'0':'')+sec; }
+    function render(){
+      disp.textContent = fmt(remaining);
+      disp.classList.toggle('warning', remaining <= 10 && remaining > 0);
+      disp.classList.toggle('done', remaining === 0 && ticking);
+      startBtn.textContent = ticking ? '⏸ Пауза' : '▶ Старт';
+    }
+    function tick(){
+      remaining -= 1;
+      if (remaining <= 0){
+        stop();
+        if (UI.sound()){
+          try{
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const o = ctx.createOscillator(); const g = ctx.createGain();
+            o.frequency.value=880; o.type='sine'; o.connect(g); g.connect(ctx.destination);
+            g.gain.value=0.0001; g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime+0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.5);
+            o.start(); o.stop(ctx.currentTime+0.55);
+          }catch(_){}
+        }
+        if (window.safeVibrate) window.safeVibrate([30,80,30,80,30]);
+        if (typeof toast === 'function') toast('Время! Подход.');
+        const log = JSON.parse(localStorage.getItem('mogger.rest.log') || '[]');
+        log.unshift({ t: Date.now(), s: preset }); log.splice(20);
+        localStorage.setItem('mogger.rest.log', JSON.stringify(log));
+        renderLast();
+      }
+      render();
+    }
+    function start(){ ticking = true; iv = setInterval(tick, 1000); render(); }
+    function stop(){ ticking = false; if (iv){ clearInterval(iv); iv = null; } render(); }
+    presets.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      stop();
+      presets.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+      b.classList.add('on');
+      preset = +b.dataset.s; remaining = preset;
+      render();
+    }));
+    startBtn.addEventListener('click', () => { ticking ? stop() : start(); });
+    resetBtn.addEventListener('click', () => { stop(); remaining = preset; render(); });
+    function renderLast(){
+      const log = JSON.parse(localStorage.getItem('mogger.rest.log') || '[]');
+      if (!log.length){ lastEl.textContent = '—'; return; }
+      const ago = Math.floor((Date.now() - log[0].t) / 1000);
+      const agoStr = ago < 60 ? ago+'с назад' : Math.floor(ago/60)+'м назад';
+      lastEl.textContent = log[0].s + 'с (' + agoStr + ')';
+    }
+    renderLast();
+    render();
+  })();
+
+  // ========= MAX REP RECORDS =========
+  (function(){
+    const grid = document.getElementById('rec-grid');
+    if (!grid) return;
+    const RECORDS = [
+      { key:'pushup', name:'Отжимания', unit:'раз' },
+      { key:'pullup', name:'Подтягивания', unit:'раз' },
+      { key:'squat', name:'Приседания', unit:'раз' },
+      { key:'plank', name:'Планка', unit:'сек' },
+      { key:'dip', name:'Брусья', unit:'раз' },
+      { key:'burpee', name:'Бёрпи', unit:'раз' }
+    ];
+    function load(){ try{ return JSON.parse(localStorage.getItem('mogger.records') || '{}'); }catch(_){ return {}; } }
+    function save(r){ localStorage.setItem('mogger.records', JSON.stringify(r)); }
+    function render(){
+      const rec = load();
+      grid.innerHTML = RECORDS.map(r => {
+        const v = rec[r.key];
+        const isNew = v && v.fresh;
+        return `<div class="rec-cell${isNew ? ' pr' : ''}" data-k="${r.key}">
+          <div class="rec-name">${r.name}</div>
+          <div class="rec-val">${v && v.val ? v.val : '—'} <small style="font-size:11px;font-weight:600;color:hsl(var(--accent-h) 30% 65%)">${r.unit}</small></div>
+          <div class="rec-date">${v && v.date ? 'PR с ' + v.date : 'новый — поставь PR'}</div>
+          <div class="rec-input">
+            <input type="number" placeholder="попытка" min="0" max="9999" inputmode="numeric">
+            <button data-k="${r.key}">+ PR</button>
+          </div>
+        </div>`;
+      }).join('');
+      grid.querySelectorAll('button[data-k]').forEach(b => b.addEventListener('click', () => {
+        const k = b.dataset.k;
+        const input = b.parentElement.querySelector('input');
+        const v = parseInt(input.value, 10);
+        if (!v || v <= 0) return;
+        const cur = load();
+        const prev = cur[k] && cur[k].val ? cur[k].val : 0;
+        if (v <= prev){
+          if (typeof toast === 'function') toast('Меньше PR. Прошлый: ' + prev);
+          return;
+        }
+        cur[k] = { val: v, date: new Date().toISOString().slice(0,10), fresh: true };
+        save(cur);
+        if (typeof toast === 'function') toast('PR! ' + RECORDS.find(r => r.key === k).name + ': ' + v + (prev ? ' (было ' + prev + ')' : ''));
+        if (window.safeVibrate) window.safeVibrate([10,50,10,50,10]);
+        if (typeof confetti === 'function') confetti(30);
+        render();
+        setTimeout(() => { cur[k].fresh = false; save(cur); }, 5000);
+      }));
+    }
+    render();
+  })();
+
+  // ========= 1RM EPLEY CALC =========
+  (function(){
+    const wInp = document.getElementById('rm-w');
+    const rInp = document.getElementById('rm-r');
+    const btn = document.getElementById('rm-calc');
+    const out = document.getElementById('rm-result');
+    const pct = document.getElementById('rm-percent');
+    if (!btn) return;
+    function calc(){
+      const w = parseFloat(wInp.value) || 0;
+      const r = parseInt(rInp.value, 10) || 0;
+      if (w <= 0 || r <= 0){ out.textContent = '—'; pct.innerHTML = ''; return; }
+      const oneRM = w * (1 + r/30);
+      out.textContent = oneRM.toFixed(1) + ' кг (1RM)';
+      pct.innerHTML = [60,70,80,90,95].map(p => `<div><div class="pp">${p}%</div><b>${(oneRM*p/100).toFixed(0)}кг</b></div>`).join('');
+    }
+    btn.addEventListener('click', calc);
+    wInp.addEventListener('input', calc);
+    rInp.addEventListener('input', calc);
+  })();
+
+  // ========= CARDIO LOG =========
+  (function(){
+    const typeSel = document.getElementById('cardio-type');
+    const minEl = document.getElementById('cardio-min');
+    const kmEl = document.getElementById('cardio-km');
+    const addBtn = document.getElementById('cardio-add');
+    const list = document.getElementById('cardio-log');
+    if (!list) return;
+    const TYPES = { run:'🏃 Бег', walk:'🚶 Ходьба', bike:'🚴 Велосипед', rope:'🪢 Скакалка', swim:'🏊 Плавание', row:'🚣 Гребля', hike:'🥾 Поход', other:'⋯ Другое' };
+    function load(){ try{ return JSON.parse(localStorage.getItem('mogger.cardio') || '[]'); }catch(_){ return []; } }
+    function save(a){ localStorage.setItem('mogger.cardio', JSON.stringify(a)); }
+    function render(){
+      const log = load().slice().reverse().slice(0,40);
+      if (!log.length){ list.innerHTML = '<div class="log-empty">Кардио ещё нет.</div>'; return; }
+      list.innerHTML = log.map((e,i) => {
+        const pace = e.km && e.km > 0 ? (e.min/e.km).toFixed(2) + ' мин/км' : '';
+        return `<div class="log-entry">
+          <span class="when">${e.date}</span>
+          <span class="what">${TYPES[e.type] || e.type} · ${e.min}мин${e.km ? ' · '+e.km+'км' : ''}${pace ? ' · '+pace : ''}</span>
+          <button class="rm-log" data-i="${i}" type="button" aria-label="удалить">×</button>
+        </div>`;
+      }).join('');
+      list.querySelectorAll('.rm-log').forEach(b => b.addEventListener('click', () => {
+        const log2 = load();
+        log2.splice(log2.length - 1 - +b.dataset.i, 1);
+        save(log2); render();
+      }));
+    }
+    addBtn.addEventListener('click', () => {
+      const min = parseInt(minEl.value, 10);
+      if (!min || min <= 0) return;
+      const km = parseFloat(kmEl.value) || 0;
+      const log = load();
+      log.push({ date: new Date().toISOString().slice(0,10), type: typeSel.value, min, km });
+      save(log);
+      minEl.value = ''; kmEl.value = '';
+      if (typeof toast === 'function') toast('Кардио записано: ' + TYPES[typeSel.value] + ' ' + min + 'м');
+      render();
+    });
+    render();
+  })();
+
+  // ========= FASTING TIMER =========
+  (function(){
+    const presets = document.getElementById('fast-presets');
+    const disp = document.getElementById('fast-disp');
+    const startBtn = document.getElementById('fast-start');
+    const stopBtn = document.getElementById('fast-stop');
+    const goalEl = document.getElementById('fast-goal');
+    const elapsedEl = document.getElementById('fast-elapsed');
+    if (!disp) return;
+    function load(){ try{ return JSON.parse(localStorage.getItem('mogger.fast') || '{}'); }catch(_){ return {}; } }
+    function save(o){ localStorage.setItem('mogger.fast', JSON.stringify(o)); }
+    let st = load();
+    if (!st.goalH) st.goalH = 16;
+    function render(){
+      goalEl.textContent = st.goalH + 'h';
+      presets.querySelectorAll('button').forEach(b => b.classList.toggle('on', +b.dataset.h === st.goalH));
+      if (!st.startMs){ disp.textContent = '—'; elapsedEl.textContent = '0h 0m'; return; }
+      const elapsedSec = Math.floor((Date.now() - st.startMs) / 1000);
+      const elapsedH = elapsedSec / 3600;
+      const remaining = st.goalH * 3600 - elapsedSec;
+      const eh = Math.floor(elapsedH), em = Math.floor((elapsedSec % 3600) / 60);
+      elapsedEl.textContent = eh + 'h ' + em + 'm';
+      if (remaining > 0){
+        const rh = Math.floor(remaining/3600), rm = Math.floor((remaining%3600)/60), rs = remaining%60;
+        disp.textContent = (rh<10?'0':'')+rh+':'+(rm<10?'0':'')+rm+':'+(rs<10?'0':'')+rs;
+        disp.classList.remove('done');
+      } else {
+        disp.textContent = '+' + Math.floor(-remaining/3600) + 'h ' + Math.floor((-remaining%3600)/60) + 'm';
+        disp.classList.add('done');
+      }
+    }
+    presets.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      st.goalH = +b.dataset.h; save(st); render();
+    }));
+    startBtn.addEventListener('click', () => {
+      st.startMs = Date.now(); save(st); render();
+      if (typeof toast === 'function') toast('Фастинг начат на ' + st.goalH + 'ч');
+    });
+    stopBtn.addEventListener('click', () => {
+      if (st.startMs){
+        const log = JSON.parse(localStorage.getItem('mogger.fast.log') || '[]');
+        const durH = (Date.now() - st.startMs) / 3600000;
+        log.push({ date: new Date().toISOString().slice(0,10), h: durH.toFixed(1) });
+        localStorage.setItem('mogger.fast.log', JSON.stringify(log));
+        if (typeof toast === 'function') toast('Фастинг завершён: ' + durH.toFixed(1) + 'ч');
+      }
+      st.startMs = null; save(st); render();
+    });
+    render();
+    setInterval(render, 1000);
+  })();
+
+  // ========= SLEEP / STEPS CHARTS =========
+  (function(){
+    const sleepWrap = document.getElementById('sleep-chart-wrap');
+    const sleepSum = document.getElementById('sleep-summary');
+    const stepsWrap = document.getElementById('steps-chart-wrap');
+    const stepsSum = document.getElementById('steps-summary');
+    if (!sleepWrap || !stepsWrap) return;
+    function gatherDays(){
+      const arr = [];
+      const today = new Date();
+      for (let i = 29; i >= 0; i--){
+        const d = new Date(today.getTime() - i * 86400000);
+        const iso = d.toISOString().slice(0,10);
+        let dl = null; try { dl = JSON.parse(localStorage.getItem('mogger.dl.' + iso) || 'null'); } catch(_){}
+        arr.push({ iso, sleepH: dl && dl.sleepH != null ? +dl.sleepH : null, steps: dl && dl.steps != null ? +dl.steps : null });
+      }
+      return arr;
+    }
+    function mkChart(values, max, color, suffix){
+      const W = 320, H = 120, P = 8;
+      const n = values.length;
+      const valid = values.filter(v => v != null);
+      if (!valid.length) return null;
+      const dx = (W - 2*P) / Math.max(1, n - 1);
+      const yScale = v => H - P - ((v / max) * (H - 2*P));
+      const pts = values.map((v,i) => v == null ? null : [P + i*dx, yScale(v)]);
+      let d = ''; let started = false;
+      pts.forEach(p => {
+        if (!p){ started = false; return; }
+        d += (started ? ' L ' : 'M ') + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
+        started = true;
+      });
+      const dots = pts.map(p => p ? `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.5" fill="${color}"/>` : '').join('');
+      return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" width="100%" height="120">
+        <path d="${d}" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round"/>
+        ${dots}
+      </svg>`;
+    }
+    function render(){
+      const days = gatherDays();
+      const sleepVals = days.map(d => d.sleepH);
+      const stepsVals = days.map(d => d.steps);
+      const sleepValid = sleepVals.filter(v => v != null);
+      const stepsValid = stepsVals.filter(v => v != null);
+      if (sleepValid.length){
+        const avg = sleepValid.reduce((a,b)=>a+b,0) / sleepValid.length;
+        sleepWrap.innerHTML = mkChart(sleepVals, 12, 'hsl(var(--accent-h) 100% 65%)', 'ч');
+        sleepSum.innerHTML = `средний сон: <b>${avg.toFixed(1)} ч</b> · записей: <b>${sleepValid.length}</b>/30`;
+      } else {
+        sleepWrap.innerHTML = '<div class="chart-empty">Запиши сон в «Лог дня» — появится график.</div>';
+        sleepSum.textContent = '—';
+      }
+      if (stepsValid.length){
+        const avg = stepsValid.reduce((a,b)=>a+b,0) / stepsValid.length;
+        const maxV = Math.max(15000, ...stepsValid);
+        stepsWrap.innerHTML = mkChart(stepsVals, maxV, 'hsl(var(--accent-h) 100% 65%)', '');
+        stepsSum.innerHTML = `средние шаги: <b>${Math.round(avg).toLocaleString('ru-RU')}</b> · записей: <b>${stepsValid.length}</b>/30`;
+      } else {
+        stepsWrap.innerHTML = '<div class="chart-empty">Запиши шаги в «Лог дня» — появится график.</div>';
+        stepsSum.textContent = '—';
+      }
+    }
+    render();
+    document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= VITALS LOG =========
+  (function(){
+    const rhrEl = document.getElementById('v-rhr');
+    const sysEl = document.getElementById('v-sys');
+    const diaEl = document.getElementById('v-dia');
+    const bfEl = document.getElementById('v-bf');
+    const tempEl = document.getElementById('v-temp');
+    const saveBtn = document.getElementById('v-save');
+    const logEl = document.getElementById('v-log');
+    const rhrHint = document.getElementById('v-rhr-hint');
+    const bpHint = document.getElementById('v-bp-hint');
+    if (!saveBtn) return;
+    function load(){ try{ return JSON.parse(localStorage.getItem('mogger.vitals') || '[]'); }catch(_){ return []; } }
+    function save(a){ localStorage.setItem('mogger.vitals', JSON.stringify(a)); }
+    function render(){
+      const log = load().slice().reverse().slice(0,14);
+      if (!log.length){ logEl.innerHTML = '<div class="log-empty">Записей вит-параметров ещё нет.</div>'; return; }
+      logEl.innerHTML = log.map(e => {
+        const parts = [];
+        if (e.rhr) parts.push('HR '+e.rhr);
+        if (e.sys && e.dia) parts.push(e.sys+'/'+e.dia);
+        if (e.bf) parts.push(e.bf+'%');
+        if (e.temp) parts.push(e.temp+'°');
+        return `<div class="log-entry"><span class="when">${e.date}</span><span class="what">${parts.join(' · ') || '—'}</span></div>`;
+      }).join('');
+    }
+    function hintBP(){
+      const sys = +sysEl.value, dia = +diaEl.value;
+      if (!sys || !dia){ bpHint.textContent = 'норма ~120/80'; return; }
+      if (sys < 90 || dia < 60) bpHint.textContent = 'низкое — проверь';
+      else if (sys <= 120 && dia <= 80) bpHint.textContent = '✓ норма';
+      else if (sys <= 140 && dia <= 90) bpHint.textContent = '⚠ повышено';
+      else bpHint.textContent = '⚠ высокое — мониторь';
+    }
+    function hintRHR(){
+      const v = +rhrEl.value;
+      if (!v){ rhrHint.textContent = 'норма 60-80'; return; }
+      if (v < 60) rhrHint.textContent = '✓ тренированный (низкий)';
+      else if (v <= 80) rhrHint.textContent = '✓ норма';
+      else if (v <= 100) rhrHint.textContent = '⚠ повышено';
+      else rhrHint.textContent = '⚠ высокий — отдых, гидрация';
+    }
+    sysEl.addEventListener('input', hintBP);
+    diaEl.addEventListener('input', hintBP);
+    rhrEl.addEventListener('input', hintRHR);
+    saveBtn.addEventListener('click', () => {
+      const entry = { date: new Date().toISOString().slice(0,10) };
+      if (rhrEl.value) entry.rhr = +rhrEl.value;
+      if (sysEl.value && diaEl.value){ entry.sys = +sysEl.value; entry.dia = +diaEl.value; }
+      if (bfEl.value) entry.bf = +bfEl.value;
+      if (tempEl.value) entry.temp = +tempEl.value;
+      if (Object.keys(entry).length <= 1){ if (typeof toast === 'function') toast('Введи хотя бы одно значение'); return; }
+      const log = load();
+      log.push(entry); save(log);
+      [rhrEl, sysEl, diaEl, bfEl, tempEl].forEach(el => el.value = '');
+      if (typeof toast === 'function') toast('Витал записан');
+      render();
+    });
+    render();
+  })();
+
+  // ========= MONTHLY HEATMAP =========
+  (function(){
+    const grid = document.getElementById('heat-grid');
+    if (!grid) return;
+    function getTasks(){ return (window.tasks || []); }
+    function dayPct(iso){
+      try{
+        const st = JSON.parse(localStorage.getItem('mogger.day.' + iso) || '{}');
+        const t = getTasks(); if (!t.length) return 0;
+        let d = 0; t.forEach(x => { if (st[x.id]) d++; });
+        return d / t.length;
+      }catch(_){ return 0; }
+    }
+    function render(){
+      const today = new Date();
+      grid.innerHTML = '';
+      for (let i = 34; i >= 0; i--){
+        const d = new Date(today.getTime() - i * 86400000);
+        const iso = d.toISOString().slice(0,10);
+        const pct = dayPct(iso);
+        const cl = pct >= .9 ? 'h4' : pct >= .65 ? 'h3' : pct >= .4 ? 'h2' : pct > 0 ? 'h1' : '';
+        const cell = document.createElement('div');
+        cell.className = 'heat-cell ' + cl;
+        cell.textContent = d.getDate();
+        cell.title = iso + ' · ' + Math.round(pct*100) + '%';
+        cell.addEventListener('click', () => {
+          if (typeof toast === 'function') toast(iso + ' · дисциплина ' + Math.round(pct*100) + '%');
+        });
+        grid.appendChild(cell);
+      }
+    }
+    render();
+    document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= BEST STATS (longest streak / best DoW / 30-vs-30 / total workouts) =========
+  (function(){
+    const grid = document.getElementById('best-grid');
+    if (!grid) return;
+    function getTasks(){ return (window.tasks || []); }
+    function dayPct(iso){
+      try{
+        const st = JSON.parse(localStorage.getItem('mogger.day.' + iso) || '{}');
+        const t = getTasks(); if (!t.length) return 0;
+        let d = 0; t.forEach(x => { if (st[x.id]) d++; });
+        return d / t.length;
+      }catch(_){ return 0; }
+    }
+    function compute(){
+      const today = new Date();
+      // longest streak: keep going back while pct >= 0.5
+      let max = 0, cur = 0, longest = 0, bestPctDow = [0,0,0,0,0,0,0], cnt = [0,0,0,0,0,0,0];
+      for (let i = 0; i < 365; i++){
+        const d = new Date(today.getTime() - i * 86400000);
+        const iso = d.toISOString().slice(0,10);
+        const pct = dayPct(iso);
+        if (i === 0 && pct === 0){
+          // include today only if has data; else don't break streak
+        } else if (pct >= 0.5){
+          cur++;
+          if (cur > longest) longest = cur;
+        } else {
+          if (cur > longest) longest = cur;
+          cur = 0;
+        }
+        bestPctDow[d.getDay()] += pct;
+        cnt[d.getDay()]++;
+      }
+      const dowNames = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+      let best = -1, bestI = 0;
+      for (let i = 0; i < 7; i++){
+        const avg = cnt[i] > 0 ? bestPctDow[i] / cnt[i] : 0;
+        if (avg > best){ best = avg; bestI = i; }
+      }
+      // 30 vs 30
+      const woLog = JSON.parse(localStorage.getItem('mogger.workout.log') || '[]');
+      const now = Date.now();
+      const last30 = woLog.filter(w => w.date && (new Date(w.date+'T00:00:00').getTime() >= now - 30*86400000)).length;
+      const prev30 = woLog.filter(w => {
+        if (!w.date) return false;
+        const t = new Date(w.date+'T00:00:00').getTime();
+        return t >= now - 60*86400000 && t < now - 30*86400000;
+      }).length;
+      const delta30 = last30 - prev30;
+      // total nofap days
+      const nofapStart = localStorage.getItem('mogger.nofap.start');
+      const nofapDays = nofapStart ? Math.floor((Date.now() - new Date(nofapStart).getTime()) / 86400000) : 0;
+      // cold streak
+      const cold = JSON.parse(localStorage.getItem('mogger.cold.log') || '{}');
+      let coldRun = 0; const t0 = new Date();
+      for (let i = 0; i < 365; i++){
+        const d = new Date(t0.getTime() - i * 86400000);
+        const iso = d.toISOString().slice(0,10);
+        if (cold[iso] === 1) coldRun++;
+        else if (i === 0) continue;
+        else break;
+      }
+      // total workouts
+      const totalWO = woLog.length;
+      // total money saved
+      const money = parseInt(localStorage.getItem('mogger.money.total') || '0', 10);
+      // longest journal entry
+      let journalDays = 0;
+      for (let k = 0; k < localStorage.length; k++){
+        const key = localStorage.key(k);
+        if (key && /^mogger\.dl\.\d{4}-\d{2}-\d{2}$/.test(key)){
+          try { const v = JSON.parse(localStorage.getItem(key) || '{}'); if (v.journal && v.journal.length > 30) journalDays++; } catch(_){}
+        }
+      }
+      return { longest, bestDow: dowNames[bestI], bestDowPct: Math.round(best*100), last30, prev30, delta30, nofapDays, coldRun, totalWO, money, journalDays };
+    }
+    function render(){
+      const s = compute();
+      grid.innerHTML = `
+        <div class="best-cell"><div class="lbl">Самый длинный streak</div><b>${s.longest} дн</b><div class="sub">≥50% чек-листа</div></div>
+        <div class="best-cell"><div class="lbl">Лучший день недели</div><b>${s.bestDow}</b><div class="sub">${s.bestDowPct}% средн</div></div>
+        <div class="best-cell"><div class="lbl">30 vs 30 тренировок</div><b>${s.last30} vs ${s.prev30}</b><div class="sub">${s.delta30>=0?'+':''}${s.delta30}</div></div>
+        <div class="best-cell"><div class="lbl">Всего тренировок</div><b>${s.totalWO}</b><div class="sub">за всё время</div></div>
+        <div class="best-cell"><div class="lbl">No-fap</div><b>${s.nofapDays} дн</b><div class="sub">текущий</div></div>
+        <div class="best-cell"><div class="lbl">Cold streak</div><b>${s.coldRun} дн</b><div class="sub">подряд</div></div>
+        <div class="best-cell"><div class="lbl">Сэкономлено</div><b>${s.money.toLocaleString('ru-RU')} ₽</b><div class="sub">total</div></div>
+        <div class="best-cell"><div class="lbl">Дневниковых дней</div><b>${s.journalDays}</b><div class="sub">>30 символов</div></div>
+      `;
+    }
+    render();
+    document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= MULTI-GOAL =========
+  (function(){
+    const list = document.getElementById('goals-list');
+    const nameI = document.getElementById('goal-name');
+    const metricS = document.getElementById('goal-metric');
+    const targetI = document.getElementById('goal-target');
+    const dateI = document.getElementById('goal-date');
+    const addBtn = document.getElementById('goal-add');
+    if (!list) return;
+    function load(){ try{ return JSON.parse(localStorage.getItem('mogger.goals') || '[]'); }catch(_){ return []; } }
+    function save(a){ localStorage.setItem('mogger.goals', JSON.stringify(a)); }
+    function currentVal(metric){
+      switch(metric){
+        case 'weight': { const l = JSON.parse(localStorage.getItem('mogger.weight.log') || '[]'); if (!l.length) return null; return l[l.length-1].kg; }
+        case 'workouts': return JSON.parse(localStorage.getItem('mogger.workout.log') || '[]').length;
+        case 'nofap': { const s = localStorage.getItem('mogger.nofap.start'); return s ? Math.floor((Date.now() - new Date(s).getTime()) / 86400000) : 0; }
+        case 'face': {
+          let best = 0;
+          for (let k = 0; k < localStorage.length; k++){
+            const key = localStorage.key(k);
+            if (key && /^mogger\.face\.\d{4}-\d{2}-\d{2}$/.test(key)){
+              const v = parseInt(localStorage.getItem(key), 10); if (!isNaN(v) && v > best) best = v;
+            }
+          }
+          return best;
+        }
+        default: return null;
+      }
+    }
+    function render(){
+      const goals = load();
+      if (!goals.length){ list.innerHTML = '<div class="log-empty">Целей пока нет — добавь ниже.</div>'; return; }
+      list.innerHTML = goals.map((g, i) => {
+        const cur = g.metric === 'custom' ? (g.cur || 0) : (currentVal(g.metric) || 0);
+        const pct = g.target ? Math.min(100, Math.max(0, Math.round((cur / g.target) * 100))) : 0;
+        const dleft = g.date ? Math.ceil((new Date(g.date + 'T23:59:59').getTime() - Date.now()) / 86400000) : null;
+        return `<div class="goal-card">
+          <div class="gname">${escape4(g.name)} <span class="gx" data-i="${i}">×</span></div>
+          <div class="gbar"><div style="width:${pct}%"></div></div>
+          <div class="gmeta"><span>${cur.toFixed ? cur.toFixed(1) : cur} / ${g.target} ${g.metric}</span><span>${dleft != null ? (dleft >= 0 ? dleft + ' дн' : 'просрочено') : '—'}</span></div>
+        </div>`;
+      }).join('');
+      list.querySelectorAll('.gx').forEach(x => x.addEventListener('click', () => {
+        const i = +x.dataset.i;
+        const goals = load(); goals.splice(i,1); save(goals); render();
+      }));
+    }
+    function escape4(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    addBtn.addEventListener('click', () => {
+      const name = nameI.value.trim();
+      const target = parseFloat(targetI.value);
+      const metric = metricS.value;
+      if (!name || !target || target <= 0){ if (typeof toast === 'function') toast('Введи название и цель'); return; }
+      const goals = load();
+      if (goals.length >= 6){ if (typeof toast === 'function') toast('Макс 6 целей'); return; }
+      goals.push({ name, target, metric, date: dateI.value || null, created: new Date().toISOString().slice(0,10) });
+      save(goals);
+      nameI.value = ''; targetI.value = ''; dateI.value = '';
+      render();
+    });
+    render();
+    document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
   })();
 
   // ========= TOAST =========
