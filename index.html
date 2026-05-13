@@ -3364,9 +3364,23 @@
         <span><span class="dot f"></span>Жиры</span>
       </div>
       <div class="quick-row" style="margin-top:10px">
-        <input type="text" id="food-name" placeholder="название (напр. Овсянка)">
+        <input type="text" id="food-name" placeholder="название (напр. Овсянка)" list="food-suggest" autocomplete="off">
         <input type="number" id="food-kcal-in" placeholder="ккал" inputmode="numeric" style="max-width:80px">
       </div>
+      <datalist id="food-suggest">
+        <option>Овсянка 100г сухая</option><option>Гречка 100г сухая</option><option>Рис 100г сухой</option>
+        <option>Курица грудка 100г</option><option>Курица бедро 100г</option><option>Говядина 100г</option>
+        <option>Лосось 100г</option><option>Тунец консерва 100г</option><option>Творог 5% 100г</option>
+        <option>Яйцо 1 шт</option><option>Яичный белок 1 шт</option><option>Молоко 1.5% 200мл</option>
+        <option>Йогурт греческий 100г</option><option>Сыр твёрдый 30г</option><option>Протеин 30г</option>
+        <option>Банан 1 шт</option><option>Яблоко 1 шт</option><option>Авокадо 1/2</option>
+        <option>Орехи микс 30г</option><option>Арахисовая паста 1 ст.л.</option>
+        <option>Хлеб цельнозерн. 1 ломтик</option><option>Картофель 100г варёный</option>
+        <option>Брокколи 200г</option><option>Огурец 1 шт</option><option>Помидор 1 шт</option>
+        <option>Шпинат 100г</option><option>Капуста 100г</option>
+        <option>Оливковое масло 1 ч.л.</option><option>Мёд 1 ч.л.</option>
+        <option>Кофе чёрный</option><option>Чай зелёный</option>
+      </datalist>
       <div class="quick-row">
         <input type="number" id="food-p-in" placeholder="Б" inputmode="numeric" style="max-width:60px">
         <input type="number" id="food-c-in" placeholder="У" inputmode="numeric" style="max-width:60px">
@@ -5843,7 +5857,26 @@
         <div class="wh-head"><h4>🔥 Текущая тренировка</h4><span class="when">${statsFmtDate(draft.date)}</span></div>
         <div class="ex-list">${exHTML}</div>
         <div class="ex-input-block">
-          <input class="ex-name-input" id="ex-name-input" placeholder="название упражнения (напр. Жим лёжа)">
+          <input class="ex-name-input" id="ex-name-input" placeholder="название упражнения (напр. Жим лёжа)" list="ex-suggest" autocomplete="off">
+          <datalist id="ex-suggest">
+            <option>Жим лёжа</option><option>Жим лёжа узким</option><option>Жим гантелей лёжа</option>
+            <option>Жим на наклонной</option><option>Жим стоя (армейский)</option><option>Жим Арнольда</option>
+            <option>Тяга штанги в наклоне</option><option>Тяга гантели в наклоне</option><option>Тяга T-грифа</option>
+            <option>Тяга горизонтального блока</option><option>Тяга вертикального блока</option>
+            <option>Подтягивания</option><option>Подтягивания обратным хватом</option>
+            <option>Становая тяга</option><option>Румынская тяга</option><option>Тяга трэп-грифа</option>
+            <option>Приседания со штангой</option><option>Фронтальные приседания</option><option>Гак-приседания</option>
+            <option>Жим ногами</option><option>Выпады с гантелями</option><option>Болгарские сплит-приседы</option>
+            <option>Подъём на носки стоя</option><option>Подъём на носки сидя</option>
+            <option>Подъём гантелей на бицепс</option><option>Подъём штанги на бицепс</option><option>Молот</option>
+            <option>Французский жим</option><option>Разгибания на блоке</option><option>Отжимания на брусьях</option>
+            <option>Махи в стороны</option><option>Махи в наклоне</option><option>Подъёмы перед собой</option>
+            <option>Шраги со штангой</option><option>Шраги с гантелями</option>
+            <option>Скручивания</option><option>Подъём ног в висе</option><option>Планка</option>
+            <option>Отжимания</option><option>Алмазные отжимания</option><option>Архер отжимания</option>
+            <option>Pseudo planche</option><option>Pistol squat</option><option>L-sit</option>
+            <option>Скакалка · single</option><option>Скакалка · double-under</option><option>Бой с тенью</option>
+          </datalist>
           <div id="set-rows">
             <div class="set-row">
               <span class="lbl">подх 1</span>
