@@ -1714,6 +1714,320 @@
   }
   @keyframes wave-pulse{50%{transform:translateY(-5px)}}
 
+  /* =========================================================
+     STATS / PROGRESS screen — charts, logs, trackers
+  ========================================================= */
+  .kpi-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:8px;margin-top:8px;
+  }
+  @media (min-width:520px){.kpi-grid{grid-template-columns:repeat(4,1fr)}}
+  .kpi-tile{
+    background:linear-gradient(160deg,
+      hsla(var(--accent-h),77%,17%,.55),
+      hsla(var(--accent-h),72%,10%,.6));
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);
+    border-radius:12px;padding:10px 12px;
+    text-align:left;
+  }
+  .kpi-tile .lbl{
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 35% 70%);
+  }
+  .kpi-tile .val{
+    font-size:22px;font-weight:800;color:#fff;
+    font-variant-numeric:tabular-nums;line-height:1.1;
+    margin-top:4px;
+  }
+  .kpi-tile .sub{
+    font-size:11.5px;color:hsl(var(--accent-h) 30% 65%);
+    margin-top:2px;
+    font-variant-numeric:tabular-nums;
+  }
+  .kpi-tile .delta{font-size:11px;font-weight:700;margin-left:6px}
+  .kpi-tile .delta.up{color:hsl(140 70% 60%)}
+  .kpi-tile .delta.down{color:hsl(0 80% 65%)}
+
+  /* SVG line chart container */
+  .chart-wrap{
+    margin-top:10px;border-radius:12px;overflow:hidden;
+    background:linear-gradient(180deg,
+      hsla(var(--accent-h),77%,10%,.55),
+      hsla(var(--accent-h),72%,7%,.6));
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    padding:8px 6px 4px;
+  }
+  .chart-wrap svg{display:block;width:100%;height:auto}
+  .chart-empty{
+    padding:24px 16px;text-align:center;
+    color:hsl(var(--accent-h) 30% 60%);font-size:12px;
+  }
+  .chart-x-labels{
+    display:flex;justify-content:space-between;
+    font-size:10px;color:hsl(var(--accent-h) 30% 55%);
+    padding:0 4px 4px;font-variant-numeric:tabular-nums;
+  }
+
+  /* Quick entry input rows */
+  .quick-row{
+    display:flex;gap:6px;align-items:center;
+    margin-top:10px;
+  }
+  .quick-row input[type="number"],
+  .quick-row input[type="text"]{
+    flex:1;min-width:0;
+    padding:9px 11px;font-size:14px;
+    background:hsla(var(--accent-h),77%,8%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+    color:#fff;border-radius:9px;outline:none;
+    font-variant-numeric:tabular-nums;
+  }
+  .quick-row input:focus{
+    border-color:hsla(var(--accent-h),100%,73%,.6);
+    box-shadow:0 0 0 3px hsla(var(--accent-h),100%,65%,.15);
+  }
+  .quick-row button{
+    padding:9px 14px;font-size:13px;font-weight:700;
+    border-radius:9px;cursor:pointer;flex-shrink:0;
+    background:linear-gradient(135deg,
+      hsl(var(--accent-h) 100% 60%),
+      hsl(var(--accent-h) 90% 45%));
+    color:#fff;border:none;
+    box-shadow:0 4px 12px -4px hsla(var(--accent-h),100%,60%,.5);
+  }
+  .quick-row button:active{transform:scale(.96)}
+  .quick-row .gh{
+    background:hsla(var(--accent-h),60%,20%,.6);
+    color:hsl(var(--accent-h) 100% 88%);
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+  }
+
+  /* Log list — generic vertical list of dated entries */
+  .log-list{
+    margin-top:10px;display:flex;flex-direction:column;gap:6px;
+    max-height:280px;overflow-y:auto;
+    padding-right:2px;
+  }
+  .log-list::-webkit-scrollbar{width:5px}
+  .log-list::-webkit-scrollbar-thumb{background:hsla(var(--accent-h),50%,40%,.5);border-radius:3px}
+  .log-entry{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 11px;border-radius:9px;
+    background:hsla(var(--accent-h),50%,10%,.45);
+    border:1px solid hsla(var(--accent-h),60%,25%,.25);
+    font-size:13px;
+  }
+  .log-entry .when{
+    font-size:10.5px;color:hsl(var(--accent-h) 30% 60%);
+    letter-spacing:.06em;
+  }
+  .log-entry .what{
+    font-weight:700;color:hsl(var(--accent-h) 100% 92%);
+    flex:1;margin:0 10px;
+  }
+  .log-entry .val{
+    font-variant-numeric:tabular-nums;font-weight:800;
+    color:#fff;font-size:14px;
+  }
+  .log-entry .rm{
+    background:none;border:none;color:hsl(var(--accent-h) 30% 55%);
+    cursor:pointer;font-size:14px;padding:4px 6px;
+    margin-left:6px;
+  }
+  .log-entry .rm:hover{color:hsl(0 70% 70%)}
+  .log-empty{
+    padding:20px 12px;text-align:center;
+    color:hsl(var(--accent-h) 30% 55%);font-size:12px;
+    font-style:italic;
+  }
+
+  /* Toggle for measurement fields */
+  .measure-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
+    margin-top:10px;
+  }
+  .measure-grid label{
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 100% 80%);font-weight:700;
+    display:block;margin-bottom:4px;
+  }
+  .measure-grid input[type="number"]{
+    width:100%;padding:8px 10px;font-size:14px;
+    background:hsla(var(--accent-h),77%,8%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+    color:#fff;border-radius:8px;outline:none;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* Workout logger */
+  .workout-card{
+    margin-top:10px;padding:10px 12px;border-radius:11px;
+    background:hsla(var(--accent-h),50%,9%,.55);
+    border:1px solid hsla(var(--accent-h),60%,22%,.35);
+  }
+  .workout-card .wh-head{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:8px;flex-wrap:wrap;
+  }
+  .workout-card .wh-head h4{
+    font-size:13px;font-weight:800;color:#fff;
+    text-transform:uppercase;letter-spacing:.06em;
+  }
+  .workout-card .wh-head .when{
+    font-size:10.5px;color:hsl(var(--accent-h) 30% 60%);
+  }
+  .workout-card .ex-list{
+    margin-top:8px;display:flex;flex-direction:column;gap:6px;
+  }
+  .workout-card .ex{
+    background:hsla(var(--accent-h),50%,7%,.55);
+    border:1px solid hsla(var(--accent-h),60%,18%,.25);
+    border-radius:9px;padding:8px 10px;
+  }
+  .workout-card .ex .ex-name{
+    font-size:12.5px;font-weight:700;color:hsl(var(--accent-h) 100% 88%);
+  }
+  .workout-card .ex .sets{
+    display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;
+  }
+  .workout-card .ex .set{
+    padding:3px 8px;border-radius:5px;font-size:11px;
+    background:hsla(var(--accent-h),100%,40%,.18);
+    color:hsl(var(--accent-h) 100% 90%);
+    font-variant-numeric:tabular-nums;
+    border:1px solid hsla(var(--accent-h),100%,60%,.15);
+  }
+  .workout-card .ex .set.pr{
+    background:linear-gradient(135deg,hsl(45 100% 50% / .35),hsl(30 100% 50% / .25));
+    color:hsl(45 100% 88%);
+    border-color:hsla(45,100%,60%,.5);
+    font-weight:700;
+  }
+  .ex-input-block{
+    margin-top:8px;padding:10px;border-radius:9px;
+    background:hsla(var(--accent-h),77%,6%,.6);
+    border:1px dashed hsla(var(--accent-h),100%,73%,.35);
+  }
+  .ex-input-block .ex-name-input{
+    width:100%;padding:8px 10px;font-size:13px;
+    background:hsla(var(--accent-h),77%,4%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+    color:#fff;border-radius:8px;outline:none;
+    margin-bottom:6px;
+  }
+  .ex-input-block .set-row{
+    display:flex;gap:5px;align-items:center;margin-bottom:5px;
+  }
+  .ex-input-block .set-row input[type="number"]{
+    flex:1;min-width:0;padding:6px 8px;font-size:13px;
+    background:hsla(var(--accent-h),77%,4%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.2);
+    color:#fff;border-radius:7px;outline:none;
+    font-variant-numeric:tabular-nums;
+    text-align:center;
+  }
+  .ex-input-block .set-row .lbl{
+    font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 100% 80%);
+    width:32px;
+  }
+  .ex-input-block .set-actions{
+    display:flex;gap:6px;margin-top:6px;
+  }
+  .ex-input-block .set-actions button{
+    flex:1;padding:7px;font-size:11.5px;font-weight:700;
+    border-radius:7px;cursor:pointer;
+    background:hsla(var(--accent-h),60%,20%,.6);
+    color:hsl(var(--accent-h) 100% 88%);
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+  }
+  .ex-input-block .set-actions button.pri{
+    background:linear-gradient(135deg,
+      hsl(var(--accent-h) 100% 60%),
+      hsl(var(--accent-h) 90% 45%));
+    color:#fff;border:none;
+  }
+
+  /* Food / nutrition */
+  .macro-bar{
+    margin-top:8px;height:9px;border-radius:5px;
+    background:hsla(var(--accent-h),50%,15%,.5);
+    overflow:hidden;display:flex;
+  }
+  .macro-bar > span{display:block;height:100%}
+  .macro-bar .p{background:hsl(0 80% 55%)}
+  .macro-bar .c{background:hsl(45 95% 55%)}
+  .macro-bar .f{background:hsl(200 80% 60%)}
+  .macro-legend{
+    display:flex;justify-content:space-between;gap:10px;
+    font-size:11px;margin-top:4px;
+    color:hsl(var(--accent-h) 30% 70%);
+    font-variant-numeric:tabular-nums;
+  }
+  .macro-legend .dot{
+    display:inline-block;width:8px;height:8px;border-radius:50%;
+    margin-right:4px;vertical-align:middle;
+  }
+  .macro-legend .dot.p{background:hsl(0 80% 55%)}
+  .macro-legend .dot.c{background:hsl(45 95% 55%)}
+  .macro-legend .dot.f{background:hsl(200 80% 60%)}
+
+  /* Face-shape recommendation card */
+  .fs-result{
+    margin-top:12px;padding:12px;border-radius:12px;
+    background:linear-gradient(135deg,
+      hsla(var(--accent-h),100%,40%,.2),
+      hsla(var(--accent-h),100%,25%,.3));
+    border:1px solid hsla(var(--accent-h),100%,73%,.4);
+  }
+  .fs-result h4{
+    font-size:18px;font-weight:800;color:#fff;
+    text-transform:uppercase;letter-spacing:.05em;
+  }
+  .fs-result .fs-conf{
+    font-size:11px;color:hsl(var(--accent-h) 30% 75%);
+    margin-top:2px;
+  }
+  .fs-result .fs-desc{
+    font-size:12.5px;color:hsl(var(--accent-h) 25% 88%);
+    margin-top:8px;line-height:1.5;
+  }
+  .hair-recs{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+  .hair-rec{
+    padding:8px 10px;border-radius:9px;
+    background:hsla(var(--accent-h),50%,10%,.55);
+    border:1px solid hsla(var(--accent-h),60%,25%,.3);
+    font-size:12.5px;color:hsl(var(--accent-h) 25% 88%);
+    display:flex;align-items:flex-start;gap:8px;
+  }
+  .hair-rec .ic{font-size:18px;flex-shrink:0;margin-top:1px}
+  .hair-rec b{color:#fff;font-size:13px;display:block;margin-bottom:2px}
+  .hair-no{
+    margin-top:8px;font-size:11.5px;
+    color:hsl(0 60% 75%);
+    background:hsla(0,60%,25%,.25);border:1px solid hsla(0,60%,50%,.3);
+    padding:8px 10px;border-radius:9px;
+  }
+  .hair-no b{color:hsl(0 70% 80%)}
+
+  /* Settings / export-import section */
+  .data-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .data-actions button,
+  .data-actions label{
+    flex:1;min-width:120px;
+    padding:10px 12px;font-size:12.5px;font-weight:700;
+    border-radius:9px;text-align:center;cursor:pointer;
+    background:hsla(var(--accent-h),60%,20%,.6);
+    color:hsl(var(--accent-h) 100% 88%);
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+  }
+  .data-actions .danger{
+    background:hsla(0,60%,25%,.5);
+    color:hsl(0 70% 85%);
+    border:1px solid hsla(0,80%,55%,.35);
+  }
+  .data-actions .danger:hover{background:hsla(0,70%,35%,.65)}
+
   /* small screens */
   @media (max-width:380px){
     .goal h2.title{font-size:30px}
@@ -1721,6 +2035,7 @@
     nav.tabs button{font-size:8.5px;padding:8px 1px 6px}
     nav.tabs svg{width:16px;height:16px}
     .badges{grid-template-columns:repeat(3,1fr)}
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
   }
 </style>
 <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
@@ -2868,6 +3183,155 @@
   </section>
 
   <!-- ============================================================
+       STATS / PROGRESS — weight, measurements, workouts, food
+  ============================================================ -->
+  <section id="screen-stats" class="screen">
+    <div class="sec-head">
+      <div><h2>Прогресс</h2><p>Вес · замеры · тренировки · питание · история</p></div>
+    </div>
+
+    <!-- Quick KPI overview -->
+    <div class="card">
+      <h2>Сводка</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Главные метрики за последние 30 дней. Тапни запись внизу — добавится в историю.
+      </p>
+      <div class="kpi-grid" id="kpi-grid">
+        <div class="kpi-tile"><div class="lbl">Вес</div><div class="val" id="kpi-weight">—</div><div class="sub" id="kpi-weight-sub">нет данных</div></div>
+        <div class="kpi-tile"><div class="lbl">BMI</div><div class="val" id="kpi-bmi">—</div><div class="sub" id="kpi-bmi-sub">по росту/весу</div></div>
+        <div class="kpi-tile"><div class="lbl">Рейт лица</div><div class="val" id="kpi-face">—</div><div class="sub" id="kpi-face-sub">за неделю</div></div>
+        <div class="kpi-tile"><div class="lbl">Тренировки</div><div class="val" id="kpi-workouts">0</div><div class="sub" id="kpi-workouts-sub">за 7 дней</div></div>
+      </div>
+    </div>
+
+    <!-- Anchor nav -->
+    <div class="anchor-nav" id="anchor-nav-stats">
+      <a href="#stats-weight">Вес</a>
+      <a href="#stats-measure">Замеры</a>
+      <a href="#stats-workout">Тренировки</a>
+      <a href="#stats-food">Питание</a>
+      <a href="#stats-face">Лицо</a>
+      <a href="#stats-data">Бэкап</a>
+    </div>
+
+    <!-- Weight tracker -->
+    <div class="card" id="stats-weight" style="margin-top:14px">
+      <h2>Вес — дневник</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Взвешивайся каждое утро после туалета, до еды и воды. Один день мало значит — смотри тренд за неделю.
+      </p>
+      <div class="quick-row">
+        <input type="number" id="w-input" placeholder="кг (напр. 74.5)" step="0.1" min="20" max="300" inputmode="decimal">
+        <button id="w-add" type="button">Записать</button>
+      </div>
+      <div class="chart-wrap" id="w-chart-wrap">
+        <div class="chart-empty">Запиши вес — появится график динамики.</div>
+      </div>
+      <div class="log-list" id="w-log"></div>
+    </div>
+
+    <!-- Body measurements -->
+    <div class="card" id="stats-measure" style="margin-top:14px">
+      <h2>Замеры тела</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Раз в 1-2 недели в одинаковое время, на расслабленных мышцах. Все значения в см.
+      </p>
+      <div class="measure-grid">
+        <div><label>Талия</label><input type="number" id="m-waist" step="0.5" min="40" max="200" placeholder="—"></div>
+        <div><label>Шея</label><input type="number" id="m-neck" step="0.5" min="25" max="80" placeholder="—"></div>
+        <div><label>Грудь</label><input type="number" id="m-chest" step="0.5" min="60" max="200" placeholder="—"></div>
+        <div><label>Бицепс</label><input type="number" id="m-biceps" step="0.5" min="20" max="80" placeholder="—"></div>
+        <div><label>Бедро</label><input type="number" id="m-thigh" step="0.5" min="30" max="100" placeholder="—"></div>
+        <div><label>Бёдра</label><input type="number" id="m-hips" step="0.5" min="50" max="200" placeholder="—"></div>
+      </div>
+      <div class="quick-row" style="margin-top:8px">
+        <button id="m-save" type="button" style="flex:1">Сохранить замер на сегодня</button>
+      </div>
+      <p class="muted" style="font-size:11px;margin-top:8px">
+        Заполняй только те поля, что меряешь. Старый замер берётся как «default» — если ничего не заполнил, не запишется.
+      </p>
+      <div class="log-list" id="m-log"></div>
+    </div>
+
+    <!-- Workout logger -->
+    <div class="card" id="stats-workout" style="margin-top:14px">
+      <h2>Дневник тренировок</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Записывай подходы и веса — увидишь рекорды (PR) и динамику. Дни без зала — пропускай.
+      </p>
+      <div class="quick-row">
+        <button id="wo-new" type="button" style="flex:1">+ Начать тренировку сегодня</button>
+        <button id="wo-quick" type="button" class="gh">Быстрая запись</button>
+      </div>
+      <div id="wo-current"></div>
+      <h3 style="margin-top:12px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:hsl(var(--accent-h) 100% 80%)">История</h3>
+      <div id="wo-history"></div>
+    </div>
+
+    <!-- Nutrition tracker -->
+    <div class="card" id="stats-food" style="margin-top:14px">
+      <h2>Питание сегодня</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Простой лог еды. Если знаешь — впиши белок/углеводы/жиры. Если нет — хотя бы калории.
+      </p>
+      <div class="kpi-grid" id="food-kpis">
+        <div class="kpi-tile"><div class="lbl">Калории</div><div class="val" id="food-kcal">0</div><div class="sub" id="food-kcal-sub">0% от цели</div></div>
+        <div class="kpi-tile"><div class="lbl">Белок · г</div><div class="val" id="food-p">0</div><div class="sub" id="food-p-sub">0% от цели</div></div>
+        <div class="kpi-tile"><div class="lbl">Углеводы · г</div><div class="val" id="food-c">0</div><div class="sub">—</div></div>
+        <div class="kpi-tile"><div class="lbl">Жиры · г</div><div class="val" id="food-f">0</div><div class="sub">—</div></div>
+      </div>
+      <div class="macro-bar" id="macro-bar">
+        <span class="p" style="width:0"></span><span class="c" style="width:0"></span><span class="f" style="width:0"></span>
+      </div>
+      <div class="macro-legend">
+        <span><span class="dot p"></span>Белок</span>
+        <span><span class="dot c"></span>Углеводы</span>
+        <span><span class="dot f"></span>Жиры</span>
+      </div>
+      <div class="quick-row" style="margin-top:10px">
+        <input type="text" id="food-name" placeholder="название (напр. Овсянка)">
+        <input type="number" id="food-kcal-in" placeholder="ккал" inputmode="numeric" style="max-width:80px">
+      </div>
+      <div class="quick-row">
+        <input type="number" id="food-p-in" placeholder="Б" inputmode="numeric" style="max-width:60px">
+        <input type="number" id="food-c-in" placeholder="У" inputmode="numeric" style="max-width:60px">
+        <input type="number" id="food-f-in" placeholder="Ж" inputmode="numeric" style="max-width:60px">
+        <button id="food-add" type="button">Добавить</button>
+      </div>
+      <div class="log-list" id="food-log"></div>
+    </div>
+
+    <!-- Face rating chart -->
+    <div class="card" id="stats-face" style="margin-top:14px">
+      <h2>Рейт лица · история</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Динамика общего рейта за 30 дней + средние по 6 параметрам. Данные берутся из карточки «Рейт внешности» на главной.
+      </p>
+      <div class="chart-wrap" id="face-chart-wrap">
+        <div class="chart-empty">Поставь рейт хотя бы один день — появится линия.</div>
+      </div>
+      <div class="kpi-grid" id="face-param-grid" style="margin-top:8px"></div>
+    </div>
+
+    <!-- Data export / import -->
+    <div class="card" id="stats-data" style="margin-top:14px">
+      <h2>Бэкап данных</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Все данные хранятся в localStorage браузера. Скачай JSON чтобы перенести на другой телефон или просто сохранить.
+      </p>
+      <div class="data-actions">
+        <button id="data-export" type="button">⬇ Экспорт JSON</button>
+        <label for="data-import-file" title="Загрузить ранее сохранённый JSON">⬆ Импорт JSON</label>
+        <input type="file" id="data-import-file" accept="application/json,.json" hidden>
+        <button id="data-reset" type="button" class="danger">🗑 Стереть всё</button>
+      </div>
+      <p class="muted" style="font-size:11px;margin-top:8px">
+        Экспорт включает: профиль, рейты, вес, замеры, тренировки, еду, темы, привычки, фото-прогресс.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
        BODY
   ============================================================ -->
   <section id="screen-body" class="screen">
@@ -3535,7 +3999,23 @@
     </div>
 
     <div class="card">
-      <h2>Как определить форму</h2>
+      <h2>Авто-определение по фото</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:8px">
+        Загрузи фото анфас — локальная нейронка измерит лоб / скулы / челюсть / длину и сама определит форму с уверенностью %. Внизу подтянутся подходящие стрижки.
+      </p>
+      <div class="quick-row">
+        <label for="fs-auto-file" id="fs-auto-btn" style="flex:1;padding:11px 16px;font-size:13px;font-weight:700;border-radius:9px;cursor:pointer;background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));color:#fff;text-align:center;display:block">📷 Определить форму лица</label>
+        <input type="file" id="fs-auto-file" accept="image/*" capture="user" hidden>
+      </div>
+      <div id="fs-auto-status" style="margin-top:8px;font-size:12px;color:hsl(var(--accent-h) 30% 75%);display:none"></div>
+      <div id="fs-auto-result"></div>
+      <p class="muted" style="font-size:11px;margin-top:8px">
+        Можно также определить вручную ниже — выбери форму по описанию.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Как определить форму вручную</h2>
       <p style="font-size:14px;line-height:1.55">
         Стань перед зеркалом при ровном свете, волосы убери назад. Сравни четыре величины:
       </p>
@@ -3664,13 +4144,17 @@
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M8 14c1.2 1.5 6.8 1.5 8 0"/><circle cx="9" cy="10" r=".7" fill="currentColor"/><circle cx="15" cy="10" r=".7" fill="currentColor"/></svg>
     Лицо
   </button>
-  <button data-go="depuff" role="tab">
-    <svg viewBox="0 0 24 24"><path d="M12 3c-4 5-6 8-6 11a6 6 0 0 0 12 0c0-3-2-6-6-11Z"/></svg>
-    Отёк
-  </button>
   <button data-go="body" role="tab">
     <svg viewBox="0 0 24 24"><path d="M3 12h2M19 12h2M7 8v8M17 8v8M7 12h10"/></svg>
     Тело
+  </button>
+  <button data-go="stats" role="tab">
+    <svg viewBox="0 0 24 24"><path d="M4 19h16M6 16V8M10 16v-5M14 16v-9M18 16v-3"/></svg>
+    Прогресс
+  </button>
+  <button data-go="depuff" role="tab">
+    <svg viewBox="0 0 24 24"><path d="M12 3c-4 5-6 8-6 11a6 6 0 0 0 12 0c0-3-2-6-6-11Z"/></svg>
+    Отёк
   </button>
   <button data-go="hair" role="tab">
     <svg viewBox="0 0 24 24"><path d="M4 18c0-6 3-12 8-12s8 6 8 12"/><path d="M7 18c0-4 2-9 5-9s5 5 5 9"/></svg>
@@ -4190,6 +4674,139 @@
     if (navigator.vibrate) navigator.vibrate(8);
   });
   applyShape(localStorage.getItem(SHAPE_KEY) || 'oval');
+
+  // ========= FACE-SHAPE AUTO-DETECT (uses face-api.js) =========
+  (function(){
+    const btn = document.getElementById('fs-auto-btn');
+    const file = document.getElementById('fs-auto-file');
+    const statusEl = document.getElementById('fs-auto-status');
+    const resultEl = document.getElementById('fs-auto-result');
+    if (!btn || !file || !statusEl || !resultEl) return;
+
+    const SHAPE_LABELS = {
+      oval:    { ru:'Овал',     emoji:'⬭', short:'универсал — идёт всё' },
+      round:   { ru:'Круг',     emoji:'●', short:'мягкие линии, добавь высоты сверху' },
+      square:  { ru:'Квадрат',  emoji:'■', short:'мужественная — смягчи углы текстурой' },
+      oblong:  { ru:'Удлинённое',emoji:'▮', short:'длиннее ширины — объём по бокам' },
+      heart:   { ru:'Сердце',   emoji:'❤', short:'широкий лоб, узкий подбородок' },
+      diamond: { ru:'Ромб',     emoji:'◆', short:'скулы шире лба и челюсти' },
+    };
+    // Map AI output → existing SHAPES picker keys
+    const SHAPE_MAP = { oval:'oval', round:'round', square:'square', oblong:'rect', heart:'heart', diamond:'diamond' };
+
+    function setStatus(text, kind){
+      statusEl.style.display = 'block';
+      statusEl.textContent = text;
+      statusEl.style.color = kind === 'err'
+        ? 'hsl(0 70% 75%)'
+        : (kind === 'ok' ? 'hsl(140 60% 70%)' : 'hsl(var(--accent-h) 30% 80%)');
+    }
+
+    async function ensureFaceApi(){
+      if (!window.faceapi) throw new Error('face-api.js не загружен');
+      const URLS = [
+        'https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@0.22.2/weights',
+        'https://justadudewhohacks.github.io/face-api.js/models',
+      ];
+      for (const url of URLS){
+        try {
+          if (!faceapi.nets.tinyFaceDetector.params){
+            await faceapi.nets.tinyFaceDetector.loadFromUri(url);
+          }
+          if (!faceapi.nets.faceLandmark68Net.params){
+            await faceapi.nets.faceLandmark68Net.loadFromUri(url);
+          }
+          return true;
+        } catch(e){
+          console.warn('model load from', url, 'failed:', e);
+        }
+      }
+      throw new Error('Не удалось загрузить модель');
+    }
+
+    function readImageFile(f){
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error('Не удалось прочитать фото'));
+          img.src = reader.result;
+        };
+        reader.onerror = () => reject(new Error('Не удалось прочитать файл'));
+        reader.readAsDataURL(f);
+      });
+    }
+
+    function renderResult(fs){
+      const lbl = SHAPE_LABELS[fs.shape] || { ru: fs.shape, emoji:'?', short:'' };
+      resultEl.innerHTML = `<div class="fs-result">
+        <h4>${lbl.emoji} ${lbl.ru} <span class="fs-conf">${fs.confidence}% уверенности</span></h4>
+        <div class="fs-desc">${lbl.short}</div>
+        <div class="fs-desc" style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px">
+          Длина/ширина: ${fs.metrics.lengthRatio} · Челюсть/скулы: ${fs.metrics.jawToCheek} · Лоб/скулы: ${fs.metrics.foreheadToCheek}
+        </div>
+      </div>`;
+      // Auto-apply to existing shape picker so recommendations card updates
+      const mapped = SHAPE_MAP[fs.shape] || 'oval';
+      if (typeof applyShape === 'function'){
+        applyShape(mapped);
+      }
+      // Scroll the recommendations into view
+      setTimeout(() => {
+        const shapeResult = document.getElementById('shape-result');
+        if (shapeResult) shapeResult.scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 320);
+    }
+
+    btn.addEventListener('click', e => {
+      // file input is hidden + label triggers click — but iOS needs sync click on input
+      // Since this is a label, the default behaviour will trigger file dialog automatically.
+    });
+
+    file.addEventListener('change', async e => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      btn.style.opacity = '.6';
+      setStatus('Загружаю модель...');
+      try {
+        await ensureFaceApi();
+        setStatus('Анализирую фото локально...');
+        const img = await readImageFile(f);
+        const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.4 });
+        const det = await faceapi.detectSingleFace(img, options).withFaceLandmarks();
+        if (!det){
+          setStatus('Не нашёл лицо. Сними анфас при равномерном свете, лицо целиком в кадре.', 'err');
+          return;
+        }
+        const pts = det.landmarks.positions;
+        if (typeof window.__computeFaceShape !== 'function'){
+          setStatus('Модуль формы лица не доступен. Обнови страницу.', 'err');
+          return;
+        }
+        const fs = window.__computeFaceShape(pts);
+        try {
+          localStorage.setItem('mogger.faceShape.auto', JSON.stringify(fs));
+          localStorage.setItem('mogger.faceShape', SHAPE_MAP[fs.shape] || 'oval');
+        } catch(_){}
+        renderResult(fs);
+        setStatus('Готово. Форма: ' + (SHAPE_LABELS[fs.shape] && SHAPE_LABELS[fs.shape].ru || fs.shape) + ' (' + fs.confidence + '%)', 'ok');
+        if (navigator.vibrate) navigator.vibrate([15, 40, 15]);
+      } catch(err){
+        console.error('face-shape err:', err);
+        setStatus('Ошибка: ' + (err.message || err), 'err');
+      } finally {
+        btn.style.opacity = '';
+        file.value = '';
+      }
+    });
+
+    // Render previous auto-detection if any
+    try {
+      const prev = JSON.parse(localStorage.getItem('mogger.faceShape.auto') || 'null');
+      if (prev) renderResult(prev);
+    } catch(_){}
+  })();
 
   // ========= GENERIC CHIP PICKER =========
   function chipPicker(containerId, attr, dataMap, outId, storeKey){
@@ -4887,6 +5504,727 @@
 
     const stored = localStorage.getItem(KEY);
     setScene(stored && BUILDERS[stored] ? stored : 'standard');
+  })();
+
+  // ========= STATS / PROGRESS — shared helpers =========
+  function statsToday(){ return new Date().toISOString().slice(0,10); }
+  function statsLoadJSON(k, def){
+    try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? def : v; }
+    catch(_){ return def; }
+  }
+  function statsSaveJSON(k, v){
+    try { localStorage.setItem(k, JSON.stringify(v)); } catch(_){}
+  }
+  function statsFmtDate(iso){
+    const d = new Date(iso + 'T00:00:00');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    return dd + '.' + mm;
+  }
+  function statsDaysAgo(n){
+    const d = new Date();
+    d.setDate(d.getDate() - n);
+    return d.toISOString().slice(0,10);
+  }
+  function statsProfile(){
+    try { return JSON.parse(localStorage.getItem('mogger.profile') || '{}'); }
+    catch(_){ return {}; }
+  }
+
+  // SVG line chart generator
+  function statsLineChart(points, opts){
+    opts = opts || {};
+    const W = opts.w || 320;
+    const H = opts.h || 110;
+    const PAD = opts.pad || 18;
+    if (!points || points.length === 0){
+      return '<div class="chart-empty">' + (opts.empty || 'Нет данных') + '</div>';
+    }
+    const xs = points.map(p => p.x);
+    const ys = points.map(p => p.y);
+    const minX = Math.min.apply(null, xs);
+    const maxX = Math.max.apply(null, xs);
+    let minY = Math.min.apply(null, ys);
+    let maxY = Math.max.apply(null, ys);
+    if (minY === maxY){ minY -= 1; maxY += 1; }
+    const sx = x => PAD + (x - minX) / Math.max(1, (maxX - minX)) * (W - PAD * 2);
+    const sy = y => H - PAD - (y - minY) / (maxY - minY) * (H - PAD * 2);
+
+    // Y grid lines (4)
+    let grid = '';
+    for (let i = 0; i <= 3; i++){
+      const y = PAD + (H - PAD * 2) * i / 3;
+      grid += `<line x1="${PAD}" y1="${y}" x2="${W-PAD}" y2="${y}" stroke="hsla(var(--accent-h),40%,40%,.15)" stroke-width="1"/>`;
+      const v = (maxY - (maxY - minY) * i / 3).toFixed(opts.decimals != null ? opts.decimals : 1);
+      grid += `<text x="2" y="${y+3}" font-size="9" fill="hsl(var(--accent-h) 30% 55%)">${v}</text>`;
+    }
+
+    // Line + area
+    const path = points.map((p, i) => (i === 0 ? 'M' : 'L') + sx(p.x).toFixed(1) + ',' + sy(p.y).toFixed(1)).join(' ');
+    const area = path + ` L ${sx(maxX).toFixed(1)},${H-PAD} L ${sx(minX).toFixed(1)},${H-PAD} Z`;
+
+    // Dots
+    const dots = points.map(p =>
+      `<circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="2.6" fill="hsl(var(--accent-h) 100% 70%)" stroke="#fff" stroke-width="1"><title>${p.label || (p.y)}</title></circle>`
+    ).join('');
+
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="chart-grad-${opts.id||'a'}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="hsl(var(--accent-h) 100% 60%)" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="hsl(var(--accent-h) 100% 60%)" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      ${grid}
+      <path d="${area}" fill="url(#chart-grad-${opts.id||'a'})"/>
+      <path d="${path}" fill="none" stroke="hsl(var(--accent-h) 100% 65%)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      ${dots}
+    </svg>`;
+  }
+
+  // ========= WEIGHT TRACKER =========
+  (function(){
+    const KEY = 'mogger.weight.log';
+    const input = document.getElementById('w-input');
+    const addBtn = document.getElementById('w-add');
+    const chartWrap = document.getElementById('w-chart-wrap');
+    const logEl = document.getElementById('w-log');
+    if (!input || !addBtn || !logEl || !chartWrap) return;
+
+    function load(){ return statsLoadJSON(KEY, []); }
+    function save(arr){ statsSaveJSON(KEY, arr); }
+
+    function render(){
+      const log = load().sort((a,b) => a.date.localeCompare(b.date));
+      // Chart points
+      if (log.length === 0){
+        chartWrap.innerHTML = '<div class="chart-empty">Запиши вес — появится график динамики.</div>';
+      } else {
+        const points = log.slice(-30).map((e, i) => ({
+          x: i,
+          y: e.kg,
+          label: statsFmtDate(e.date) + ': ' + e.kg + ' кг',
+        }));
+        chartWrap.innerHTML = statsLineChart(points, { id:'weight', decimals:1, empty:'Запиши вес' });
+      }
+      // Log entries (newest first)
+      const recent = log.slice().reverse().slice(0, 50);
+      logEl.innerHTML = recent.length ? recent.map(e =>
+        `<div class="log-entry" data-d="${e.date}">
+          <span class="when">${statsFmtDate(e.date)}</span>
+          <span class="what">${e.kg} кг</span>
+          <button class="rm" type="button" title="удалить">✕</button>
+        </div>`
+      ).join('') : '<div class="log-empty">Пока нет записей.</div>';
+
+      logEl.querySelectorAll('.rm').forEach(b => b.addEventListener('click', () => {
+        const d = b.closest('.log-entry').dataset.d;
+        const arr = load().filter(e => e.date !== d);
+        save(arr);
+        render();
+        // Sync profile weight to last record
+        const newest = arr[arr.length - 1];
+        if (newest){
+          const prof = statsProfile();
+          if (prof){ prof.weight = newest.kg; statsSaveJSON('mogger.profile', prof); }
+        }
+        window.dispatchEvent(new Event('mogger:stats-changed'));
+      }));
+    }
+
+    addBtn.addEventListener('click', () => {
+      const kg = parseFloat(input.value);
+      if (!kg || kg < 20 || kg > 400){
+        input.style.borderColor = 'hsl(0 70% 60%)';
+        return;
+      }
+      input.style.borderColor = '';
+      const date = statsToday();
+      const arr = load().filter(e => e.date !== date);
+      arr.push({ date, kg: Math.round(kg * 10) / 10 });
+      save(arr);
+      // also sync profile weight (used for BMI/TDEE)
+      const prof = statsProfile();
+      if (prof){ prof.weight = Math.round(kg * 10) / 10; statsSaveJSON('mogger.profile', prof); }
+      input.value = '';
+      render();
+      window.dispatchEvent(new Event('mogger:stats-changed'));
+      if (navigator.vibrate) navigator.vibrate(8);
+    });
+
+    // Pre-fill placeholder with profile weight
+    const prof = statsProfile();
+    if (prof && prof.weight){ input.placeholder = 'напр. ' + prof.weight; }
+
+    render();
+  })();
+
+  // ========= BODY MEASUREMENTS =========
+  (function(){
+    const KEY = 'mogger.measure.log';
+    const FIELDS = ['waist','neck','chest','biceps','thigh','hips'];
+    const LBLS = { waist:'Талия', neck:'Шея', chest:'Грудь', biceps:'Бицепс', thigh:'Бедро', hips:'Бёдра' };
+    const saveBtn = document.getElementById('m-save');
+    const logEl = document.getElementById('m-log');
+    if (!saveBtn || !logEl) return;
+
+    function load(){ return statsLoadJSON(KEY, []); }
+    function save(arr){ statsSaveJSON(KEY, arr); }
+
+    function render(){
+      const log = load().sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30);
+      logEl.innerHTML = log.length ? log.map(e => {
+        const parts = FIELDS.filter(f => e[f] != null).map(f => `${LBLS[f]}: <b>${e[f]}</b>`).join(' · ');
+        return `<div class="log-entry" data-d="${e.date}">
+          <span class="when">${statsFmtDate(e.date)}</span>
+          <span class="what" style="font-weight:normal;font-size:12px">${parts || '—'}</span>
+          <button class="rm" type="button" title="удалить">✕</button>
+        </div>`;
+      }).join('') : '<div class="log-empty">Замеров пока нет.</div>';
+
+      logEl.querySelectorAll('.rm').forEach(b => b.addEventListener('click', () => {
+        const d = b.closest('.log-entry').dataset.d;
+        save(load().filter(e => e.date !== d));
+        render();
+      }));
+    }
+
+    saveBtn.addEventListener('click', () => {
+      const entry = { date: statsToday() };
+      let any = false;
+      FIELDS.forEach(f => {
+        const el = document.getElementById('m-' + f);
+        const v = el && parseFloat(el.value);
+        if (v && v > 0){ entry[f] = Math.round(v * 10) / 10; any = true; }
+      });
+      if (!any){
+        saveBtn.textContent = 'Заполни хотя бы одно поле';
+        setTimeout(() => { saveBtn.textContent = 'Сохранить замер на сегодня'; }, 1600);
+        return;
+      }
+      const arr = load().filter(e => e.date !== entry.date);
+      arr.push(entry);
+      save(arr);
+      FIELDS.forEach(f => { const el = document.getElementById('m-' + f); if (el) el.value = ''; });
+      saveBtn.textContent = '✓ Записано';
+      setTimeout(() => { saveBtn.textContent = 'Сохранить замер на сегодня'; }, 1400);
+      render();
+      if (navigator.vibrate) navigator.vibrate(8);
+    });
+
+    render();
+  })();
+
+  // ========= WORKOUT LOGGER =========
+  (function(){
+    const KEY = 'mogger.workout.log';
+    const newBtn = document.getElementById('wo-new');
+    const quickBtn = document.getElementById('wo-quick');
+    const currentBox = document.getElementById('wo-current');
+    const historyBox = document.getElementById('wo-history');
+    if (!newBtn || !currentBox || !historyBox) return;
+
+    let draft = null; // { date, exercises: [{name, sets:[{reps, weight}]}] }
+    const DRAFT_KEY = 'mogger.workout.draft';
+
+    function load(){ return statsLoadJSON(KEY, []); }
+    function save(arr){ statsSaveJSON(KEY, arr); }
+    function loadDraft(){ return statsLoadJSON(DRAFT_KEY, null); }
+    function saveDraft(d){ if (d) statsSaveJSON(DRAFT_KEY, d); else localStorage.removeItem(DRAFT_KEY); }
+
+    function exMaxWeight(name, history){
+      let max = 0;
+      history.forEach(w => {
+        w.exercises.forEach(e => {
+          if (e.name === name){
+            e.sets.forEach(s => { if (s.weight > max) max = s.weight; });
+          }
+        });
+      });
+      return max;
+    }
+
+    function renderDraft(){
+      if (!draft){ currentBox.innerHTML = ''; return; }
+      const hist = load();
+      const exHTML = draft.exercises.map((ex, i) => {
+        const prMax = exMaxWeight(ex.name, hist);
+        const sets = ex.sets.map(s => {
+          const isPR = s.weight > prMax && s.weight > 0;
+          return `<span class="set${isPR ? ' pr' : ''}">${s.reps}×${s.weight}${isPR ? ' 🔥' : ''}</span>`;
+        }).join('');
+        return `<div class="ex" data-i="${i}">
+          <div class="ex-name">${escHtml(ex.name)}</div>
+          <div class="sets">${sets || '<span class="set" style="opacity:.5">нет подходов</span>'}</div>
+        </div>`;
+      }).join('');
+
+      currentBox.innerHTML = `<div class="workout-card" style="border-color:hsla(var(--accent-h),100%,73%,.45);background:hsla(var(--accent-h),77%,12%,.65)">
+        <div class="wh-head"><h4>🔥 Текущая тренировка</h4><span class="when">${statsFmtDate(draft.date)}</span></div>
+        <div class="ex-list">${exHTML}</div>
+        <div class="ex-input-block">
+          <input class="ex-name-input" id="ex-name-input" placeholder="название упражнения (напр. Жим лёжа)">
+          <div id="set-rows">
+            <div class="set-row">
+              <span class="lbl">подх 1</span>
+              <input type="number" class="reps-input" placeholder="повт" inputmode="numeric">
+              <span class="lbl" style="width:auto;padding:0 4px">×</span>
+              <input type="number" class="weight-input" placeholder="кг" step="0.5" inputmode="decimal">
+            </div>
+          </div>
+          <div class="set-actions">
+            <button id="add-set-row" type="button">+ подход</button>
+            <button id="save-ex" type="button" class="pri">Сохранить упражнение</button>
+          </div>
+        </div>
+        <div class="data-actions" style="margin-top:10px">
+          <button id="finish-wo" type="button" class="pri" style="background:linear-gradient(135deg,hsl(140 70% 45%),hsl(140 80% 35%));color:#fff;border:none">✓ Завершить тренировку</button>
+          <button id="cancel-wo" type="button" class="danger">Отменить</button>
+        </div>
+      </div>`;
+
+      const nameI = currentBox.querySelector('#ex-name-input');
+      const rowsBox = currentBox.querySelector('#set-rows');
+      currentBox.querySelector('#add-set-row').addEventListener('click', () => {
+        const n = rowsBox.children.length + 1;
+        const row = document.createElement('div');
+        row.className = 'set-row';
+        row.innerHTML = `
+          <span class="lbl">подх ${n}</span>
+          <input type="number" class="reps-input" placeholder="повт" inputmode="numeric">
+          <span class="lbl" style="width:auto;padding:0 4px">×</span>
+          <input type="number" class="weight-input" placeholder="кг" step="0.5" inputmode="decimal">`;
+        rowsBox.appendChild(row);
+      });
+      currentBox.querySelector('#save-ex').addEventListener('click', () => {
+        const name = nameI.value.trim();
+        if (!name){ nameI.style.borderColor = 'hsl(0 70% 60%)'; return; }
+        const sets = [];
+        rowsBox.querySelectorAll('.set-row').forEach(r => {
+          const reps = parseInt(r.querySelector('.reps-input').value, 10) || 0;
+          const weight = parseFloat(r.querySelector('.weight-input').value) || 0;
+          if (reps > 0) sets.push({ reps, weight });
+        });
+        if (sets.length === 0){
+          nameI.style.borderColor = '';
+          rowsBox.style.outline = '2px solid hsl(0 70% 60%)';
+          setTimeout(() => { rowsBox.style.outline = ''; }, 1200);
+          return;
+        }
+        draft.exercises.push({ name, sets });
+        saveDraft(draft);
+        renderDraft();
+      });
+      currentBox.querySelector('#finish-wo').addEventListener('click', () => {
+        if (draft.exercises.length === 0){
+          if (!confirm('Завершить пустую тренировку?')) return;
+        }
+        const arr = load();
+        arr.push(draft);
+        save(arr);
+        draft = null;
+        saveDraft(null);
+        renderDraft();
+        renderHistory();
+        window.dispatchEvent(new Event('mogger:stats-changed'));
+        if (navigator.vibrate) navigator.vibrate([8, 60, 8]);
+      });
+      currentBox.querySelector('#cancel-wo').addEventListener('click', () => {
+        if (!confirm('Отменить тренировку? Записи не сохранятся.')) return;
+        draft = null;
+        saveDraft(null);
+        renderDraft();
+      });
+    }
+
+    function renderHistory(){
+      const hist = load().slice().reverse().slice(0, 20);
+      if (hist.length === 0){
+        historyBox.innerHTML = '<div class="log-empty">Тренировок пока нет. Жми «+ Начать тренировку».</div>';
+        return;
+      }
+      historyBox.innerHTML = hist.map((w, idx) => {
+        const exHTML = w.exercises.map(ex => {
+          const sets = ex.sets.map(s => `<span class="set">${s.reps}×${s.weight || 0}</span>`).join('');
+          return `<div class="ex"><div class="ex-name">${escHtml(ex.name)}</div><div class="sets">${sets}</div></div>`;
+        }).join('');
+        return `<div class="workout-card" data-i="${idx}">
+          <div class="wh-head"><h4>${escHtml(w.title || 'Тренировка')}</h4><span class="when">${statsFmtDate(w.date)}</span></div>
+          <div class="ex-list">${exHTML || '<div class="log-empty">пусто</div>'}</div>
+          <button class="rm" type="button" data-d="${w.date}" data-id="${w.id || ''}" style="margin-top:6px;background:none;border:none;color:hsl(var(--accent-h) 30% 55%);font-size:11px;cursor:pointer">удалить</button>
+        </div>`;
+      }).join('');
+      historyBox.querySelectorAll('.rm').forEach(b => b.addEventListener('click', () => {
+        const card = b.closest('.workout-card');
+        const idx = +card.dataset.i;
+        if (!confirm('Удалить тренировку?')) return;
+        const arr = load();
+        // idx is reversed slice index — find by date+title combination
+        const rev = arr.slice().reverse();
+        const target = rev[idx];
+        if (target){
+          const realIdx = arr.indexOf(target);
+          if (realIdx >= 0){ arr.splice(realIdx, 1); save(arr); renderHistory(); }
+        }
+        window.dispatchEvent(new Event('mogger:stats-changed'));
+      }));
+    }
+
+    function escHtml(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+    newBtn.addEventListener('click', () => {
+      if (draft){
+        if (!confirm('Уже идёт тренировка. Отменить её и начать новую?')) return;
+      }
+      draft = { date: statsToday(), title: 'Тренировка ' + statsFmtDate(statsToday()), exercises: [] };
+      saveDraft(draft);
+      renderDraft();
+    });
+
+    if (quickBtn) quickBtn.addEventListener('click', () => {
+      const name = prompt('Название упражнения:');
+      if (!name) return;
+      const reps = parseInt(prompt('Повторений за подход:') || '0', 10);
+      const weight = parseFloat(prompt('Вес кг (0 если без веса):') || '0');
+      const setsCount = parseInt(prompt('Сколько подходов:') || '1', 10) || 1;
+      if (reps <= 0) return;
+      const sets = [];
+      for (let i = 0; i < setsCount; i++) sets.push({ reps, weight: weight || 0 });
+      const arr = load();
+      arr.push({ date: statsToday(), title: 'Быстрая запись', exercises: [{ name, sets }] });
+      save(arr);
+      renderHistory();
+      window.dispatchEvent(new Event('mogger:stats-changed'));
+    });
+
+    draft = loadDraft();
+    renderDraft();
+    renderHistory();
+  })();
+
+  // ========= NUTRITION TRACKER =========
+  (function(){
+    function dKey(date){ return 'mogger.food.log.' + date; }
+    const name = document.getElementById('food-name');
+    const kcalI = document.getElementById('food-kcal-in');
+    const pI = document.getElementById('food-p-in');
+    const cI = document.getElementById('food-c-in');
+    const fI = document.getElementById('food-f-in');
+    const addBtn = document.getElementById('food-add');
+    const logEl = document.getElementById('food-log');
+    if (!addBtn || !logEl) return;
+
+    function load(){ return statsLoadJSON(dKey(statsToday()), []); }
+    function save(arr){ statsSaveJSON(dKey(statsToday()), arr); }
+
+    function totals(items){
+      return items.reduce((acc, it) => ({
+        kcal: acc.kcal + (it.kcal || 0),
+        p: acc.p + (it.p || 0),
+        c: acc.c + (it.c || 0),
+        f: acc.f + (it.f || 0),
+      }), { kcal:0, p:0, c:0, f:0 });
+    }
+
+    function tdeeFromProfile(){
+      const p = statsProfile();
+      if (!p || !p.height || !p.weight || !p.age || !p.gender) return null;
+      // Mifflin-St Jeor
+      let bmr = 10 * p.weight + 6.25 * p.height - 5 * p.age;
+      bmr += p.gender === 'female' ? -161 : 5;
+      const mult = { sedentary:1.2, light:1.375, moderate:1.55, active:1.725, athlete:1.9 }[p.activity || 'moderate'] || 1.55;
+      return Math.round(bmr * mult);
+    }
+
+    function render(){
+      const items = load();
+      const t = totals(items);
+      const tdee = tdeeFromProfile();
+      const proteinTarget = (() => {
+        const p = statsProfile();
+        if (p && p.weight) return Math.round(p.weight * 1.8);
+        return null;
+      })();
+
+      document.getElementById('food-kcal').textContent = Math.round(t.kcal);
+      document.getElementById('food-p').textContent = Math.round(t.p);
+      document.getElementById('food-c').textContent = Math.round(t.c);
+      document.getElementById('food-f').textContent = Math.round(t.f);
+
+      const kcalSub = document.getElementById('food-kcal-sub');
+      if (tdee){
+        const pct = Math.round(t.kcal / tdee * 100);
+        kcalSub.textContent = pct + '% от ' + tdee + ' ккал';
+      } else {
+        kcalSub.textContent = 'нет TDEE';
+      }
+      const pSub = document.getElementById('food-p-sub');
+      if (proteinTarget){
+        const pct = Math.round(t.p / proteinTarget * 100);
+        pSub.textContent = pct + '% от ' + proteinTarget + ' г';
+      } else {
+        pSub.textContent = '—';
+      }
+
+      // Macro bar: relative kcal contribution
+      const kP = t.p * 4, kC = t.c * 4, kF = t.f * 9;
+      const totalK = Math.max(1, kP + kC + kF);
+      const bar = document.getElementById('macro-bar');
+      bar.children[0].style.width = (kP / totalK * 100) + '%';
+      bar.children[1].style.width = (kC / totalK * 100) + '%';
+      bar.children[2].style.width = (kF / totalK * 100) + '%';
+
+      // Log entries
+      logEl.innerHTML = items.length ? items.slice().reverse().map((it, ri) => {
+        const ai = items.length - 1 - ri;
+        const macros = [
+          it.p ? 'Б ' + it.p : null,
+          it.c ? 'У ' + it.c : null,
+          it.f ? 'Ж ' + it.f : null,
+        ].filter(Boolean).join(' · ');
+        return `<div class="log-entry" data-i="${ai}">
+          <span class="when">${(it.t || '').slice(0,5) || ''}</span>
+          <span class="what">${escHtml(it.name)}${macros ? '<br><span style="font-size:10.5px;color:hsl(var(--accent-h) 30% 65%);font-weight:normal">'+macros+'</span>' : ''}</span>
+          <span class="val">${Math.round(it.kcal || 0)} ккал</span>
+          <button class="rm" type="button" title="удалить">✕</button>
+        </div>`;
+      }).join('') : '<div class="log-empty">Пусто. Добавь первую еду.</div>';
+
+      logEl.querySelectorAll('.rm').forEach(b => b.addEventListener('click', () => {
+        const i = +b.closest('.log-entry').dataset.i;
+        const arr = load();
+        arr.splice(i, 1);
+        save(arr);
+        render();
+      }));
+    }
+
+    function escHtml(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+    addBtn.addEventListener('click', () => {
+      const n = name.value.trim();
+      const kcal = parseInt(kcalI.value, 10) || 0;
+      if (!n || kcal <= 0){
+        if (!n) name.style.borderColor = 'hsl(0 70% 60%)';
+        if (!kcal) kcalI.style.borderColor = 'hsl(0 70% 60%)';
+        return;
+      }
+      name.style.borderColor = ''; kcalI.style.borderColor = '';
+      const item = {
+        t: new Date().toTimeString().slice(0,5),
+        name: n,
+        kcal,
+        p: parseFloat(pI.value) || 0,
+        c: parseFloat(cI.value) || 0,
+        f: parseFloat(fI.value) || 0,
+      };
+      const arr = load();
+      arr.push(item);
+      save(arr);
+      [name, kcalI, pI, cI, fI].forEach(el => { el.value = ''; });
+      render();
+      if (navigator.vibrate) navigator.vibrate(6);
+    });
+
+    render();
+  })();
+
+  // ========= STATS KPI SUMMARY =========
+  (function(){
+    function refresh(){
+      const prof = statsProfile();
+      const wlog = statsLoadJSON('mogger.weight.log', []).sort((a,b) => a.date.localeCompare(b.date));
+      const wEl = document.getElementById('kpi-weight');
+      const wSub = document.getElementById('kpi-weight-sub');
+      if (!wEl) return;
+      if (wlog.length === 0){
+        wEl.textContent = prof.weight ? prof.weight + ' кг' : '—';
+        wSub.textContent = prof.weight ? 'из профиля' : 'нет данных';
+      } else {
+        const last = wlog[wlog.length - 1].kg;
+        const prev = wlog.length >= 2 ? wlog[wlog.length - 2].kg : null;
+        wEl.textContent = last + ' кг';
+        if (prev != null){
+          const d = +(last - prev).toFixed(1);
+          const cls = d > 0 ? 'up' : (d < 0 ? 'down' : '');
+          wSub.innerHTML = (wlog.length > 1 ? statsFmtDate(wlog[wlog.length-2].date) : '') + ' → ' + statsFmtDate(wlog[wlog.length-1].date) + (d ? ' <span class="delta ' + cls + '">' + (d>0?'+':'') + d + '</span>' : '');
+        } else {
+          wSub.textContent = 'единственная запись';
+        }
+      }
+
+      // BMI
+      const bmiEl = document.getElementById('kpi-bmi');
+      const bmiSub = document.getElementById('kpi-bmi-sub');
+      const w = (wlog.length ? wlog[wlog.length - 1].kg : null) || prof.weight;
+      const h = prof.height;
+      if (w && h){
+        const bmi = w / ((h / 100) ** 2);
+        bmiEl.textContent = bmi.toFixed(1);
+        bmiSub.textContent = bmi < 18.5 ? 'недостаток' : (bmi < 25 ? 'норма' : (bmi < 30 ? 'избыток' : 'ожирение'));
+      } else {
+        bmiEl.textContent = '—';
+        bmiSub.textContent = 'нужны рост и вес';
+      }
+
+      // Face rating last 7d avg
+      const faceEl = document.getElementById('kpi-face');
+      const faceSub = document.getElementById('kpi-face-sub');
+      let faceSum = 0, faceN = 0;
+      for (let i = 0; i < 7; i++){
+        const d = statsDaysAgo(i);
+        const v = parseFloat(localStorage.getItem('mogger.face.' + d) || '0');
+        if (v > 0){ faceSum += v; faceN++; }
+      }
+      if (faceN > 0){
+        faceEl.textContent = (faceSum / faceN).toFixed(1);
+        faceSub.textContent = faceN + ' дн. из 7';
+      } else {
+        faceEl.textContent = '—';
+        faceSub.textContent = 'нет рейтов';
+      }
+
+      // Workouts in last 7d
+      const woEl = document.getElementById('kpi-workouts');
+      const woSub = document.getElementById('kpi-workouts-sub');
+      const wlogArr = statsLoadJSON('mogger.workout.log', []);
+      const cutoff = statsDaysAgo(6);
+      const recent = wlogArr.filter(w => w.date >= cutoff);
+      woEl.textContent = recent.length;
+      woSub.textContent = recent.length === 0 ? 'ноль' : (recent.length >= 3 ? 'хороший темп' : 'мало, добавь');
+    }
+
+    refresh();
+    window.addEventListener('mogger:stats-changed', refresh);
+    window.addEventListener('storage', refresh);
+  })();
+
+  // ========= FACE RATING HISTORY CHART =========
+  (function(){
+    const wrap = document.getElementById('face-chart-wrap');
+    const paramGrid = document.getElementById('face-param-grid');
+    if (!wrap || !paramGrid) return;
+
+    const PARAMS_M = [
+      { k:'ramus',  l:'Рамус' },
+      { k:'cheek',  l:'Скулы' },
+      { k:'masc',   l:'Маскул.' },
+      { k:'eye',    l:'Hunter eyes' },
+      { k:'nose',   l:'Нос' },
+      { k:'oval',   l:'Овал' },
+    ];
+    const PARAMS_F = [
+      { k:'ramus',  l:'Челюсть' },
+      { k:'cheek',  l:'Скулы' },
+      { k:'masc',   l:'Феминность' },
+      { k:'eye',    l:'Almond eyes' },
+      { k:'nose',   l:'Нос' },
+      { k:'oval',   l:'Овал' },
+    ];
+
+    function render(){
+      const points = [];
+      const paramSums = { ramus:0, cheek:0, masc:0, eye:0, nose:0, oval:0 };
+      const paramCounts = { ramus:0, cheek:0, masc:0, eye:0, nose:0, oval:0 };
+      for (let i = 29; i >= 0; i--){
+        const d = statsDaysAgo(i);
+        const v = parseFloat(localStorage.getItem('mogger.face.' + d) || '0');
+        if (v > 0){
+          points.push({ x: 29 - i, y: v, label: statsFmtDate(d) + ': ' + v.toFixed(1) });
+          try {
+            const params = JSON.parse(localStorage.getItem('mogger.face.' + d + '.params') || 'null');
+            if (params){
+              Object.keys(paramSums).forEach(k => {
+                if (params[k] != null){ paramSums[k] += params[k]; paramCounts[k] += 1; }
+              });
+            }
+          } catch(_){}
+        }
+      }
+      if (points.length === 0){
+        wrap.innerHTML = '<div class="chart-empty">Поставь рейт хотя бы один день — появится линия.</div>';
+      } else {
+        wrap.innerHTML = statsLineChart(points, { id:'face', decimals:1, empty:'нет рейтов' });
+      }
+      // Per-param averages
+      const prof = statsProfile();
+      const params = prof.gender === 'female' ? PARAMS_F : PARAMS_M;
+      paramGrid.innerHTML = params.map(p => {
+        const avg = paramCounts[p.k] ? (paramSums[p.k] / paramCounts[p.k]).toFixed(1) : '—';
+        return `<div class="kpi-tile"><div class="lbl">${p.l}</div><div class="val">${avg}</div><div class="sub">${paramCounts[p.k]} дн.</div></div>`;
+      }).join('');
+    }
+    render();
+    window.addEventListener('mogger:stats-changed', render);
+    window.addEventListener('storage', render);
+  })();
+
+  // ========= EXPORT / IMPORT JSON =========
+  (function(){
+    const exportBtn = document.getElementById('data-export');
+    const importInput = document.getElementById('data-import-file');
+    const resetBtn = document.getElementById('data-reset');
+    if (!exportBtn || !importInput || !resetBtn) return;
+
+    function gather(){
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++){
+        const k = localStorage.key(i);
+        if (k && k.indexOf('mogger.') === 0){
+          data[k] = localStorage.getItem(k);
+        }
+      }
+      return data;
+    }
+
+    exportBtn.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify({
+        app:'mogger', v:11, exported: new Date().toISOString(),
+        data: gather(),
+      }, null, 2)], { type:'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const ts = new Date().toISOString().slice(0,10);
+      a.href = url; a.download = 'mogger-backup-' + ts + '.json';
+      document.body.appendChild(a); a.click();
+      setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
+    });
+
+    importInput.addEventListener('change', e => {
+      const f = e.target.files && e.target.files[0]; if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        try {
+          const obj = JSON.parse(r.result);
+          if (!obj || !obj.data){ alert('Файл не похож на бэкап MOGGER.'); return; }
+          if (!confirm('Загрузить бэкап? Текущие данные будут перезаписаны.')) return;
+          Object.keys(obj.data).forEach(k => {
+            if (k.indexOf('mogger.') === 0){
+              localStorage.setItem(k, obj.data[k]);
+            }
+          });
+          alert('Импортировано. Сейчас перезагрузим страницу.');
+          location.reload();
+        } catch(err){
+          alert('Не удалось прочитать файл: ' + err.message);
+        }
+      };
+      r.readAsText(f);
+      importInput.value = '';
+    });
+
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('Стереть ВСЕ данные приложения? Это нельзя отменить.')) return;
+      if (!confirm('Точно стереть всё? Профиль, рейты, тренировки, фото — всё исчезнет.')) return;
+      const keys = [];
+      for (let i = 0; i < localStorage.length; i++){
+        const k = localStorage.key(i);
+        if (k && k.indexOf('mogger.') === 0) keys.push(k);
+      }
+      keys.forEach(k => localStorage.removeItem(k));
+      alert('Готово. Сейчас перезагрузим.');
+      location.reload();
+    });
   })();
 
   // ========= STREAK + ACHIEVEMENTS =========
@@ -5660,6 +6998,74 @@
       return { ramus, cheek, masc, eye, nose, oval };
     }
 
+    // Face shape classifier — returns { shape, confidence, metrics }
+    function computeFaceShape(pts){
+      const chin       = pts[8];
+      const jawL       = pts[4];
+      const jawR       = pts[12];
+      const cheekL     = pts[1];
+      const cheekR     = pts[15];
+      const browL      = pts[19];
+      const browR      = pts[24];
+      const noseTop    = pts[27];
+
+      // Use approximate forehead height = brow top to chin × 1.5 (since 68pt doesn't cover hairline)
+      const browMid = { x: (browL.x + browR.x) / 2, y: (browL.y + browR.y) / 2 };
+      // Approximate face length: distance from chin to brow line × ~1.5 (forehead extrapolation)
+      const faceLengthApprox = dist(chin, browMid) * 1.5;
+      const faceWidth  = dist(cheekL, cheekR);
+      const jawWidth   = dist(jawL, jawR);
+      const foreheadW  = dist(browL, browR) * 1.15; // brow span × 1.15 ≈ forehead width
+
+      const lengthRatio = faceLengthApprox / faceWidth;  // longer = higher
+      const jawToCheek  = jawWidth / faceWidth;          // narrower jaw = lower
+      const foreheadToCheek = foreheadW / faceWidth;     // wider forehead = higher
+      const jawAngle    = Math.abs(jawWidth - jawWidth * 0.95) / faceWidth; // rough proxy
+
+      // Heuristic classification (priority order)
+      const shapes = [];
+
+      // Oblong / Long — length / width > 1.5
+      if (lengthRatio > 1.45){
+        shapes.push({ shape:'oblong', score: lengthRatio * 1.2 });
+      }
+      // Heart — wider forehead, narrower jaw
+      if (foreheadToCheek > 0.85 && jawToCheek < 0.78){
+        shapes.push({ shape:'heart', score: (foreheadToCheek - jawToCheek) * 4 });
+      }
+      // Diamond — narrow forehead AND chin, wide cheekbones
+      if (foreheadToCheek < 0.82 && jawToCheek < 0.78){
+        shapes.push({ shape:'diamond', score: (1 - foreheadToCheek + 1 - jawToCheek) * 2 });
+      }
+      // Square — wide jaw close to cheek width, short to medium length
+      if (jawToCheek >= 0.85 && lengthRatio < 1.35){
+        shapes.push({ shape:'square', score: jawToCheek * 2.5 });
+      }
+      // Round — length ≈ width, soft jaw
+      if (lengthRatio < 1.25 && jawToCheek < 0.85 && jawToCheek > 0.7){
+        shapes.push({ shape:'round', score: (1.3 - lengthRatio) * 4 });
+      }
+      // Oval — balanced, length > width × 1.25, jaw narrower
+      shapes.push({ shape:'oval', score: 1.0 });
+
+      shapes.sort((a, b) => b.score - a.score);
+      const best = shapes[0];
+      const totalScore = shapes.reduce((a,b) => a + b.score, 0);
+      const confidence = Math.min(100, Math.round((best.score / Math.max(0.01, totalScore)) * 100));
+      return {
+        shape: best.shape,
+        confidence,
+        metrics: {
+          lengthRatio: +lengthRatio.toFixed(2),
+          jawToCheek: +jawToCheek.toFixed(2),
+          foreheadToCheek: +foreheadToCheek.toFixed(2),
+        },
+      };
+    }
+
+    // Make computeFaceShape available globally so hair screen can use it
+    window.__computeFaceShape = computeFaceShape;
+
     // Trigger file picker synchronously during user gesture (iOS Safari requirement)
     autoBtn && autoBtn.addEventListener('click', () => {
       // Kick off model loading in parallel (no await — file picker must open same tick)
@@ -5697,6 +7103,14 @@
         paintRows(state);
         paint(overall);
         renderHistory();
+        // Face shape detection (used by hair screen)
+        try {
+          const fs = computeFaceShape(pts);
+          localStorage.setItem('mogger.faceShape.auto', JSON.stringify(fs));
+          localStorage.setItem('mogger.faceShape', fs.shape);
+          window.dispatchEvent(new Event('mogger:faceshape-changed'));
+        } catch(_){}
+        window.dispatchEvent(new Event('mogger:stats-changed'));
         setStatus('Готово. Общий: ' + (overall != null ? overall.toFixed(1) : '—') + '/10. Слайдеры можно докрутить вручную.', 'ok');
         if (navigator.vibrate) navigator.vibrate([15, 40, 15]);
       } catch(err){
