@@ -84,6 +84,175 @@
   }
 
   /* =========================================================
+     ONBOARDING — first-launch wizard (gender → goal → stats)
+  ========================================================= */
+  .onboard{
+    position:fixed;inset:0;z-index:9999;
+    display:none;
+    background:linear-gradient(180deg, hsl(var(--accent-h) 66% 4%) 0%, hsl(var(--accent-h) 66% 8%) 100%);
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .onboard.on{display:block}
+  .onboard-inner{
+    max-width:560px;margin:0 auto;padding:36px 18px 60px;
+  }
+  .onboard h1{
+    font-size:24px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+    color:#fff;margin-bottom:6px;
+  }
+  .onboard h1 .accent{color:hsl(var(--accent-h) 100% 70%)}
+  .onboard p.sub{
+    font-size:13.5px;color:hsl(var(--accent-h) 30% 70%);
+    margin-bottom:24px;line-height:1.55;
+  }
+  .onboard-step{display:none}
+  .onboard-step.on{display:block}
+  .onboard-h2{
+    font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
+    color:hsl(var(--accent-h) 100% 78%);
+    margin-bottom:14px;
+  }
+  .gender-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;
+  }
+  .gender-card{
+    padding:24px 14px;border-radius:16px;
+    background:hsla(var(--accent-h), 50%, 10%, .6);
+    border:2px solid hsla(var(--accent-h), 60%, 25%, .4);
+    cursor:pointer;text-align:center;
+    transition:all .15s ease;
+  }
+  .gender-card.on{
+    background:hsla(var(--accent-h), 70%, 28%, .55);
+    border-color:hsl(var(--accent-h) 100% 60%);
+    box-shadow:0 0 18px hsla(var(--accent-h), 100%, 55%, .35);
+  }
+  .gender-card .icon{font-size:40px;margin-bottom:8px;line-height:1}
+  .gender-card .name{font-size:14px;font-weight:800;color:#fff;letter-spacing:.04em;text-transform:uppercase}
+  .gender-card .desc{font-size:11px;color:hsl(var(--accent-h) 30% 65%);margin-top:4px}
+
+  .goal-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+  .goal-card{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;border-radius:12px;
+    background:hsla(var(--accent-h), 50%, 10%, .55);
+    border:2px solid hsla(var(--accent-h), 60%, 25%, .35);
+    cursor:pointer;text-align:left;
+    transition:all .15s ease;
+  }
+  .goal-card.on{
+    border-color:hsl(var(--accent-h) 100% 60%);
+    background:hsla(var(--accent-h), 70%, 22%, .55);
+    box-shadow:0 0 16px hsla(var(--accent-h), 100%, 55%, .3);
+  }
+  .goal-card .tier{
+    flex-shrink:0;
+    padding:6px 10px;border-radius:6px;
+    font-size:10.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+    min-width:88px;text-align:center;
+  }
+  .goal-card .info{flex:1;min-width:0}
+  .goal-card .info .name{font-size:13.5px;font-weight:800;color:#fff;margin-bottom:1px}
+  .goal-card .info .desc{font-size:11px;color:hsl(var(--accent-h) 30% 68%);line-height:1.35}
+
+  /* tier color palette — also used by .rate-tier system-wide */
+  .tier-untested{background:hsla(var(--accent-h), 30%, 25%, .6);color:hsl(var(--accent-h) 30% 80%)}
+  .tier-subhuman{background:hsla(0, 80%, 25%, .85);color:#fff;box-shadow:0 0 12px hsla(0,80%,50%,.5)}
+  .tier-ltn,
+  .tier-ltb{background:hsla(15, 85%, 38%, .9);color:#fff}
+  .tier-mtn,
+  .tier-mtb{background:hsla(50, 85%, 42%, .92);color:#221700}
+  .tier-htn,
+  .tier-htb{background:hsla(140, 70%, 38%, .92);color:#001a0a}
+  .tier-chadlite{background:hsla(190, 95%, 45%, .9);color:#001a22}
+  .tier-chad,
+  .tier-stacy{background:linear-gradient(135deg,hsl(45,100%,55%),hsl(15,100%,55%));color:#1a0a00;box-shadow:0 0 16px hsla(35,100%,60%,.6)}
+  .tier-truadam,
+  .tier-trueva{background:linear-gradient(135deg,#fff,hsl(45,100%,75%));color:#000;box-shadow:0 0 22px hsla(45,100%,80%,.8)}
+
+  .stat-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 16px;border-radius:12px;margin-bottom:10px;
+    background:hsla(var(--accent-h), 50%, 10%, .55);
+    border:1px solid hsla(var(--accent-h), 60%, 25%, .35);
+  }
+  .stat-row label{font-size:13px;color:hsl(var(--accent-h) 100% 88%);font-weight:600}
+  .stat-row .input-wrap{display:flex;align-items:center;gap:6px}
+  .stat-row input[type=number]{
+    -moz-appearance:textfield;
+    background:hsla(var(--accent-h), 30%, 5%, .8);
+    border:1px solid hsla(var(--accent-h), 60%, 40%, .4);
+    color:#fff;font-size:16px;font-weight:700;
+    padding:6px 8px;border-radius:8px;width:64px;text-align:center;
+  }
+  .stat-row input[type=number]::-webkit-outer-spin-button,
+  .stat-row input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .stat-row .unit{font-size:12px;color:hsl(var(--accent-h) 30% 65%);min-width:24px}
+
+  .onboard-nav{
+    display:flex;gap:10px;margin-top:24px;
+  }
+  .onboard-nav button{
+    flex:1;padding:14px;border-radius:12px;font-weight:800;
+    font-size:13.5px;letter-spacing:.04em;text-transform:uppercase;
+    cursor:pointer;
+  }
+  .onboard-back{
+    background:hsla(var(--accent-h), 30%, 15%, .6);
+    border:1px solid hsla(var(--accent-h), 50%, 30%, .35);
+    color:hsl(var(--accent-h) 30% 80%);
+  }
+  .onboard-next{
+    background:hsl(var(--accent-h) 100% 55%);
+    color:#000;border:none;
+    box-shadow:0 4px 16px hsla(var(--accent-h), 100%, 55%, .4);
+  }
+  .onboard-next:disabled{
+    opacity:.35;cursor:not-allowed;box-shadow:none;
+  }
+  .onboard-progress{
+    display:flex;gap:6px;margin-bottom:18px;
+  }
+  .onboard-progress span{
+    flex:1;height:4px;border-radius:2px;
+    background:hsla(var(--accent-h), 50%, 25%, .4);
+  }
+  .onboard-progress span.on{
+    background:hsl(var(--accent-h) 100% 60%);
+  }
+  .calc-summary{
+    margin-top:14px;padding:14px;border-radius:12px;
+    background:hsla(var(--accent-h), 50%, 10%, .6);
+    border:1px solid hsla(var(--accent-h), 60%, 30%, .4);
+  }
+  .calc-summary .row{display:flex;justify-content:space-between;padding:4px 0;font-size:13px}
+  .calc-summary .row b{color:#fff}
+  .calc-summary .row .muted{color:hsl(var(--accent-h) 30% 70%)}
+
+  /* =========================================================
+     PROFILE — auto-rate via face-api.js, profile management
+  ========================================================= */
+  .rate-auto-row{
+    display:flex;gap:8px;margin-top:10px;align-items:center;
+  }
+  .auto-btn{
+    flex:1;padding:13px 14px;border-radius:11px;
+    background:linear-gradient(135deg, hsl(var(--accent-h) 100% 55%), hsl(var(--accent-h) 100% 45%));
+    color:#000;font-weight:900;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+    border:none;cursor:pointer;
+    box-shadow:0 4px 16px hsla(var(--accent-h), 100%, 55%, .35);
+  }
+  .auto-btn:active{transform:scale(.97)}
+  .auto-btn:disabled{opacity:.5;cursor:wait;box-shadow:none}
+  .auto-status{
+    font-size:11px;color:hsl(var(--accent-h) 30% 70%);
+    margin-top:6px;min-height:14px;line-height:1.3;
+  }
+  .auto-status.err{color:hsl(0 80% 70%)}
+  .auto-status.ok{color:hsl(140 80% 70%)}
+
+  /* =========================================================
      APP LAYOUT
   ========================================================= */
   .app{
@@ -1249,11 +1418,108 @@
     .badges{grid-template-columns:repeat(3,1fr)}
   }
 </style>
+<script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 </head>
 <body>
 
 <div class="bg"></div>
 <div class="stars"></div>
+
+<!-- ============================================================
+     ONBOARDING — first launch
+============================================================ -->
+<div class="onboard" id="onboard">
+  <div class="onboard-inner">
+    <h1>MOGGER · <span class="accent">START</span></h1>
+    <p class="sub">Прежде чем начать — 3 шага. Под тебя.</p>
+
+    <div class="onboard-progress" id="onboard-progress">
+      <span class="on"></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- STEP 1 · GENDER -->
+    <div class="onboard-step on" data-step="1">
+      <div class="onboard-h2">Шаг 1 · Пол</div>
+      <div class="gender-grid">
+        <button type="button" class="gender-card" data-g="m">
+          <div class="icon">♂</div>
+          <div class="name">Мужчина</div>
+          <div class="desc">JAW / RAMUS / CHADLINE</div>
+        </button>
+        <button type="button" class="gender-card" data-g="f">
+          <div class="icon">♀</div>
+          <div class="name">Женщина</div>
+          <div class="desc">HIPS / SKIN / STACY</div>
+        </button>
+      </div>
+      <div class="onboard-nav">
+        <button class="onboard-next" id="onboard-next-1" disabled>Дальше →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 · GOAL -->
+    <div class="onboard-step" data-step="2">
+      <div class="onboard-h2">Шаг 2 · Цель — кем стать</div>
+      <div class="goal-list" id="goal-list">
+        <!-- filled by JS based on gender -->
+      </div>
+      <div class="onboard-nav">
+        <button class="onboard-back" data-back="2">← Назад</button>
+        <button class="onboard-next" id="onboard-next-2" disabled>Дальше →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 · STATS -->
+    <div class="onboard-step" data-step="3">
+      <div class="onboard-h2">Шаг 3 · Личные параметры</div>
+      <div class="stat-row">
+        <label for="onb-age">Возраст</label>
+        <div class="input-wrap"><input type="number" id="onb-age" min="14" max="80" value="20"><span class="unit">лет</span></div>
+      </div>
+      <div class="stat-row">
+        <label for="onb-height">Рост</label>
+        <div class="input-wrap"><input type="number" id="onb-height" min="120" max="220" value="180"><span class="unit">см</span></div>
+      </div>
+      <div class="stat-row">
+        <label for="onb-weight">Вес</label>
+        <div class="input-wrap"><input type="number" id="onb-weight" min="30" max="200" value="75"><span class="unit">кг</span></div>
+      </div>
+      <div class="stat-row">
+        <label for="onb-bf">% жира (если знаешь)</label>
+        <div class="input-wrap"><input type="number" id="onb-bf" min="3" max="50" step="0.5" placeholder="—"><span class="unit">%</span></div>
+      </div>
+      <div class="stat-row">
+        <label for="onb-activity">Активность</label>
+        <div class="input-wrap">
+          <select id="onb-activity" style="background:hsla(var(--accent-h), 30%, 5%, .8);border:1px solid hsla(var(--accent-h), 60%, 40%, .4);color:#fff;font-size:14px;font-weight:600;padding:6px 8px;border-radius:8px">
+            <option value="1.2">Сидячая</option>
+            <option value="1.375">Лёгкая (1-3 тр/нед)</option>
+            <option value="1.55" selected>Средняя (3-5 тр/нед)</option>
+            <option value="1.725">Высокая (6-7 тр/нед)</option>
+            <option value="1.9">Экстрим</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calc-summary" id="calc-summary">
+        <div class="row"><span class="muted">BMI</span><b id="calc-bmi">—</b></div>
+        <div class="row"><span class="muted">TDEE (поддержка)</span><b id="calc-tdee">—</b></div>
+        <div class="row"><span class="muted">Дефицит на сушке</span><b id="calc-cut">—</b></div>
+        <div class="row"><span class="muted">Профицит на массу</span><b id="calc-bulk">—</b></div>
+        <div class="row"><span class="muted">Целевой белок</span><b id="calc-prot">—</b></div>
+        <div class="row"><span class="muted">Воды/день</span><b id="calc-water">—</b></div>
+      </div>
+
+      <div class="onboard-nav">
+        <button class="onboard-back" data-back="3">← Назад</button>
+        <button class="onboard-next" id="onboard-finish">Поехали →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <main class="app">
 
@@ -1265,10 +1531,11 @@
         <path d="M3 19 L3 7 L12 16 L21 7 L21 19" />
       </svg>
     </div>
-    <div>
+    <div style="flex:1">
       <small>HARD MODE</small>
       <h1>MOGGER</h1>
     </div>
+    <button type="button" id="brand-profile" title="Профиль / цель / параметры" aria-label="Профиль" style="background:hsla(var(--accent-h),50%,20%,.55);border:1px solid hsla(var(--accent-h),60%,40%,.4);color:hsl(var(--accent-h) 100% 88%);font-size:18px;padding:8px 10px;border-radius:10px;cursor:pointer">⚙</button>
   </header>
 
   <!-- ============================================================
@@ -1280,9 +1547,10 @@
       <span class="floater" style="width:160px;height:160px;background:hsl(var(--accent-h) 100% 61%);top:-40px;left:-40px"></span>
       <span class="floater" style="width:140px;height:140px;background:#b388ff;bottom:-40px;right:-30px"></span>
 
-      <span class="tag">Цель · до 31 августа</span>
-      <h2 class="title">СНЯТЬ ОТЁК. СТАТЬ <br/>HIGH HTN.</h2>
-      <p class="sub">Чёткая челюсть. Сухое лицо. Сухое тело.</p>
+      <span class="tag" id="goal-tag">Цель · до 31 августа</span>
+      <h2 class="title" id="goal-title">СНЯТЬ ОТЁК. СТАТЬ <br/>HIGH HTN.</h2>
+      <p class="sub" id="goal-sub">Чёткая челюсть. Сухое лицо. Сухое тело.</p>
+      <p class="sub" id="goal-stats" style="margin-top:6px;font-size:12px;opacity:.85"></p>
 
       <div class="countdown" id="countdown" aria-live="polite">
         <div class="cd-unit"><b id="cd-d">--</b><span>дней</span></div>
@@ -1446,6 +1714,12 @@
           <div class="rate-hint">Чёткий овал, отсутствие отёка, ровная кожа, лоу-bodyfat в лице.</div>
         </div>
       </div>
+
+      <div class="rate-auto-row">
+        <button type="button" class="auto-btn" id="rate-auto">📷 Авто-рейт по фото (нейронка)</button>
+        <input type="file" id="rate-auto-file" accept="image/*" capture="user" hidden>
+      </div>
+      <p class="auto-status" id="rate-auto-status">Загружает локальную модель при первом использовании (~6 MB). Работает офлайн после первого раза.</p>
 
       <div class="rate-actions">
         <button type="button" id="rate-clear">Сбросить день</button>
@@ -3085,6 +3359,280 @@
 
 <script>
 (() => {
+  // ========= PROFILE & ONBOARDING =========
+  const PROFILE_KEY = 'mogger.profile';
+
+  const TIERS_M = [
+    { id:'subhuman', name:'Subhuman',  desc:'Старт со дна. Любой прогресс — победа.', tier:'SUB' },
+    { id:'ltn',      name:'LTN',       desc:'Low-tier normie. Базовый человек без ухода.', tier:'LTN' },
+    { id:'mtn',      name:'MTN',       desc:'Mid-tier normie. Обычный парень из толпы.', tier:'MTN' },
+    { id:'htn',      name:'HTN',       desc:'High-tier normie. Замечают, симпатии есть.', tier:'HTN' },
+    { id:'chadlite', name:'Chadlite',  desc:'Привлекательный без 10/10. Стабильно высокий уровень.', tier:'CHADLITE' },
+    { id:'chad',     name:'Chad',      desc:'Топ. Глобально красивый, мог бы быть моделью.', tier:'CHAD' },
+    { id:'truadam',  name:'Tru Adam',  desc:'Прототип идеала. Платон. Геометрически совершенен.', tier:'TRU ADAM' },
+  ];
+
+  const TIERS_F = [
+    { id:'ltb',     name:'LTB',       desc:'Low-tier becky. База, ещё много потенциала.', tier:'LTB' },
+    { id:'mtb',     name:'MTB',       desc:'Mid-tier becky. Обычная привлекательность.', tier:'MTB' },
+    { id:'htb',     name:'HTB',       desc:'High-tier becky. Заметная, нравится многим.', tier:'HTB' },
+    { id:'stacy',   name:'Stacy',     desc:'Топ-привлекательность. На неё все смотрят.', tier:'STACY' },
+    { id:'trueva',  name:'Tru Eva',   desc:'Архетип. Симметрия, пропорции, всё идеально.', tier:'TRU EVA' },
+  ];
+
+  function readProfile(){
+    try { return JSON.parse(localStorage.getItem(PROFILE_KEY) || 'null'); }
+    catch(_){ return null; }
+  }
+  function saveProfile(p){
+    try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch(_){}
+  }
+
+  // BMR (Mifflin-St Jeor) + TDEE
+  function calcBmr(g, kg, cm, age){
+    return g === 'm'
+      ? 10 * kg + 6.25 * cm - 5 * age + 5
+      : 10 * kg + 6.25 * cm - 5 * age - 161;
+  }
+  function calcBmi(kg, cm){ return kg / ((cm/100) ** 2); }
+  function recomputeStats(){
+    const g  = document.querySelector('.gender-card.on')?.dataset.g;
+    const age = +document.getElementById('onb-age').value || 20;
+    const h   = +document.getElementById('onb-height').value || 180;
+    const w   = +document.getElementById('onb-weight').value || 75;
+    const a   = +document.getElementById('onb-activity').value || 1.55;
+    if (!g) return;
+    const bmi = calcBmi(w, h);
+    const bmr = calcBmr(g, w, h, age);
+    const tdee = bmr * a;
+    const cut  = tdee - 400;
+    const bulk = tdee + 250;
+    const prot = (g === 'm' ? 2.0 : 1.8) * w;
+    const water = (w * 0.033).toFixed(1);
+    document.getElementById('calc-bmi').textContent = bmi.toFixed(1) + ' (' + bmiLabel(bmi) + ')';
+    document.getElementById('calc-tdee').textContent = Math.round(tdee) + ' ккал';
+    document.getElementById('calc-cut').textContent  = Math.round(cut) + ' ккал';
+    document.getElementById('calc-bulk').textContent = Math.round(bulk) + ' ккал';
+    document.getElementById('calc-prot').textContent = Math.round(prot) + ' г';
+    document.getElementById('calc-water').textContent = water + ' л';
+  }
+  function bmiLabel(b){
+    if (b < 18.5) return 'недовес';
+    if (b < 25)   return 'норма';
+    if (b < 30)   return 'избыток';
+    return 'ожирение';
+  }
+
+  function tiersForGender(g){ return g === 'f' ? TIERS_F : TIERS_M; }
+
+  function fillGoalList(gender){
+    const list = document.getElementById('goal-list');
+    if (!list) return;
+    list.innerHTML = tiersForGender(gender).map(t =>
+      `<button type="button" class="goal-card" data-goal="${t.id}">
+        <span class="tier tier-${t.id}">${t.tier}</span>
+        <span class="info">
+          <span class="name">${t.name}</span>
+          <span class="desc">${t.desc}</span>
+        </span>
+      </button>`
+    ).join('');
+  }
+
+  function showStep(n){
+    document.querySelectorAll('.onboard-step').forEach(s => {
+      s.classList.toggle('on', +s.dataset.step === n);
+    });
+    const dots = document.querySelectorAll('#onboard-progress span');
+    dots.forEach((d,i) => d.classList.toggle('on', i < n));
+    if (n === 3) recomputeStats();
+  }
+
+  let onboardGender = null;
+  let onboardGoal   = null;
+  let onboardWired  = false;
+
+  function wireOnboarding(){
+    if (onboardWired) return;
+    const root = document.getElementById('onboard');
+    if (!root) return;
+    onboardWired = true;
+
+    // Gender pick
+    root.querySelectorAll('.gender-card').forEach(c => {
+      c.addEventListener('click', () => {
+        root.querySelectorAll('.gender-card').forEach(x => x.classList.remove('on'));
+        c.classList.add('on');
+        onboardGender = c.dataset.g;
+        document.getElementById('onboard-next-1').disabled = false;
+        fillGoalList(onboardGender);
+        onboardGoal = null;
+        document.getElementById('onboard-next-2').disabled = true;
+      });
+    });
+    document.getElementById('onboard-next-1').addEventListener('click', () => {
+      if (!onboardGender) return;
+      showStep(2);
+    });
+
+    document.getElementById('goal-list').addEventListener('click', e => {
+      const c = e.target.closest('.goal-card');
+      if (!c) return;
+      document.querySelectorAll('.goal-card').forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+      onboardGoal = c.dataset.goal;
+      document.getElementById('onboard-next-2').disabled = false;
+    });
+    document.getElementById('onboard-next-2').addEventListener('click', () => {
+      if (!onboardGoal) return;
+      showStep(3);
+    });
+
+    root.querySelectorAll('.onboard-back').forEach(b => {
+      b.addEventListener('click', () => {
+        const back = +b.dataset.back;
+        showStep(back - 1);
+      });
+    });
+
+    ['onb-age','onb-height','onb-weight','onb-bf','onb-activity'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', recomputeStats);
+      if (el) el.addEventListener('change', recomputeStats);
+    });
+
+    document.getElementById('onboard-finish').addEventListener('click', () => {
+      const profile = {
+        gender: onboardGender,
+        goal: onboardGoal,
+        age:    +document.getElementById('onb-age').value || 20,
+        height: +document.getElementById('onb-height').value || 180,
+        weight: +document.getElementById('onb-weight').value || 75,
+        bodyFat: parseFloat(document.getElementById('onb-bf').value) || null,
+        activity: +document.getElementById('onb-activity').value || 1.55,
+        createdAt: (readProfile() && readProfile().createdAt) || new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      saveProfile(profile);
+      applyProfileToUI(profile);
+      root.classList.remove('on');
+      document.body.style.overflow = '';
+    });
+  }
+
+  function bootOnboarding(){
+    const root = document.getElementById('onboard');
+    if (!root) return false;
+    wireOnboarding();
+    const existing = readProfile();
+    if (existing && existing.gender) {
+      applyProfileToUI(existing);
+      return false;
+    }
+    root.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    showStep(1);
+    return true;
+  }
+
+  function applyProfileToUI(p){
+    if (!p) return;
+    document.body.classList.toggle('gender-f', p.gender === 'f');
+    document.body.classList.toggle('gender-m', p.gender !== 'f');
+    document.body.setAttribute('data-goal', p.goal || '');
+    // expose for other code (face rating, etc)
+    window.MOGGER_PROFILE = p;
+    window.MOGGER_TIERS = tiersForGender(p.gender);
+
+    // Update goal card on home
+    const tiers = tiersForGender(p.gender);
+    const goal = tiers.find(t => t.id === p.goal);
+    const titleEl = document.getElementById('goal-title');
+    const subEl   = document.getElementById('goal-sub');
+    const tagEl   = document.getElementById('goal-tag');
+    const statsEl = document.getElementById('goal-stats');
+    if (goal && titleEl){
+      const verb = p.gender === 'f' ? 'СТАТЬ' : 'СТАТЬ';
+      titleEl.innerHTML = `СНЯТЬ ОТЁК.<br/>${verb} ${goal.tier}.`;
+      subEl.textContent = goal.desc;
+      tagEl.textContent = (p.gender === 'f' ? '♀ Цель' : '♂ Цель') + ' · ' + (p.height || '?') + ' см · ' + (p.weight || '?') + ' кг · ' + (p.age || '?') + ' лет';
+    }
+    if (statsEl){
+      const bmi = (p.weight && p.height) ? calcBmi(p.weight, p.height) : null;
+      const bmr = (p.weight && p.height && p.age) ? calcBmr(p.gender, p.weight, p.height, p.age) : null;
+      const tdee = bmr ? bmr * (p.activity || 1.55) : null;
+      const parts = [];
+      if (bmi)  parts.push('BMI ' + bmi.toFixed(1));
+      if (tdee) parts.push('TDEE ' + Math.round(tdee) + ' ккал');
+      if (tdee) parts.push('сушка ' + Math.round(tdee - 400) + ' ккал');
+      statsEl.textContent = parts.join(' · ');
+    }
+
+    // Gender-specific rate-row labels
+    if (p.gender === 'f'){
+      const labels = {
+        ramus: 'Линия челюсти · мягкая, чёткая',
+        cheek: 'Скулы · midface · cheekbone lift',
+        masc:  'Феминность · мягкость черт',
+        eye:   'Глаза · almond, открытые',
+        nose:  'Нос · аккуратный tip, projection',
+        oval:  'Овал · upper / lower harmony',
+      };
+      Object.entries(labels).forEach(([k, v]) => {
+        const row = document.querySelector('.rate-row[data-rp="' + k + '"] .rate-name');
+        if (row) row.textContent = v;
+      });
+    }
+
+    // dispatch event so other modules update
+    window.dispatchEvent(new CustomEvent('mogger:profile', { detail: p }));
+  }
+
+  function reopenOnboarding(){
+    const p = readProfile();
+    if (!p) {
+      bootOnboarding();
+      return;
+    }
+    // prefill values
+    const ageEl = document.getElementById('onb-age');
+    const hEl   = document.getElementById('onb-height');
+    const wEl   = document.getElementById('onb-weight');
+    const bfEl  = document.getElementById('onb-bf');
+    const aEl   = document.getElementById('onb-activity');
+    if (ageEl) ageEl.value = p.age || 20;
+    if (hEl)   hEl.value   = p.height || 180;
+    if (wEl)   wEl.value   = p.weight || 75;
+    if (bfEl)  bfEl.value  = p.bodyFat || '';
+    if (aEl)   aEl.value   = p.activity || 1.55;
+    onboardGender = p.gender;
+    onboardGoal   = p.goal;
+    document.querySelectorAll('.gender-card').forEach(c => c.classList.toggle('on', c.dataset.g === p.gender));
+    fillGoalList(p.gender);
+    document.querySelectorAll('.goal-card').forEach(c => c.classList.toggle('on', c.dataset.goal === p.goal));
+    document.getElementById('onboard-next-1').disabled = false;
+    document.getElementById('onboard-next-2').disabled = false;
+    document.getElementById('onboard').classList.add('on');
+    document.body.style.overflow = 'hidden';
+    showStep(1);
+  }
+
+  // Run onboarding before everything else
+  bootOnboarding();
+
+  // Gear button — reopen onboarding to edit profile/goal/stats
+  document.getElementById('brand-profile')?.addEventListener('click', () => {
+    reopenOnboarding();
+  });
+
+  // expose helpers
+  window.MOGGER = {
+    profile: readProfile,
+    saveProfile,
+    tiersForGender,
+    calcBmr, calcBmi,
+  };
+
   // ========= NAV =========
   const screens = document.querySelectorAll('.screen');
   const tabs    = document.querySelectorAll('nav.tabs button[data-go], .quick button[data-go]');
@@ -4318,6 +4866,177 @@
       paintRows(state);
       paint(5);
       renderHistory();
+    });
+
+    // ===== AUTO-RATE via face-api.js (local neural net) =====
+    const autoBtn = document.getElementById('rate-auto');
+    const autoFile = document.getElementById('rate-auto-file');
+    const autoStatus = document.getElementById('rate-auto-status');
+
+    let modelsLoaded = false;
+    let modelLoadPromise = null;
+    const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+
+    function setStatus(text, cls){
+      if (!autoStatus) return;
+      autoStatus.textContent = text;
+      autoStatus.className = 'auto-status' + (cls ? ' ' + cls : '');
+    }
+
+    async function loadModels(){
+      if (modelsLoaded) return true;
+      if (modelLoadPromise) return modelLoadPromise;
+      modelLoadPromise = (async () => {
+        if (typeof window.faceapi === 'undefined'){
+          setStatus('face-api.js не загрузилась. Нужен интернет для первого запуска.', 'err');
+          return false;
+        }
+        setStatus('Качаю модель ~540 KB (один раз, потом офлайн)...');
+        try {
+          await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+          await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+          modelsLoaded = true;
+          setStatus('Модель готова. Выбери своё фото анфас.', 'ok');
+          return true;
+        } catch(e){
+          setStatus('Ошибка модели: ' + (e.message || e), 'err');
+          modelLoadPromise = null;
+          return false;
+        }
+      })();
+      return modelLoadPromise;
+    }
+
+    function readImageFile(file){
+      return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error('image decode failed'));
+          img.src = r.result;
+        };
+        r.onerror = () => reject(new Error('file read failed'));
+        r.readAsDataURL(file);
+      });
+    }
+
+    function dist(a, b){ return Math.hypot(a.x - b.x, a.y - b.y); }
+    function clamp01(v){ return v < 0 ? 0 : (v > 1 ? 1 : v); }
+    function scoreFromIdeal(actual, ideal, tolerance){
+      const k = clamp01(1 - Math.abs(actual - ideal) / tolerance);
+      return Math.round(1 + k * 9);
+    }
+
+    function computeRatingsFromLandmarks(pts){
+      const profile = (function(){
+        try { return JSON.parse(localStorage.getItem('mogger.profile') || 'null'); }
+        catch(_){ return null; }
+      })();
+      const isFemale = profile && profile.gender === 'f';
+
+      // dlib 68-point landmarks
+      const chin       = pts[8];
+      const jawL       = pts[4];
+      const jawR       = pts[12];
+      const cheekL     = pts[1];
+      const cheekR     = pts[15];
+      const noseTop    = pts[27];
+      const noseTip    = pts[30];
+      const noseLeft   = pts[31];
+      const noseRight  = pts[35];
+      const eyeOuterL  = pts[36];
+      const eyeInnerL  = pts[39];
+      const eyeInnerR  = pts[42];
+      const eyeOuterR  = pts[45];
+      const mouthL     = pts[48];
+      const mouthR     = pts[54];
+      const browL      = pts[19];
+      const browR      = pts[24];
+
+      const faceWidth  = dist(cheekL, cheekR);
+      const jawWidth   = dist(jawL, jawR);
+      const midHeight  = dist(noseTop, chin);
+      const upperHt    = Math.max(dist(browL, noseTip), dist(browR, noseTip));
+      const noseWidth  = dist(noseLeft, noseRight);
+      const mouthWidth = dist(mouthL, mouthR);
+
+      // 1. RAMUS — jaw/cheek ratio. Male ideal ~0.88, female ~0.76.
+      const jawRatio   = jawWidth / faceWidth;
+      const idealJaw   = isFemale ? 0.76 : 0.88;
+      const ramus      = scoreFromIdeal(jawRatio, idealJaw, 0.20);
+
+      // 2. CHEEKS — face width vs mid-face height. Higher = better cheekbones.
+      const cheekR2    = faceWidth / midHeight;
+      const idealCheek = isFemale ? 1.50 : 1.38;
+      const cheek      = scoreFromIdeal(cheekR2, idealCheek, 0.32);
+
+      // 3. MASC — FWHR (face width / upper height). Male 2.0 ideal, female 1.78.
+      const fwhr       = faceWidth / Math.max(upperHt, 1);
+      const idealFwhr  = isFemale ? 1.78 : 2.00;
+      const masc       = scoreFromIdeal(fwhr, idealFwhr, 0.45);
+
+      // 4. EYES — canthal tilt. Positive = outer corner higher (lower y in screen coords).
+      // In image coords, y grows downward, so positive tilt = (inner.y - outer.y) > 0.
+      const tiltL      = (eyeInnerL.y - eyeOuterL.y) / Math.max(dist(eyeOuterL, eyeInnerL), 1);
+      const tiltR      = (eyeInnerR.y - eyeOuterR.y) / Math.max(dist(eyeOuterR, eyeInnerR), 1);
+      const tilt       = (tiltL + tiltR) / 2;
+      const idealTilt  = isFemale ? 0.06 : 0.09;
+      const eye        = scoreFromIdeal(tilt, idealTilt, 0.18);
+
+      // 5. NOSE — nose width vs mouth width. Ideal nose ≈ 0.65 × mouth.
+      const noseRatio  = noseWidth / Math.max(mouthWidth, 1);
+      const idealNose  = 0.65;
+      const nose       = scoreFromIdeal(noseRatio, idealNose, 0.22);
+
+      // 6. OVAL — full face height (approx 2× midHeight) / face width.
+      const oval2      = (midHeight * 2.0) / faceWidth;
+      const idealOval  = isFemale ? 1.50 : 1.60;
+      const oval       = scoreFromIdeal(oval2, idealOval, 0.30);
+
+      return { ramus, cheek, masc, eye, nose, oval };
+    }
+
+    autoBtn && autoBtn.addEventListener('click', async () => {
+      autoBtn.disabled = true;
+      const ok = await loadModels();
+      autoBtn.disabled = false;
+      if (!ok) return;
+      autoFile.value = '';
+      autoFile.click();
+    });
+
+    autoFile && autoFile.addEventListener('change', async e => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      autoBtn.disabled = true;
+      setStatus('Анализирую фото локально...');
+      try {
+        const img = await readImageFile(f);
+        const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.4 });
+        const det = await faceapi.detectSingleFace(img, options).withFaceLandmarks();
+        if (!det){
+          setStatus('Не нашёл лицо. Сними анфас при равномерном свете, лицо целиком в кадре.', 'err');
+          return;
+        }
+        const pts = det.landmarks.positions;
+        const result = computeRatingsFromLandmarks(pts);
+        Object.assign(state, result);
+        writeParams(today, state);
+        const overall = computeOverall(state);
+        if (overall != null) writeOverall(today, Math.round(overall * 10) / 10);
+        userMutedToday = false; // re-arm UPAST audio after a fresh rating
+        paintRows(state);
+        paint(overall);
+        renderHistory();
+        setStatus('Готово. Общий: ' + (overall != null ? overall.toFixed(1) : '—') + '/10. Слайдеры можно докрутить вручную.', 'ok');
+        if (navigator.vibrate) navigator.vibrate([15, 40, 15]);
+      } catch(err){
+        setStatus('Ошибка анализа: ' + (err.message || err), 'err');
+      } finally {
+        autoBtn.disabled = false;
+        autoFile.value = '';
+      }
     });
   })();
 
