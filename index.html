@@ -1216,6 +1216,40 @@
   }
   .cosm-group li:first-child{border-top:none}
   .cosm-group li b{color:#fff}
+  .cosm-group li .wb-btn{
+    display:inline-flex;align-items:center;gap:4px;
+    background:linear-gradient(135deg, hsl(330 95% 45%), hsl(280 80% 45%));
+    color:#fff;font-size:10.5px;font-weight:800;
+    padding:3px 9px;border-radius:6px;
+    margin-left:6px;text-decoration:none;letter-spacing:.04em;
+    vertical-align:middle;
+  }
+  .cosm-group li .wb-btn:active{transform:scale(0.96)}
+  .cosm-group .my-articles{
+    display:flex;gap:6px;align-items:center;margin-top:8px;
+    flex-wrap:wrap;
+  }
+  .cosm-group .my-articles input{
+    flex:1;min-width:140px;
+    background:hsla(var(--accent-h),50%,8%,.55);
+    border:1px solid hsla(var(--accent-h),60%,30%,.4);
+    color:#fff;font-size:12px;padding:6px 10px;border-radius:8px;
+  }
+  .cosm-group .my-articles button{
+    background:hsla(var(--accent-h),60%,30%,.55);
+    color:#fff;border:none;font-weight:700;font-size:12px;
+    padding:6px 12px;border-radius:8px;cursor:pointer;
+  }
+  .my-articles-list{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+  .my-articles-list .my-art{
+    display:flex;align-items:center;gap:8px;
+    font-size:12px;color:hsl(var(--accent-h) 40% 92%);
+  }
+  .my-articles-list .my-art a{color:hsl(330 100% 78%);text-decoration:none;font-weight:700}
+  .my-articles-list .my-art .rm{
+    margin-left:auto;background:none;border:none;color:hsl(0 60% 70%);
+    font-size:14px;cursor:pointer;padding:0 4px;
+  }
   .cosm-group li .price{
     color:hsl(var(--accent-h) 100% 75%);font-size:11.5px;font-weight:700;
     margin-left:6px;white-space:nowrap;
@@ -1417,6 +1451,269 @@
   }
   .reset-theme:hover{background:hsla(var(--accent-h),100%,65%,.2)}
 
+  /* =========================================================
+     SCENE OVERLAYS — themed visuals (snow, ducks, bats, stars)
+  ========================================================= */
+  .scene-overlay{
+    position:fixed;inset:0;
+    z-index:0;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  /* Push main content above overlay so cards aren't covered by animations */
+  body > main, body > header, body > nav{position:relative;z-index:2}
+  .scene-overlay > *{position:absolute;will-change:transform,opacity}
+
+  /* Scene picker chips */
+  .scene-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .scene-chips .chip{position:relative}
+  .scene-chips .chip[data-s] .se{font-size:13px;margin-right:5px}
+
+  /* —— NEW YEAR —— */
+  body.scene-newyear .snow{
+    font-size:18px;color:#fff;
+    text-shadow:0 0 6px rgba(255,255,255,.5),0 0 12px rgba(180,220,255,.4);
+    animation:snow-fall linear infinite;
+    user-select:none;
+    will-change:transform;
+  }
+  @keyframes snow-fall{
+    0%{transform:translate3d(0,-12vh,0) rotate(0deg);opacity:.9}
+    50%{transform:translate3d(15px,55vh,0) rotate(180deg);opacity:.9}
+    100%{transform:translate3d(-10px,110vh,0) rotate(360deg);opacity:0}
+  }
+  body.scene-newyear .garland{
+    position:fixed;top:0;left:0;right:0;height:14px;z-index:2;
+    background:
+      radial-gradient(circle at 12px 7px, hsl(0 100% 60%) 0 4px, transparent 5px),
+      radial-gradient(circle at 36px 7px, hsl(50 100% 60%) 0 4px, transparent 5px),
+      radial-gradient(circle at 60px 7px, hsl(140 90% 55%) 0 4px, transparent 5px),
+      radial-gradient(circle at 84px 7px, hsl(200 100% 65%) 0 4px, transparent 5px),
+      radial-gradient(circle at 108px 7px, hsl(320 95% 65%) 0 4px, transparent 5px),
+      linear-gradient(to bottom, hsla(140 50% 25% .6), transparent);
+    background-size:120px 14px, 120px 14px, 120px 14px, 120px 14px, 120px 14px, 100% 14px;
+    background-repeat:repeat-x;
+    animation:garland-blink 1.8s steps(4) infinite;
+    filter:drop-shadow(0 0 6px hsla(50 100% 60% .5));
+  }
+  @keyframes garland-blink{50%{filter:drop-shadow(0 0 12px hsla(0 100% 60% .8)) brightness(1.3)}}
+  body.scene-newyear .nye-tree{
+    font-size:48px;bottom:-4px;
+    filter:drop-shadow(0 0 10px hsla(140 90% 50% .6));
+    animation:tree-sparkle 2.5s ease-in-out infinite;
+  }
+  body.scene-newyear .nye-tree.left{left:6px}
+  body.scene-newyear .nye-tree.right{right:6px;animation-delay:1.2s}
+  @keyframes tree-sparkle{50%{filter:drop-shadow(0 0 18px hsla(50 100% 65% .9))}}
+
+  /* —— SUMMER —— */
+  body.scene-summer .sun{
+    font-size:54px;top:14px;right:10px;
+    filter:drop-shadow(0 0 14px hsla(45 100% 60% .9));
+    animation:sun-spin 18s linear infinite;
+  }
+  @keyframes sun-spin{to{transform:rotate(360deg)}}
+  body.scene-summer .duck{
+    font-size:26px;
+    animation:duck-swim linear infinite;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));
+  }
+  @keyframes duck-swim{
+    0%{transform:translate3d(-50px,0,0)}
+    50%{transform:translate3d(50vw,-6px,0)}
+    100%{transform:translate3d(calc(100vw + 50px),0,0)}
+  }
+  body.scene-summer .palm{
+    font-size:48px;bottom:0;
+    filter:drop-shadow(0 0 8px hsla(140 80% 40% .5));
+  }
+  body.scene-summer .palm.left{left:6px}
+  body.scene-summer .palm.right{right:6px;transform:scaleX(-1)}
+  body.scene-summer .sand{
+    position:fixed;left:0;right:0;bottom:0;height:34px;z-index:0;
+    background:
+      linear-gradient(to top, hsla(40 60% 55% .9), hsla(40 60% 55% 0)),
+      repeating-linear-gradient(90deg, hsla(40 70% 75% .15) 0 6px, transparent 6px 12px);
+    border-top:1px dashed hsla(40 60% 70% .5);
+  }
+  body.scene-summer .umbrella{
+    font-size:32px;
+    animation:umbrella-wobble 4s ease-in-out infinite;
+  }
+  @keyframes umbrella-wobble{50%{transform:rotate(-8deg)}}
+
+  /* —— HALLOWEEN —— */
+  body.scene-halloween{background:#0a0508}
+  body.scene-halloween .bat{
+    font-size:24px;
+    animation:bat-fly linear infinite;
+    filter:drop-shadow(0 0 6px hsla(25 100% 50% .5));
+  }
+  @keyframes bat-fly{
+    0%{transform:translate3d(-40px,0,0) scale(1,1)}
+    25%{transform:translate3d(28vw,-30px,0) scale(.9,1.1)}
+    50%{transform:translate3d(50vw,10px,0) scale(1.1,.9)}
+    75%{transform:translate3d(75vw,-20px,0) scale(.9,1.1)}
+    100%{transform:translate3d(calc(100vw + 40px),0,0) scale(1,1)}
+  }
+  body.scene-halloween .pumpkin{
+    font-size:42px;bottom:6px;
+    filter:drop-shadow(0 0 10px hsla(25 100% 55% .8));
+    animation:pumpkin-glow 2s ease-in-out infinite;
+  }
+  body.scene-halloween .pumpkin.left{left:8px}
+  body.scene-halloween .pumpkin.right{right:8px;animation-delay:1s}
+  @keyframes pumpkin-glow{50%{filter:drop-shadow(0 0 22px hsla(25 100% 55% 1))}}
+  body.scene-halloween .web{
+    font-size:60px;opacity:.18;
+    filter:drop-shadow(0 0 3px rgba(255,255,255,.3));
+  }
+  body.scene-halloween .web.tl{top:-6px;left:-6px}
+  body.scene-halloween .web.tr{top:-6px;right:-6px;transform:scaleX(-1)}
+
+  /* —— SPRING —— */
+  body.scene-spring .butterfly{
+    font-size:22px;
+    animation:butterfly-fly ease-in-out infinite;
+    filter:drop-shadow(0 0 6px hsla(330 100% 70% .6));
+  }
+  @keyframes butterfly-fly{
+    0%,100%{transform:translate3d(0,0,0) rotate(0)}
+    20%{transform:translate3d(30px,-20px,0) rotate(10deg)}
+    40%{transform:translate3d(60px,-10px,0) rotate(-8deg)}
+    60%{transform:translate3d(40px,20px,0) rotate(6deg)}
+    80%{transform:translate3d(10px,5px,0) rotate(-4deg)}
+  }
+  body.scene-spring .petal{
+    font-size:14px;color:hsl(330 100% 80%);
+    text-shadow:0 0 6px hsla(330 100% 80% .6);
+    animation:petal-fall linear infinite;
+  }
+  @keyframes petal-fall{
+    0%{transform:translate3d(0,-10vh,0) rotate(0)}
+    100%{transform:translate3d(25px,110vh,0) rotate(540deg)}
+  }
+  body.scene-spring .flower{
+    font-size:32px;bottom:-2px;
+    filter:drop-shadow(0 0 8px hsla(330 100% 70% .6));
+  }
+  body.scene-spring .flower.left{left:8px}
+  body.scene-spring .flower.right{right:8px}
+
+  /* —— SPACE —— */
+  body.scene-space{background:radial-gradient(ellipse at 30% 15%, hsl(260 60% 14%), hsl(240 70% 5%) 80%)}
+  body.scene-space .star-px{
+    width:2px;height:2px;border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 4px #fff;
+    animation:twinkle ease-in-out infinite;
+  }
+  @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+  body.scene-space .planet{
+    font-size:36px;
+    animation:planet-orbit 30s linear infinite;
+    filter:drop-shadow(0 0 12px hsla(270 100% 60% .7));
+  }
+  @keyframes planet-orbit{
+    from{transform:translate3d(-40px,40vh,0)}
+    to{transform:translate3d(calc(100vw + 40px),50vh,0)}
+  }
+  body.scene-space .comet{
+    font-size:28px;
+    animation:comet-shoot 9s linear infinite;
+  }
+  @keyframes comet-shoot{
+    0%{transform:translate3d(-50px,-50px,0) rotate(45deg);opacity:0}
+    5%{opacity:1}
+    35%{opacity:1}
+    40%{transform:translate3d(calc(100vw + 50px),60vh,0) rotate(45deg);opacity:0}
+    100%{opacity:0}
+  }
+
+  /* —— CYBERPUNK —— */
+  body.scene-cyberpunk{background:#08050d}
+  body.scene-cyberpunk .grid{
+    position:fixed;inset:0;
+    background:
+      linear-gradient(hsla(320 100% 55% .12) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, hsla(180 100% 55% .12) 1px, transparent 1px) 0 0/40px 40px;
+    mask:linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+    animation:grid-scroll 6s linear infinite;
+  }
+  @keyframes grid-scroll{from{background-position:0 0, 0 0}to{background-position:0 40px, 40px 0}}
+  body.scene-cyberpunk .scanline{
+    position:fixed;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent, hsla(320 100% 60% .5), hsla(180 100% 60% .5),transparent);
+    box-shadow:0 0 10px hsla(320 100% 60% .8);
+    animation:scan 4s linear infinite;
+  }
+  @keyframes scan{0%{top:-2px}100%{top:100vh}}
+  body.scene-cyberpunk .glitch-text{
+    position:fixed;top:30px;left:50%;transform:translateX(-50%);
+    font-family:monospace;font-size:11px;letter-spacing:.2em;
+    color:hsl(180 100% 70%);
+    text-shadow:1px 0 hsl(320 100% 60%),-1px 0 hsl(180 100% 60%);
+    animation:glitch 3s steps(8) infinite;
+    opacity:.5;pointer-events:none;
+  }
+  @keyframes glitch{
+    0%,90%,100%{opacity:.5;transform:translateX(-50%) skewX(0)}
+    95%{opacity:.85;transform:translateX(calc(-50% + 2px)) skewX(2deg)}
+  }
+
+  /* —— PIXEL / RETRO —— */
+  body.scene-pixel{
+    background:#0a0f0a;
+    image-rendering:pixelated;
+    font-family:'Press Start 2P', 'Courier New', monospace;
+  }
+  body.scene-pixel .pixel-bar{
+    position:fixed;left:0;right:0;height:2px;
+    background:hsl(120 100% 50%);
+    box-shadow:0 0 8px hsl(120 100% 50%);
+    animation:pixel-scroll 0.1s steps(2) infinite;
+  }
+  body.scene-pixel .pixel-bar.top{top:0}
+  body.scene-pixel .pixel-bar.bottom{bottom:0}
+  @keyframes pixel-scroll{50%{opacity:.5}}
+  body.scene-pixel .coin{
+    font-size:18px;
+    animation:coin-bounce 1.2s ease-in-out infinite;
+  }
+  @keyframes coin-bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-8px)}
+  }
+
+  /* —— OCEAN —— */
+  body.scene-ocean .fish{
+    font-size:24px;
+    animation:fish-swim linear infinite;
+  }
+  @keyframes fish-swim{
+    0%{transform:translate3d(-50px,0,0) scaleX(1)}
+    49%{transform:translate3d(50vw,-4px,0) scaleX(1)}
+    50%{transform:translate3d(50vw,-4px,0) scaleX(-1)}
+    99%{transform:translate3d(-50px,4px,0) scaleX(-1)}
+    100%{transform:translate3d(-50px,4px,0) scaleX(1)}
+  }
+  body.scene-ocean .bubble{
+    width:8px;height:8px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(180,220,255,.3));
+    border:1px solid rgba(255,255,255,.5);
+    animation:bubble-rise linear infinite;
+  }
+  @keyframes bubble-rise{
+    0%{transform:translate3d(0,110vh,0) scale(.6);opacity:.7}
+    100%{transform:translate3d(20px,-10vh,0) scale(1.2);opacity:0}
+  }
+  body.scene-ocean .wave{
+    position:fixed;bottom:0;left:0;right:0;height:50px;
+    background:linear-gradient(to top, hsla(200 80% 30% .5), transparent);
+    animation:wave-pulse 4s ease-in-out infinite;
+  }
+  @keyframes wave-pulse{50%{transform:translateY(-5px)}}
+
   /* small screens */
   @media (max-width:380px){
     .goal h2.title{font-size:30px}
@@ -1429,6 +1726,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 </head>
 <body>
+<div id="scene-overlay" class="scene-overlay" aria-hidden="true"></div>
 
 <div class="bg"></div>
 <div class="stars"></div>
@@ -1923,6 +2221,27 @@
       </p>
       <p class="muted" style="font-size:12px;margin-top:8px">
         Тапни, чтобы сменить →
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Сцена оформления</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:8px">
+        Не только цвет — целая обстановка с анимациями. Тапни сцену → меняется фон, появляются элементы.
+      </p>
+      <div class="chips scene-chips" id="scene-chips">
+        <button class="chip on" data-s="standard"><span class="se">◯</span>Стандарт</button>
+        <button class="chip" data-s="newyear"><span class="se">🎄</span>Новый год</button>
+        <button class="chip" data-s="summer"><span class="se">🌴</span>Лето</button>
+        <button class="chip" data-s="ocean"><span class="se">🐟</span>Океан</button>
+        <button class="chip" data-s="halloween"><span class="se">🎃</span>Хэллоуин</button>
+        <button class="chip" data-s="spring"><span class="se">🌸</span>Весна</button>
+        <button class="chip" data-s="space"><span class="se">🪐</span>Космос</button>
+        <button class="chip" data-s="cyberpunk"><span class="se">⚡</span>Cyberpunk</button>
+        <button class="chip" data-s="pixel"><span class="se">🎮</span>Pixel/Retro</button>
+      </div>
+      <p class="muted" style="font-size:11px;margin-top:10px">
+        Сцена меняет фон и акцент. Цвет дальше всё ещё можно тюнить пресетами или слайдером ниже.
       </p>
     </div>
 
@@ -4079,16 +4398,88 @@
     const out = document.getElementById('cosm-out');
     if (!box || !out) return;
     function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    function wbSearchUrl(name){
+      return 'https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(name);
+    }
+    function wbItemUrl(article){
+      return 'https://www.wildberries.ru/catalog/' + encodeURIComponent(article) + '/detail.aspx';
+    }
+    function parseArticle(input){
+      const s = String(input).trim();
+      const m = s.match(/(\d{6,12})/);
+      return m ? m[1] : null;
+    }
+    function loadMyArticles(skin){
+      try { return JSON.parse(localStorage.getItem('mogger.wb.articles.' + skin) || '[]'); }
+      catch(_){ return []; }
+    }
+    function saveMyArticles(skin, arr){
+      try { localStorage.setItem('mogger.wb.articles.' + skin, JSON.stringify(arr)); } catch(_){}
+    }
     function render(key){
       const groups = COSM[key];
       if (!groups){ out.innerHTML = ''; return; }
       const html = Object.keys(groups).map(name => {
-        const items = groups[name].map(it =>
-          `<li><b>${esc(it.n)}</b> — ${esc(it.d)}${it.p ? `<span class="price">${esc(it.p)}</span>` : ''}</li>`
-        ).join('');
+        const items = groups[name].map(it => {
+          const wb = it.wb
+            ? `<a class="wb-btn" href="${wbItemUrl(it.wb)}" target="_blank" rel="noopener">🛒 WB</a>`
+            : (it.p ? `<a class="wb-btn" href="${wbSearchUrl(it.n)}" target="_blank" rel="noopener">🛒 WB</a>` : '');
+          return `<li><b>${esc(it.n)}</b> — ${esc(it.d)}${it.p ? `<span class="price">${esc(it.p)}</span>` : ''}${wb}</li>`;
+        }).join('');
         return `<div class="cosm-group"><h4>${esc(name)}</h4><ul>${items}</ul></div>`;
       }).join('');
-      out.innerHTML = html;
+
+      // "Мои артикулы" — пользовательский список
+      const my = loadMyArticles(key);
+      const myList = my.map((a, i) =>
+        `<div class="my-art" data-i="${i}">
+          <span>${esc(a.title || ('Артикул ' + a.article))}</span>
+          <a href="${wbItemUrl(a.article)}" target="_blank" rel="noopener">→ #${esc(a.article)}</a>
+          <button class="rm" type="button" title="удалить">✕</button>
+        </div>`
+      ).join('');
+
+      const myArticlesCard = `<div class="cosm-group">
+        <h4>📌 Мои артикулы</h4>
+        <p style="font-size:12px;color:hsl(var(--accent-h) 40% 85%);margin-bottom:8px">
+          Кидай свои находки с WB — артикул или весь линк. Я добавлю в твою личную подборку для <b>${esc(({oily:'жирной',dry:'сухой',combo:'комби',sensitive:'чувствительной',acne:'acne',normal:'нормальной'})[key] || key)}</b> кожи.
+        </p>
+        <div class="my-articles">
+          <input type="text" id="my-art-name" placeholder="название (напр. CeraVe AM)">
+          <input type="text" id="my-art-link" placeholder="артикул или ссылка WB">
+          <button id="my-art-add" type="button">Добавить</button>
+        </div>
+        <div class="my-articles-list" id="my-articles-list">${myList || '<p style="font-size:12px;color:hsl(var(--accent-h) 40% 60%);margin-top:4px">Пусто. Скинь свой первый артикул сверху.</p>'}</div>
+      </div>`;
+
+      out.innerHTML = html + myArticlesCard;
+
+      // wire up "Добавить"
+      const addBtn = out.querySelector('#my-art-add');
+      const nameI  = out.querySelector('#my-art-name');
+      const linkI  = out.querySelector('#my-art-link');
+      addBtn && addBtn.addEventListener('click', () => {
+        const article = parseArticle(linkI.value);
+        if (!article){
+          linkI.style.borderColor = 'hsl(0 70% 60%)';
+          linkI.placeholder = 'нужен артикул (числа) или линк';
+          return;
+        }
+        const arr = loadMyArticles(key);
+        arr.push({ title: nameI.value.trim() || null, article, ts: Date.now() });
+        saveMyArticles(key, arr);
+        render(key);
+      });
+      out.querySelectorAll('.my-art .rm').forEach(b => {
+        b.addEventListener('click', () => {
+          const i = +b.closest('.my-art').dataset.i;
+          const arr = loadMyArticles(key);
+          arr.splice(i, 1);
+          saveMyArticles(key, arr);
+          render(key);
+        });
+      });
+
       box.querySelectorAll('.chip').forEach(c =>
         c.classList.toggle('on', c.dataset.c === key)
       );
@@ -4271,6 +4662,231 @@
     const initial = (stored !== null && stored !== '' && !isNaN(Number(stored)))
       ? stored : DEFAULT;
     set(initial);
+
+    // expose so SCENE module can override accent without losing user picker state
+    window.__setAccent = (h) => set(h);
+  })();
+
+  // ========= SCENE / THEMED VISUAL OVERLAY =========
+  (function(){
+    const overlay = document.getElementById('scene-overlay');
+    const picker  = document.getElementById('scene-chips');
+    if (!overlay || !picker) return;
+    const KEY = 'mogger.scene';
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+    function el(tag, cls){ const e = document.createElement(tag); if (cls) e.className = cls; return e; }
+
+    // Builders per scene — each returns array of DOM elements to inject into overlay
+    const BUILDERS = {
+      standard(){ return []; },
+      newyear(){
+        const arr = [];
+        // Garland top bar
+        arr.push(el('div', 'garland'));
+        // Trees in corners
+        const t1 = el('div', 'nye-tree left'); t1.textContent = '🎄'; arr.push(t1);
+        const t2 = el('div', 'nye-tree right'); t2.textContent = '🎄'; arr.push(t2);
+        // Snowflakes
+        const FLAKES = ['❄','❅','❆','✻','✼','*'];
+        for (let i = 0; i < 36; i++){
+          const s = el('div', 'snow');
+          s.textContent = FLAKES[i % FLAKES.length];
+          s.style.left = rand(0, 100) + '%';
+          s.style.top = '-12vh';
+          s.style.animationDuration = rand(8, 16) + 's';
+          s.style.animationDelay = (-rand(0, 14)) + 's';
+          s.style.fontSize = rand(12, 22) + 'px';
+          arr.push(s);
+        }
+        return arr;
+      },
+      summer(){
+        const arr = [];
+        const sun = el('div', 'sun'); sun.textContent = '☀️'; arr.push(sun);
+        const sand = el('div', 'sand'); arr.push(sand);
+        const p1 = el('div', 'palm left'); p1.textContent = '🌴'; arr.push(p1);
+        const p2 = el('div', 'palm right'); p2.textContent = '🌴'; arr.push(p2);
+        const u = el('div', 'umbrella'); u.textContent = '⛱️';
+        u.style.left = '46%'; u.style.bottom = '32px'; u.style.fontSize = '38px'; arr.push(u);
+        // Ducks
+        for (let i = 0; i < 4; i++){
+          const d = el('div', 'duck');
+          d.textContent = '🦆';
+          d.style.top = rand(30, 75) + '%';
+          d.style.animationDuration = rand(14, 28) + 's';
+          d.style.animationDelay = (-rand(0, 20)) + 's';
+          arr.push(d);
+        }
+        return arr;
+      },
+      ocean(){
+        const arr = [];
+        const wave = el('div', 'wave'); arr.push(wave);
+        const FISH = ['🐟','🐠','🐡','🦈','🦑'];
+        for (let i = 0; i < 5; i++){
+          const f = el('div', 'fish');
+          f.textContent = FISH[i % FISH.length];
+          f.style.top = rand(20, 80) + '%';
+          f.style.animationDuration = rand(18, 32) + 's';
+          f.style.animationDelay = (-rand(0, 25)) + 's';
+          arr.push(f);
+        }
+        for (let i = 0; i < 22; i++){
+          const b = el('div', 'bubble');
+          b.style.left = rand(0, 100) + '%';
+          b.style.animationDuration = rand(5, 12) + 's';
+          b.style.animationDelay = (-rand(0, 10)) + 's';
+          b.style.transform = 'scale(' + rand(.5, 1.4) + ')';
+          arr.push(b);
+        }
+        return arr;
+      },
+      halloween(){
+        const arr = [];
+        const wl = el('div', 'web tl'); wl.textContent = '🕸️'; arr.push(wl);
+        const wr = el('div', 'web tr'); wr.textContent = '🕸️'; arr.push(wr);
+        const p1 = el('div', 'pumpkin left'); p1.textContent = '🎃'; arr.push(p1);
+        const p2 = el('div', 'pumpkin right'); p2.textContent = '🎃'; arr.push(p2);
+        for (let i = 0; i < 6; i++){
+          const b = el('div', 'bat');
+          b.textContent = '🦇';
+          b.style.top = rand(8, 70) + '%';
+          b.style.animationDuration = rand(11, 22) + 's';
+          b.style.animationDelay = (-rand(0, 15)) + 's';
+          arr.push(b);
+        }
+        return arr;
+      },
+      spring(){
+        const arr = [];
+        const f1 = el('div', 'flower left'); f1.textContent = '🌷'; arr.push(f1);
+        const f2 = el('div', 'flower right'); f2.textContent = '🌷'; arr.push(f2);
+        const BUTTER = ['🦋','🐝','🐞'];
+        for (let i = 0; i < 5; i++){
+          const b = el('div', 'butterfly');
+          b.textContent = BUTTER[i % BUTTER.length];
+          b.style.left = rand(5, 90) + '%';
+          b.style.top = rand(15, 75) + '%';
+          b.style.animationDuration = rand(7, 14) + 's';
+          b.style.animationDelay = (-rand(0, 10)) + 's';
+          arr.push(b);
+        }
+        const PETALS = ['🌸','🌺','🍃'];
+        for (let i = 0; i < 20; i++){
+          const p = el('div', 'petal');
+          p.textContent = PETALS[i % PETALS.length];
+          p.style.left = rand(0, 100) + '%';
+          p.style.top = '-12vh';
+          p.style.animationDuration = rand(9, 18) + 's';
+          p.style.animationDelay = (-rand(0, 16)) + 's';
+          p.style.fontSize = rand(14, 26) + 'px';
+          arr.push(p);
+        }
+        return arr;
+      },
+      space(){
+        const arr = [];
+        for (let i = 0; i < 80; i++){
+          const s = el('div', 'star-px');
+          s.style.left = rand(0, 100) + '%';
+          s.style.top = rand(0, 100) + '%';
+          s.style.animationDuration = rand(1.5, 4) + 's';
+          s.style.animationDelay = (-rand(0, 4)) + 's';
+          arr.push(s);
+        }
+        const planet = el('div', 'planet'); planet.textContent = '🪐';
+        planet.style.animationDelay = '-12s'; arr.push(planet);
+        const moon = el('div', 'planet'); moon.textContent = '🌑';
+        moon.style.animationDuration = '50s';
+        moon.style.fontSize = '24px'; arr.push(moon);
+        const ufo = el('div', 'planet'); ufo.textContent = '🛸';
+        ufo.style.animationDuration = '22s';
+        ufo.style.animationDelay = '-7s';
+        ufo.style.fontSize = '30px'; arr.push(ufo);
+        for (let i = 0; i < 2; i++){
+          const c = el('div', 'comet'); c.textContent = '☄️';
+          c.style.top = rand(5, 30) + '%';
+          c.style.animationDelay = (-i * 5) + 's';
+          arr.push(c);
+        }
+        return arr;
+      },
+      cyberpunk(){
+        const arr = [];
+        arr.push(el('div', 'grid'));
+        const t = el('div', 'glitch-text');
+        t.textContent = 'MOGGER ▸ HARD MODE ▸ ' + new Date().getFullYear();
+        arr.push(t);
+        for (let i = 0; i < 3; i++){
+          const s = el('div', 'scanline');
+          s.style.animationDelay = (-i * 1.5) + 's';
+          arr.push(s);
+        }
+        return arr;
+      },
+      pixel(){
+        const arr = [];
+        arr.push(el('div', 'pixel-bar top'));
+        arr.push(el('div', 'pixel-bar bottom'));
+        const COINS = ['🪙','⭐','💎','❤️','👾'];
+        for (let i = 0; i < 8; i++){
+          const c = el('div', 'coin');
+          c.textContent = COINS[i % COINS.length];
+          c.style.left = rand(5, 95) + '%';
+          c.style.top = rand(10, 90) + '%';
+          c.style.animationDelay = (-rand(0, 2)) + 's';
+          arr.push(c);
+        }
+        return arr;
+      },
+    };
+
+    // Accent hue override per scene (only applied first time scene is chosen)
+    const SCENE_ACCENTS = {
+      standard:  null,
+      newyear:   0,     // red
+      summer:    180,   // turquoise
+      ocean:     200,   // deep ocean blue
+      halloween: 25,    // orange
+      spring:    330,   // pink
+      space:     265,   // purple
+      cyberpunk: 320,   // magenta
+      pixel:     130,   // CRT green
+    };
+
+    function setScene(name){
+      if (!BUILDERS[name]) name = 'standard';
+      // Reset body class
+      Array.from(document.body.classList).forEach(c => {
+        if (c.startsWith('scene-')) document.body.classList.remove(c);
+      });
+      if (name !== 'standard') document.body.classList.add('scene-' + name);
+      // Clear overlay and inject new elements
+      overlay.innerHTML = '';
+      const built = BUILDERS[name]();
+      built.forEach(e => overlay.appendChild(e));
+      // Sync picker chips
+      picker.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('on', c.dataset.s === name)
+      );
+      // Update accent if scene has a preferred hue AND user hasn't manually set one for this scene
+      const lastScene = localStorage.getItem(KEY);
+      const accent = SCENE_ACCENTS[name];
+      if (accent != null && lastScene !== name && typeof window.__setAccent === 'function'){
+        window.__setAccent(accent);
+      }
+      try { localStorage.setItem(KEY, name); } catch(_){}
+    }
+
+    picker.addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      setScene(c.dataset.s);
+      if (navigator.vibrate) navigator.vibrate(8);
+    });
+
+    const stored = localStorage.getItem(KEY);
+    setScene(stored && BUILDERS[stored] ? stored : 'standard');
   })();
 
   // ========= STREAK + ACHIEVEMENTS =========
