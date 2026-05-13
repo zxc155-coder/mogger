@@ -1,5 +1,5 @@
 /* MOGGER offline service worker — network-first for HTML, cache-first for assets */
-const CACHE = 'mogger-v12';
+const CACHE = 'mogger-v13';
 const ASSETS = [
   './',
   './index.html',
