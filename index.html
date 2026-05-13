@@ -858,6 +858,116 @@
     box-shadow:0 0 18px hsla(var(--accent-h), 100%, 65%, .5);
   }
 
+  /* =========================================================
+     FACE RATING — daily 1-10 with history bars
+  ========================================================= */
+  .face-rate-row{
+    display:flex;align-items:center;gap:14px;
+    margin:14px 0 4px;
+  }
+  .face-rate-num{
+    font-size:54px;font-weight:900;line-height:1;
+    color:#fff;
+    text-shadow:0 0 24px hsla(var(--accent-h), 100%, 70%, .55);
+    min-width:80px;
+  }
+  .face-rate-emoji{font-size:42px;line-height:1;filter:drop-shadow(0 4px 10px hsla(var(--accent-h),100%,40%,.4))}
+  .face-rate-slider{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:14px;border-radius:8px;
+    background:linear-gradient(90deg,
+      hsl(0 70% 45%) 0%,
+      hsl(30 90% 50%) 25%,
+      hsl(60 95% 55%) 50%,
+      hsl(120 75% 50%) 75%,
+      hsl(var(--accent-h) 100% 60%) 100%);
+    outline:none;
+    box-shadow:inset 0 2px 6px rgba(0,0,0,.45);
+    margin-top:6px;
+  }
+  .face-rate-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:26px;height:26px;border-radius:50%;
+    background:#fff;
+    border:3px solid hsl(var(--accent-h) 100% 60%);
+    box-shadow:0 0 14px hsla(var(--accent-h), 100%, 70%, .85);
+    cursor:pointer;
+  }
+  .face-rate-slider::-moz-range-thumb{
+    width:26px;height:26px;border-radius:50%;
+    background:#fff;
+    border:3px solid hsl(var(--accent-h) 100% 60%);
+    box-shadow:0 0 14px hsla(var(--accent-h), 100%, 70%, .85);
+    cursor:pointer;
+  }
+  .face-rate-scale{
+    display:flex;justify-content:space-between;
+    font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 35% 65%);
+    margin-top:6px;
+  }
+  .face-history-head{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:16px;
+  }
+  .face-history-head .meta{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 100% 80%);
+  }
+  .face-stats{
+    font-size:12px;color:hsl(var(--accent-h) 25% 70%);
+  }
+  .face-stats .up{color:hsl(140 70% 60%)}
+  .face-stats .down{color:hsl(0 80% 65%)}
+  .face-history{
+    display:grid;grid-template-columns:repeat(14,1fr);
+    gap:4px;margin-top:8px;height:76px;
+    align-items:end;
+  }
+  .face-bar{
+    height:100%;display:flex;align-items:flex-end;justify-content:center;
+    position:relative;
+  }
+  .face-bar > span{
+    display:block;width:100%;border-radius:4px 4px 2px 2px;
+    background:linear-gradient(180deg,
+      hsl(var(--accent-h) 100% 65%),
+      hsl(var(--accent-h) 80% 35%));
+    min-height:2px;
+    transition:height .25s ease;
+  }
+  .face-bar.today > span{
+    background:linear-gradient(180deg,#fff,hsl(var(--accent-h) 100% 60%));
+    box-shadow:0 0 10px hsla(var(--accent-h),100%,70%,.7);
+  }
+  .face-bar.empty > span{
+    background:hsla(var(--accent-h), 30%, 30%, .35);
+    min-height:3px;
+  }
+
+  /* =========================================================
+     BODY EQUIPMENT TABS
+  ========================================================= */
+  .equip-tabs{
+    display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px;
+  }
+  .equip-tabs .chip{
+    flex:1;min-width:90px;justify-content:center;
+    padding:11px 10px;font-size:13px;font-weight:700;
+    display:flex;align-items:center;gap:8px;
+  }
+  .equip-tabs .chip svg{width:18px;height:18px;flex-shrink:0;stroke-width:2}
+  .equip-tabs .chip.on{
+    background:linear-gradient(135deg,
+      hsl(var(--accent-h) 100% 60%),
+      hsl(var(--accent-h) 90% 45%));
+    color:#fff;
+    border-color:hsl(var(--accent-h) 100% 75%);
+    box-shadow:0 0 16px hsla(var(--accent-h),100%,65%,.45);
+  }
+  .equip-group{display:none}
+  .equip-group.on{display:block}
+
   /* line-draw on SVGs in section heads */
   .sec-head svg path,.sec-head svg circle{
     stroke-dasharray:200;stroke-dashoffset:200;
@@ -1100,6 +1210,38 @@
     </div>
 
     <div class="card" style="margin-top:14px">
+      <h2>Рейт лица сегодня</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:2px">
+        Честно — на сколько лицо тянет 1–10? Замеряй каждый день, без жалости и без подъёб.
+      </p>
+      <div class="face-rate-row">
+        <div class="face-rate-num" id="face-rate-num">—</div>
+        <div class="face-rate-emoji" id="face-rate-emoji">🪞</div>
+      </div>
+      <input
+        type="range"
+        min="1"
+        max="10"
+        step="1"
+        value="5"
+        class="face-rate-slider"
+        id="face-rate-slider"
+        aria-label="Face rating today (1-10)"
+      />
+      <div class="face-rate-scale">
+        <span>1 · трэш</span>
+        <span>5 · норм</span>
+        <span>10 · хайтн</span>
+      </div>
+
+      <div class="face-history-head">
+        <span class="meta">14 дней</span>
+        <span class="face-stats" id="face-stats">средн. — · тренд —</span>
+      </div>
+      <div class="face-history" id="face-history" role="img" aria-label="Face rating history"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
       <h2>Прогресс по фото</h2>
       <p class="muted" style="font-size:12.5px;margin-bottom:6px">
         Раз в неделю в одинаковом освещении: лицо анфас, профиль, торс. Сравни через 4 нед.
@@ -1275,16 +1417,30 @@
       <p class="muted" style="font-size:12.5px;margin-bottom:8px">Тапни на пресет — или подвинь ползунок для своего оттенка.</p>
       <div class="chips" id="accent-chips">
         <button class="chip on" data-h="220" style="--h:220">Сапфир</button>
+        <button class="chip" data-h="210" style="--h:210">Стальной</button>
         <button class="chip" data-h="200" style="--h:200">Лёд</button>
+        <button class="chip" data-h="195" style="--h:195">Океан</button>
         <button class="chip" data-h="180" style="--h:180">Циан</button>
+        <button class="chip" data-h="165" style="--h:165">Мята</button>
         <button class="chip" data-h="155" style="--h:155">Изумруд</button>
+        <button class="chip" data-h="135" style="--h:135">Неон</button>
         <button class="chip" data-h="120" style="--h:120">Лайм</button>
+        <button class="chip" data-h="60" style="--h:60">Лимон</button>
         <button class="chip" data-h="45" style="--h:45">Золото</button>
+        <button class="chip" data-h="40" style="--h:40">Янтарь</button>
+        <button class="chip" data-h="30" style="--h:30">Карамель</button>
         <button class="chip" data-h="20" style="--h:20">Закат</button>
+        <button class="chip" data-h="10" style="--h:10">Терракота</button>
         <button class="chip" data-h="0" style="--h:0">Кровь</button>
+        <button class="chip" data-h="335" style="--h:335">Малина</button>
         <button class="chip" data-h="320" style="--h:320">Розовый</button>
+        <button class="chip" data-h="310" style="--h:310">Слива</button>
+        <button class="chip" data-h="290" style="--h:290">Орхидея</button>
         <button class="chip" data-h="280" style="--h:280">Магента</button>
+        <button class="chip" data-h="270" style="--h:270">Ультра</button>
         <button class="chip" data-h="260" style="--h:260">Аметист</button>
+        <button class="chip" data-h="250" style="--h:250">Лаванда</button>
+        <button class="chip" data-h="245" style="--h:245">Электрик</button>
       </div>
 
       <div class="hue-slider-wrap">
@@ -1767,12 +1923,30 @@
   ============================================================ -->
   <section id="screen-body" class="screen">
     <div class="sec-head">
-      <div><h2>Тело</h2><p>Штанга · турник · резина — 4 дня/нед</p></div>
+      <div><h2>Тело</h2><p>Выбери инвентарь — программа под него</p></div>
     </div>
 
+    <div class="equip-tabs" id="equip-tabs" role="tablist" aria-label="Тип тренировки">
+      <button class="chip on" data-prog="barbell" role="tab" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 9v6M7 7v10M20 9v6M17 7v10M7 12h10"/></svg>
+        Штанга
+      </button>
+      <button class="chip" data-prog="jumprope" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 4v6c0 4 4 4 4 8M18 4v6c0 4-4 4-4 8"/><circle cx="6" cy="3" r="1.2"/><circle cx="18" cy="3" r="1.2"/></svg>
+        Скакалка
+      </button>
+      <button class="chip" data-prog="bodyweight" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M8 9l4 2 4-2M9 22l3-9 3 9"/></svg>
+        Своё тело
+      </button>
+    </div>
+
+    <!-- =========== BARBELL PROGRAM =========== -->
+    <div class="equip-group on" data-prog="barbell">
+
     <div class="card">
-      <h2>Принцип</h2>
-      <p>Сплит <b>Push / Pull / Legs / Conditioning</b>. На каждой тренировке — 5–7 движений, 3–4 подхода, 6–12 повторов до отказа -2. Прогрессия: +повтор или +вес каждую неделю.</p>
+      <h2>Штанга · принцип</h2>
+      <p>Сплит <b>Push / Pull / Legs / Conditioning</b>. На каждой тренировке — 5–7 движений, 3–4 подхода, 6–12 повторов до отказа -2. Прогрессия: +повтор или +2.5 кг каждую неделю.</p>
       <div class="divider"></div>
       <div class="row">
         <div class="ring" style="--p:25%"><span>4×</span></div>
@@ -1826,6 +2000,158 @@
         </p></div></div>
       <div class="step"><div class="n">3</div><div><h4>Заминка + растяжка 10 мин</h4><p>Особенно грудной отдел, бёдра, шея.</p></div></div>
     </div>
+
+    </div><!-- /barbell group -->
+
+    <!-- =========== JUMP ROPE PROGRAM =========== -->
+    <div class="equip-group" data-prog="jumprope">
+
+    <div class="card">
+      <h2>Скакалка · принцип</h2>
+      <p>Самый дешёвый кардио-инструмент. <b>15–20 минут</b> = пробежка на 5 км, плюс координация, плечи, икры, пресс. Делай <b>3–5 дней/нед</b>, лучше натощак утром или вечером.</p>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="ring" style="--p:60%"><span>500</span></div>
+        <div class="grow">
+          <div style="font-size:14px;font-weight:700">~500 ккал за 30 мин</div>
+          <p class="muted" style="font-size:12.5px;margin-top:3px">Высокий пульс, мощный жиросжигатель. Не прыгай на бетоне — только спортпол / резина / трава.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Техника (важно с первого дня)</h2>
+      <div class="step"><div class="n">1</div><div><h4>Длина верёвки</h4><p>Наступи на середину одной ногой. Ручки должны доходить до подмышек. Длиннее → задеваешь пол; короче → бьёт по голове.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h4>Руки и кисти</h4><p>Локти прижаты к корпусу, работают только <b>кисти</b> — не плечи. Это критично, иначе через 2 мин сдох.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h4>Прыжок 1–2 см</h4><p>Не прыгай высоко. Едва оторвался от пола. Приземление на подушечки стоп, пятки не касаются.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h4>Дыхание</h4><p>Нос → рот. Ритмично: 2 вдоха → 2 выдоха.</p></div></div>
+      <div class="step"><div class="n">5</div><div><h4>Без поломки запястий</h4><p>Если кисти ноют — верёвка длинная или замок плохой. Купи скакалку на подшипниках за 1000₽, не мучайся.</p></div></div>
+    </div>
+
+    <div class="card">
+      <h2>Программа · НЕДЕЛЯ 1–2 (новичок)</h2>
+      <details open><summary>День 1 · Базовый прыжок 10 мин</summary><p>
+        • Раунд 1: 30 сек прыг / 30 сек отдых × 6 (6 мин)<br>
+        • Раунд 2: 1 мин прыг / 30 сек отдых × 3 (4 мин)<br>
+        Цель: прочувствовать ритм, не сдохнуть.
+      </p></details>
+      <details><summary>День 2 · отдых или прогулка</summary><p>Лучше прогулка 30 мин на свежем воздухе.</p></details>
+      <details><summary>День 3 · Темп 12 мин</summary><p>
+        • 4 раунда по 2 мин: 1 мин обычный темп → 30 сек быстрый → 30 сек отдых
+      </p></details>
+      <details><summary>День 4 · отдых</summary></details>
+      <details><summary>День 5 · Длительный 15 мин</summary><p>
+        • 3 раунда по 4 мин: ровный комфортный темп, без рывков. 1 мин отдых между раундами.
+      </p></details>
+    </div>
+
+    <div class="card">
+      <h2>Программа · НЕДЕЛЯ 3+ (HIIT-уровень)</h2>
+      <details open><summary>Tabata — 4 мин ада</summary><p>
+        20 сек макс. скорость → 10 сек отдых, <b>8 раундов</b>.<br>
+        Сжигает максимум калорий за минимум времени. Делать 1–2 раза в неделю.
+      </p></details>
+      <details><summary>Пирамида 15 мин</summary><p>
+        Прыжки → отдых: 30/30 → 45/30 → 60/30 → 75/30 → 90/30 → и вниз 75/30 → 60/30 → 45/30 → 30/30.<br>
+        Прогрессивная нагрузка по времени.
+      </p></details>
+      <details><summary>EMOM 20 мин</summary><p>
+        Каждую минуту в начале: <b>50 прыжков</b>. Оставшееся время минуты — отдых.<br>
+        Если успеваешь за 30 сек — увеличивай до 60–70 прыжков.
+      </p></details>
+      <details><summary>Двойные прыжки (double-unders)</summary><p>
+        Верёвка проходит под ногами <b>2 раза</b> за один прыжок. Делай мини-сеты по 10 → отдых 30 сек → повтор. Прокачивает мощность икр.
+      </p></details>
+      <details><summary>Boxer skip (челночный шаг)</summary><p>
+        Поочерёдно опираешься на правую и левую ногу, ритм бокса. Можно прыгать 5–10 мин подряд без устали.
+      </p></details>
+    </div>
+
+    <div class="card">
+      <h2>Стили прыжков (для прокачки)</h2>
+      <details><summary>Базовый (basic bounce)</summary><p>Обе ноги вместе. Универсал. 80% времени делай его.</p></details>
+      <details><summary>Высокие колени</summary><p>Колени до пояса при прыжке. Сильно ускоряет пульс. По 30 сек врубай в сеты.</p></details>
+      <details><summary>Скандинавский (alternate-foot)</summary><p>Поочерёдно левой/правой ногой. Похоже на бег на месте через скакалку. Низкая ударная нагрузка.</p></details>
+      <details><summary>Скрестные руки (criss-cross)</summary><p>Руки скрещиваешь перед корпусом на каждом 2-м прыжке. Координация + плечи.</p></details>
+      <details><summary>Side-to-side</summary><p>Прыгаешь влево-вправо на 15–20 см. Боковая стабилизация коленей.</p></details>
+    </div>
+
+    <div class="card">
+      <h2>Сочетание с тренировками</h2>
+      <p>Скакалка не заменяет силовую, но идеально дополняет её:</p>
+      <details><summary>10 мин ДО силовой</summary><p>Лучшая разминка — поднимает пульс, греет суставы. Заменяет беговую дорожку.</p></details>
+      <details><summary>15–20 мин ПОСЛЕ силовой</summary><p>Кардио + жиросжигание в режиме лёгкого темпа. Не убивает мышечный рост.</p></details>
+      <details><summary>В отдельный «cardio day»</summary><p>20–30 мин интервалов. Идеально для дефицита и сухости.</p></details>
+    </div>
+
+    </div><!-- /jumprope group -->
+
+    <!-- =========== BODYWEIGHT PROGRAM =========== -->
+    <div class="equip-group" data-prog="bodyweight">
+
+    <div class="card">
+      <h2>Своё тело · принцип</h2>
+      <p>Калистеника. Без зала, без инвентаря (минимум — турник). <b>Push / Pull / Legs</b> сплит, 3–4 дня/нед. Прогрессия — через сложность движения, а не вес.</p>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="ring" style="--p:50%"><span>0kg</span></div>
+        <div class="grow">
+          <div style="font-size:14px;font-weight:700">Прогрессия по сложности</div>
+          <p class="muted" style="font-size:12.5px;margin-top:3px">Жим лёжа → отжимания → отжимания на одной руке. Присед → пистолетик. Подтягивания → одной рукой.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>День 1 · PUSH (отжимания на всё)</h2>
+      <div class="step"><div class="n">1</div><div><h4>Pike push-ups (отжимания «домиком»)</h4><p>4×8–12. Имитация жима плеч. Таз вверх, голова к полу. Прогрессия → handstand против стены.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h4>Diamond push-ups</h4><p>4×8–15. Ладони ромбом под грудью. Прицел — трицепс + центр груди.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h4>Wide push-ups</h4><p>4×10–15. Широкая постановка рук. Грудь.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h4>Decline push-ups (ноги выше)</h4><p>3×8–12. Поставь ноги на стул. Верх груди + плечи.</p></div></div>
+      <div class="step"><div class="n">5</div><div><h4>Pseudo planche push-ups</h4><p>3×6–10. Руки на уровне пояса, пальцы назад. Прицел — передняя дельта + сила толчка.</p></div></div>
+      <div class="step"><div class="n">6</div><div><h4>Dip-отжимания между стульями</h4><p>3×макс. Два стула, опускайся между ними. Низ груди + трицепс.</p></div></div>
+    </div>
+
+    <div class="card">
+      <h2>День 2 · PULL (всё на турник)</h2>
+      <div class="step"><div class="n">1</div><div><h4>Подтягивания широким хватом</h4><p>4×макс. Спина V-shape.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h4>Chin-ups (обратным)</h4><p>4×макс. Бицепс + низ широчайших.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h4>Австралийские подтягивания (inverted rows)</h4><p>4×10–15. Под низким турником / столом. Тяга горизонтально к груди. Толщина спины.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h4>Подтягивания узким хватом</h4><p>3×6–10. Узкий нейтральный или прямой хват. Бицепс.</p></div></div>
+      <div class="step"><div class="n">5</div><div><h4>Scapular pull-ups</h4><p>3×10. Только сведение лопаток, без сгибания рук. Подготовка к front lever.</p></div></div>
+      <div class="step"><div class="n">6</div><div><h4>Вис на турнике на время</h4><p>3×макс. Хват + декомпрессия.</p></div></div>
+    </div>
+
+    <div class="card">
+      <h2>День 3 · LEGS (без штанги — реально)</h2>
+      <div class="step"><div class="n">1</div><div><h4>Bulgarian split squat</h4><p>4×10 на ногу. Задняя нога на стуле. Король одноногих упражнений.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h4>Шагающие выпады</h4><p>4×12 шагов на ногу. Всю квартиру можно пройти.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h4>Приседы с прыжком (jump squats)</h4><p>3×15. Мощность + жиросжигание.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h4>Ягодичный мост (glute bridge)</h4><p>3×15. На одной ноге — 3×10. Ягодицы.</p></div></div>
+      <div class="step"><div class="n">5</div><div><h4>Подъём на носки (один за раз)</h4><p>4×20 на ногу. Икры.</p></div></div>
+      <div class="step"><div class="n">6</div><div><h4>Pistol squats (на одной ноге)</h4><p>3×3–6 на ногу. Цель — освоить за 2–3 месяца. Топ.</p></div></div>
+    </div>
+
+    <div class="card">
+      <h2>День 4 · CORE + Conditioning</h2>
+      <div class="step"><div class="n">1</div><div><h4>Hollow hold</h4><p>3×30–45 сек. Лёжа на спине, тело лодочкой. База для всего пресса.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h4>Подъём ног в висе</h4><p>3×макс. Нижний пресс. Без раскачки.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h4>Боковая планка</h4><p>3×30–60 сек на сторону.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h4>Burpees</h4><p>5 раундов × 10. Полный комплекс — жиросжигание + всё тело.</p></div></div>
+      <div class="step"><div class="n">5</div><div><h4>Mountain climbers</h4><p>4×30 сек. Кардио + кор.</p></div></div>
+      <div class="step"><div class="n">6</div><div><h4>L-sit на полу или брусьях</h4><p>3×15–30 сек. Сильнейшее упражнение для пресса.</p></div></div>
+    </div>
+
+    <div class="card">
+      <h2>Скилл-прогрессии (на что копить)</h2>
+      <details><summary>Pull-up → One-arm pull-up</summary><p>Прогрессия: обычное → 5×5 → archer pull-up → typewriter → one-arm assisted → one-arm.</p></details>
+      <details><summary>Push-up → One-arm push-up</summary><p>Обычные → 30 повторов → archer → uneven → one-arm на коленях → one-arm.</p></details>
+      <details><summary>Squat → Pistol squat</summary><p>Присед → присед с подставкой под пятку → assisted pistol (держась за дверь) → негативный pistol → pistol.</p></details>
+      <details><summary>Plank → L-sit → V-sit</summary><p>Планка 60 сек → tuck L-sit на полу → L-sit на брусьях → V-sit. Это уже гимнастика.</p></details>
+      <details><summary>Pike push-up → Handstand push-up</summary><p>Pike → wall walk → handstand против стены 30 сек → handstand push-up против стены.</p></details>
+    </div>
+
+    </div><!-- /bodyweight group -->
 
     <div class="card">
       <h2>Разминка (5 мин — обязательно)</h2>
@@ -2962,6 +3288,140 @@
     }
     pickerFor('mood-row', 'mogger.mood');
     pickerFor('energy-row', 'mogger.energy');
+  })();
+
+  // ========= FACE RATING (daily 1-10 + 14-day history) =========
+  (function(){
+    const slider = document.getElementById('face-rate-slider');
+    const numEl  = document.getElementById('face-rate-num');
+    const emEl   = document.getElementById('face-rate-emoji');
+    const hist   = document.getElementById('face-history');
+    const stats  = document.getElementById('face-stats');
+    if (!slider || !hist) return;
+
+    const PREFIX = 'mogger.face.';
+    function dayKey(d){ return PREFIX + d.toISOString().slice(0,10); }
+    function isoDay(offset){
+      const d = new Date();
+      d.setDate(d.getDate() - offset);
+      return d.toISOString().slice(0,10);
+    }
+    function emojiFor(v){
+      if (v <= 2) return '💀';
+      if (v <= 4) return '😬';
+      if (v <= 5) return '😐';
+      if (v <= 7) return '🙂';
+      if (v <= 8) return '😎';
+      if (v <= 9) return '🔥';
+      return '👑';
+    }
+
+    function renderHistory(){
+      const days = 14;
+      hist.innerHTML = '';
+      const vals = [];
+      const todayISOStr = isoDay(0);
+      for (let i = days - 1; i >= 0; i--){
+        const k = PREFIX + isoDay(i);
+        const raw = localStorage.getItem(k);
+        const v = raw !== null && raw !== '' ? Number(raw) : null;
+        const bar = document.createElement('div');
+        bar.className = 'face-bar';
+        if (v === null) bar.classList.add('empty');
+        if (isoDay(i) === todayISOStr) bar.classList.add('today');
+        const fill = document.createElement('span');
+        const h = v === null ? 6 : Math.max(8, (v / 10) * 100);
+        fill.style.height = h + '%';
+        bar.title = isoDay(i) + (v !== null ? ` · ${v}/10` : ' · нет данных');
+        bar.appendChild(fill);
+        hist.appendChild(bar);
+        if (v !== null) vals.push({ v, day: i });
+      }
+
+      if (!vals.length){
+        stats.innerHTML = 'средн. — · тренд —';
+        return;
+      }
+      const avg = vals.reduce((s,x) => s + x.v, 0) / vals.length;
+      // trend: last 7 vs prior 7
+      const recent = vals.filter(x => x.day < 7).map(x => x.v);
+      const prior  = vals.filter(x => x.day >= 7).map(x => x.v);
+      let trendStr = '—';
+      if (recent.length && prior.length){
+        const r = recent.reduce((s,n) => s+n,0)/recent.length;
+        const p = prior.reduce((s,n) => s+n,0)/prior.length;
+        const diff = r - p;
+        const sign = diff >= 0 ? '+' : '−';
+        const cls  = diff >= 0 ? 'up' : 'down';
+        trendStr = `<span class="${cls}">${sign}${Math.abs(diff).toFixed(1)}</span>`;
+      } else if (recent.length){
+        trendStr = `<span class="up">+${(recent.reduce((s,n)=>s+n,0)/recent.length).toFixed(1)}</span>`;
+      }
+      stats.innerHTML = `средн. <b>${avg.toFixed(1)}</b> · тренд ${trendStr}`;
+    }
+
+    function paint(v){
+      numEl.textContent = String(v);
+      emEl.textContent  = emojiFor(v);
+    }
+
+    function save(v){
+      try { localStorage.setItem(dayKey(new Date()), String(v)); } catch(_){}
+    }
+
+    // initial
+    const stored = localStorage.getItem(dayKey(new Date()));
+    const initial = stored !== null && stored !== '' && !isNaN(Number(stored))
+      ? Number(stored) : null;
+    if (initial !== null){
+      slider.value = initial;
+      paint(initial);
+    } else {
+      // unrated today: keep slider at 5 but show "—"
+      slider.value = 5;
+      numEl.textContent = '—';
+      emEl.textContent  = '🪞';
+    }
+
+    slider.addEventListener('input', e => {
+      const v = Number(e.target.value);
+      paint(v);
+      save(v);
+      renderHistory();
+    });
+    slider.addEventListener('change', () => {
+      if (navigator.vibrate) navigator.vibrate(8);
+    });
+
+    renderHistory();
+  })();
+
+  // ========= EQUIPMENT TABS (body screen) =========
+  (function(){
+    const tabs = document.getElementById('equip-tabs');
+    if (!tabs) return;
+    const groups = document.querySelectorAll('.equip-group[data-prog]');
+    const KEY = 'mogger.equip';
+
+    function activate(prog){
+      tabs.querySelectorAll('.chip').forEach(c => {
+        const on = c.dataset.prog === prog;
+        c.classList.toggle('on', on);
+        c.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      groups.forEach(g => g.classList.toggle('on', g.dataset.prog === prog));
+      try { localStorage.setItem(KEY, prog); } catch(_){}
+    }
+
+    tabs.addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      activate(c.dataset.prog);
+      if (navigator.vibrate) navigator.vibrate(6);
+    });
+
+    const saved = localStorage.getItem(KEY);
+    const valid = ['barbell','jumprope','bodyweight'];
+    activate(valid.includes(saved) ? saved : 'barbell');
   })();
 
   // ========= PHOTO PROGRESS =========

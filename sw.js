@@ -1,5 +1,5 @@
 /* MOGGER offline service worker — caches the single-page app for permanent offline use */
-const CACHE = 'mogger-v6';
+const CACHE = 'mogger-v7';
 const ASSETS = [
   './',
   './index.html',
