@@ -1786,6 +1786,41 @@
   .favs-empty{ font-size:11px;color:hsl(var(--accent-h) 30% 60%);padding:6px 0 }
   .defproj{ display:flex;flex-direction:column;gap:3px }
 
+  /* HYDRATION */
+  .hyd-grid{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:6px;
+  }
+  .hyd-cell{
+    aspect-ratio:1/1;border-radius:8px;
+    background:hsla(var(--accent-h),60%,12%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;cursor:pointer;
+    transition:all .15s ease;
+  }
+  .hyd-cell.on{
+    background:linear-gradient(160deg,hsl(200 90% 55%),hsl(220 90% 40%));
+    border-color:hsl(200 80% 65%);
+    box-shadow:0 0 10px hsla(200,90%,55%,.4);
+  }
+  .hyd-cell:active{ transform:scale(.94) }
+
+  /* SUPPLEMENT */
+  .supp-list{ display:flex;flex-direction:column;gap:5px }
+  .supp-row{
+    display:flex;align-items:center;gap:8px;padding:6px 8px;
+    background:hsla(var(--accent-h),60%,12%,.45);
+    border:1px solid hsla(var(--accent-h),100%,73%,.11);
+    border-radius:8px;
+  }
+  .supp-row.on{
+    background:hsla(var(--accent-h),70%,30%,.5);
+    border-color:hsla(var(--accent-h),100%,65%,.4);
+  }
+  .supp-row label{ flex:1;font-size:13px;color:#fff;font-weight:600;cursor:pointer }
+  .supp-row .supp-x{ font-size:14px;color:hsl(var(--accent-h) 30% 60%);cursor:pointer;padding:2px 5px }
+  .supp-empty{ font-size:11px;color:hsl(var(--accent-h) 30% 60%);padding:6px 0 }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3157,6 +3192,100 @@
       <p class="muted" style="font-size:12px;margin-top:8px">
         Тапни, чтобы сменить →
       </p>
+    </div>
+
+    <!-- ============= HYDRATION HOURLY GRID ============= -->
+    <div class="card" id="hydration-card" style="margin-top:14px">
+      <h2>Вода · по часам</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        12 ячеек = 12 стаканов 250 мл = 3 л. Тапни ячейку — выпил стакан.
+      </p>
+      <div class="hyd-grid" id="hyd-grid"></div>
+      <div class="dl-mini" style="justify-content:center;margin-top:6px">
+        <span>Выпито: <b id="hyd-cnt">0</b>/12 ст</span> ·
+        <span><b id="hyd-ml">0</b> мл</span> ·
+        <button id="hyd-reset" type="button" class="ghost" style="padding:3px 8px;font-size:10.5px">Сброс</button>
+      </div>
+    </div>
+
+    <!-- ============= SUPPLEMENT TRACKER ============= -->
+    <div class="card" id="supp-card" style="margin-top:14px">
+      <h2>Витамины · добавки</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Чек-лист «принял сегодня». Список редактируется ниже.
+      </p>
+      <div class="supp-list" id="supp-list"></div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <input id="supp-add-name" placeholder="напр. D3 5000 IU" style="flex:1" maxlength="30">
+        <button id="supp-add" type="button" class="pri">+</button>
+      </div>
+    </div>
+
+    <!-- ============= MOOD / STRESS TREND ============= -->
+    <div class="card" id="mood-card" style="margin-top:14px">
+      <h2>Настроение · стресс</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Раз в день. Видно тренд за 30 дней.
+      </p>
+      <div class="dl-grid">
+        <div class="dl-cell">
+          <label class="dl-lbl">Настроение 1-10</label>
+          <input type="number" id="mood-val" min="1" max="10" placeholder="—" inputmode="numeric">
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Стресс 1-10</label>
+          <input type="number" id="stress-val" min="1" max="10" placeholder="—" inputmode="numeric">
+        </div>
+      </div>
+      <button id="mood-save" type="button" class="pri" style="width:100%;margin-top:6px">Записать на сегодня</button>
+      <div class="chart-wrap" id="mood-chart-wrap" style="margin-top:8px">
+        <div class="chart-empty">Запиши хотя бы 2 дня — появится тренд.</div>
+      </div>
+    </div>
+
+    <!-- ============= SCREEN TIME / READING / DAY END ============= -->
+    <div class="card" id="dayend-card" style="margin-top:14px">
+      <h2>Сегодня · быстрые поля</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Экранное время, чтение, осанка. Тапни «—1» если упустил.
+      </p>
+      <div class="dl-grid">
+        <div class="dl-cell">
+          <label class="dl-lbl">Экранное время, ч</label>
+          <input type="number" id="dl-screen" placeholder="3.5" step="0.1" min="0" max="24" inputmode="decimal">
+          <div class="dl-mini">цель: меньше 4ч</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Чтение, мин</label>
+          <input type="number" id="dl-read" placeholder="20" step="1" min="0" max="600" inputmode="numeric">
+          <div class="dl-mini">цель: 20-30 мин</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Осанка-чек</label>
+          <div class="dl-mini" style="gap:4px;flex-wrap:wrap">
+            <button class="dl-q" data-pos="1">+ ✓</button>
+            <button class="dl-q" data-pos="-1">−</button>
+            <span>сегодня: <b id="dl-posture-cnt">0</b></span>
+          </div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Стакан кофе</label>
+          <div class="dl-mini" style="gap:4px;flex-wrap:wrap">
+            <button class="dl-q" id="coffee-plus">+ ☕</button>
+            <span>сегодня: <b id="dl-coffee-cnt">0</b></span>
+          </div>
+        </div>
+      </div>
+      <button id="dayend-save" type="button" class="pri" style="width:100%;margin-top:6px">Сохранить</button>
+    </div>
+
+    <!-- ============= DAILY QUOTE / FACT ============= -->
+    <div class="card" id="quote-card" style="margin-top:14px">
+      <h2>Мотивация дня</h2>
+      <blockquote id="daily-quote" style="margin:0;padding:8px 10px;border-left:3px solid hsl(var(--accent-h) 100% 60%);color:hsl(var(--accent-h) 30% 90%);font-size:14px;line-height:1.5;font-style:italic">…</blockquote>
+      <div class="row" style="gap:6px;margin-top:8px;justify-content:flex-end">
+        <button id="quote-next" type="button" class="ghost" style="font-size:11px;padding:5px 10px">Другая</button>
+      </div>
     </div>
 
     <!-- ============= UI SETTINGS ============= -->
@@ -8550,6 +8679,228 @@
     });
     render();
     document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= HYDRATION HOURLY GRID =========
+  (function(){
+    const grid = document.getElementById('hyd-grid');
+    const cntEl = document.getElementById('hyd-cnt');
+    const mlEl = document.getElementById('hyd-ml');
+    const resetBtn = document.getElementById('hyd-reset');
+    if (!grid) return;
+    function todayKey(){ return 'mogger.hyd.' + new Date().toISOString().slice(0,10); }
+    function load(){ try{ return JSON.parse(localStorage.getItem(todayKey()) || '[]'); }catch(_){ return []; } }
+    function save(a){ localStorage.setItem(todayKey(), JSON.stringify(a)); }
+    function render(){
+      const arr = load();
+      grid.innerHTML = '';
+      for (let i = 0; i < 12; i++){
+        const c = document.createElement('div');
+        c.className = 'hyd-cell' + (arr[i] ? ' on' : '');
+        c.textContent = arr[i] ? '💧' : '○';
+        c.addEventListener('click', () => {
+          const cur = load();
+          cur[i] = cur[i] ? 0 : 1;
+          save(cur);
+          render();
+          if (window.safeVibrate) window.safeVibrate(4);
+        });
+        grid.appendChild(c);
+      }
+      const cnt = arr.filter(Boolean).length;
+      cntEl.textContent = cnt;
+      mlEl.textContent = (cnt * 250).toLocaleString('ru-RU');
+    }
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('Сбросить воду на сегодня?')) return;
+      save([]); render();
+    });
+    render();
+  })();
+
+  // ========= SUPPLEMENT TRACKER =========
+  (function(){
+    const list = document.getElementById('supp-list');
+    const addI = document.getElementById('supp-add-name');
+    const addBtn = document.getElementById('supp-add');
+    if (!list) return;
+    const DEFAULT_LIST = ['D3 5000 IU', 'Omega-3 2г', 'Магний 400мг', 'Цинк 25мг', 'Креатин 5г', 'Креатин моногидрат — после ТР'];
+    function loadItems(){
+      let it; try{ it = JSON.parse(localStorage.getItem('mogger.supp.list') || 'null'); }catch(_){ it = null; }
+      if (!it){ it = DEFAULT_LIST.slice(0,5).map(n => ({ name: n, id: 's_'+Math.random().toString(36).slice(2,8) })); saveItems(it); }
+      return it;
+    }
+    function saveItems(a){ localStorage.setItem('mogger.supp.list', JSON.stringify(a)); }
+    function todayKey(){ return 'mogger.supp.day.' + new Date().toISOString().slice(0,10); }
+    function loadDay(){ try{ return JSON.parse(localStorage.getItem(todayKey()) || '{}'); }catch(_){ return {}; } }
+    function saveDay(o){ localStorage.setItem(todayKey(), JSON.stringify(o)); }
+    function render(){
+      const items = loadItems();
+      const day = loadDay();
+      if (!items.length){ list.innerHTML = '<div class="supp-empty">Добавь свой первый ниже.</div>'; return; }
+      list.innerHTML = items.map(it => `<div class="supp-row${day[it.id] ? ' on' : ''}" data-id="${it.id}">
+        <input type="checkbox" ${day[it.id] ? 'checked' : ''} id="ck_${it.id}">
+        <label for="ck_${it.id}">${it.name.replace(/</g,'&lt;')}</label>
+        <span class="supp-x" data-rm="${it.id}">×</span>
+      </div>`).join('');
+      list.querySelectorAll('input[type=checkbox]').forEach(ch => ch.addEventListener('change', () => {
+        const id = ch.closest('.supp-row').dataset.id;
+        const d = loadDay();
+        if (ch.checked) d[id] = 1; else delete d[id];
+        saveDay(d); render();
+      }));
+      list.querySelectorAll('.supp-x').forEach(x => x.addEventListener('click', () => {
+        if (!confirm('Убрать из списка?')) return;
+        const id = x.dataset.rm;
+        const items2 = loadItems().filter(i => i.id !== id);
+        saveItems(items2); render();
+      }));
+    }
+    addBtn.addEventListener('click', () => {
+      const n = addI.value.trim();
+      if (!n) return;
+      const items = loadItems();
+      items.push({ name: n, id: 's_'+Math.random().toString(36).slice(2,8) });
+      saveItems(items);
+      addI.value = '';
+      render();
+    });
+    addI.addEventListener('keydown', e => { if (e.key === 'Enter') addBtn.click(); });
+    render();
+  })();
+
+  // ========= MOOD / STRESS TREND =========
+  (function(){
+    const moodEl = document.getElementById('mood-val');
+    const stressEl = document.getElementById('stress-val');
+    const saveBtn = document.getElementById('mood-save');
+    const wrap = document.getElementById('mood-chart-wrap');
+    if (!saveBtn) return;
+    function todayIso(){ return new Date().toISOString().slice(0,10); }
+    function loadAll(){ try{ return JSON.parse(localStorage.getItem('mogger.mood.log') || '{}'); }catch(_){ return {}; } }
+    function saveAll(o){ localStorage.setItem('mogger.mood.log', JSON.stringify(o)); }
+    function render(){
+      const all = loadAll();
+      const isos = Object.keys(all).sort();
+      if (isos.length < 2){ wrap.innerHTML = '<div class="chart-empty">Запиши хотя бы 2 дня — появится тренд.</div>'; return; }
+      const W = 320, H = 120, P = 8;
+      const last30 = isos.slice(-30);
+      const n = last30.length;
+      const dx = (W - 2*P) / Math.max(1, n-1);
+      const yScale = v => H - P - ((v / 10) * (H - 2*P));
+      const moodPath = last30.map((iso,i) => (i===0?'M ':'L ') + (P + i*dx).toFixed(1) + ' ' + yScale(all[iso].mood || 5).toFixed(1)).join(' ');
+      const stressPath = last30.map((iso,i) => (i===0?'M ':'L ') + (P + i*dx).toFixed(1) + ' ' + yScale(all[iso].stress || 5).toFixed(1)).join(' ');
+      wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" width="100%" height="120">
+        <path d="${moodPath}" stroke="hsl(140 80% 60%)" stroke-width="2" fill="none"/>
+        <path d="${stressPath}" stroke="hsl(0 70% 60%)" stroke-width="2" fill="none"/>
+      </svg>
+      <div class="dl-mini" style="justify-content:center;margin-top:4px">
+        <span style="color:hsl(140 80% 60%)">● mood</span> · <span style="color:hsl(0 70% 60%)">● stress</span>
+      </div>`;
+    }
+    saveBtn.addEventListener('click', () => {
+      const mood = +moodEl.value || null;
+      const stress = +stressEl.value || null;
+      if (mood == null && stress == null){ if (typeof toast === 'function') toast('Введи хотя бы одно'); return; }
+      const all = loadAll();
+      all[todayIso()] = { mood: mood || (all[todayIso()] && all[todayIso()].mood) || null, stress: stress || (all[todayIso()] && all[todayIso()].stress) || null };
+      saveAll(all);
+      if (typeof toast === 'function') toast('Записано');
+      render();
+    });
+    render();
+    document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'home') render(); });
+  })();
+
+  // ========= DAY END (screen time / read / posture / coffee) =========
+  (function(){
+    const screenEl = document.getElementById('dl-screen');
+    const readEl = document.getElementById('dl-read');
+    const postureCnt = document.getElementById('dl-posture-cnt');
+    const coffeeCnt = document.getElementById('dl-coffee-cnt');
+    const saveBtn = document.getElementById('dayend-save');
+    if (!saveBtn) return;
+    function todayIso(){ return new Date().toISOString().slice(0,10); }
+    function load(){ try{ return JSON.parse(localStorage.getItem('mogger.de.' + todayIso()) || '{}'); }catch(_){ return {}; } }
+    function save(o){ localStorage.setItem('mogger.de.' + todayIso(), JSON.stringify(o)); }
+    let st = load();
+    function render(){
+      if (st.screen != null) screenEl.value = st.screen;
+      if (st.read != null) readEl.value = st.read;
+      postureCnt.textContent = st.posture || 0;
+      coffeeCnt.textContent = st.coffee || 0;
+    }
+    document.querySelectorAll('#dayend-card .dl-q[data-pos]').forEach(b => b.addEventListener('click', () => {
+      const d = +b.dataset.pos;
+      st.posture = Math.max(0, (st.posture || 0) + d);
+      save(st); render();
+      if (window.safeVibrate) window.safeVibrate(4);
+    }));
+    const coffeePlus = document.getElementById('coffee-plus');
+    if (coffeePlus) coffeePlus.addEventListener('click', () => {
+      st.coffee = (st.coffee || 0) + 1;
+      save(st); render();
+      if (window.safeVibrate) window.safeVibrate(4);
+    });
+    saveBtn.addEventListener('click', () => {
+      if (screenEl.value !== '') st.screen = +screenEl.value;
+      if (readEl.value !== '') st.read = +readEl.value;
+      save(st);
+      if (typeof toast === 'function') toast('Сохранено');
+    });
+    render();
+  })();
+
+  // ========= DAILY QUOTE / FACT =========
+  (function(){
+    const el = document.getElementById('daily-quote');
+    const nextBtn = document.getElementById('quote-next');
+    if (!el) return;
+    const QUOTES = [
+      '«Дисциплина — это свобода. Лень — это тюрьма.» — Jocko Willink',
+      '«Ты или дисциплина, или сожаление. Выбери.» — Jim Rohn',
+      '«Тело отбрасывает то, чем ты его кормишь. Кормишь — растёт. Не кормишь — уходит.»',
+      '«Победа любит подготовку.»',
+      '«Закаляешь тело — закаляешь характер.»',
+      '«Слабый ищет оправдания. Сильный ищет выход.»',
+      '«В каждом моменте ты или строишь себя, или ломаешь.»',
+      '«Никто не придёт спасать тебя. Спасай себя сам.»',
+      '«Зеркало не врёт. Но твой мозг — врёт каждый день.»',
+      '«Хочешь результата завтра — начни сегодня. Иначе никогда.»',
+      '«100 дней дисциплины > 1000 дней мотивации.»',
+      '«Те, кто не выдерживает дискомфорт сейчас, страдают всю жизнь.»',
+      '«Привычки — это инвестиции в самого себя.»',
+      '«Никто не может унизить тебя без твоего согласия.» — Элеонора Рузвельт',
+      '«Тренировка — это самопредательство наоборот.»',
+      '«Слабость — это привычка. Сила тоже.»',
+      '«Ты — это то, что ты делаешь каждый день.»',
+      '«Если не сейчас — то когда?»',
+      '«Будь твоим собственным эталоном.»',
+      '«Жди от себя то, что ты ждёшь от других.»',
+      '«Не сравнивай свой день 1 с днём 1000 другого.»',
+      '«Один отказ — это победа в долгой игре.»',
+      '«Действия > намерения.»',
+      '«Тестостерон любит холод, нагрузку, чистый сон.»',
+      '«Не мечтай. Делай.»',
+      '«Кто не тренируется — тренируется на старость.»',
+      '«Холодный душ — это 5 минут дискомфорта против целого дня апатии.»',
+      '«Здоровье — это валюта. Не разменивай мелочью.»',
+      '«Сон — это форма тренировки.»',
+      '«Большинство не доходит. Дойди ты.»'
+    ];
+    function todayIso(){ return new Date().toISOString().slice(0,10); }
+    function show(idx){ el.textContent = QUOTES[idx]; }
+    let custom = sessionStorage.getItem('mogger.quote.custom');
+    if (custom != null){ show(+custom); }
+    else {
+      const seed = todayIso().split('-').reduce((s,p) => s + +p, 0);
+      show(seed % QUOTES.length);
+    }
+    nextBtn.addEventListener('click', () => {
+      const idx = Math.floor(Math.random() * QUOTES.length);
+      sessionStorage.setItem('mogger.quote.custom', idx);
+      show(idx);
+    });
   })();
 
   // ========= NUTRITION EXTRAS (favorites / cheat day / deficit projection) =========
