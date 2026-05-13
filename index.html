@@ -691,6 +691,173 @@
     50%   {background-position:100% 100%}
   }
 
+  /* =========================================================
+     BOX BREATHING TRAINER
+  ========================================================= */
+  .breath-box{
+    display:flex;flex-direction:column;align-items:center;gap:14px;padding:8px 0 4px;
+  }
+  .breath-ring{
+    position:relative;width:200px;height:200px;
+  }
+  .breath-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .breath-ring .b-bg{
+    fill:none;stroke:rgba(120,170,255,.18);stroke-width:5;
+  }
+  .breath-ring .b-fg{
+    fill:none;stroke:url(#breathGrad);stroke-width:6;
+    stroke-linecap:round;
+    stroke-dasharray:565;stroke-dashoffset:565;
+    filter:drop-shadow(0 0 12px rgba(120,170,255,.55));
+    transition:stroke-dashoffset .3s linear;
+  }
+  .breath-ring .b-core{
+    position:absolute;inset:18%;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#3a7bff 0%,#0a1e6e 70%,#020a30 100%);
+    box-shadow:inset 0 0 30px rgba(120,170,255,.45),0 0 28px rgba(80,140,255,.4);
+    transform:scale(.7);
+    transition:transform 4s cubic-bezier(.4,0,.6,1);
+  }
+  .breath-ring .b-core.inhale{transform:scale(1)}
+  .breath-ring .b-core.exhale{transform:scale(.6)}
+  .breath-phase{
+    position:absolute;inset:0;display:grid;place-items:center;
+    color:#dfeaff;font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    text-shadow:0 0 14px rgba(80,140,255,.6);font-weight:700;
+  }
+  .breath-phase .ph{font-size:18px;letter-spacing:.04em;text-transform:none;font-weight:800}
+  .breath-phase .cnt{font-size:48px;font-weight:900;line-height:1;margin-top:4px;
+    background:linear-gradient(180deg,#fff,#86b3ff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    font-variant-numeric:tabular-nums;
+  }
+  .breath-controls{display:flex;gap:10px;width:100%}
+  .breath-controls .btn{
+    flex:1;padding:12px;border-radius:14px;
+    background:linear-gradient(180deg,rgba(20,40,100,.6),rgba(8,18,50,.6));
+    border:1px solid rgba(120,170,255,.3);
+    color:#eaf1ff;font-weight:700;font-size:13.5px;
+  }
+  .breath-controls .btn.primary{
+    background:linear-gradient(180deg,#3a7bff,#1148b8);
+    border-color:#7fb1ff;box-shadow:0 0 18px rgba(80,140,255,.5);
+  }
+
+  /* =========================================================
+     COUNTDOWN TIMERS
+  ========================================================= */
+  .timer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+  .timer-btn{
+    padding:14px 8px;border-radius:14px;
+    background:linear-gradient(180deg,rgba(15,30,80,.5),rgba(6,18,50,.55));
+    border:1px solid rgba(120,170,255,.22);
+    color:#eaf1ff;font-weight:700;font-size:13px;
+    transition:.15s ease;
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+  }
+  .timer-btn small{font-size:10px;color:#9bbcff;font-weight:500;letter-spacing:.06em}
+  .timer-btn:active{transform:scale(.96)}
+  .timer-btn.on{
+    background:linear-gradient(180deg,#ff5e2a,#a31808);
+    border-color:#ffae5c;color:#fff;box-shadow:0 0 22px rgba(255,140,60,.55);
+  }
+  .timer-display{
+    margin-top:14px;text-align:center;font-size:54px;font-weight:900;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+    background:linear-gradient(180deg,#fff,#86b3ff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 30px rgba(80,140,255,.4);
+    line-height:1;
+  }
+  .timer-display.danger{
+    background:linear-gradient(180deg,#fff,#ff8c5e);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .timer-sub{
+    text-align:center;font-size:12px;color:#9bbcff;letter-spacing:.18em;
+    text-transform:uppercase;margin-top:4px;
+  }
+
+  /* =========================================================
+     WATER TRACKER
+  ========================================================= */
+  .water-row{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:8px}
+  .water-glass{
+    aspect-ratio:1/1.4;border-radius:6px 6px 10px 10px;
+    border:1.5px solid rgba(120,170,255,.3);
+    position:relative;overflow:hidden;
+    background:linear-gradient(180deg,rgba(10,25,65,.3),rgba(5,15,40,.45));
+    transition:.25s ease;
+  }
+  .water-glass::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:0;
+    background:linear-gradient(180deg,#7fb1ff,#3a7bff);
+    box-shadow:0 0 12px rgba(80,140,255,.6) inset;
+    transition:height .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .water-glass.full::after{height:90%}
+  .water-glass.full{border-color:#7fb1ff;box-shadow:0 0 10px rgba(80,140,255,.35)}
+  .water-meta{
+    display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;
+    font-size:12px;color:#9bbcff;letter-spacing:.06em;
+  }
+  .water-meta b{font-size:18px;color:#eaf1ff;font-weight:800}
+
+  /* =========================================================
+     PHOTO PROGRESS
+  ========================================================= */
+  .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+  .photo-slot{
+    position:relative;aspect-ratio:3/4;border-radius:14px;
+    background:linear-gradient(180deg,rgba(15,30,75,.45),rgba(8,18,50,.55));
+    border:1.5px dashed rgba(120,170,255,.3);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    color:#7e9bd0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    overflow:hidden;cursor:pointer;
+  }
+  .photo-slot.has-img{border-style:solid;border-color:rgba(120,170,255,.5);background:#000}
+  .photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo-slot .label{
+    position:absolute;top:6px;left:6px;
+    padding:3px 8px;border-radius:999px;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+    color:#dfeaff;font-size:9.5px;letter-spacing:.18em;
+  }
+  .photo-slot .date{
+    position:absolute;bottom:6px;right:6px;
+    padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.55);
+    color:#9bbcff;font-size:10px;
+  }
+  .photo-slot .remove{
+    position:absolute;top:6px;right:6px;
+    width:22px;height:22px;border-radius:50%;
+    background:rgba(255,60,80,.85);color:#fff;font-size:14px;line-height:22px;
+    display:none;font-weight:700;
+  }
+  .photo-slot.has-img .remove{display:block}
+  .photo-slot input[type=file]{display:none}
+  .photo-slot svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+  /* =========================================================
+     MOOD + ENERGY
+  ========================================================= */
+  .mood-row{display:flex;gap:8px;margin-top:8px;justify-content:space-between}
+  .mood-btn{
+    flex:1;aspect-ratio:1/1.05;border-radius:14px;
+    background:linear-gradient(180deg,rgba(15,30,75,.45),rgba(8,18,50,.55));
+    border:1px solid rgba(120,170,255,.22);
+    color:#dfeaff;font-size:22px;
+    display:flex;align-items:center;justify-content:center;
+    transition:.15s ease;
+  }
+  .mood-btn:active{transform:scale(.94)}
+  .mood-btn.on{
+    border-color:#7fb1ff;
+    background:linear-gradient(180deg,#1148b8,#0a3a8a);
+    box-shadow:0 0 18px rgba(80,140,255,.5);
+  }
+
   /* line-draw on SVGs in section heads */
   .sec-head svg path,.sec-head svg circle{
     stroke-dasharray:200;stroke-dashoffset:200;
@@ -781,6 +948,129 @@
         </div>
         <button class="kbd" id="reset-day" style="padding:6px 10px;cursor:pointer">сброс</button>
       </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Вода — 8 стаканов</h2>
+      <p class="muted" style="font-size:12.5px">Тапни на стакан когда выпил 300 мл. Цель: 2.4 л / день.</p>
+      <div class="water-row" id="water-row" role="group" aria-label="вода"></div>
+      <div class="water-meta">
+        <span>выпито</span>
+        <span><b id="water-count">0</b> / 8 · <span id="water-ml">0 мл</span></span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Box Breathing · 4-4-4-4</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:8px">
+        Метод US Navy SEAL. Снимает стресс, кортизол, давление. 4 цикла = 64 сек.
+      </p>
+      <div class="breath-box">
+        <div class="breath-ring">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="breathGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7fb1ff"/>
+                <stop offset="100%" stop-color="#3a7bff"/>
+              </linearGradient>
+            </defs>
+            <circle class="b-bg" cx="100" cy="100" r="90"/>
+            <circle class="b-fg" cx="100" cy="100" r="90" id="breath-fg"/>
+          </svg>
+          <div class="b-core" id="breath-core"></div>
+          <div class="breath-phase">
+            <div>
+              <div class="ph" id="breath-ph">Готов?</div>
+              <div class="cnt" id="breath-cnt">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="breath-controls">
+          <button class="btn primary" id="breath-start">Старт</button>
+          <button class="btn" id="breath-stop">Стоп</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Сегодня — настроение и энергия</h2>
+      <p class="muted" style="font-size:12.5px">Самочувствие 1–5. Тренируешься в плохой день? Сделай прогулку 30 мин — это тоже win.</p>
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9bbcff;margin-top:10px">Настроение</div>
+      <div class="mood-row" id="mood-row">
+        <button class="mood-btn" data-v="1" title="плохо">😞</button>
+        <button class="mood-btn" data-v="2" title="так себе">😐</button>
+        <button class="mood-btn" data-v="3" title="норм">🙂</button>
+        <button class="mood-btn" data-v="4" title="хорошо">😎</button>
+        <button class="mood-btn" data-v="5" title="отлично">🔥</button>
+      </div>
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9bbcff;margin-top:14px">Энергия</div>
+      <div class="mood-row" id="energy-row">
+        <button class="mood-btn" data-v="1">🪫</button>
+        <button class="mood-btn" data-v="2">😴</button>
+        <button class="mood-btn" data-v="3">⚡</button>
+        <button class="mood-btn" data-v="4">💪</button>
+        <button class="mood-btn" data-v="5">🚀</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Прогресс по фото</h2>
+      <p class="muted" style="font-size:12.5px;margin-bottom:6px">
+        Раз в неделю в одинаковом освещении: лицо анфас, профиль, торс. Сравни через 4 нед.
+      </p>
+      <div class="photo-grid" id="photo-grid">
+        <label class="photo-slot" data-k="face_before">
+          <span class="label">ЛИЦО · ДО</span>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 21c1-5 4-7 7-7s6 2 7 7"/><path d="M3 8l3-3h4"/></svg>
+          <span>добавить</span>
+          <input type="file" accept="image/*" capture="user">
+          <span class="date"></span>
+          <button class="remove" type="button">×</button>
+        </label>
+        <label class="photo-slot" data-k="face_after">
+          <span class="label">ЛИЦО · СЕЙЧАС</span>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 21c1-5 4-7 7-7s6 2 7 7"/></svg>
+          <span>добавить</span>
+          <input type="file" accept="image/*" capture="user">
+          <span class="date"></span>
+          <button class="remove" type="button">×</button>
+        </label>
+        <label class="photo-slot" data-k="profile_before">
+          <span class="label">ПРОФИЛЬ · ДО</span>
+          <svg viewBox="0 0 24 24"><path d="M9 7 Q12 5 14 9 L15 13 Q15 16 12 17 L9 21 Z"/></svg>
+          <span>добавить</span>
+          <input type="file" accept="image/*" capture="user">
+          <span class="date"></span>
+          <button class="remove" type="button">×</button>
+        </label>
+        <label class="photo-slot" data-k="profile_after">
+          <span class="label">ПРОФИЛЬ · СЕЙЧАС</span>
+          <svg viewBox="0 0 24 24"><path d="M9 7 Q12 5 14 9 L15 13 Q15 16 12 17 L9 21 Z"/></svg>
+          <span>добавить</span>
+          <input type="file" accept="image/*" capture="user">
+          <span class="date"></span>
+          <button class="remove" type="button">×</button>
+        </label>
+        <label class="photo-slot" data-k="body_before">
+          <span class="label">ТЕЛО · ДО</span>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M9 9h6l1 5-2 8h-4l-2-8z"/></svg>
+          <span>добавить</span>
+          <input type="file" accept="image/*">
+          <span class="date"></span>
+          <button class="remove" type="button">×</button>
+        </label>
+        <label class="photo-slot" data-k="body_after">
+          <span class="label">ТЕЛО · СЕЙЧАС</span>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M9 9h6l1 5-2 8h-4l-2-8z"/></svg>
+          <span>добавить</span>
+          <input type="file" accept="image/*">
+          <span class="date"></span>
+          <button class="remove" type="button">×</button>
+        </label>
+      </div>
+      <p class="muted" style="font-size:11px;margin-top:8px">
+        Все фото хранятся **только на твоём устройстве** (localStorage). Никуда не отправляются.
+      </p>
     </div>
 
     <div class="sec-head">
@@ -1303,6 +1593,43 @@
     </div>
 
     <div class="card">
+      <h2>Таймеры — холод и дренаж</h2>
+      <p class="muted" style="font-size:12.5px">Тапни — пойдёт обратный отсчёт с вибрацией и звуком в конце. Не отвлекайся от процедуры.</p>
+      <div class="timer-grid">
+        <button class="timer-btn" data-sec="60">Лёд на лицо<small>60 сек</small></button>
+        <button class="timer-btn" data-sec="180">Холодный душ<small>3 мин</small></button>
+        <button class="timer-btn" data-sec="300">Дренаж<small>5 мин</small></button>
+        <button class="timer-btn" data-sec="120">Mewing focus<small>2 мин</small></button>
+        <button class="timer-btn" data-sec="600">Прогулка<small>10 мин</small></button>
+        <button class="timer-btn" data-sec="20">Wim Hof hold<small>20 сек</small></button>
+      </div>
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-sub" id="timer-sub">выбери таймер</div>
+    </div>
+
+    <div class="card">
+      <h2>Common pitfalls — что рушит прогресс</h2>
+      <p class="muted" style="font-size:12.5px">15 типичных ошибок. Прочитай и проверь себя.</p>
+      <div class="acc">
+        <details><summary>1. «Один бокал не повредит»</summary><p>Алкоголь = отёк лица 24–72 часа. Один вечер = 3 дня в минус. До конца августа: 0.</p></details>
+        <details><summary>2. Соль в готовых соусах</summary><p>Соевый, кетчуп, майонез, твёрдый сыр, колбасы — суточная норма за один присест. Готовь сам и проверяй этикетки.</p></details>
+        <details><summary>3. Mewing «на 5 минут»</summary><p>Не работает как упражнение. Это поза 24/7. Держи язык наверху всегда, кроме еды и речи.</p></details>
+        <details><summary>4. Тренировки без сна</summary><p>Спишь 5 ч → тело копит воду, кортизол высокий, восстановление 0. 7.5–9 ч важнее любой добавки.</p></details>
+        <details><summary>5. «Я голодаю — должно работать»</summary><p>Дефицит >25% = потеря мышц + replenishment-эффект (тело держит воду). Целься в 300–500 ккал ниже нормы.</p></details>
+        <details><summary>6. Кофеин в 16:00</summary><p>Период полувыведения 6 ч. Стакан в 16:00 = половина в крови в 22:00. Сон — мусор. Кофе только до 13:30.</p></details>
+        <details><summary>7. Чит-дей раз в неделю</summary><p>4000 ккал + 5 г соли = 3–4 дня отёка. Перечеркивает всю неделю работы. Если очень надо — пицца + овощи, не пельмени с майонезом.</p></details>
+        <details><summary>8. Mewing с открытым ртом</summary><p>Если язык наверху, но рот приоткрыт — нет вакуума. Губы сомкнуты пассивно, дыхание носом.</p></details>
+        <details><summary>9. «Сейчас не идеально — начну в понедельник»</summary><p>Понедельника не будет. 100% сегодня. Закрой 1 пункт чек-листа прямо сейчас.</p></details>
+        <details><summary>10. Жуёшь только одной стороной</summary><p>Асимметрия челюсти + перекос лица. Жуй mastic gum обязательно на обе стороны поровну.</p></details>
+        <details><summary>11. Селфи в фронталке = мотивация</summary><p>Искажает черты. Сравнивай только в одинаковой обстановке: задняя камера, одно и то же освещение, одна поза.</p></details>
+        <details><summary>12. «Сегодня пропущу — наверстаю»</summary><p>Нельзя «наверстать» пропущенный день. Streak — это про continuity, не про сумму.</p></details>
+        <details><summary>13. Гречка + макароны на сушке</summary><p>Углей слишком много. Базируйся на белке: яйца, курица, рыба, творог. Углей — по остатку.</p></details>
+        <details><summary>14. Игнорируешь осанку</summary><p>Сутулость → tech neck → второй подбородок и впалая грудь. 80% «отёка» под челюстью на самом деле — поза.</p></details>
+        <details><summary>15. Носишь капюшон / шапку слишком плотно</summary><p>Сдавливает лимфоузлы шеи. Шарф не надо натягивать на челюсть. Дай тканям дышать.</p></details>
+      </div>
+    </div>
+
+    <div class="card">
       <h2>Шаблон идеального утра</h2>
       <div class="step"><div class="n">1</div><div><h4>06:30–07:00 подъём</h4><p>Стакан тёплой воды + щепотка соли (электролит) либо вода с лимоном.</p></div></div>
       <div class="step"><div class="n">2</div><div><h4>Лицо: лёд / холодная вода 60с</h4><p>Контраст моментально снимает мешки.</p></div></div>
@@ -1520,11 +1847,123 @@
     </div>
 
     <div class="card">
+      <h2>Supplements — что, когда, сколько</h2>
+      <p class="muted" style="font-size:12.5px">Без хайпа и магии. Только то что реально работает по исследованиям.</p>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>Креатин моногидрат</h3>
+          <p><b>5 г в день</b>, любое время, с любой жидкостью. Лучшая добавка для силы и мышц. Безопасен в долгую. Эффект через 3–4 нед.</p>
+          <span class="pill gr">обязательно</span></div>
+        <div class="item"><h3><span class="dot"></span>Витамин D3 + K2</h3>
+          <p><b>2000–4000 IU/день D3 + 100 мкг K2</b>, утром с жирной пищей. Тестостерон, иммунитет, кости. Зимой обязательно.</p>
+          <span class="pill gr">обязательно</span></div>
+        <div class="item"><h3><span class="dot"></span>Магний (глицинат или цитрат)</h3>
+          <p><b>300–400 мг вечером</b>. Сон, нервы, восстановление, мышечные боли. Цитрат — мягкое слабительное (это норма).</p>
+          <span class="pill gr">обязательно</span></div>
+        <div class="item"><h3><span class="dot"></span>Цинк</h3>
+          <p><b>15–25 мг/день</b>, через 2 часа после кофе/чая. Тестостерон, кожа, иммунитет, рост волос/бороды.</p>
+          <span class="pill">база</span></div>
+        <div class="item"><h3><span class="dot"></span>Омега-3 (EPA+DHA)</h3>
+          <p><b>2–3 г / день в сумме EPA+DHA</b> (читай этикетку, не «1000 мг fish oil»). Снимает воспаление, помогает с отёком и сухой кожей.</p>
+          <span class="pill">база</span></div>
+        <div class="item"><h3><span class="dot"></span>Протеин (whey/casein)</h3>
+          <p>Только если из еды не выходит 1.6–2 г/кг. Не магия, просто удобный источник белка. После трени или вместо перекуса.</p>
+          <span class="pill">опционально</span></div>
+        <div class="item"><h3><span class="dot"></span>Кофеин 100–200 мг</h3>
+          <p>Перед тренировкой или утром. <b>Не позже 13:30.</b> Толерантность растёт быстро — циклируй (5 дней / 2 дня выкл).</p>
+          <span class="pill">база</span></div>
+        <div class="item"><h3><span class="dot"></span>Электролиты утром</h3>
+          <p>Щепотка соли + сок лимона в стакан воды. Снимает «утренний отёк» — звучит парадоксально, но соль в нужный момент = меньше задержки воды.</p>
+          <span class="pill">база</span></div>
+        <div class="item"><h3><span class="dot"></span>Мелатонин 0.3–1 мг (НЕ 5–10 мг)</h3>
+          <p>За 30–60 мин до сна. Большие дозы дают разбитость утром и снижают свою выработку. Стартуй с 0.5 мг.</p>
+          <span class="pill">опционально</span></div>
+        <div class="item"><h3><span class="dot"></span>Что НЕ работает</h3>
+          <p>BCAA отдельно (если ешь протеин — бесполезно), тестобустеры из аптеки, жиросжигатели, «коллаген» для лица (95% распадается до аминокислот). Не трать деньги.</p>
+          <span class="pill red">мусор</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Recovery — восстановление</h2>
+      <p class="muted" style="font-size:12.5px">Прогресс не в зале, а между тренировками. Без recovery — застой и травмы.</p>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>Сауна 2–3×/нед</h3>
+          <p>15–25 мин при 80–90°C. Поднимает GH, снимает воспаление, тренирует сосуды (HSP-белки). Гидрируйся до и после.</p></div>
+        <div class="item"><h3><span class="dot"></span>Ice bath / холодный душ</h3>
+          <p>Каждое утро 1–3 мин холодной (10–15°C). Снижает воспаление, дофамин +250% на 2 часа, ясная голова. Делай ПОСЛЕ тренировки силы — НЕ сразу после (мешает гипертрофии первые 4 часа).</p></div>
+        <div class="item"><h3><span class="dot"></span>Прогулки 10к шагов</h3>
+          <p>Самое недооценённое. Дренирует лимфу (90% дренажа = движение), снижает кортизол, ускоряет жиросжигание без катаболизма мышц.</p></div>
+        <div class="item"><h3><span class="dot"></span>NSDR / Yoga Nidra 10–20 мин</h3>
+          <p>Не сон, но «перезагрузка» нервной системы. Слушай записи Andrew Huberman / Hubermanlab NSDR. После тренировки или в обед — заменяет 1 ч сна.</p></div>
+        <div class="item"><h3><span class="dot"></span>Foam roller / массажный мяч</h3>
+          <p>5 мин перед сном — quads, IT-band, грудной отдел, шея. Снимает тонус, улучшает сон.</p></div>
+        <div class="item"><h3><span class="dot"></span>Дни без тренировок — НЕ безделье</h3>
+          <p>Лёгкая активность 30–60 мин: прогулка, плавание, йога. Сидеть весь день — хуже для восстановления чем умеренная нагрузка.</p></div>
+        <div class="item"><h3><span class="dot"></span>Контрастный душ</h3>
+          <p>3 цикла горячо/холодно по 30 сек, финиш холодной. Лимфодренаж, бодрость, тренировка сосудов.</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Pro-фишки — что почти никто не делает</h2>
+      <p class="muted" style="font-size:12.5px">30 малоизвестных техник, которые дают результат через 2–4 нед.</p>
+      <div class="acc">
+        <details><summary>1. Утреннее солнце 5–10 мин</summary><p>Свет в глаза (НЕ напрямую в солнце) в первый час после подъёма. Запускает циркадные ритмы, мелатонин ровно через 14 часов = идеальный сон.</p></details>
+        <details><summary>2. Жуй жвачку только утром</summary><p>Mastic gum 20 мин утром = разогрев лимфы + челюсть. Не вечером — нагружает зубы и сустав.</p></details>
+        <details><summary>3. Спи в прохладе 18–19°C</summary><p>Глубокий сон возможен только когда тело отдаёт тепло. Жара = поверхностный сон = отёк утром.</p></details>
+        <details><summary>4. Шёлковая наволочка</summary><p>Меньше трения = меньше морщин и заломов утром. Волосы здоровее. Стоит 1500₽ — окупается за 2 нед.</p></details>
+        <details><summary>5. Подбородок выше — спишь на спине</summary><p>Подложи подушку чуть выше под верх спины (не под голову). Жидкость не скапливается под подбородком.</p></details>
+        <details><summary>6. Gua sha 5 мин 3×/нед</summary><p>Скребок из нефрита по линии челюсти и шеи снизу-вверх. Дренаж + чёткость линии. Только с маслом, никогда сухой.</p></details>
+        <details><summary>7. Носовой rinse 1×/день</summary><p>Neti pot / Aqua Maris. Промывание пазух солевым раствором. Лучше дышать = меньше отёка, лучше mewing.</p></details>
+        <details><summary>8. Холодные ложки 30 сек</summary><p>Положи 2 ложки в морозилку. Утром приложи под глаза + по линии челюсти. Мгновенный лифт.</p></details>
+        <details><summary>9. Не пей через соломинку</summary><p>Растягивает губы вертикально, формирует «марионеточные» морщины. И не свисти много.</p></details>
+        <details><summary>10. Mouth tape ночью</summary><p>3M micropore + крест на губах. Заставляет дышать носом. Утренний отёк лица уходит за 1 нед.</p></details>
+        <details><summary>11. CO₂ tolerance тест</summary><p>Глубокий вдох → плавный выдох → задержка. Норма >40 сек. Если <20 — гипервентилируешь, нос работает плохо. Тренируй Buteyko.</p></details>
+        <details><summary>12. Не растирай лицо полотенцем</summary><p>Промокни. Растирание = микро-травмы и преждевременное обвисание кожи.</p></details>
+        <details><summary>13. SPF в помещении</summary><p>Не миф. Окна и экран мониторов дают UVA. Минимум SPF 30 каждое утро, включая зиму и пасмурную погоду.</p></details>
+        <details><summary>14. «Двойная» вода утром</summary><p>500 мл сразу после подъёма. Не кофе. Запускает метаболизм, выводит токсины ночного метаболизма, убирает утренний отёк.</p></details>
+        <details><summary>15. Тёплая еда на завтрак, холодная — потом</summary><p>ТКМ-принцип, но и физика: горячая еда расширяет сосуды, лимфа едет.</p></details>
+        <details><summary>16. Lymph tapping</summary><p>3 пальца «постукивай» по ключицам, бокам шеи, лимфоузлам под ушами — по 30 сек. Активирует дренаж до того как ляжешь делать массаж.</p></details>
+        <details><summary>17. Не разговаривай часами</summary><p>Длинные разговоры → пересыхание рта → дышишь ртом → отёк. Молчание = ресурс.</p></details>
+        <details><summary>18. 90/90 stretch</summary><p>Лучшая растяжка бёдер. 2 мин на каждую сторону вечером. Раскрывает таз, убирает компенсаторную сутулость.</p></details>
+        <details><summary>19. Hanging from bar</summary><p>1–2 мин в день вис на турнике. Декомпрессия позвоночника, открытие грудного отдела, рост на 1–2 см осанки.</p></details>
+        <details><summary>20. Ходи босиком дома</summary><p>Стопа = база осанки. Обувь + носки = атрофия стопы → плоскостопие → перекос таза → отёк лица. Босиком или minimalist обувь.</p></details>
+        <details><summary>21. Завтрак с белком 30+ г</summary><p>Стабилизирует сахар, нет тяги к сладкому в обед, мышцы получают аминокислоты утром (когда катаболизм максимален).</p></details>
+        <details><summary>22. Eyebrow brushing 30 сек</summary><p>Spoolie + кастор. По росту волоса. Активирует фолликулы. Брови гуще за 6 нед.</p></details>
+        <details><summary>23. «Кошачье» потягивание после сна</summary><p>Не вставай сразу. 2 мин потянись лёжа во все стороны. Лимфа сдвигается, нет рывкового отёка.</p></details>
+        <details><summary>24. Минимум 5 чашек воды до 10:00</summary><p>Парадокс: больше пьёшь утром = меньше держишь воду днём. Пей рано.</p></details>
+        <details><summary>25. Сначала овощи, потом всё остальное</summary><p>Овощи в начале еды → стабильный инсулин → меньше жира откладывается из этой же еды. Простой life hack.</p></details>
+        <details><summary>26. Уши массируй 1 мин</summary><p>На ухе — рефлекторные точки всего организма. Растирай ладонями, потяни за мочки и края. Бодрит лучше кофе.</p></details>
+        <details><summary>27. Никаких exercises прямо перед сном</summary><p>За 2 ч до сна — нет кардио и тяжёлой силы. Кортизол поднимется, сон поверхностный, утро отёчное.</p></details>
+        <details><summary>28. Перекрести руки за спиной</summary><p>1 раз в час: руки скрести за спиной и потяни вперёд (открытие груди). Перезагрузка позы за 10 сек.</p></details>
+        <details><summary>29. Spit test на dehydration</summary><p>Если слюна густая/липкая утром — недопил вчера. Тонкая, водянистая — норм.</p></details>
+        <details><summary>30. Раз в неделю — день без зеркал</summary><p>Прекрати разглядывать лицо каждый час. Body dysmorphia убивает мотивацию. Один день без зеркал = сброс.</p></details>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Меню — что есть на сушке</h2>
+      <p class="muted" style="font-size:12.5px">Простые рецепты на каждый день. Базируйся на белке + овощах.</p>
+      <div class="acc">
+        <details><summary>Завтрак · 500 ккал · 40 г белка</summary><p><b>Вариант 1:</b> 3 яйца омлет + 100 г творога 5% + помидор + цельнозерновой тост.<br><b>Вариант 2:</b> овсянка 50 г + 1 банан + 30 г миндаля + протеин 30 г.<br><b>Вариант 3:</b> 200 г творога + 1 ч.л. мёда + горсть ягод.</p></details>
+        <details><summary>Обед · 600 ккал · 45 г белка</summary><p><b>Курица гриль 200 г + рис 80 г сырого + овощи 300 г (помидор, огурец, перец)</b>.<br><b>Альтернатива:</b> лосось/треска 200 г + картофель 200 г + брокколи 200 г.<br><b>Веган-альт:</b> чечевица 100 г + тофу 150 г + овощи.</p></details>
+        <details><summary>Перекус · 200 ккал · 20 г белка</summary><p>Творог 150 г + миндаль 15 г. Или йогурт греческий 5% 200 г + ягоды.</p></details>
+        <details><summary>Ужин · 500 ккал · 40 г белка</summary><p>Индейка / рыба 200 г + овощи на пару 300 г + 50 г сырого риса (если был тренировочный день, иначе без углей).</p></details>
+        <details><summary>Чего НЕ есть до 31 августа</summary><p>Колбасы, сосиски, фастфуд, любой алкоголь, сладкая газировка, пакетированные соки, тортики, чипсы, белый хлеб ежедневно, майонез, кетчуп.</p></details>
+        <details><summary>«Серая зона» — изредка можно</summary><p>Пицца раз в 2 нед если придерживался плана. Тёмный шоколад 85% (20 г). Сыр 30 г к завтраку.</p></details>
+        <details><summary>Cheat day vs cheat meal</summary><p><b>Cheat day = 3–5 дней отёка.</b> Делай только <b>cheat meal</b> (1 приём в неделю), не больше +500 ккал к норме.</p></details>
+      </div>
+    </div>
+
+    <div class="card">
       <h2>Менталка</h2>
       <details><summary>Дисциплина &gt; мотивация</summary><p>Мотивация заканчивается через неделю. Работают только повторяющиеся действия. Ставь будильник, чек-лист, без переговоров.</p></details>
       <details><summary>Никаких «чит-дней»</summary><p>До 31 августа — режим без срывов. Один чит-день откатывает на 3–5 дней.</p></details>
       <details><summary>Соц. сети — на минимуме</summary><p>TikTok/Reels убивают сон, дофамин и фокус. Лимиты экранного времени или хром-блокировка.</p></details>
       <details><summary>Фото раз в неделю</summary><p>Одно и то же освещение, одно положение. Прогресс виден только по фото.</p></details>
+      <details><summary>Discomfort = data</summary><p>Хочется бросить? Это значит работает. Перетерпи 5 мин — пройдёт.</p></details>
+      <details><summary>2-day rule</summary><p>Можешь пропустить 1 день. <b>Никогда не два подряд.</b> Это правило спасает streak.</p></details>
+      <details><summary>Перестань спрашивать «когда увижу результат»</summary><p>Видимый прогресс по лицу — 4 нед. По телу — 8 нед. Доверься процессу.</p></details>
     </div>
   </section>
 
@@ -2310,6 +2749,255 @@
         });
       }
     }, {passive:true});
+  })();
+
+  // ========= WATER TRACKER =========
+  (function(){
+    const row = document.getElementById('water-row');
+    const cntEl = document.getElementById('water-count');
+    const mlEl = document.getElementById('water-ml');
+    if (!row) return;
+    function key(){ return 'mogger.water.' + todayISO(); }
+    let count = parseInt(localStorage.getItem(key()) || '0', 10);
+    function paint(){
+      row.innerHTML = '';
+      for (let i = 0; i < 8; i++){
+        const g = document.createElement('button');
+        g.className = 'water-glass' + (i < count ? ' full' : '');
+        g.dataset.i = i;
+        row.appendChild(g);
+      }
+      cntEl.textContent = count;
+      mlEl.textContent = (count * 300) + ' мл';
+    }
+    row.addEventListener('click', e => {
+      const g = e.target.closest('.water-glass');
+      if (!g) return;
+      const i = +g.dataset.i;
+      count = i + 1 === count ? i : i + 1;
+      localStorage.setItem(key(), count);
+      paint();
+      if (navigator.vibrate) navigator.vibrate(8);
+      if (count === 8) toast('Норма воды — выполнено!');
+    });
+    paint();
+  })();
+
+  // ========= MOOD + ENERGY =========
+  (function(){
+    function pickerFor(rowId, storeKey){
+      const row = document.getElementById(rowId); if (!row) return;
+      function key(){ return storeKey + '.' + todayISO(); }
+      function paint(){
+        const v = localStorage.getItem(key()) || '';
+        row.querySelectorAll('.mood-btn').forEach(b =>
+          b.classList.toggle('on', b.dataset.v === v)
+        );
+      }
+      row.addEventListener('click', e => {
+        const b = e.target.closest('.mood-btn'); if (!b) return;
+        localStorage.setItem(key(), b.dataset.v);
+        paint();
+        if (navigator.vibrate) navigator.vibrate(8);
+      });
+      paint();
+    }
+    pickerFor('mood-row', 'mogger.mood');
+    pickerFor('energy-row', 'mogger.energy');
+  })();
+
+  // ========= PHOTO PROGRESS =========
+  (function(){
+    const grid = document.getElementById('photo-grid');
+    if (!grid) return;
+    grid.querySelectorAll('.photo-slot').forEach(slot => {
+      const k = 'mogger.photo.' + slot.dataset.k;
+      const dateEl = slot.querySelector('.date');
+      const removeBtn = slot.querySelector('.remove');
+      const input = slot.querySelector('input[type=file]');
+      function paint(){
+        const data = localStorage.getItem(k);
+        const dt = localStorage.getItem(k + '.date') || '';
+        let img = slot.querySelector('img');
+        if (data){
+          if (!img){ img = document.createElement('img'); slot.prepend(img); }
+          img.src = data;
+          slot.classList.add('has-img');
+          dateEl.textContent = dt;
+        } else {
+          if (img) img.remove();
+          slot.classList.remove('has-img');
+          dateEl.textContent = '';
+        }
+      }
+      input.addEventListener('change', e => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = ev => {
+          // Resize/compress to ~800px max via canvas to fit localStorage
+          const im = new Image();
+          im.onload = () => {
+            const c = document.createElement('canvas');
+            const maxDim = 800;
+            const scale = Math.min(1, maxDim / Math.max(im.width, im.height));
+            c.width = (im.width * scale)|0;
+            c.height = (im.height * scale)|0;
+            c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+            try {
+              const dataUrl = c.toDataURL('image/jpeg', 0.78);
+              localStorage.setItem(k, dataUrl);
+              localStorage.setItem(k + '.date', todayISO());
+              paint();
+              toast('Фото сохранено');
+            } catch(err){
+              toast('Не хватает места — удали старое фото');
+            }
+          };
+          im.src = ev.target.result;
+        };
+        r.readAsDataURL(f);
+        input.value = '';
+      });
+      removeBtn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (!confirm('Удалить фото?')) return;
+        localStorage.removeItem(k);
+        localStorage.removeItem(k + '.date');
+        paint();
+      });
+      paint();
+    });
+  })();
+
+  // ========= BOX BREATHING (4-4-4-4) =========
+  (function(){
+    const start = document.getElementById('breath-start');
+    const stop  = document.getElementById('breath-stop');
+    const phEl  = document.getElementById('breath-ph');
+    const cntEl = document.getElementById('breath-cnt');
+    const core  = document.getElementById('breath-core');
+    const fg    = document.getElementById('breath-fg');
+    if (!start) return;
+    const phases = [
+      { name: 'Вдох',     dur: 4, klass: 'inhale' },
+      { name: 'Держи',    dur: 4, klass: 'inhale' },
+      { name: 'Выдох',    dur: 4, klass: 'exhale' },
+      { name: 'Держи',    dur: 4, klass: 'exhale' }
+    ];
+    const CIRC = 565; // 2*pi*90 ≈ 565.5
+    let cycle = 0, idx = 0, sec = 0, timer = null, running = false;
+    function setPhase(i){
+      idx = i; sec = phases[i].dur;
+      phEl.textContent = phases[i].name + ' · ' + (cycle + 1) + '/4';
+      cntEl.textContent = sec;
+      core.classList.remove('inhale','exhale');
+      // Force reflow for transition restart
+      void core.offsetWidth;
+      core.style.transitionDuration = phases[i].dur + 's';
+      core.classList.add(phases[i].klass);
+      const totalSteps = phases.length;
+      const progress = ((i + 1) / totalSteps);
+      fg.style.strokeDashoffset = (CIRC * (1 - progress));
+    }
+    function tick(){
+      sec--;
+      if (sec <= 0){
+        if (idx === phases.length - 1){
+          cycle++;
+          if (cycle >= 4){
+            stopRun(true);
+            return;
+          }
+          setPhase(0);
+        } else {
+          setPhase(idx + 1);
+        }
+      } else {
+        cntEl.textContent = sec;
+      }
+    }
+    function startRun(){
+      if (running) return;
+      running = true;
+      cycle = 0;
+      fg.style.strokeDashoffset = CIRC;
+      setPhase(0);
+      timer = setInterval(tick, 1000);
+      if (navigator.vibrate) navigator.vibrate(8);
+    }
+    function stopRun(finished){
+      running = false;
+      clearInterval(timer);
+      core.classList.remove('inhale','exhale');
+      fg.style.strokeDashoffset = CIRC;
+      if (finished){
+        phEl.textContent = 'Готово';
+        cntEl.textContent = '✓';
+        toast('4 цикла дыхания завершены');
+        if (navigator.vibrate) navigator.vibrate([60,60,60,60,200]);
+      } else {
+        phEl.textContent = 'Готов?';
+        cntEl.textContent = '—';
+      }
+    }
+    start.addEventListener('click', startRun);
+    stop.addEventListener('click', () => stopRun(false));
+  })();
+
+  // ========= COUNTDOWN TIMERS =========
+  (function(){
+    const grid = document.querySelector('.timer-grid');
+    const disp = document.getElementById('timer-display');
+    const sub  = document.getElementById('timer-sub');
+    if (!grid) return;
+    let activeBtn = null;
+    let secLeft = 0;
+    let timer = null;
+    function fmt(s){
+      const m = (s/60|0).toString().padStart(2,'0');
+      const r = (s%60).toString().padStart(2,'0');
+      return m + ':' + r;
+    }
+    function paint(){
+      disp.textContent = fmt(secLeft);
+      disp.classList.toggle('danger', secLeft <= 10 && secLeft > 0);
+    }
+    function stopAll(){
+      clearInterval(timer); timer = null;
+      grid.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('on'));
+      activeBtn = null;
+    }
+    grid.addEventListener('click', e => {
+      const b = e.target.closest('.timer-btn');
+      if (!b) return;
+      if (b === activeBtn){
+        stopAll();
+        sub.textContent = 'остановлено';
+        return;
+      }
+      stopAll();
+      activeBtn = b;
+      b.classList.add('on');
+      secLeft = +b.dataset.sec;
+      sub.textContent = b.firstChild.textContent.trim();
+      paint();
+      if (navigator.vibrate) navigator.vibrate(10);
+      timer = setInterval(() => {
+        secLeft--;
+        paint();
+        if (secLeft === 3 || secLeft === 2 || secLeft === 1){
+          if (navigator.vibrate) navigator.vibrate(40);
+        }
+        if (secLeft <= 0){
+          stopAll();
+          sub.textContent = 'готово';
+          disp.textContent = '00:00';
+          toast('Таймер: ' + b.firstChild.textContent.trim() + ' — готово');
+          if (navigator.vibrate) navigator.vibrate([80,80,80,80,200]);
+        }
+      }, 1000);
+    });
   })();
 
   // ========= SERVICE WORKER for offline =========
