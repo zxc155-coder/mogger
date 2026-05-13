@@ -1366,6 +1366,264 @@
     --accent-deep: hsl(var(--accent-h) 90% 40%);
     --accent-soft: hsl(var(--accent-h) 100% 80%);
     --accent-glow: hsl(var(--accent-h) 100% 73%);
+    --base-fz: 15px;
+  }
+  html{ font-size: var(--base-fz); }
+
+  /* UI density / size modes */
+  body.fz-s{ --base-fz:13.5px; }
+  body.fz-l{ --base-fz:16.5px; }
+  body.compact .card{ padding:12px 12px !important; margin-bottom:10px !important; }
+  body.compact .card h2{ font-size:14px !important; margin-bottom:6px !important; }
+
+  /* Reduce motion */
+  body.no-anim *{
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Privacy mode — blur numbers until tapped */
+  body.privacy .ws-val,
+  body.privacy .kpi-tile .val,
+  body.privacy .kpi-tile .sub,
+  body.privacy .wc-num,
+  body.privacy .wc-frac,
+  body.privacy .countdown b,
+  body.privacy .ring span,
+  body.privacy .log-entry .what,
+  body.privacy .streak-num,
+  body.privacy .pr-val,
+  body.privacy .summary-val,
+  body.privacy .privacy-blur{
+    filter: blur(7px);
+    transition: filter .2s ease;
+  }
+  body.privacy .ws-val:active,
+  body.privacy .kpi-tile .val:active,
+  body.privacy .wc-num:active,
+  body.privacy .privacy-blur:active{
+    filter: blur(0);
+  }
+
+  /* Light mode — invert deep bg, keep accent */
+  body.light{
+    background:hsl(var(--accent-h) 35% 96%);
+    color:hsl(var(--accent-h) 60% 12%);
+  }
+  body.light .bg{
+    background:
+      radial-gradient(900px 600px at 20% -10%,hsl(var(--accent-h) 80% 85%) 0%,transparent 60%),
+      radial-gradient(800px 700px at 100% 10%,hsl(var(--accent-h) 80% 88%) 0%,transparent 55%),
+      radial-gradient(900px 800px at 50% 120%,hsl(var(--accent-h) 80% 90%) 0%,transparent 60%),
+      linear-gradient(180deg,hsl(var(--accent-h) 35% 96%) 0%,hsl(var(--accent-h) 35% 92%) 100%);
+  }
+  body.light .stars{ opacity:.15 }
+  body.light .card{
+    background:linear-gradient(160deg,hsla(var(--accent-h),60%,98%,.95),hsla(var(--accent-h),60%,94%,.95)) !important;
+    border-color:hsla(var(--accent-h),60%,40%,.18) !important;
+    color:hsl(var(--accent-h) 60% 14%) !important;
+    box-shadow:0 8px 28px hsla(var(--accent-h),50%,30%,.1) !important;
+  }
+  body.light h1,body.light h2,body.light h3,body.light h4,body.light p{ color:hsl(var(--accent-h) 60% 14%); }
+  body.light .muted,body.light small{ color:hsl(var(--accent-h) 40% 35%); }
+  body.light nav.tabs{
+    background:linear-gradient(180deg,hsla(var(--accent-h),60%,95%,.95),hsla(var(--accent-h),60%,90%,.96));
+    border-color:hsla(var(--accent-h),60%,40%,.18);
+  }
+  body.light nav.tabs button{ color:hsl(var(--accent-h) 40% 30%); }
+  body.light nav.tabs button.on{ color:hsl(var(--accent-h) 80% 35%); }
+  body.light input,body.light textarea,body.light select{
+    background:hsla(var(--accent-h),60%,98%,.95) !important;
+    color:hsl(var(--accent-h) 60% 14%) !important;
+    border-color:hsla(var(--accent-h),60%,40%,.2) !important;
+  }
+  body.light .chip,body.light .pill{ color:hsl(var(--accent-h) 60% 14%) !important; }
+  body.light .week-cell{
+    background:hsla(var(--accent-h),60%,92%,.7) !important;
+    color:hsl(var(--accent-h) 60% 20%) !important;
+  }
+  body.light .week-cell.has-checklist{
+    background:linear-gradient(180deg,hsla(var(--accent-h),85%,75%,.6),hsla(var(--accent-h),85%,55%,.85)) !important;
+    color:#fff !important;
+  }
+  body.light .week-stats > div{ background:hsla(var(--accent-h),60%,92%,.7) !important; color:hsl(var(--accent-h) 60% 14%) !important; }
+  body.light .week-stats .ws-val{ color:hsl(var(--accent-h) 60% 14%) !important; }
+
+  /* UI Settings rows */
+  .ui-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:7px 0;border-top:1px solid hsla(var(--accent-h),100%,73%,.08);
+  }
+  .ui-row:first-of-type{ border-top:0 }
+  .ui-row .ui-lbl{
+    font-size:12.5px;font-weight:600;
+    color:hsl(var(--accent-h) 30% 78%);letter-spacing:.02em;
+    flex:0 0 auto;
+  }
+  .seg{
+    display:inline-flex;gap:2px;padding:2px;border-radius:10px;
+    background:hsla(var(--accent-h),60%,12%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+  }
+  body.light .seg{
+    background:hsla(var(--accent-h),60%,92%,.7) !important;
+    border-color:hsla(var(--accent-h),60%,40%,.18) !important;
+  }
+  .seg button{
+    padding:5px 10px;border-radius:8px;
+    font-size:11.5px;font-weight:700;letter-spacing:.04em;
+    color:hsl(var(--accent-h) 30% 68%);
+    transition:all .15s ease;
+  }
+  .seg button.on{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;box-shadow:0 0 10px hsla(var(--accent-h),100%,65%,.4);
+  }
+  body.light .seg button.on{ color:#fff }
+
+  /* TOP-3 priorities */
+  .top3-rows{ display:flex;flex-direction:column;gap:6px }
+  .top3-row{
+    display:flex;align-items:center;gap:8px;
+    background:hsla(var(--accent-h),60%,11%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.12);
+    border-radius:10px;padding:6px 8px;
+  }
+  .top3-row .t3-check{
+    width:22px;height:22px;border-radius:50%;
+    border:2px solid hsla(var(--accent-h),100%,73%,.4);
+    flex:0 0 22px;display:flex;align-items:center;justify-content:center;
+    color:transparent;font-weight:900;font-size:13px;
+    transition:all .2s ease;cursor:pointer;
+  }
+  .top3-row.done .t3-check{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;border-color:transparent;
+  }
+  .top3-row.done input{ text-decoration:line-through;opacity:.55 }
+  .top3-row input{
+    flex:1;background:transparent;border:0;outline:0;
+    color:hsl(var(--accent-h) 100% 95%);font-size:13.5px;
+  }
+  body.light .top3-row{ background:hsla(var(--accent-h),60%,92%,.7) !important; }
+  body.light .top3-row input{ color:hsl(var(--accent-h) 60% 14%) !important; }
+
+  /* DAILY LOG grid */
+  .dl-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
+  }
+  .dl-cell{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:10px;padding:8px;
+    display:flex;flex-direction:column;gap:5px;
+  }
+  .dl-cell.dl-wide{ grid-column:1/-1 }
+  body.light .dl-cell{ background:hsla(var(--accent-h),60%,92%,.7) !important; }
+  .dl-lbl{
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 30% 70%);font-weight:700;
+  }
+  .dl-cell input[type=number],.dl-cell input[type=text],.dl-cell textarea{
+    width:100%;background:hsla(var(--accent-h),60%,8%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.15);
+    border-radius:8px;padding:6px 8px;color:#fff;
+    font-size:14px;font-weight:600;
+  }
+  .dl-cell textarea{ font-weight:400;resize:vertical;font-size:12.5px;font-family:inherit }
+  .dl-mini{
+    font-size:10.5px;color:hsl(var(--accent-h) 30% 65%);
+    display:flex;align-items:center;gap:4px;flex-wrap:wrap;
+  }
+  .dl-q,.dl-yn,.dl-money-add,.dl-nofap-btn{
+    background:hsla(var(--accent-h),60%,18%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.15);
+    border-radius:6px;padding:3px 7px;font-size:11px;color:#fff;font-weight:700;
+    transition:all .15s ease;
+  }
+  .dl-q.on,.dl-yn.on,.dl-money-add:active{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    border-color:transparent;color:#fff;
+  }
+  .dl-toggle-row{ display:flex;gap:4px;flex-wrap:wrap }
+  .dl-money-row{ display:flex;gap:4px;flex-wrap:wrap }
+
+  /* MINDSET timers */
+  .tabs-row{
+    display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;
+  }
+  .tabs-row .tab{
+    padding:5px 10px;border-radius:8px;
+    background:hsla(var(--accent-h),60%,14%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.12);
+    font-size:11.5px;font-weight:700;color:hsl(var(--accent-h) 30% 70%);
+  }
+  .tabs-row .tab.on{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;border-color:transparent;
+  }
+  .mind-body{ padding:8px 0 }
+  .mind-timer{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    padding:14px 0;
+  }
+  .mind-timer .mt-disp{
+    font-size:42px;font-weight:800;letter-spacing:.04em;color:#fff;
+    font-variant-numeric:tabular-nums;line-height:1;
+  }
+  .mind-timer .mt-mode{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 30% 75%);font-weight:700;
+  }
+  .mind-timer .mt-presets{
+    display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
+  }
+  .mind-timer .mt-presets button{
+    padding:4px 8px;border-radius:8px;
+    background:hsla(var(--accent-h),60%,14%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.12);
+    color:hsl(var(--accent-h) 30% 70%);font-size:11px;font-weight:700;
+  }
+  .mind-timer .mt-presets button.on{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;border-color:transparent;
+  }
+  .mind-timer .mt-controls{ display:flex;gap:6px }
+  .mind-timer .mt-controls button{
+    padding:8px 18px;border-radius:10px;font-weight:800;font-size:13px;
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;
+  }
+  .mind-timer .mt-controls button.ghost{
+    background:transparent;border:1px solid hsla(var(--accent-h),100%,73%,.3);
+    color:hsl(var(--accent-h) 100% 85%);
+  }
+  .mind-stats{
+    margin-top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  }
+  .mind-stats > div{
+    background:hsla(var(--accent-h),60%,11%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.1);
+    border-radius:8px;padding:6px 8px;text-align:center;
+  }
+  .mind-stats .lbl{ font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:hsl(var(--accent-h) 30% 65%) }
+  .mind-stats b{ display:block;font-size:15px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums }
+
+  /* CHALLENGE */
+  .challenge-box{
+    background:linear-gradient(135deg,hsla(var(--accent-h),85%,30%,.45),hsla(var(--accent-h),60%,12%,.6));
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+    border-radius:12px;padding:14px;font-size:15px;font-weight:600;text-align:center;
+    color:#fff;min-height:60px;display:flex;align-items:center;justify-content:center;
+    line-height:1.35;
+  }
+  .pri{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;font-size:13px;
+  }
+  .ghost{
+    background:transparent;border:1px solid hsla(var(--accent-h),100%,73%,.3);
+    color:hsl(var(--accent-h) 100% 85%);padding:10px 14px;border-radius:10px;font-weight:700;font-size:13px;
   }
 
   /* preset swatches — each chip previews its own hue */
@@ -2262,6 +2520,133 @@
       <div class="week-stats" id="week-stats"></div>
     </div>
 
+    <!-- ============= TOP-3 PRIORITIES ============= -->
+    <div class="card" id="top3-card">
+      <h2>Top-3 на сегодня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Что точно сделаешь сегодня. Не больше трёх — иначе ничего не сделаешь.
+      </p>
+      <div class="top3-rows" id="top3-rows"></div>
+      <p class="muted" style="font-size:11px;margin-top:6px">
+        Закрытие 3/3 = +1 к streak дисциплины.
+      </p>
+    </div>
+
+    <!-- ============= DAILY LOG (sleep / steps / cold / mood / gratitude / journal / money saved) ============= -->
+    <div class="card" id="daily-log-card">
+      <h2>Лог дня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 10px">
+        Быстрые входы: сон, шаги, холодный душ, no-fap, благодарности, дневник. Записывается на сегодня.
+      </p>
+
+      <div class="dl-grid">
+        <div class="dl-cell">
+          <label class="dl-lbl">Сон, ч</label>
+          <input type="number" id="dl-sleep-h" placeholder="7.5" step="0.25" min="0" max="14" inputmode="decimal"/>
+          <div class="dl-mini" id="dl-sleep-q-row">
+            <span>Качество:</span>
+            <button class="dl-q" data-q="1">1</button>
+            <button class="dl-q" data-q="2">2</button>
+            <button class="dl-q" data-q="3">3</button>
+            <button class="dl-q" data-q="4">4</button>
+            <button class="dl-q" data-q="5">5</button>
+          </div>
+        </div>
+
+        <div class="dl-cell">
+          <label class="dl-lbl">Шаги</label>
+          <input type="number" id="dl-steps" placeholder="10000" min="0" max="100000" inputmode="numeric"/>
+          <div class="dl-mini" id="dl-steps-info">цель 10 000</div>
+        </div>
+
+        <div class="dl-cell">
+          <label class="dl-lbl">Холодный душ</label>
+          <div class="dl-toggle-row">
+            <button class="dl-yn" id="dl-cold-yes" data-v="1">Сделал</button>
+            <button class="dl-yn" id="dl-cold-no" data-v="0">—</button>
+          </div>
+          <div class="dl-mini" id="dl-cold-streak">streak: 0</div>
+        </div>
+
+        <div class="dl-cell">
+          <label class="dl-lbl">No-fap (дней)</label>
+          <div class="dl-toggle-row" style="gap:6px">
+            <button class="dl-nofap-btn" id="dl-nofap-start">сброс / старт</button>
+          </div>
+          <div class="dl-mini"><b id="dl-nofap-days">—</b> дней</div>
+        </div>
+
+        <div class="dl-cell">
+          <label class="dl-lbl">Кофе чашек</label>
+          <input type="number" id="dl-coffee" placeholder="0" min="0" max="20" inputmode="numeric"/>
+          <div class="dl-mini" id="dl-caffeine">мг кофеина: 0</div>
+        </div>
+
+        <div class="dl-cell">
+          <label class="dl-lbl">Алкоголь, ед.</label>
+          <input type="number" id="dl-alc" placeholder="0" min="0" max="30" step="0.5" inputmode="decimal"/>
+          <div class="dl-mini" id="dl-alc-info">1 ед = 10 г этанола</div>
+        </div>
+
+        <div class="dl-cell dl-wide">
+          <label class="dl-lbl">3 благодарности</label>
+          <input type="text" id="dl-grat-1" placeholder="за что благодарен #1" maxlength="120"/>
+          <input type="text" id="dl-grat-2" placeholder="#2" maxlength="120"/>
+          <input type="text" id="dl-grat-3" placeholder="#3" maxlength="120"/>
+        </div>
+
+        <div class="dl-cell dl-wide">
+          <label class="dl-lbl">Дневник дня</label>
+          <textarea id="dl-journal" rows="3" placeholder="что было важно. что узнал. что чувствуешь." maxlength="2000"></textarea>
+          <div class="dl-mini" id="dl-journal-len">0 / 2000</div>
+        </div>
+
+        <div class="dl-cell dl-wide">
+          <label class="dl-lbl">Деньги сэкономлены сегодня (₽)</label>
+          <div class="dl-money-row">
+            <button class="dl-money-add" data-rub="500">+500 фастфуд</button>
+            <button class="dl-money-add" data-rub="1500">+1500 бар</button>
+            <button class="dl-money-add" data-rub="250">+250 сигареты</button>
+            <button class="dl-money-add" data-rub="100">+100 кола</button>
+          </div>
+          <div class="dl-mini">сегодня: <b id="dl-money-today">0 ₽</b> · всего: <b id="dl-money-total">0 ₽</b></div>
+        </div>
+      </div>
+      <div class="row" style="margin-top:8px;gap:6px">
+        <button id="dl-save" type="button" class="pri" style="flex:1">Сохранить лог дня</button>
+        <button id="dl-reset" type="button" class="ghost">Сброс дня</button>
+      </div>
+    </div>
+
+    <!-- ============= MINDSET TIMERS (Pomodoro / Meditation / Mewing / Reading) ============= -->
+    <div class="card" id="mindset-card">
+      <h2>Mindset · таймеры</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Pomodoro, медитация, mewing, чтение. Запускаешь — идёт фоном по timer-стораджу.
+      </p>
+      <div class="tabs-row" id="mind-tabs">
+        <button class="tab on" data-mt="pomo">Pomodoro 25/5</button>
+        <button class="tab" data-mt="med">Медитация</button>
+        <button class="tab" data-mt="mew">Mewing</button>
+        <button class="tab" data-mt="read">Чтение</button>
+      </div>
+      <div id="mind-body" class="mind-body"></div>
+      <div class="mind-stats" id="mind-stats"></div>
+    </div>
+    <!-- ============= QUICK CHALLENGE (random) ============= -->
+    <div class="card" id="challenge-card">
+      <h2>Случайный челлендж</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Микро-вызов на сейчас. Тапни «новый» — выпадет другое.
+      </p>
+      <div class="challenge-box" id="challenge-box">—</div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <button id="ch-new" type="button" class="ghost" style="flex:1">🎲 Новый челлендж</button>
+        <button id="ch-done" type="button" class="pri" style="flex:1">✓ Выполнил</button>
+      </div>
+      <div class="dl-mini" style="margin-top:6px">Выполнено челленджей: <b id="ch-count">0</b></div>
+    </div>
+
     <div class="card">
       <h2>Сегодняшний чек-лист</h2>
       <div class="list" id="daily-list">
@@ -2611,6 +2996,83 @@
       </p>
       <p class="muted" style="font-size:12px;margin-top:8px">
         Тапни, чтобы сменить →
+      </p>
+    </div>
+
+    <!-- ============= UI SETTINGS ============= -->
+    <div class="card" id="ui-settings-card" style="margin-top:14px">
+      <h2>Настройки интерфейса</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 10px">
+        Светлая/тёмная тема, шрифт, плотность, приватность, звуки, вибрация.
+      </p>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Тема</span>
+        <div class="seg" id="theme-seg" data-key="mogger.ui.theme">
+          <button data-v="dark" class="on">Тёмная</button>
+          <button data-v="light">Светлая</button>
+        </div>
+      </div>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Шрифт</span>
+        <div class="seg" id="fz-seg" data-key="mogger.ui.fz">
+          <button data-v="s">A−</button>
+          <button data-v="m" class="on">A</button>
+          <button data-v="l">A+</button>
+        </div>
+      </div>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Плотность</span>
+        <div class="seg" id="density-seg" data-key="mogger.ui.density">
+          <button data-v="normal" class="on">Обычная</button>
+          <button data-v="compact">Компакт</button>
+        </div>
+      </div>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Анимации</span>
+        <div class="seg" id="anim-seg" data-key="mogger.ui.anim">
+          <button data-v="on" class="on">Вкл</button>
+          <button data-v="off">Выкл</button>
+        </div>
+      </div>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Приватность</span>
+        <div class="seg" id="privacy-seg" data-key="mogger.ui.privacy">
+          <button data-v="off" class="on">Видно</button>
+          <button data-v="on">Размыто</button>
+        </div>
+      </div>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Звуки</span>
+        <div class="seg" id="sound-seg" data-key="mogger.ui.sound">
+          <button data-v="on" class="on">Вкл</button>
+          <button data-v="off">Выкл</button>
+        </div>
+      </div>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Вибрация</span>
+        <div class="seg" id="vibrate-seg" data-key="mogger.ui.vibrate">
+          <button data-v="on" class="on">Вкл</button>
+          <button data-v="off">Выкл</button>
+        </div>
+      </div>
+
+      <div class="ui-row">
+        <span class="ui-lbl">Язык</span>
+        <div class="seg" id="lang-seg" data-key="mogger.ui.lang">
+          <button data-v="ru" class="on">RU</button>
+          <button data-v="en">EN</button>
+        </div>
+      </div>
+
+      <p class="muted" style="font-size:11px;margin-top:6px">
+        Все настройки локальные. Приватность размывает числа — тапни, чтобы увидеть.
       </p>
     </div>
 
@@ -4530,6 +4992,93 @@
     tiersForGender,
     calcBmr, calcBmi,
   };
+
+  // ========= UI SETTINGS (theme, font, density, motion, privacy, sound, vibration, lang) =========
+  const UI_DEFAULTS = {
+    'mogger.ui.theme': 'dark',
+    'mogger.ui.fz': 'm',
+    'mogger.ui.density': 'normal',
+    'mogger.ui.anim': 'on',
+    'mogger.ui.privacy': 'off',
+    'mogger.ui.sound': 'on',
+    'mogger.ui.vibrate': 'on',
+    'mogger.ui.lang': 'ru'
+  };
+  window.UI = {
+    get(k){ return localStorage.getItem(k) || UI_DEFAULTS[k]; },
+    set(k, v){ localStorage.setItem(k, v); this.apply(); },
+    apply(){
+      const b = document.body;
+      b.classList.toggle('light', this.get('mogger.ui.theme') === 'light');
+      b.classList.remove('fz-s','fz-l');
+      const fz = this.get('mogger.ui.fz');
+      if (fz === 's') b.classList.add('fz-s');
+      if (fz === 'l') b.classList.add('fz-l');
+      b.classList.toggle('compact', this.get('mogger.ui.density') === 'compact');
+      b.classList.toggle('no-anim', this.get('mogger.ui.anim') === 'off');
+      b.classList.toggle('privacy', this.get('mogger.ui.privacy') === 'on');
+      // Sync segmented controls visuals
+      document.querySelectorAll('.seg').forEach(seg => {
+        const key = seg.dataset.key;
+        if (!key) return;
+        const v = this.get(key);
+        seg.querySelectorAll('button').forEach(b2 => b2.classList.toggle('on', b2.dataset.v === v));
+      });
+    },
+    sound(){ return this.get('mogger.ui.sound') === 'on'; },
+    vibrate(){ return this.get('mogger.ui.vibrate') === 'on'; },
+    lang(){ return this.get('mogger.ui.lang'); }
+  };
+  // Wire segment buttons
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.seg button[data-v]');
+    if (!btn) return;
+    const seg = btn.parentElement;
+    const key = seg.dataset.key;
+    if (!key) return;
+    UI.set(key, btn.dataset.v);
+    if (typeof toast === 'function'){
+      const lbl = seg.previousElementSibling && seg.previousElementSibling.textContent.trim() || '';
+      toast(lbl ? lbl + ' → ' + btn.textContent : btn.textContent);
+    }
+  });
+  // Safe-vibrate wrapper
+  window.safeVibrate = function(pattern){
+    if (!UI.vibrate()) return;
+    if (navigator.vibrate) navigator.vibrate(pattern);
+  };
+  // EN translation map (top-level UI strings only — minimal stub, expand later)
+  const I18N = {
+    'Главная':'Home','Лицо':'Face','Тело':'Body','Прогресс':'Stats',
+    'Отёк':'Depuff','Стрижка':'Hair','Советы':'Tips',
+    'Последние 7 дней':'Last 7 days','Сегодняшний чек-лист':'Today\'s checklist',
+    'Настройки интерфейса':'UI settings',
+    'Тёмная':'Dark','Светлая':'Light','Тема':'Theme','Шрифт':'Font',
+    'Плотность':'Density','Обычная':'Normal','Компакт':'Compact',
+    'Анимации':'Motion','Вкл':'On','Выкл':'Off',
+    'Приватность':'Privacy','Видно':'Visible','Размыто':'Blurred',
+    'Звуки':'Sound','Вибрация':'Vibration','Язык':'Language',
+    'Дисциплина':'Discipline','Тренировок':'Workouts',
+    'Δ Вес':'Δ Weight','за неделю':'this week','нет данных':'no data',
+    'Серия дисциплины. Тапни любой день → откроется «Прогресс».':'Streak overview. Tap any day → opens Stats.',
+    'Записать':'Log','Сохранить':'Save','Отменить':'Cancel','Готово':'Done',
+    'Профиль':'Profile','Цель':'Goal'
+  };
+  function applyLang(){
+    const lang = UI.lang();
+    document.querySelectorAll('[data-i18n], .i18n').forEach(el => {
+      const orig = el.dataset.iOrig || el.textContent.trim();
+      el.dataset.iOrig = orig;
+      el.textContent = lang === 'en' && I18N[orig] ? I18N[orig] : orig;
+    });
+    // Top-nav labels + section headers (find by Russian text)
+    document.querySelectorAll('nav.tabs button').forEach(b => {
+      const sv = b.querySelector('svg');
+      const txt = Array.from(b.childNodes).find(n => n.nodeType === 3 || (n.tagName !== 'SVG' && n.nodeType === 1));
+      // Skip — we keep static for nav, but apply via a different mechanism
+    });
+  }
+  UI.apply();
 
   // ========= NAV =========
   const screens = document.querySelectorAll('.screen');
@@ -6582,6 +7131,383 @@
     document.addEventListener('screen:enter', e => {
       if (e.detail && e.detail.name === 'home') render();
     });
+  })();
+
+  // ========= TOP-3 PRIORITIES =========
+  (function(){
+    const KEY = 'mogger.top3.' + new Date().toISOString().slice(0,10);
+    const rowsEl = document.getElementById('top3-rows');
+    if (!rowsEl) return;
+    function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || [{t:'',d:false},{t:'',d:false},{t:'',d:false}]; } catch(_){ return [{t:'',d:false},{t:'',d:false},{t:'',d:false}]; } }
+    function save(arr){ localStorage.setItem(KEY, JSON.stringify(arr)); }
+    let st = load();
+    function render(){
+      rowsEl.innerHTML = '';
+      st.forEach((row, i) => {
+        const div = document.createElement('div');
+        div.className = 'top3-row' + (row.d ? ' done' : '');
+        div.innerHTML = `
+          <button class="t3-check" data-i="${i}" type="button">✓</button>
+          <input type="text" data-i="${i}" placeholder="Цель #${i+1} на сегодня" value="${(row.t||'').replace(/"/g,'&quot;')}" maxlength="80"/>
+        `;
+        rowsEl.appendChild(div);
+      });
+      rowsEl.querySelectorAll('.t3-check').forEach(b => b.addEventListener('click', () => {
+        const i = +b.dataset.i;
+        st[i].d = !st[i].d;
+        save(st); render();
+        if (st.every(x => x.t.trim() && x.d) && typeof confetti === 'function'){ confetti(50); if (typeof toast === 'function') toast('Top-3 закрыты. Хороший день.'); }
+      }));
+      rowsEl.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', () => {
+          const i = +inp.dataset.i;
+          st[i].t = inp.value;
+          save(st);
+        });
+      });
+    }
+    render();
+  })();
+
+  // ========= DAILY LOG (sleep / steps / cold / no-fap / coffee / alcohol / gratitude / journal / money) =========
+  (function(){
+    const date = new Date().toISOString().slice(0,10);
+    const KEY = 'mogger.dl.' + date;
+    const NOFAP_KEY = 'mogger.nofap.start';
+    const MONEY_KEY = 'mogger.money.total';
+    const COLD_LOG_KEY = 'mogger.cold.log';
+
+    const sleepH = document.getElementById('dl-sleep-h');
+    const qRow = document.getElementById('dl-sleep-q-row');
+    const stepsEl = document.getElementById('dl-steps');
+    const stepsInfo = document.getElementById('dl-steps-info');
+    const coldY = document.getElementById('dl-cold-yes');
+    const coldN = document.getElementById('dl-cold-no');
+    const coldStreak = document.getElementById('dl-cold-streak');
+    const nofapBtn = document.getElementById('dl-nofap-start');
+    const nofapDays = document.getElementById('dl-nofap-days');
+    const coffeeEl = document.getElementById('dl-coffee');
+    const caffEl = document.getElementById('dl-caffeine');
+    const alcEl = document.getElementById('dl-alc');
+    const g1 = document.getElementById('dl-grat-1');
+    const g2 = document.getElementById('dl-grat-2');
+    const g3 = document.getElementById('dl-grat-3');
+    const journal = document.getElementById('dl-journal');
+    const journalLen = document.getElementById('dl-journal-len');
+    const moneyToday = document.getElementById('dl-money-today');
+    const moneyTotal = document.getElementById('dl-money-total');
+    const saveBtn = document.getElementById('dl-save');
+    const resetBtn = document.getElementById('dl-reset');
+
+    if (!sleepH) return;
+
+    function loadDay(){
+      try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(_){ return {}; }
+    }
+    function saveDay(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+    let st = loadDay();
+
+    function syncFromState(){
+      if (st.sleepH != null) sleepH.value = st.sleepH;
+      if (st.sleepQ != null) qRow.querySelectorAll('.dl-q').forEach(b => b.classList.toggle('on', +b.dataset.q === st.sleepQ));
+      if (st.steps != null) stepsEl.value = st.steps;
+      if (st.cold != null){ coldY.classList.toggle('on', st.cold === 1); coldN.classList.toggle('on', st.cold === 0); }
+      if (st.coffee != null) coffeeEl.value = st.coffee;
+      if (st.alc != null) alcEl.value = st.alc;
+      if (st.g1) g1.value = st.g1;
+      if (st.g2) g2.value = st.g2;
+      if (st.g3) g3.value = st.g3;
+      if (st.journal) journal.value = st.journal;
+      if (st.money) moneyToday.textContent = st.money + ' ₽';
+      renderCaffeine();
+      renderJournalLen();
+      renderColdStreak();
+      renderNoFap();
+      renderMoneyTotal();
+    }
+
+    function renderCaffeine(){
+      const cups = +(coffeeEl.value || 0);
+      const mg = cups * 95;
+      caffEl.textContent = 'мг кофеина: ' + mg + (mg > 400 ? ' ⚠ много' : '');
+    }
+    function renderJournalLen(){
+      journalLen.textContent = (journal.value.length || 0) + ' / 2000';
+    }
+    function renderColdStreak(){
+      const log = JSON.parse(localStorage.getItem(COLD_LOG_KEY) || '{}');
+      let n = 0;
+      const today = new Date();
+      for (let i = 0; i < 365; i++){
+        const d = new Date(today.getTime() - i * 86400000);
+        const iso = d.toISOString().slice(0,10);
+        if (log[iso] === 1) n++;
+        else if (i === 0) continue;
+        else break;
+      }
+      coldStreak.textContent = 'streak: ' + n + ' дн';
+    }
+    function renderNoFap(){
+      const start = localStorage.getItem(NOFAP_KEY);
+      if (!start){ nofapDays.textContent = '—'; return; }
+      const days = Math.floor((Date.now() - new Date(start).getTime()) / 86400000);
+      nofapDays.textContent = days;
+    }
+    function renderMoneyTotal(){
+      moneyTotal.textContent = (parseInt(localStorage.getItem(MONEY_KEY) || '0', 10)).toLocaleString('ru-RU') + ' ₽';
+    }
+
+    sleepH.addEventListener('input', () => { st.sleepH = parseFloat(sleepH.value) || null; saveDay(st); });
+    qRow.querySelectorAll('.dl-q').forEach(b => b.addEventListener('click', () => {
+      qRow.querySelectorAll('.dl-q').forEach(x => x.classList.remove('on'));
+      b.classList.add('on');
+      st.sleepQ = +b.dataset.q; saveDay(st);
+    }));
+    stepsEl.addEventListener('input', () => {
+      const v = parseInt(stepsEl.value, 10) || 0;
+      st.steps = v; saveDay(st);
+      stepsInfo.textContent = v >= 10000 ? '✓ цель ' + v.toLocaleString('ru-RU') : 'цель 10 000 · сейчас ' + v.toLocaleString('ru-RU');
+    });
+    function setCold(v){
+      coldY.classList.toggle('on', v === 1);
+      coldN.classList.toggle('on', v === 0);
+      st.cold = v; saveDay(st);
+      const log = JSON.parse(localStorage.getItem(COLD_LOG_KEY) || '{}');
+      log[date] = v;
+      localStorage.setItem(COLD_LOG_KEY, JSON.stringify(log));
+      renderColdStreak();
+    }
+    coldY.addEventListener('click', () => setCold(1));
+    coldN.addEventListener('click', () => setCold(0));
+    nofapBtn.addEventListener('click', () => {
+      if (confirm('Сбросить no-fap счётчик и начать заново с сегодняшней даты?')){
+        localStorage.setItem(NOFAP_KEY, date);
+        renderNoFap();
+        if (typeof toast === 'function') toast('No-fap счётчик начат с ' + date);
+      }
+    });
+    coffeeEl.addEventListener('input', () => { st.coffee = parseInt(coffeeEl.value,10) || 0; saveDay(st); renderCaffeine(); });
+    alcEl.addEventListener('input', () => { st.alc = parseFloat(alcEl.value) || 0; saveDay(st); });
+    [g1, g2, g3].forEach((el, i) => el.addEventListener('input', () => { st['g' + (i+1)] = el.value; saveDay(st); }));
+    journal.addEventListener('input', () => { st.journal = journal.value; saveDay(st); renderJournalLen(); });
+    document.querySelectorAll('.dl-money-add').forEach(b => b.addEventListener('click', () => {
+      const r = +b.dataset.rub;
+      st.money = (st.money || 0) + r; saveDay(st);
+      const tot = parseInt(localStorage.getItem(MONEY_KEY) || '0', 10) + r;
+      localStorage.setItem(MONEY_KEY, tot);
+      moneyToday.textContent = st.money + ' ₽';
+      moneyTotal.textContent = tot.toLocaleString('ru-RU') + ' ₽';
+      if (typeof toast === 'function') toast('+' + r + ' ₽ сохранено. Всего: ' + tot.toLocaleString('ru-RU'));
+      if (window.safeVibrate) window.safeVibrate(6);
+    }));
+    saveBtn.addEventListener('click', () => { saveDay(st); if (typeof toast === 'function') toast('Лог дня сохранён'); });
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('Стереть весь лог за сегодня?')) return;
+      st = {};
+      saveDay({});
+      [sleepH, stepsEl, coffeeEl, alcEl, g1, g2, g3, journal].forEach(el => el.value = '');
+      moneyToday.textContent = '0 ₽';
+      qRow.querySelectorAll('.dl-q').forEach(x => x.classList.remove('on'));
+      coldY.classList.remove('on'); coldN.classList.remove('on');
+      renderCaffeine(); renderJournalLen();
+      if (typeof toast === 'function') toast('Лог дня сброшен');
+    });
+
+    syncFromState();
+    setInterval(renderNoFap, 60000);
+  })();
+
+  // ========= MINDSET TIMERS (Pomodoro / Med / Mewing / Read) =========
+  (function(){
+    const tabsEl = document.getElementById('mind-tabs');
+    const bodyEl = document.getElementById('mind-body');
+    const statsEl = document.getElementById('mind-stats');
+    if (!tabsEl || !bodyEl) return;
+
+    const STATE = {
+      pomo: { work:25*60, rest:5*60, mode:'work', remaining:25*60, ticking:false, cycles:0, presets:[[25,5],[50,10],[15,3]] },
+      med:  { remaining:5*60, total:5*60, ticking:false, presets:[5,10,15,20] },
+      mew:  { remaining:5*60, total:5*60, ticking:false, presets:[5,10,15,30] },
+      read: { remaining:20*60, total:20*60, ticking:false, presets:[10,20,30,45] }
+    };
+    let interval = null;
+    let active = 'pomo';
+
+    function fmt(s){ s=Math.max(0,Math.floor(s)); const m=Math.floor(s/60), sec=s%60; return (m<10?'0':'')+m+':'+(sec<10?'0':'')+sec; }
+    function vibrate(p){ if (window.safeVibrate) window.safeVibrate(p); }
+    function beep(){
+      if (!UI.sound()) return;
+      try{
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator(); const g = ctx.createGain();
+        o.frequency.value=880; o.type='sine'; o.connect(g); g.connect(ctx.destination);
+        g.gain.value=0.0001; g.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.4);
+        o.start(); o.stop(ctx.currentTime+0.45);
+      }catch(_){}
+    }
+
+    function dailyKey(metric){ return 'mogger.mt.' + metric + '.' + new Date().toISOString().slice(0,10); }
+    function addMin(metric, m){
+      const k = dailyKey(metric);
+      const v = parseInt(localStorage.getItem(k) || '0', 10) + m;
+      localStorage.setItem(k, v);
+    }
+    function todayMin(metric){ return parseInt(localStorage.getItem(dailyKey(metric)) || '0', 10); }
+
+    function render(){
+      const s = STATE[active];
+      const presets = s.presets.map(p => {
+        if (active === 'pomo'){ const sel = (p[0]*60===s.work)?' on':''; return `<button data-p='${JSON.stringify(p)}'${' class="'+(sel?'on':'')+'"'}>${p[0]}/${p[1]}</button>`; }
+        const sel = (p*60===s.total)?' on':'';
+        return `<button data-p='${p}'${' class="'+(sel?'on':'')+'"'}>${p}m</button>`;
+      }).join('');
+      const mode = active==='pomo' ? (s.mode==='work'?'РАБОТА':'ОТДЫХ') : ({med:'МЕДИТАЦИЯ',mew:'MEWING',read:'ЧТЕНИЕ'}[active]);
+      bodyEl.innerHTML = `
+        <div class="mind-timer">
+          <div class="mt-mode">${mode}</div>
+          <div class="mt-disp">${fmt(s.remaining)}</div>
+          <div class="mt-presets">${presets}</div>
+          <div class="mt-controls">
+            <button class="mt-start">${s.ticking ? '⏸ Пауза' : '▶ Старт'}</button>
+            <button class="mt-reset ghost">Сброс</button>
+          </div>
+        </div>
+      `;
+      bodyEl.querySelector('.mt-start').addEventListener('click', () => {
+        if (s.ticking){ stop(); } else { start(); }
+        render();
+      });
+      bodyEl.querySelector('.mt-reset').addEventListener('click', () => {
+        stop();
+        if (active === 'pomo'){ s.mode='work'; s.remaining = s.work; }
+        else { s.remaining = s.total; }
+        render();
+      });
+      bodyEl.querySelectorAll('.mt-presets button').forEach(b => b.addEventListener('click', () => {
+        stop();
+        if (active === 'pomo'){
+          const [w, r] = JSON.parse(b.dataset.p);
+          s.work=w*60; s.rest=r*60; s.mode='work'; s.remaining=s.work;
+        } else {
+          const m = parseInt(b.dataset.p, 10);
+          s.total = m*60; s.remaining = s.total;
+        }
+        render();
+      }));
+
+      // Stats line
+      const pomoToday = todayMin('pomo'), medToday = todayMin('med'), mewToday = todayMin('mew'), readToday = todayMin('read');
+      statsEl.innerHTML = `
+        <div><div class="lbl">Pomo</div><b>${pomoToday}</b><span style="font-size:9.5px">мин</span></div>
+        <div><div class="lbl">Медитация</div><b>${medToday}</b><span style="font-size:9.5px">мин</span></div>
+        <div><div class="lbl">Чтение</div><b>${readToday}</b><span style="font-size:9.5px">мин</span></div>
+      `;
+    }
+
+    function start(){
+      const s = STATE[active];
+      s.ticking = true;
+      interval = setInterval(() => {
+        s.remaining -= 1;
+        if (s.remaining <= 0){
+          beep(); vibrate([20,80,20]);
+          if (active === 'pomo'){
+            if (s.mode === 'work'){
+              addMin('pomo', Math.floor(s.work/60));
+              s.cycles++;
+              s.mode='rest'; s.remaining=s.rest;
+              if (typeof toast === 'function') toast('Pomo · отдых ' + Math.floor(s.rest/60) + 'm');
+            } else {
+              s.mode='work'; s.remaining=s.work;
+              if (typeof toast === 'function') toast('Pomo · работа ' + Math.floor(s.work/60) + 'm');
+            }
+          } else {
+            addMin(active, Math.floor(s.total/60));
+            s.ticking = false; clearInterval(interval); interval = null;
+            if (typeof toast === 'function') toast({med:'Медитация',mew:'Mewing',read:'Чтение'}[active] + ' завершено');
+          }
+          render();
+          return;
+        }
+        const disp = bodyEl.querySelector('.mt-disp');
+        if (disp) disp.textContent = fmt(s.remaining);
+      }, 1000);
+    }
+    function stop(){
+      STATE[active].ticking = false;
+      if (interval){ clearInterval(interval); interval = null; }
+    }
+
+    tabsEl.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+      stop();
+      tabsEl.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+      t.classList.add('on');
+      active = t.dataset.mt;
+      render();
+    }));
+    render();
+    setInterval(() => { if (!STATE[active].ticking) render(); }, 30000);
+  })();
+
+  // ========= CHALLENGE GENERATOR =========
+  (function(){
+    const box = document.getElementById('challenge-box');
+    const newBtn = document.getElementById('ch-new');
+    const doneBtn = document.getElementById('ch-done');
+    const cntEl = document.getElementById('ch-count');
+    if (!box) return;
+    const CHALLS = [
+      '50 отжиманий прямо сейчас',
+      '30 приседаний без отдыха',
+      '60 секунд планка',
+      '20 подтягиваний за день (можно частями)',
+      'Холодный душ 1 минута',
+      '15 минут mewing с языком к нёбу',
+      'Дренаж лица 5 минут',
+      'Стакан воды немедленно',
+      '10 минут прогулки без телефона',
+      '5 минут box-breathing 4-4-4-4',
+      'Записать 3 вещи, за которые благодарен',
+      'Запретить себе соц-сети до конца дня',
+      'Лечь спать на час раньше сегодня',
+      '100 jumping jacks',
+      '30 махов руками каждое',
+      'Растяжка задней поверхности 2 мин',
+      'Сделать face yoga 5 упражнений',
+      'Massage masseter 60 сек обе стороны',
+      'Прочитать 10 страниц книги',
+      'Написать одну важную цель на месяц',
+      'Удалить одну ненужную app',
+      'Пересмотреть свой план на неделю',
+      'Сегодня без сладкого 100%',
+      'Сегодня без хлеба и мучного',
+      '5 минут джеффинг (jefting/jaw)',
+      'Сделать 50 подъёмов на носки',
+      '30 секунд статичный приседание у стены',
+      'Подышать через нос только весь час',
+      'Сделать постуру: 60 сек стенка-затылок-лопатки',
+      'Поставить осанку — плечи назад, грудь вперёд, держать 30 сек'
+    ];
+    function pick(){
+      const last = box.dataset.last || '';
+      let c;
+      do { c = CHALLS[Math.floor(Math.random() * CHALLS.length)]; } while (c === last && CHALLS.length > 1);
+      box.dataset.last = c;
+      box.textContent = c;
+    }
+    function refreshCount(){ cntEl.textContent = parseInt(localStorage.getItem('mogger.ch.count') || '0', 10); }
+    newBtn.addEventListener('click', pick);
+    doneBtn.addEventListener('click', () => {
+      const n = parseInt(localStorage.getItem('mogger.ch.count') || '0', 10) + 1;
+      localStorage.setItem('mogger.ch.count', n);
+      refreshCount();
+      if (typeof toast === 'function') toast('Челлендж +1. Всего: ' + n);
+      if (window.safeVibrate) window.safeVibrate([8, 30, 8]);
+      pick();
+    });
+    pick();
+    refreshCount();
   })();
 
   // ========= TOAST =========
