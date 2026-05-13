@@ -1,5 +1,5 @@
-/* MOGGER offline service worker — caches the single-page app for permanent offline use */
-const CACHE = 'mogger-v9';
+/* MOGGER offline service worker — network-first for HTML, cache-first for assets */
+const CACHE = 'mogger-v10';
 const ASSETS = [
   './',
   './index.html',
@@ -20,15 +20,41 @@ self.addEventListener('activate', (e) => {
   );
 });
 
+self.addEventListener('message', (e) => {
+  if (e.data === 'SKIP_WAITING') self.skipWaiting();
+});
+
+function isHTMLRequest(req){
+  if (req.mode === 'navigate') return true;
+  const a = req.headers.get('accept') || '';
+  return a.includes('text/html');
+}
+
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
+  const sameOrigin = new URL(req.url).origin === self.location.origin;
+
+  // Network-first for HTML so deploys land immediately on reload
+  if (isHTMLRequest(req)) {
+    e.respondWith(
+      fetch(req).then((res) => {
+        if (res && res.ok && sameOrigin) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy));
+        }
+        return res;
+      }).catch(() => caches.match(req).then((c) => c || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Stale-while-revalidate for everything else
   e.respondWith(
     caches.match(req).then((cached) => {
       const network = fetch(req)
         .then((res) => {
-          // only cache same-origin successful responses
-          if (res && res.ok && new URL(req.url).origin === self.location.origin) {
+          if (res && res.ok && sameOrigin) {
             const copy = res.clone();
             caches.open(CACHE).then((c) => c.put(req, copy));
           }

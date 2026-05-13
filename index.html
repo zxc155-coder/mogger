@@ -123,14 +123,22 @@
     cursor:pointer;text-align:center;
     transition:all .15s ease;
   }
-  .gender-card.on{
-    background:hsla(var(--accent-h), 70%, 28%, .55);
-    border-color:hsl(var(--accent-h) 100% 60%);
-    box-shadow:0 0 18px hsla(var(--accent-h), 100%, 55%, .35);
+  .gender-card[data-g="m"].on{
+    background:hsla(210, 100%, 28%, .65);
+    border-color:hsl(205, 100%, 60%);
+    box-shadow:0 0 22px hsla(210, 100%, 60%, .6),
+               inset 0 0 18px hsla(210, 100%, 70%, .35);
   }
-  .gender-card .icon{font-size:40px;margin-bottom:8px;line-height:1}
-  .gender-card .name{font-size:14px;font-weight:800;color:#fff;letter-spacing:.04em;text-transform:uppercase}
-  .gender-card .desc{font-size:11px;color:hsl(var(--accent-h) 30% 65%);margin-top:4px}
+  .gender-card[data-g="f"].on{
+    background:hsla(330, 95%, 32%, .65);
+    border-color:hsl(330, 100%, 70%);
+    box-shadow:0 0 22px hsla(330, 100%, 65%, .6),
+               inset 0 0 18px hsla(330, 100%, 75%, .35);
+  }
+  .gender-card .icon{font-size:54px;margin-bottom:8px;line-height:1;font-weight:900}
+  .gender-card[data-g="m"] .icon{color:hsl(205, 100%, 75%)}
+  .gender-card[data-g="f"] .icon{color:hsl(330, 100%, 78%)}
+  .gender-card .name{font-size:15px;font-weight:800;color:#fff;letter-spacing:.06em;text-transform:uppercase}
 
   .goal-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
   .goal-card{
@@ -1446,12 +1454,10 @@
         <button type="button" class="gender-card" data-g="m">
           <div class="icon">♂</div>
           <div class="name">Мужчина</div>
-          <div class="desc">JAW / RAMUS / CHADLINE</div>
         </button>
         <button type="button" class="gender-card" data-g="f">
           <div class="icon">♀</div>
           <div class="name">Женщина</div>
-          <div class="desc">HIPS / SKIN / STACY</div>
         </button>
       </div>
       <div class="onboard-nav">
@@ -4875,7 +4881,11 @@
 
     let modelsLoaded = false;
     let modelLoadPromise = null;
-    const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+    // jsdelivr CDN mirror of face-api.js model weights (more reliable than GH Pages)
+    const MODEL_URLS = [
+      'https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@0.22.2/weights',
+      'https://justadudewhohacks.github.io/face-api.js/models',
+    ];
 
     function setStatus(text, cls){
       if (!autoStatus) return;
@@ -4883,28 +4893,65 @@
       autoStatus.className = 'auto-status' + (cls ? ' ' + cls : '');
     }
 
-    async function loadModels(){
+    async function waitForFaceApi(timeoutMs){
+      const t0 = Date.now();
+      while (typeof window.faceapi === 'undefined'){
+        if (Date.now() - t0 > timeoutMs) return false;
+        await new Promise(r => setTimeout(r, 100));
+      }
+      return true;
+    }
+
+    async function selectBackend(){
+      if (!faceapi.tf) return;
+      try {
+        await faceapi.tf.setBackend('webgl');
+        await faceapi.tf.ready();
+      } catch(_){
+        try {
+          await faceapi.tf.setBackend('cpu');
+          await faceapi.tf.ready();
+        } catch(_){}
+      }
+    }
+
+    async function loadModels(silent){
       if (modelsLoaded) return true;
       if (modelLoadPromise) return modelLoadPromise;
       modelLoadPromise = (async () => {
-        if (typeof window.faceapi === 'undefined'){
-          setStatus('face-api.js не загрузилась. Нужен интернет для первого запуска.', 'err');
-          return false;
-        }
-        setStatus('Качаю модель ~540 KB (один раз, потом офлайн)...');
-        try {
-          await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-          await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
-          modelsLoaded = true;
-          setStatus('Модель готова. Выбери своё фото анфас.', 'ok');
-          return true;
-        } catch(e){
-          setStatus('Ошибка модели: ' + (e.message || e), 'err');
+        const ok = await waitForFaceApi(8000);
+        if (!ok){
+          if (!silent) setStatus('Не загрузилась библиотека. Проверь интернет и обнови страницу.', 'err');
           modelLoadPromise = null;
           return false;
         }
+        await selectBackend();
+        if (!silent) setStatus('Качаю модель (~540 KB)... это один раз.');
+        let lastErr = null;
+        for (const url of MODEL_URLS){
+          try {
+            await faceapi.nets.tinyFaceDetector.loadFromUri(url);
+            await faceapi.nets.faceLandmark68Net.loadFromUri(url);
+            modelsLoaded = true;
+            if (!silent) setStatus('Модель готова. Жми кнопку и выбери своё фото анфас.', 'ok');
+            return true;
+          } catch(e){
+            lastErr = e;
+            console.warn('model URL failed:', url, e);
+          }
+        }
+        if (!silent) setStatus('Не удалось скачать модель: ' + (lastErr && lastErr.message || 'unknown') + '. Подключи интернет и нажми ещё раз.', 'err');
+        modelLoadPromise = null;
+        return false;
       })();
       return modelLoadPromise;
+    }
+
+    // Pre-warm models in background after page idle so they're ready
+    if ('requestIdleCallback' in window){
+      requestIdleCallback(() => { loadModels(true); }, { timeout: 4000 });
+    } else {
+      setTimeout(() => { loadModels(true); }, 2500);
     }
 
     function readImageFile(file){
@@ -4997,11 +5044,10 @@
       return { ramus, cheek, masc, eye, nose, oval };
     }
 
-    autoBtn && autoBtn.addEventListener('click', async () => {
-      autoBtn.disabled = true;
-      const ok = await loadModels();
-      autoBtn.disabled = false;
-      if (!ok) return;
+    // Trigger file picker synchronously during user gesture (iOS Safari requirement)
+    autoBtn && autoBtn.addEventListener('click', () => {
+      // Kick off model loading in parallel (no await — file picker must open same tick)
+      loadModels(false);
       autoFile.value = '';
       autoFile.click();
     });
@@ -5010,8 +5056,14 @@
       const f = e.target.files && e.target.files[0];
       if (!f) return;
       autoBtn.disabled = true;
-      setStatus('Анализирую фото локально...');
+      setStatus('Жду модель...');
       try {
+        const ok = await loadModels(false);
+        if (!ok){
+          autoBtn.disabled = false;
+          return;
+        }
+        setStatus('Анализирую фото локально...');
         const img = await readImageFile(f);
         const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.4 });
         const det = await faceapi.detectSingleFace(img, options).withFaceLandmarks();
@@ -5032,6 +5084,7 @@
         setStatus('Готово. Общий: ' + (overall != null ? overall.toFixed(1) : '—') + '/10. Слайдеры можно докрутить вручную.', 'ok');
         if (navigator.vibrate) navigator.vibrate([15, 40, 15]);
       } catch(err){
+        console.error('auto-rate err:', err);
         setStatus('Ошибка анализа: ' + (err.message || err), 'err');
       } finally {
         autoBtn.disabled = false;
@@ -5387,7 +5440,26 @@
   // ========= SERVICE WORKER for offline =========
   if ('serviceWorker' in navigator){
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        // When a new SW is installed, ask it to skip waiting so users get updates fast
+        reg.addEventListener('updatefound', () => {
+          const sw = reg.installing;
+          if (!sw) return;
+          sw.addEventListener('statechange', () => {
+            if (sw.state === 'installed' && navigator.serviceWorker.controller){
+              try { sw.postMessage('SKIP_WAITING'); } catch(_){}
+            }
+          });
+        });
+      }).catch(() => {});
+      const initialController = navigator.serviceWorker.controller;
+      let reloading = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!initialController) return; // first install — no reload needed
+        if (reloading) return;
+        reloading = true;
+        location.reload();
+      });
     });
   }
 })();
