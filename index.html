@@ -1743,6 +1743,49 @@
     transition:width .6s ease;
   }
 
+  /* BEFORE / AFTER compare */
+  .cmp-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;
+  }
+  .cmp-half{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;aspect-ratio:3/4;
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cmp-half img{ width:100%;height:100%;object-fit:cover;display:block }
+  .cmp-half .cmp-label{
+    position:absolute;top:5px;left:6px;
+    background:hsla(var(--accent-h),85%,15%,.85);
+    border:1px solid hsla(var(--accent-h),100%,73%,.3);
+    border-radius:6px;padding:2px 6px;
+    font-size:9.5px;letter-spacing:.12em;font-weight:800;
+    color:#fff;z-index:2;
+  }
+  .cmp-half .cmp-empty{
+    font-size:11px;color:hsl(var(--accent-h) 30% 60%);
+  }
+
+  /* FAVORITES */
+  .favs-grid{
+    display:flex;flex-wrap:wrap;gap:5px;
+  }
+  .fav-btn{
+    background:hsla(var(--accent-h),60%,14%,.6);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:8px;padding:5px 9px;
+    font-size:11.5px;color:#fff;font-weight:700;
+    display:inline-flex;align-items:center;gap:4px;
+    transition:all .15s ease;
+  }
+  .fav-btn:active{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+  }
+  .fav-btn small{ font-size:9px;opacity:.65;font-weight:600 }
+  .favs-empty{ font-size:11px;color:hsl(var(--accent-h) 30% 60%);padding:6px 0 }
+  .defproj{ display:flex;flex-direction:column;gap:3px }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3277,12 +3320,110 @@
     <!-- Quick section nav (anchors) -->
     <div class="anchor-nav" id="anchor-nav-face">
       <a href="#face-inv">Инверсия</a>
+      <a href="#face-mewtimer">Mewing</a>
+      <a href="#face-gua">Gua sha</a>
+      <a href="#face-tracker">Кожа/борода</a>
+      <a href="#face-photo-compare">Сравнение</a>
       <a href="#face-base">База</a>
       <a href="#face-hands">Руки</a>
       <a href="#face-yoga">Йога лица</a>
       <a href="#face-massage">Массаж</a>
       <a href="#face-cosm">Косметика</a>
       <a href="#face-skin">Кожа</a>
+    </div>
+
+    <!-- ============ MEWING TIMER (today total) ============ -->
+    <div class="card" id="face-mewtimer">
+      <h2>Mewing · таймер дня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Когда mewишь (язык к нёбу, зубы не сжаты, нос дышит) — жми «старт». Накопление за сегодня.
+      </p>
+      <div class="rest-disp"><span id="mew-disp">00:00:00</span></div>
+      <div class="row" style="gap:6px;justify-content:center;margin-top:4px">
+        <button id="mew-start" type="button" class="pri">▶ Старт</button>
+        <button id="mew-reset" type="button" class="ghost">Сброс дня</button>
+      </div>
+      <div class="dl-mini" style="justify-content:center;margin-top:6px">
+        Сегодня всего: <b id="mew-today-total">0м</b> · цель 240+ мин/день
+      </div>
+    </div>
+
+    <!-- ============ GUA SHA TIMER + ACNE/BEARD/HAIR TRACKER ============ -->
+    <div class="card" id="face-gua">
+      <h2>Gua sha · протокол</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Скрипи скребком от центра лица к ушам. По 8-10 движений на зону.
+        Жми старт — таймер 5 минут.
+      </p>
+      <div class="rest-disp"><span id="gua-disp">05:00</span></div>
+      <div class="row" style="gap:6px;justify-content:center;margin-top:4px">
+        <button id="gua-start" type="button" class="pri">▶ Старт 5м</button>
+        <button id="gua-reset" type="button" class="ghost">Сброс</button>
+      </div>
+      <div class="dl-mini" style="justify-content:center;margin-top:6px">
+        Всего сессий: <b id="gua-total">0</b>
+      </div>
+    </div>
+
+    <!-- ============ FACE/SKIN/HAIR/BEARD TRACKER ============ -->
+    <div class="card" id="face-tracker">
+      <h2>Кожа · борода · волосы — отслеживание</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Раз в неделю. Цифры дадут график динамики.
+      </p>
+      <div class="dl-grid">
+        <div class="dl-cell">
+          <label class="dl-lbl">Прыщи (шт)</label>
+          <input type="number" id="ft-acne" placeholder="0" min="0" max="100" inputmode="numeric">
+          <div class="dl-mini">активные сейчас</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Борода, см</label>
+          <input type="number" id="ft-beard" placeholder="0.5" step="0.1" min="0" max="30" inputmode="decimal">
+          <div class="dl-mini">длина с подбородка</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Волосы, см</label>
+          <input type="number" id="ft-hair" placeholder="10" step="0.5" min="0" max="80" inputmode="decimal">
+          <div class="dl-mini">от макушки</div>
+        </div>
+        <div class="dl-cell">
+          <label class="dl-lbl">Брови</label>
+          <select id="ft-brow" style="width:100%;background:hsla(var(--accent-h),60%,8%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;padding:6px 8px;color:#fff;font-size:14px;font-weight:600">
+            <option value="">—</option>
+            <option value="0">редкие</option>
+            <option value="1">средние</option>
+            <option value="2">густые</option>
+            <option value="3">очень густые</option>
+          </select>
+          <div class="dl-mini">визуально</div>
+        </div>
+      </div>
+      <button id="ft-save" type="button" class="pri" style="width:100%;margin-top:6px">Записать на сегодня</button>
+      <div class="log-list" id="ft-log" style="margin-top:8px"></div>
+    </div>
+
+    <!-- ============ BEFORE / AFTER PHOTO COMPARE ============ -->
+    <div class="card" id="face-photo-compare">
+      <h2>Before / After · фото</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Загрузи две фотки — увидишь их рядом. Локально, никуда не отправляется.
+      </p>
+      <div class="row" style="gap:6px;flex-wrap:wrap">
+        <label class="ghost" style="cursor:pointer;flex:1">
+          📷 Before
+          <input type="file" id="cmp-before" accept="image/*" style="display:none">
+        </label>
+        <label class="ghost" style="cursor:pointer;flex:1">
+          📷 After
+          <input type="file" id="cmp-after" accept="image/*" style="display:none">
+        </label>
+      </div>
+      <div class="cmp-grid" id="cmp-grid">
+        <div class="cmp-half" id="cmp-half-b"><div class="cmp-label">BEFORE</div><div class="cmp-empty">нет фото</div></div>
+        <div class="cmp-half" id="cmp-half-a"><div class="cmp-label">AFTER</div><div class="cmp-empty">нет фото</div></div>
+      </div>
+      <button id="cmp-clear" type="button" class="ghost" style="width:100%;margin-top:6px">Очистить обе</button>
     </div>
 
     <div class="card" id="face-inv">
@@ -4181,6 +4322,28 @@
         <button id="food-add" type="button">Добавить</button>
       </div>
       <div class="log-list" id="food-log"></div>
+    </div>
+
+    <!-- ============ NUTRITION: FAVORITES / CHEAT DAY / DEFICIT PROJECTION ============ -->
+    <div class="card" id="stats-food-extras" style="margin-top:14px">
+      <h2>Питание · экстра</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Любимые продукты (1-тап повтор), счётчик читдней, прогноз дефицита.
+      </p>
+      <div class="dl-lbl" style="margin-top:4px">Любимые (тап → добавит в лог)</div>
+      <div class="favs-grid" id="favs-grid"></div>
+
+      <div class="dl-lbl" style="margin-top:10px">Читдни</div>
+      <div class="row" style="gap:6px;align-items:center">
+        <button id="cheat-add" type="button" class="pri">+ читдень сегодня</button>
+        <div class="dl-mini">всего читдней за 30 дн: <b id="cheat-cnt">0</b></div>
+      </div>
+
+      <div class="dl-lbl" style="margin-top:10px">Прогноз дефицита</div>
+      <div class="defproj">
+        <div class="dl-mini">TDEE: <b id="dp-tdee">—</b> · сегодня: <b id="dp-today">0</b> · дефицит: <b id="dp-def">—</b></div>
+        <div class="dl-mini">При такой средней: −0.5кг через <b id="dp-weeks">—</b></div>
+      </div>
     </div>
 
     <!-- Face rating chart -->
@@ -8387,6 +8550,265 @@
     });
     render();
     document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= NUTRITION EXTRAS (favorites / cheat day / deficit projection) =========
+  (function(){
+    const favsGrid = document.getElementById('favs-grid');
+    const cheatAdd = document.getElementById('cheat-add');
+    const cheatCnt = document.getElementById('cheat-cnt');
+    const dpTdee = document.getElementById('dp-tdee');
+    const dpToday = document.getElementById('dp-today');
+    const dpDef = document.getElementById('dp-def');
+    const dpWeeks = document.getElementById('dp-weeks');
+    if (!favsGrid) return;
+
+    function todayFoodKey(){ return 'mogger.food.log.' + new Date().toISOString().slice(0,10); }
+    function readFoodLog(iso){ try{ return JSON.parse(localStorage.getItem('mogger.food.log.' + iso) || '[]'); }catch(_){ return []; } }
+    function writeFoodLog(iso, arr){ localStorage.setItem('mogger.food.log.' + iso, JSON.stringify(arr)); }
+    function gatherAllFoods(){
+      const m = new Map();
+      for (let i = 0; i < localStorage.length; i++){
+        const k = localStorage.key(i);
+        if (k && /^mogger\.food\.log\.\d{4}-\d{2}-\d{2}$/.test(k)){
+          try {
+            const arr = JSON.parse(localStorage.getItem(k) || '[]');
+            arr.forEach(e => {
+              const name = (e.name || '').trim();
+              if (!name) return;
+              const prev = m.get(name) || { name, kcal:0, p:0, c:0, f:0, n:0 };
+              prev.kcal = e.kcal || prev.kcal;
+              prev.p = e.p || prev.p;
+              prev.c = e.c || prev.c;
+              prev.f = e.f || prev.f;
+              prev.n++;
+              m.set(name, prev);
+            });
+          } catch(_){}
+        }
+      }
+      return Array.from(m.values()).sort((a,b) => b.n - a.n).slice(0, 10);
+    }
+    function renderFavs(){
+      const favs = gatherAllFoods();
+      if (!favs.length){ favsGrid.innerHTML = '<div class="favs-empty">Добавь еду — появятся любимые.</div>'; return; }
+      favsGrid.innerHTML = favs.map(f => `<button class="fav-btn" data-name="${f.name.replace(/"/g,'&quot;')}" data-kcal="${f.kcal}" data-p="${f.p}" data-c="${f.c}" data-f="${f.f}">${f.name} <small>×${f.n}</small></button>`).join('');
+      favsGrid.querySelectorAll('.fav-btn').forEach(b => b.addEventListener('click', () => {
+        const iso = new Date().toISOString().slice(0,10);
+        const log = readFoodLog(iso);
+        log.push({ name: b.dataset.name, kcal: +b.dataset.kcal, p: +b.dataset.p, c: +b.dataset.c, f: +b.dataset.f, t: Date.now() });
+        writeFoodLog(iso, log);
+        if (typeof toast === 'function') toast('Добавлено: ' + b.dataset.name);
+        window.dispatchEvent(new Event('mogger:stats-changed'));
+        if (window.safeVibrate) window.safeVibrate(4);
+      }));
+    }
+    function renderCheat(){
+      const cheats = JSON.parse(localStorage.getItem('mogger.cheat.dates') || '[]');
+      const now = Date.now();
+      const last30 = cheats.filter(d => (now - new Date(d + 'T00:00:00').getTime()) < 30*86400000).length;
+      cheatCnt.textContent = last30;
+    }
+    cheatAdd.addEventListener('click', () => {
+      const cheats = JSON.parse(localStorage.getItem('mogger.cheat.dates') || '[]');
+      const iso = new Date().toISOString().slice(0,10);
+      if (cheats.includes(iso)){ if (typeof toast === 'function') toast('Сегодня уже отмечено'); return; }
+      cheats.push(iso);
+      localStorage.setItem('mogger.cheat.dates', JSON.stringify(cheats));
+      renderCheat();
+      if (typeof toast === 'function') toast('Читдень записан');
+    });
+    function renderDeficit(){
+      let profile = {};
+      try { profile = JSON.parse(localStorage.getItem('mogger.profile') || '{}'); } catch(_){}
+      const tdee = profile.tdee || (profile.bmr && profile.activity ? Math.round(profile.bmr * profile.activity) : null);
+      dpTdee.textContent = tdee ? tdee + ' ккал' : '—';
+      const todayLog = readFoodLog(new Date().toISOString().slice(0,10));
+      const todayKcal = todayLog.reduce((s,e) => s + (e.kcal || 0), 0);
+      dpToday.textContent = todayKcal + ' ккал';
+      if (!tdee){ dpDef.textContent = '—'; dpWeeks.textContent = '—'; return; }
+      const def = tdee - todayKcal;
+      dpDef.textContent = def > 0 ? '+' + def + ' (минус)' : def + ' (плюс)';
+      if (def > 100){
+        const weeks = Math.ceil(3500 * 0.5 * 2.2 / def / 7);
+        dpWeeks.textContent = weeks + ' нед';
+      } else {
+        dpWeeks.textContent = 'нужен дефицит ≥300/день';
+      }
+    }
+    renderFavs();
+    renderCheat();
+    renderDeficit();
+    window.addEventListener('mogger:stats-changed', () => { renderFavs(); renderDeficit(); });
+    document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats'){ renderFavs(); renderCheat(); renderDeficit(); } });
+  })();
+
+  // ========= MEWING TIMER (today total) =========
+  (function(){
+    const disp = document.getElementById('mew-disp');
+    const startBtn = document.getElementById('mew-start');
+    const resetBtn = document.getElementById('mew-reset');
+    const totalEl = document.getElementById('mew-today-total');
+    if (!disp) return;
+    function todayKey(){ return 'mogger.mew.' + new Date().toISOString().slice(0,10); }
+    let secToday = parseInt(localStorage.getItem(todayKey()) || '0', 10) || 0;
+    let ticking = false, iv = null, lastTick = 0;
+    function fmtH(s){
+      const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sc = s%60;
+      return (h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(sc<10?'0':'')+sc;
+    }
+    function render(){
+      disp.textContent = fmtH(secToday);
+      const min = Math.floor(secToday/60);
+      totalEl.innerHTML = min + 'м' + (min >= 240 ? ' <span style="color:hsl(140 80% 60%)">✓ цель</span>' : '');
+      startBtn.textContent = ticking ? '⏸ Пауза' : '▶ Старт';
+    }
+    function tick(){
+      const now = Date.now();
+      const dt = Math.max(1, Math.round((now - lastTick) / 1000));
+      lastTick = now;
+      secToday += dt;
+      localStorage.setItem(todayKey(), secToday);
+      render();
+    }
+    startBtn.addEventListener('click', () => {
+      if (ticking){ ticking = false; clearInterval(iv); }
+      else { ticking = true; lastTick = Date.now(); iv = setInterval(tick, 1000); }
+      render();
+    });
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('Сбросить mewing-таймер на сегодня?')) return;
+      if (ticking){ ticking = false; clearInterval(iv); }
+      secToday = 0; localStorage.setItem(todayKey(), 0); render();
+    });
+    render();
+  })();
+
+  // ========= GUA SHA TIMER (5min preset) =========
+  (function(){
+    const disp = document.getElementById('gua-disp');
+    const startBtn = document.getElementById('gua-start');
+    const resetBtn = document.getElementById('gua-reset');
+    const total = document.getElementById('gua-total');
+    if (!disp) return;
+    let remaining = 300, ticking = false, iv = null;
+    function fmt(s){ s=Math.max(0,Math.floor(s)); const m=Math.floor(s/60), sc=s%60; return (m<10?'0':'')+m+':'+(sc<10?'0':'')+sc; }
+    function render(){
+      disp.textContent = fmt(remaining);
+      disp.classList.toggle('warning', remaining <= 15 && remaining > 0);
+      disp.classList.toggle('done', remaining === 0);
+      startBtn.textContent = ticking ? '⏸ Пауза' : '▶ Старт 5м';
+      total.textContent = parseInt(localStorage.getItem('mogger.gua.count') || '0', 10);
+    }
+    function tick(){
+      remaining -= 1;
+      if (remaining <= 0){
+        ticking = false; clearInterval(iv);
+        if (window.safeVibrate) window.safeVibrate([30,80,30]);
+        if (typeof toast === 'function') toast('Gua sha 5м — готово');
+        const cur = parseInt(localStorage.getItem('mogger.gua.count') || '0', 10) + 1;
+        localStorage.setItem('mogger.gua.count', cur);
+      }
+      render();
+    }
+    startBtn.addEventListener('click', () => {
+      if (ticking){ ticking = false; clearInterval(iv); }
+      else { ticking = true; iv = setInterval(tick, 1000); }
+      render();
+    });
+    resetBtn.addEventListener('click', () => { ticking = false; if (iv){ clearInterval(iv); iv = null; } remaining = 300; render(); });
+    render();
+  })();
+
+  // ========= FACE/SKIN TRACKER =========
+  (function(){
+    const acne = document.getElementById('ft-acne');
+    const beard = document.getElementById('ft-beard');
+    const hair = document.getElementById('ft-hair');
+    const brow = document.getElementById('ft-brow');
+    const save = document.getElementById('ft-save');
+    const list = document.getElementById('ft-log');
+    if (!save) return;
+    function load(){ try{ return JSON.parse(localStorage.getItem('mogger.facetrack') || '[]'); }catch(_){ return []; } }
+    function saveAll(a){ localStorage.setItem('mogger.facetrack', JSON.stringify(a)); }
+    function render(){
+      const log = load().slice().reverse().slice(0,30);
+      if (!log.length){ list.innerHTML = '<div class="log-empty">Пока пусто.</div>'; return; }
+      list.innerHTML = log.map(e => {
+        const parts = [];
+        if (e.acne != null) parts.push('прыщи '+e.acne);
+        if (e.beard != null) parts.push('борода '+e.beard+'см');
+        if (e.hair != null) parts.push('волосы '+e.hair+'см');
+        if (e.brow != null) parts.push('брови '+['редкие','средние','густые','оч.густые'][e.brow]);
+        return `<div class="log-entry"><span class="when">${e.date}</span><span class="what">${parts.join(' · ')}</span></div>`;
+      }).join('');
+    }
+    save.addEventListener('click', () => {
+      const entry = { date: new Date().toISOString().slice(0,10) };
+      if (acne.value !== '') entry.acne = +acne.value;
+      if (beard.value !== '') entry.beard = +beard.value;
+      if (hair.value !== '') entry.hair = +hair.value;
+      if (brow.value !== '') entry.brow = +brow.value;
+      if (Object.keys(entry).length <= 1){ if (typeof toast === 'function') toast('Заполни хотя бы одно поле'); return; }
+      const log = load(); log.push(entry); saveAll(log);
+      [acne, beard, hair].forEach(el => el.value = ''); brow.value = '';
+      if (typeof toast === 'function') toast('Записано');
+      render();
+    });
+    render();
+  })();
+
+  // ========= BEFORE / AFTER COMPARE =========
+  (function(){
+    const beforeI = document.getElementById('cmp-before');
+    const afterI = document.getElementById('cmp-after');
+    const halfB = document.getElementById('cmp-half-b');
+    const halfA = document.getElementById('cmp-half-a');
+    const clear = document.getElementById('cmp-clear');
+    if (!beforeI || !halfB) return;
+    function loadShow(){
+      ['before','after'].forEach(side => {
+        const data = localStorage.getItem('mogger.cmp.' + side);
+        const el = side === 'before' ? halfB : halfA;
+        const label = el.querySelector('.cmp-label');
+        el.innerHTML = '';
+        el.appendChild(label);
+        if (data){
+          const img = document.createElement('img');
+          img.src = data;
+          el.appendChild(img);
+        } else {
+          const e = document.createElement('div'); e.className = 'cmp-empty'; e.textContent = 'нет фото';
+          el.appendChild(e);
+        }
+      });
+    }
+    function pickHandler(side){
+      return e => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = ev => {
+          try {
+            localStorage.setItem('mogger.cmp.' + side, ev.target.result);
+            loadShow();
+            if (typeof toast === 'function') toast(side.toUpperCase() + ' сохранено');
+          } catch(_e){
+            if (typeof toast === 'function') toast('Файл слишком большой');
+          }
+        };
+        r.readAsDataURL(f);
+      };
+    }
+    beforeI.addEventListener('change', pickHandler('before'));
+    afterI.addEventListener('change', pickHandler('after'));
+    clear.addEventListener('click', () => {
+      if (!confirm('Удалить обе фотки?')) return;
+      localStorage.removeItem('mogger.cmp.before');
+      localStorage.removeItem('mogger.cmp.after');
+      loadShow();
+    });
+    loadShow();
   })();
 
   // ========= TOAST =========
