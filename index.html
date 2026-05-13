@@ -10,7 +10,7 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="MOGGER" />
-<meta name="theme-color" content="#030616" />
+<meta name="theme-color" content="#030616" id="theme-color-meta" />
 <meta name="color-scheme" content="dark" />
 
 <title>MOGGER — Hard Mode</title>
@@ -28,8 +28,8 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html,body{
     height:100%;
-    background:#02040d;
-    color:#e7efff;
+    background:hsl(var(--accent-h) 66% 3%);
+    color:hsl(var(--accent-h) 100% 95%);
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",
       "Segoe UI",Roboto,sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -56,10 +56,10 @@
   .bg{
     position:fixed;inset:0;z-index:-2;
     background:
-      radial-gradient(900px 600px at 20% -10%,#0c2470 0%,transparent 60%),
-      radial-gradient(800px 700px at 100% 10%,#1d0a6e 0%,transparent 55%),
-      radial-gradient(900px 800px at 50% 120%,#0a3a8a 0%,transparent 60%),
-      linear-gradient(180deg,#02040d 0%,#03061a 100%);
+      radial-gradient(900px 600px at 20% -10%,hsl(var(--accent-h) 88% 24%) 0%,transparent 60%),
+      radial-gradient(800px 700px at 100% 10%,hsl(var(--accent-h) 78% 24%) 0%,transparent 55%),
+      radial-gradient(900px 800px at 50% 120%,hsl(var(--accent-h) 86% 29%) 0%,transparent 60%),
+      linear-gradient(180deg,hsl(var(--accent-h) 66% 3%) 0%,hsl(var(--accent-h) 66% 6%) 100%);
     animation:bgshift 18s ease-in-out infinite alternate;
   }
   @keyframes bgshift{
@@ -69,13 +69,13 @@
   .stars{
     position:fixed;inset:0;z-index:-1;pointer-events:none;
     background-image:
-      radial-gradient(1px 1px at 12% 18%,#9ec5ff 50%,transparent 60%),
-      radial-gradient(1px 1px at 32% 72%,#6aa8ff 50%,transparent 60%),
-      radial-gradient(1.5px 1.5px at 55% 22%,#cfe2ff 50%,transparent 60%),
-      radial-gradient(1px 1px at 70% 58%,#7fb1ff 50%,transparent 60%),
-      radial-gradient(1px 1px at 82% 12%,#a8c8ff 50%,transparent 60%),
-      radial-gradient(1px 1px at 8% 88%,#86b3ff 50%,transparent 60%),
-      radial-gradient(1.5px 1.5px at 92% 80%,#dbeaff 50%,transparent 60%);
+      radial-gradient(1px 1px at 12% 18%,hsl(var(--accent-h) 100% 82%) 50%,transparent 60%),
+      radial-gradient(1px 1px at 32% 72%,hsl(var(--accent-h) 100% 71%) 50%,transparent 60%),
+      radial-gradient(1.5px 1.5px at 55% 22%,hsl(var(--accent-h) 100% 91%) 50%,transparent 60%),
+      radial-gradient(1px 1px at 70% 58%,hsl(var(--accent-h) 100% 75%) 50%,transparent 60%),
+      radial-gradient(1px 1px at 82% 12%,hsl(var(--accent-h) 100% 83%) 50%,transparent 60%),
+      radial-gradient(1px 1px at 8% 88%,hsl(var(--accent-h) 100% 76%) 50%,transparent 60%),
+      radial-gradient(1.5px 1.5px at 92% 80%,hsl(var(--accent-h) 100% 93%) 50%,transparent 60%);
     opacity:.55;
     animation:twinkle 6s ease-in-out infinite alternate;
   }
@@ -99,33 +99,33 @@
   .brand-mark{
     width:42px;height:42px;border-radius:12px;
     background:
-      radial-gradient(circle at 30% 30%,#3a7bff 0%,#0a1e6e 70%,#020a30 100%);
+      radial-gradient(circle at 30% 30%,hsl(var(--accent-h) 100% 61%) 0%,hsl(var(--accent-h) 90% 24%) 70%,hsl(var(--accent-h) 75% 10%) 100%);
     box-shadow:
-      0 0 0 1px rgba(120,170,255,.35),
-      0 8px 24px -6px rgba(60,120,255,.55),
-      inset 0 0 14px rgba(120,170,255,.45);
+      0 0 0 1px hsla(var(--accent-h), 100%, 73%, .35),
+      0 8px 24px -6px hsla(var(--accent-h), 100%, 61%, .55),
+      inset 0 0 14px hsla(var(--accent-h), 100%, 73%, .45);
     display:grid;place-items:center;
     animation:logoPulse 3s ease-in-out infinite;
   }
   @keyframes logoPulse{
     0%,100%{transform:scale(1);box-shadow:
-      0 0 0 1px rgba(120,170,255,.35),
-      0 8px 24px -6px rgba(60,120,255,.55),
-      inset 0 0 14px rgba(120,170,255,.45)}
+      0 0 0 1px hsla(var(--accent-h), 100%, 73%, .35),
+      0 8px 24px -6px hsla(var(--accent-h), 100%, 61%, .55),
+      inset 0 0 14px hsla(var(--accent-h), 100%, 73%, .45)}
     50%{transform:scale(1.04);box-shadow:
-      0 0 0 1px rgba(150,190,255,.5),
-      0 12px 32px -6px rgba(80,140,255,.75),
-      inset 0 0 18px rgba(150,200,255,.6)}
+      0 0 0 1px hsla(var(--accent-h), 100%, 79%, .5),
+      0 12px 32px -6px hsla(var(--accent-h), 100%, 65%, .75),
+      inset 0 0 18px hsla(var(--accent-h), 100%, 79%, .6)}
   }
   .brand-mark svg{width:24px;height:24px}
   .brand h1{
     font-size:20px;letter-spacing:.18em;font-weight:800;
-    background:linear-gradient(90deg,#cfe2ff,#7fb1ff 50%,#cfe2ff);
+    background:linear-gradient(90deg,hsl(var(--accent-h) 100% 91%),hsl(var(--accent-h) 100% 75%) 50%,hsl(var(--accent-h) 100% 91%));
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
   .brand small{
     display:block;font-size:11px;letter-spacing:.3em;
-    color:#8aa5d6;font-weight:600;text-transform:uppercase;
+    color:hsl(var(--accent-h) 55% 69%);font-weight:600;text-transform:uppercase;
   }
 
   /* =========================================================
@@ -143,9 +143,9 @@
   .card{
     position:relative;
     background:linear-gradient(180deg,
-      rgba(15,30,75,.55) 0%,
-      rgba(8,18,50,.55) 100%);
-    border:1px solid rgba(120,160,255,.18);
+      hsla(var(--accent-h), 77%, 18%, .55) 0%,
+      hsla(var(--accent-h), 72%, 11%, .55) 100%);
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .18);
     border-radius:22px;
     padding:18px 16px;
     margin-bottom:14px;
@@ -153,15 +153,15 @@
     -webkit-backdrop-filter:blur(14px);
     box-shadow:
       0 1px 0 rgba(255,255,255,.04) inset,
-      0 16px 40px -20px rgba(0,30,120,.7);
+      0 16px 40px -20px hsla(var(--accent-h), 90%, 24%, .7);
     overflow:hidden;
   }
   .card::before{
     content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;
     background:linear-gradient(135deg,
-      rgba(120,170,255,.5),
-      rgba(120,170,255,0) 40%,
-      rgba(120,170,255,0) 60%,
+      hsla(var(--accent-h), 100%, 73%, .5),
+      hsla(var(--accent-h), 100%, 73%, 0) 40%,
+      hsla(var(--accent-h), 100%, 73%, 0) 60%,
       rgba(180,120,255,.4));
     -webkit-mask:
       linear-gradient(#000,#000) content-box,
@@ -172,15 +172,15 @@
   }
   .card h2{
     font-size:13px;letter-spacing:.22em;text-transform:uppercase;
-    color:#9bbcff;font-weight:700;margin-bottom:10px;
+    color:hsl(var(--accent-h) 100% 80%);font-weight:700;margin-bottom:10px;
     display:flex;align-items:center;gap:8px;
   }
   .card h2::before{
     content:"";width:6px;height:6px;border-radius:50%;
-    background:#5b9dff;box-shadow:0 0 12px 2px #5b9dff;
+    background:hsl(var(--accent-h) 100% 68%);box-shadow:0 0 12px 2px hsl(var(--accent-h) 100% 68%);
   }
-  .card p{font-size:15px;line-height:1.5;color:#cfdcf5}
-  .muted{color:#8aa5d6}
+  .card p{font-size:15px;line-height:1.5;color:hsl(var(--accent-h) 60% 89%)}
+  .muted{color:hsl(var(--accent-h) 55% 69%)}
 
   /* =========================================================
      HOME — Goal hero
@@ -192,20 +192,20 @@
   .goal .tag{
     display:inline-block;
     padding:6px 12px;border-radius:999px;
-    background:rgba(80,140,255,.12);
-    border:1px solid rgba(120,170,255,.3);
-    color:#9bbcff;
+    background:hsla(var(--accent-h), 100%, 65%, .12);
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .3);
+    color:hsl(var(--accent-h) 100% 80%);
     font-size:11px;letter-spacing:.25em;font-weight:700;
     text-transform:uppercase;
   }
   .goal h2.title{
     font-size:34px;line-height:1.05;font-weight:900;
     margin:14px 0 8px;letter-spacing:-.02em;
-    background:linear-gradient(180deg,#ffffff 0%,#86b3ff 100%);
+    background:linear-gradient(180deg,#ffffff 0%,hsl(var(--accent-h) 100% 76%) 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    text-shadow:0 0 30px rgba(80,140,255,.25);
+    text-shadow:0 0 30px hsla(var(--accent-h), 100%, 65%, .25);
   }
-  .goal .sub{font-size:14px;color:#9bbcff;margin-bottom:18px}
+  .goal .sub{font-size:14px;color:hsl(var(--accent-h) 100% 80%);margin-bottom:18px}
 
   .countdown{
     display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
@@ -214,20 +214,20 @@
   .cd-unit{
     position:relative;
     padding:12px 6px;border-radius:14px;
-    background:linear-gradient(180deg,rgba(10,30,90,.6),rgba(5,15,50,.4));
-    border:1px solid rgba(120,170,255,.2);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 84%, 20%, .6),hsla(var(--accent-h), 82%, 11%, .4));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .2);
     box-shadow:
-      0 0 0 1px rgba(120,170,255,.05),
-      inset 0 0 18px rgba(80,140,255,.18);
+      0 0 0 1px hsla(var(--accent-h), 100%, 73%, .05),
+      inset 0 0 18px hsla(var(--accent-h), 100%, 65%, .18);
   }
   .cd-unit b{
-    display:block;font-size:24px;font-weight:800;color:#dfeaff;
+    display:block;font-size:24px;font-weight:800;color:hsl(var(--accent-h) 100% 94%);
     font-variant-numeric:tabular-nums;
-    text-shadow:0 0 18px rgba(120,170,255,.6);
+    text-shadow:0 0 18px hsla(var(--accent-h), 100%, 73%, .6);
   }
   .cd-unit span{
     display:block;font-size:10px;letter-spacing:.2em;
-    color:#7e9bd0;margin-top:2px;text-transform:uppercase;
+    color:hsl(var(--accent-h) 55% 65%);margin-top:2px;text-transform:uppercase;
   }
 
   .progress-wrap{
@@ -235,14 +235,14 @@
   }
   .progress{
     position:relative;height:10px;border-radius:999px;
-    background:rgba(10,20,60,.7);
-    border:1px solid rgba(120,170,255,.15);
+    background:hsla(var(--accent-h), 75%, 14%, .7);
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .15);
     overflow:hidden;
   }
   .progress > i{
     position:absolute;inset:0;width:0%;
-    background:linear-gradient(90deg,#3a7bff,#7fb1ff,#b388ff);
-    box-shadow:0 0 18px rgba(120,170,255,.7);
+    background:linear-gradient(90deg,hsl(var(--accent-h) 100% 61%),hsl(var(--accent-h) 100% 75%),#b388ff);
+    box-shadow:0 0 18px hsla(var(--accent-h), 100%, 73%, .7);
     border-radius:999px;
     transition:width .6s cubic-bezier(.2,.8,.2,1);
   }
@@ -257,7 +257,7 @@
   }
   .progress-meta{
     display:flex;justify-content:space-between;
-    font-size:11px;color:#8aa5d6;margin-top:6px;letter-spacing:.05em;
+    font-size:11px;color:hsl(var(--accent-h) 55% 69%);margin-top:6px;letter-spacing:.05em;
   }
 
   /* =========================================================
@@ -270,23 +270,23 @@
   .quick button{
     position:relative;
     padding:16px 14px;border-radius:18px;text-align:left;
-    background:linear-gradient(180deg,rgba(20,40,100,.5),rgba(8,18,50,.55));
-    border:1px solid rgba(120,170,255,.2);
-    color:#dfeaff;font-weight:600;font-size:14px;
-    box-shadow:inset 0 0 18px rgba(80,140,255,.12);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 75%, 24%, .5),hsla(var(--accent-h), 72%, 11%, .55));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .2);
+    color:hsl(var(--accent-h) 100% 94%);font-weight:600;font-size:14px;
+    box-shadow:inset 0 0 18px hsla(var(--accent-h), 100%, 65%, .12);
     transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
   }
   .quick button:active{transform:scale(.97)}
   .quick button .ico{
     display:inline-grid;place-items:center;
     width:34px;height:34px;border-radius:10px;
-    background:radial-gradient(circle at 30% 30%,#3a7bff,#0a1e6e 70%);
-    box-shadow:0 0 16px rgba(80,140,255,.55);
+    background:radial-gradient(circle at 30% 30%,hsl(var(--accent-h) 100% 61%),hsl(var(--accent-h) 90% 24%) 70%);
+    box-shadow:0 0 16px hsla(var(--accent-h), 100%, 65%, .55);
     margin-bottom:8px;
   }
-  .quick button .ico svg{width:18px;height:18px;stroke:#dfeaff;fill:none;stroke-width:2}
-  .quick button small{display:block;font-weight:500;color:#9bbcff;font-size:11px;margin-top:2px}
-  .quick button:hover{border-color:rgba(160,200,255,.45);box-shadow:0 0 24px rgba(80,140,255,.25)}
+  .quick button .ico svg{width:18px;height:18px;stroke:hsl(var(--accent-h) 100% 94%);fill:none;stroke-width:2}
+  .quick button small{display:block;font-weight:500;color:hsl(var(--accent-h) 100% 80%);font-size:11px;margin-top:2px}
+  .quick button:hover{border-color:hsla(var(--accent-h), 100%, 81%, .45);box-shadow:0 0 24px hsla(var(--accent-h), 100%, 65%, .25)}
 
   /* =========================================================
      LIST ITEMS
@@ -294,26 +294,26 @@
   .list{display:flex;flex-direction:column;gap:10px}
   .item{
     position:relative;
-    background:linear-gradient(180deg,rgba(12,28,70,.5),rgba(6,16,40,.55));
-    border:1px solid rgba(120,170,255,.18);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 78%, 16%, .5),hsla(var(--accent-h), 74%, 9%, .55));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .18);
     border-radius:16px;
     padding:14px 14px 14px 14px;
     overflow:hidden;
   }
   .item h3{
-    font-size:15px;font-weight:700;color:#eaf1ff;
+    font-size:15px;font-weight:700;color:hsl(var(--accent-h) 100% 96%);
     display:flex;align-items:center;gap:10px;margin-bottom:6px;
   }
   .item h3 .dot{
     width:8px;height:8px;border-radius:50%;
-    background:#7fb1ff;box-shadow:0 0 12px 2px #5b9dff;flex:0 0 auto;
+    background:hsl(var(--accent-h) 100% 75%);box-shadow:0 0 12px 2px hsl(var(--accent-h) 100% 68%);flex:0 0 auto;
   }
-  .item p{font-size:13.5px;line-height:1.55;color:#bccae6}
+  .item p{font-size:13.5px;line-height:1.55;color:hsl(var(--accent-h) 45% 82%)}
   .item .pill{
     display:inline-block;
     font-size:10px;letter-spacing:.18em;font-weight:700;text-transform:uppercase;
-    color:#9bbcff;background:rgba(80,140,255,.12);
-    border:1px solid rgba(120,170,255,.25);
+    color:hsl(var(--accent-h) 100% 80%);background:hsla(var(--accent-h), 100%, 65%, .12);
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .25);
     padding:3px 8px;border-radius:999px;margin-right:6px;margin-top:8px;
   }
   .item .pill.gold{color:#ffd58a;border-color:rgba(255,200,120,.35);background:rgba(255,180,60,.08)}
@@ -324,8 +324,8 @@
   .item .check{
     position:absolute;top:10px;right:10px;
     width:30px;height:30px;border-radius:50%;
-    border:1.5px solid rgba(120,170,255,.35);
-    background:rgba(10,20,60,.5);
+    border:1.5px solid hsla(var(--accent-h), 100%, 73%, .35);
+    background:hsla(var(--accent-h), 75%, 14%, .5);
     display:grid;place-items:center;
     transition:.2s ease;
   }
@@ -351,10 +351,10 @@
   }
   .sec-head h2{
     font-size:22px;font-weight:800;letter-spacing:-.01em;
-    background:linear-gradient(180deg,#fff,#8ab3ff);
+    background:linear-gradient(180deg,#fff,hsl(var(--accent-h) 100% 76%));
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .sec-head p{font-size:12px;color:#8aa5d6;margin-top:2px}
+  .sec-head p{font-size:12px;color:hsl(var(--accent-h) 55% 69%);margin-top:2px}
 
   /* =========================================================
      EXERCISE STEP
@@ -362,18 +362,18 @@
   .step{
     counter-increment:step;
     display:flex;gap:12px;align-items:flex-start;
-    padding:10px 0;border-top:1px dashed rgba(120,170,255,.15);
+    padding:10px 0;border-top:1px dashed hsla(var(--accent-h), 100%, 73%, .15);
   }
   .step:first-child{border-top:0;padding-top:0}
   .step .n{
     flex:0 0 28px;height:28px;border-radius:50%;
-    background:linear-gradient(180deg,#3a7bff,#0a1e6e);
-    box-shadow:0 0 12px rgba(80,140,255,.5);
+    background:linear-gradient(180deg,hsl(var(--accent-h) 100% 61%),hsl(var(--accent-h) 90% 24%));
+    box-shadow:0 0 12px hsla(var(--accent-h), 100%, 65%, .5);
     display:grid;place-items:center;
     font-size:13px;font-weight:800;color:#fff;
   }
-  .step h4{font-size:14.5px;color:#eaf1ff;margin-bottom:4px;font-weight:700}
-  .step p{font-size:13px;color:#bccae6;line-height:1.55}
+  .step h4{font-size:14.5px;color:hsl(var(--accent-h) 100% 96%);margin-bottom:4px;font-weight:700}
+  .step p{font-size:13px;color:hsl(var(--accent-h) 45% 82%);line-height:1.55}
 
   /* =========================================================
      BOTTOM NAV
@@ -382,13 +382,13 @@
     position:fixed;left:50%;bottom:14px;transform:translateX(-50%);
     width:min(94vw,520px);
     padding:6px;border-radius:24px;
-    background:linear-gradient(180deg,rgba(10,20,60,.72),rgba(4,10,30,.78));
-    border:1px solid rgba(120,170,255,.25);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 75%, 14%, .72),hsla(var(--accent-h), 75%, 7%, .78));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .25);
     backdrop-filter:blur(20px);
     -webkit-backdrop-filter:blur(20px);
     box-shadow:
-      0 16px 32px -16px rgba(0,30,120,.7),
-      0 0 0 1px rgba(120,170,255,.06);
+      0 16px 32px -16px hsla(var(--accent-h), 90%, 24%, .7),
+      0 0 0 1px hsla(var(--accent-h), 100%, 73%, .06);
     display:grid;grid-template-columns:repeat(6,1fr);gap:2px;
     z-index:10;
     margin-bottom:env(safe-area-inset-bottom);
@@ -396,21 +396,21 @@
   nav.tabs button{
     position:relative;
     padding:9px 2px 7px;border-radius:16px;
-    color:#7e9bd0;font-size:9.5px;letter-spacing:.04em;font-weight:600;
+    color:hsl(var(--accent-h) 55% 65%);font-size:9.5px;letter-spacing:.04em;font-weight:600;
     display:flex;flex-direction:column;align-items:center;gap:3px;
     transition:color .2s ease;
   }
   nav.tabs svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;
     stroke-linecap:round;stroke-linejoin:round}
   nav.tabs button.on{
-    color:#eaf1ff;
-    background:radial-gradient(120% 120% at 50% 0%,rgba(80,140,255,.35),transparent 70%);
+    color:hsl(var(--accent-h) 100% 96%);
+    background:radial-gradient(120% 120% at 50% 0%,hsla(var(--accent-h), 100%, 65%, .35),transparent 70%);
   }
   nav.tabs button.on::after{
     content:"";position:absolute;bottom:4px;left:50%;transform:translateX(-50%);
     width:18px;height:3px;border-radius:3px;
-    background:linear-gradient(90deg,#3a7bff,#b388ff);
-    box-shadow:0 0 12px rgba(120,170,255,.7);
+    background:linear-gradient(90deg,hsl(var(--accent-h) 100% 61%),#b388ff);
+    box-shadow:0 0 12px hsla(var(--accent-h), 100%, 73%, .7);
   }
 
   /* =========================================================
@@ -419,50 +419,50 @@
   .row{display:flex;align-items:center;gap:10px}
   .grow{flex:1}
   .glow{
-    text-shadow:0 0 14px rgba(120,170,255,.5);
+    text-shadow:0 0 14px hsla(var(--accent-h), 100%, 73%, .5);
   }
   .divider{
     height:1px;margin:14px 0;
-    background:linear-gradient(90deg,transparent,rgba(120,170,255,.35),transparent);
+    background:linear-gradient(90deg,transparent,hsla(var(--accent-h), 100%, 73%, .35),transparent);
   }
   .kbd{
     display:inline-block;font-size:11px;font-weight:700;
     padding:2px 7px;border-radius:6px;
-    background:rgba(80,140,255,.12);
-    color:#9bbcff;border:1px solid rgba(120,170,255,.25);
+    background:hsla(var(--accent-h), 100%, 65%, .12);
+    color:hsl(var(--accent-h) 100% 80%);border:1px solid hsla(var(--accent-h), 100%, 73%, .25);
     margin-right:6px;
   }
   details{
-    background:linear-gradient(180deg,rgba(10,25,65,.45),rgba(5,15,40,.5));
-    border:1px solid rgba(120,170,255,.18);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 74%, 15%, .45),hsla(var(--accent-h), 78%, 9%, .5));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .18);
     border-radius:14px;padding:12px 14px;margin-bottom:8px;
   }
   details > summary{
     list-style:none;cursor:pointer;
-    font-size:14px;font-weight:700;color:#eaf1ff;
+    font-size:14px;font-weight:700;color:hsl(var(--accent-h) 100% 96%);
     display:flex;align-items:center;justify-content:space-between;gap:10px;
   }
   details > summary::-webkit-details-marker{display:none}
   details > summary::after{
-    content:"+";font-size:20px;color:#7fb1ff;
+    content:"+";font-size:20px;color:hsl(var(--accent-h) 100% 75%);
     transition:transform .2s ease;
   }
   details[open] > summary::after{content:"−"}
-  details p{font-size:13.5px;color:#bccae6;line-height:1.55;margin-top:10px}
+  details p{font-size:13.5px;color:hsl(var(--accent-h) 45% 82%);line-height:1.55;margin-top:10px}
 
   /* tiny "today" ring */
   .ring{
     width:60px;height:60px;flex:0 0 60px;border-radius:50%;
     background:
-      conic-gradient(#3a7bff var(--p,33%),rgba(80,140,255,.15) 0);
+      conic-gradient(hsl(var(--accent-h) 100% 61%) var(--p,33%),hsla(var(--accent-h), 100%, 65%, .15) 0);
     display:grid;place-items:center;
-    box-shadow:0 0 24px rgba(80,140,255,.25);
+    box-shadow:0 0 24px hsla(var(--accent-h), 100%, 65%, .25);
   }
   .ring > span{
     width:46px;height:46px;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%,#0a1e6e,#02061a);
+    background:radial-gradient(circle at 35% 30%,hsl(var(--accent-h) 90% 24%),hsl(var(--accent-h) 66% 6%));
     display:grid;place-items:center;
-    font-size:13px;font-weight:800;color:#eaf1ff;
+    font-size:13px;font-weight:800;color:hsl(var(--accent-h) 100% 96%);
   }
 
   .floater{
@@ -479,53 +479,53 @@
   }
   .shape{
     position:relative;padding:14px 10px 12px;border-radius:16px;
-    background:linear-gradient(180deg,rgba(15,30,75,.5),rgba(8,18,50,.55));
-    border:1px solid rgba(120,170,255,.22);
-    color:#dfeaff;font-weight:700;font-size:12px;letter-spacing:.06em;
+    background:linear-gradient(180deg,hsla(var(--accent-h), 77%, 18%, .5),hsla(var(--accent-h), 72%, 11%, .55));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .22);
+    color:hsl(var(--accent-h) 100% 94%);font-weight:700;font-size:12px;letter-spacing:.06em;
     text-transform:uppercase;text-align:center;
     transition:transform .15s ease, border-color .2s ease, box-shadow .2s ease;
   }
   .shape:active{transform:scale(.96)}
   .shape .glyph{
     display:block;width:42px;height:42px;margin:0 auto 6px;
-    border:1.6px solid #7fb1ff;background:rgba(120,170,255,.08);
-    box-shadow:inset 0 0 14px rgba(120,170,255,.18),0 0 14px rgba(80,140,255,.25);
+    border:1.6px solid hsl(var(--accent-h) 100% 75%);background:hsla(var(--accent-h), 100%, 73%, .08);
+    box-shadow:inset 0 0 14px hsla(var(--accent-h), 100%, 73%, .18),0 0 14px hsla(var(--accent-h), 100%, 65%, .25);
   }
   .shape[data-s="oval"]    .glyph{border-radius:50% / 60%}
   .shape[data-s="round"]   .glyph{border-radius:50%}
   .shape[data-s="square"]  .glyph{border-radius:8px}
   .shape[data-s="rect"]    .glyph{border-radius:8px;width:30px;height:48px;margin-top:-3px}
   .shape[data-s="heart"]   .glyph{
-    background:rgba(120,170,255,.08);
+    background:hsla(var(--accent-h), 100%, 73%, .08);
     border:0;
     width:44px;height:42px;
     clip-path:polygon(50% 100%, 0 35%, 0 15%, 25% 0, 50% 20%, 75% 0, 100% 15%, 100% 35%);
-    box-shadow:inset 0 0 0 1.6px #7fb1ff;
+    box-shadow:inset 0 0 0 1.6px hsl(var(--accent-h) 100% 75%);
   }
   .shape[data-s="diamond"] .glyph{transform:rotate(45deg);width:34px;height:34px;border-radius:6px}
   .shape.on{
-    border-color:#7fb1ff;
-    box-shadow:0 0 0 1px rgba(120,170,255,.4),0 0 24px rgba(80,140,255,.45);
-    background:linear-gradient(180deg,rgba(40,80,200,.45),rgba(10,30,90,.55));
+    border-color:hsl(var(--accent-h) 100% 75%);
+    box-shadow:0 0 0 1px hsla(var(--accent-h), 100%, 73%, .4),0 0 24px hsla(var(--accent-h), 100%, 65%, .45);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 67%, 47%, .45),hsla(var(--accent-h), 84%, 20%, .55));
   }
   .shape.on .glyph{
-    border-color:#cfe2ff;box-shadow:inset 0 0 18px rgba(180,210,255,.4),0 0 22px rgba(120,170,255,.65);
+    border-color:hsl(var(--accent-h) 100% 91%);box-shadow:inset 0 0 18px hsla(var(--accent-h), 100%, 85%, .4),0 0 22px hsla(var(--accent-h), 100%, 73%, .65);
   }
   .shape-result h3.shape-title{
-    font-size:20px;font-weight:800;color:#eaf1ff;margin-bottom:2px;
-    background:linear-gradient(180deg,#fff,#86b3ff);
+    font-size:20px;font-weight:800;color:hsl(var(--accent-h) 100% 96%);margin-bottom:2px;
+    background:linear-gradient(180deg,#fff,hsl(var(--accent-h) 100% 76%));
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .shape-result .meta{font-size:12px;color:#8aa5d6;margin-bottom:10px}
+  .shape-result .meta{font-size:12px;color:hsl(var(--accent-h) 55% 69%);margin-bottom:10px}
   .shape-result ul{
     list-style:none;padding:0;margin:8px 0 4px;display:flex;flex-direction:column;gap:7px;
   }
   .shape-result ul li{
     position:relative;padding:8px 10px 8px 30px;
-    background:rgba(8,18,50,.45);
-    border:1px solid rgba(120,170,255,.15);
+    background:hsla(var(--accent-h), 72%, 11%, .45);
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .15);
     border-radius:10px;
-    font-size:13.5px;color:#dfeaff;
+    font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);
   }
   .shape-result ul.yes li::before{
     content:"✓";position:absolute;left:10px;top:7px;
@@ -537,12 +537,12 @@
   }
   .shape-result h4{
     font-size:12px;letter-spacing:.22em;text-transform:uppercase;
-    color:#9bbcff;font-weight:700;margin:14px 0 4px;
+    color:hsl(var(--accent-h) 100% 80%);font-weight:700;margin:14px 0 4px;
     display:flex;align-items:center;gap:8px;
   }
   .shape-result h4::before{
     content:"";width:6px;height:6px;border-radius:50%;
-    background:#5b9dff;box-shadow:0 0 8px 1px #5b9dff;
+    background:hsl(var(--accent-h) 100% 68%);box-shadow:0 0 8px 1px hsl(var(--accent-h) 100% 68%);
   }
 
   /* =========================================================
@@ -557,8 +557,8 @@
     filter:drop-shadow(0 0 14px rgba(255,150,80,.55));
   }
   .flame svg{width:100%;height:100%}
-  .flame.cold{filter:drop-shadow(0 0 6px rgba(80,140,255,.35));opacity:.7}
-  .flame.cold path[fill="url(#fire)"]{fill:rgba(120,170,255,.22)!important}
+  .flame.cold{filter:drop-shadow(0 0 6px hsla(var(--accent-h), 100%, 65%, .35));opacity:.7}
+  .flame.cold path[fill="url(#fire)"]{fill:hsla(var(--accent-h), 100%, 73%, .22)!important}
   @keyframes flicker{
     0%,100%{transform:scale(1)}
     50%   {transform:scale(1.06) rotate(-1.5deg)}
@@ -570,8 +570,8 @@
     -webkit-background-clip:text;background-clip:text;color:transparent;
     line-height:1;letter-spacing:-.02em;
   }
-  .streak-card .meta{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9bbcff}
-  .streak-card .label{font-size:14px;font-weight:700;color:#eaf1ff;margin-top:2px}
+  .streak-card .meta{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:hsl(var(--accent-h) 100% 80%)}
+  .streak-card .label{font-size:14px;font-weight:700;color:hsl(var(--accent-h) 100% 96%);margin-top:2px}
 
   .badges{
     display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
@@ -579,10 +579,10 @@
   }
   .badge{
     position:relative;aspect-ratio:1/1;border-radius:14px;
-    background:linear-gradient(180deg,rgba(15,30,75,.45),rgba(8,18,50,.55));
-    border:1px solid rgba(120,170,255,.18);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 77%, 18%, .45),hsla(var(--accent-h), 72%, 11%, .55));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .18);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
-    color:#7e9bd0;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
+    color:hsl(var(--accent-h) 55% 65%);font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
     text-align:center;padding:8px 4px;
     transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
@@ -608,25 +608,25 @@
   }
   .chip{
     padding:9px 12px;border-radius:999px;
-    background:rgba(10,25,65,.55);
-    border:1px solid rgba(120,170,255,.22);
-    color:#bccae6;font-size:12.5px;font-weight:600;letter-spacing:.04em;
+    background:hsla(var(--accent-h), 74%, 15%, .55);
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .22);
+    color:hsl(var(--accent-h) 45% 82%);font-size:12.5px;font-weight:600;letter-spacing:.04em;
     transition:.15s ease;
   }
   .chip:active{transform:scale(.96)}
   .chip.on{
-    color:#eaf1ff;border-color:#7fb1ff;
-    background:linear-gradient(180deg,rgba(60,120,255,.4),rgba(20,50,150,.45));
-    box-shadow:0 0 0 1px rgba(120,170,255,.35),0 0 18px rgba(80,140,255,.4);
+    color:hsl(var(--accent-h) 100% 96%);border-color:hsl(var(--accent-h) 100% 75%);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 100%, 61%, .4),hsla(var(--accent-h), 76%, 33%, .45));
+    box-shadow:0 0 0 1px hsla(var(--accent-h), 100%, 73%, .35),0 0 18px hsla(var(--accent-h), 100%, 65%, .4);
   }
   .chips-label{
     font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-    color:#9bbcff;font-weight:700;margin:14px 0 4px;
+    color:hsl(var(--accent-h) 100% 80%);font-weight:700;margin:14px 0 4px;
     display:flex;align-items:center;gap:8px;
   }
   .chips-label::before{
     content:"";width:6px;height:6px;border-radius:50%;
-    background:#5b9dff;box-shadow:0 0 8px 1px #5b9dff;
+    background:hsl(var(--accent-h) 100% 68%);box-shadow:0 0 8px 1px hsl(var(--accent-h) 100% 68%);
   }
 
   /* Mini eye-shape picker glyphs (svg-based, scales w/ chip) */
@@ -661,10 +661,10 @@
   .toast{
     position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom));
     transform:translateX(-50%) translateY(20px);
-    background:rgba(10,30,90,.85);backdrop-filter:blur(14px);
-    border:1px solid rgba(120,170,255,.4);
-    padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#eaf1ff;
-    box-shadow:0 12px 32px -6px rgba(0,30,120,.7),0 0 18px rgba(80,140,255,.35);
+    background:hsla(var(--accent-h), 84%, 20%, .85);backdrop-filter:blur(14px);
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .4);
+    padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;color:hsl(var(--accent-h) 100% 96%);
+    box-shadow:0 12px 32px -6px hsla(var(--accent-h), 90%, 24%, .7),0 0 18px hsla(var(--accent-h), 100%, 65%, .35);
     opacity:0;transition:.25s cubic-bezier(.2,.8,.2,1);z-index:1000;
     pointer-events:none;letter-spacing:.04em;
   }
@@ -673,12 +673,12 @@
   /* active tab pulse */
   nav.tabs button.on::before{
     content:"";position:absolute;inset:0;border-radius:16px;
-    box-shadow:0 0 0 0 rgba(120,170,255,.55);
+    box-shadow:0 0 0 0 hsla(var(--accent-h), 100%, 73%, .55);
     animation:tabpulse 1.6s ease-out infinite;pointer-events:none;
   }
   @keyframes tabpulse{
-    0%  {box-shadow:0 0 0 0 rgba(120,170,255,.45)}
-    100%{box-shadow:0 0 0 14px rgba(120,170,255,0)}
+    0%  {box-shadow:0 0 0 0 hsla(var(--accent-h), 100%, 73%, .45)}
+    100%{box-shadow:0 0 0 14px hsla(var(--accent-h), 100%, 73%, 0)}
   }
 
   /* Animated gradient on goal title */
@@ -702,20 +702,20 @@
   }
   .breath-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
   .breath-ring .b-bg{
-    fill:none;stroke:rgba(120,170,255,.18);stroke-width:5;
+    fill:none;stroke:hsla(var(--accent-h), 100%, 73%, .18);stroke-width:5;
   }
   .breath-ring .b-fg{
     fill:none;stroke:url(#breathGrad);stroke-width:6;
     stroke-linecap:round;
     stroke-dasharray:565;stroke-dashoffset:565;
-    filter:drop-shadow(0 0 12px rgba(120,170,255,.55));
+    filter:drop-shadow(0 0 12px hsla(var(--accent-h), 100%, 73%, .55));
     transition:stroke-dashoffset .3s linear;
   }
   .breath-ring .b-core{
     position:absolute;inset:18%;
     border-radius:50%;
-    background:radial-gradient(circle at 35% 35%,#3a7bff 0%,#0a1e6e 70%,#020a30 100%);
-    box-shadow:inset 0 0 30px rgba(120,170,255,.45),0 0 28px rgba(80,140,255,.4);
+    background:radial-gradient(circle at 35% 35%,hsl(var(--accent-h) 100% 61%) 0%,hsl(var(--accent-h) 90% 24%) 70%,hsl(var(--accent-h) 75% 10%) 100%);
+    box-shadow:inset 0 0 30px hsla(var(--accent-h), 100%, 73%, .45),0 0 28px hsla(var(--accent-h), 100%, 65%, .4);
     transform:scale(.7);
     transition:transform 4s cubic-bezier(.4,0,.6,1);
   }
@@ -723,25 +723,25 @@
   .breath-ring .b-core.exhale{transform:scale(.6)}
   .breath-phase{
     position:absolute;inset:0;display:grid;place-items:center;
-    color:#dfeaff;font-size:13px;letter-spacing:.18em;text-transform:uppercase;
-    text-shadow:0 0 14px rgba(80,140,255,.6);font-weight:700;
+    color:hsl(var(--accent-h) 100% 94%);font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    text-shadow:0 0 14px hsla(var(--accent-h), 100%, 65%, .6);font-weight:700;
   }
   .breath-phase .ph{font-size:18px;letter-spacing:.04em;text-transform:none;font-weight:800}
   .breath-phase .cnt{font-size:48px;font-weight:900;line-height:1;margin-top:4px;
-    background:linear-gradient(180deg,#fff,#86b3ff);
+    background:linear-gradient(180deg,#fff,hsl(var(--accent-h) 100% 76%));
     -webkit-background-clip:text;background-clip:text;color:transparent;
     font-variant-numeric:tabular-nums;
   }
   .breath-controls{display:flex;gap:10px;width:100%}
   .breath-controls .btn{
     flex:1;padding:12px;border-radius:14px;
-    background:linear-gradient(180deg,rgba(20,40,100,.6),rgba(8,18,50,.6));
-    border:1px solid rgba(120,170,255,.3);
-    color:#eaf1ff;font-weight:700;font-size:13.5px;
+    background:linear-gradient(180deg,hsla(var(--accent-h), 75%, 24%, .6),hsla(var(--accent-h), 72%, 11%, .6));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .3);
+    color:hsl(var(--accent-h) 100% 96%);font-weight:700;font-size:13.5px;
   }
   .breath-controls .btn.primary{
-    background:linear-gradient(180deg,#3a7bff,#1148b8);
-    border-color:#7fb1ff;box-shadow:0 0 18px rgba(80,140,255,.5);
+    background:linear-gradient(180deg,hsl(var(--accent-h) 100% 61%),hsl(var(--accent-h) 84% 39%));
+    border-color:hsl(var(--accent-h) 100% 75%);box-shadow:0 0 18px hsla(var(--accent-h), 100%, 65%, .5);
   }
 
   /* =========================================================
@@ -750,13 +750,13 @@
   .timer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
   .timer-btn{
     padding:14px 8px;border-radius:14px;
-    background:linear-gradient(180deg,rgba(15,30,80,.5),rgba(6,18,50,.55));
-    border:1px solid rgba(120,170,255,.22);
-    color:#eaf1ff;font-weight:700;font-size:13px;
+    background:linear-gradient(180deg,hsla(var(--accent-h), 79%, 19%, .5),hsla(var(--accent-h), 79%, 11%, .55));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .22);
+    color:hsl(var(--accent-h) 100% 96%);font-weight:700;font-size:13px;
     transition:.15s ease;
     display:flex;flex-direction:column;align-items:center;gap:2px;
   }
-  .timer-btn small{font-size:10px;color:#9bbcff;font-weight:500;letter-spacing:.06em}
+  .timer-btn small{font-size:10px;color:hsl(var(--accent-h) 100% 80%);font-weight:500;letter-spacing:.06em}
   .timer-btn:active{transform:scale(.96)}
   .timer-btn.on{
     background:linear-gradient(180deg,#ff5e2a,#a31808);
@@ -765,9 +765,9 @@
   .timer-display{
     margin-top:14px;text-align:center;font-size:54px;font-weight:900;
     font-variant-numeric:tabular-nums;letter-spacing:-.02em;
-    background:linear-gradient(180deg,#fff,#86b3ff);
+    background:linear-gradient(180deg,#fff,hsl(var(--accent-h) 100% 76%));
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    text-shadow:0 0 30px rgba(80,140,255,.4);
+    text-shadow:0 0 30px hsla(var(--accent-h), 100%, 65%, .4);
     line-height:1;
   }
   .timer-display.danger{
@@ -775,7 +775,7 @@
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
   .timer-sub{
-    text-align:center;font-size:12px;color:#9bbcff;letter-spacing:.18em;
+    text-align:center;font-size:12px;color:hsl(var(--accent-h) 100% 80%);letter-spacing:.18em;
     text-transform:uppercase;margin-top:4px;
   }
 
@@ -785,24 +785,24 @@
   .water-row{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:8px}
   .water-glass{
     aspect-ratio:1/1.4;border-radius:6px 6px 10px 10px;
-    border:1.5px solid rgba(120,170,255,.3);
+    border:1.5px solid hsla(var(--accent-h), 100%, 73%, .3);
     position:relative;overflow:hidden;
-    background:linear-gradient(180deg,rgba(10,25,65,.3),rgba(5,15,40,.45));
+    background:linear-gradient(180deg,hsla(var(--accent-h), 74%, 15%, .3),hsla(var(--accent-h), 78%, 9%, .45));
     transition:.25s ease;
   }
   .water-glass::after{
     content:"";position:absolute;left:0;right:0;bottom:0;height:0;
-    background:linear-gradient(180deg,#7fb1ff,#3a7bff);
-    box-shadow:0 0 12px rgba(80,140,255,.6) inset;
+    background:linear-gradient(180deg,hsl(var(--accent-h) 100% 75%),hsl(var(--accent-h) 100% 61%));
+    box-shadow:0 0 12px hsla(var(--accent-h), 100%, 65%, .6) inset;
     transition:height .35s cubic-bezier(.2,.8,.2,1);
   }
   .water-glass.full::after{height:90%}
-  .water-glass.full{border-color:#7fb1ff;box-shadow:0 0 10px rgba(80,140,255,.35)}
+  .water-glass.full{border-color:hsl(var(--accent-h) 100% 75%);box-shadow:0 0 10px hsla(var(--accent-h), 100%, 65%, .35)}
   .water-meta{
     display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;
-    font-size:12px;color:#9bbcff;letter-spacing:.06em;
+    font-size:12px;color:hsl(var(--accent-h) 100% 80%);letter-spacing:.06em;
   }
-  .water-meta b{font-size:18px;color:#eaf1ff;font-weight:800}
+  .water-meta b{font-size:18px;color:hsl(var(--accent-h) 100% 96%);font-weight:800}
 
   /* =========================================================
      PHOTO PROGRESS
@@ -810,24 +810,24 @@
   .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
   .photo-slot{
     position:relative;aspect-ratio:3/4;border-radius:14px;
-    background:linear-gradient(180deg,rgba(15,30,75,.45),rgba(8,18,50,.55));
-    border:1.5px dashed rgba(120,170,255,.3);
+    background:linear-gradient(180deg,hsla(var(--accent-h), 77%, 18%, .45),hsla(var(--accent-h), 72%, 11%, .55));
+    border:1.5px dashed hsla(var(--accent-h), 100%, 73%, .3);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-    color:#7e9bd0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    color:hsl(var(--accent-h) 55% 65%);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
     overflow:hidden;cursor:pointer;
   }
-  .photo-slot.has-img{border-style:solid;border-color:rgba(120,170,255,.5);background:#000}
+  .photo-slot.has-img{border-style:solid;border-color:hsla(var(--accent-h), 100%, 73%, .5);background:#000}
   .photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
   .photo-slot .label{
     position:absolute;top:6px;left:6px;
     padding:3px 8px;border-radius:999px;
     background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
-    color:#dfeaff;font-size:9.5px;letter-spacing:.18em;
+    color:hsl(var(--accent-h) 100% 94%);font-size:9.5px;letter-spacing:.18em;
   }
   .photo-slot .date{
     position:absolute;bottom:6px;right:6px;
     padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.55);
-    color:#9bbcff;font-size:10px;
+    color:hsl(var(--accent-h) 100% 80%);font-size:10px;
   }
   .photo-slot .remove{
     position:absolute;top:6px;right:6px;
@@ -845,17 +845,17 @@
   .mood-row{display:flex;gap:8px;margin-top:8px;justify-content:space-between}
   .mood-btn{
     flex:1;aspect-ratio:1/1.05;border-radius:14px;
-    background:linear-gradient(180deg,rgba(15,30,75,.45),rgba(8,18,50,.55));
-    border:1px solid rgba(120,170,255,.22);
-    color:#dfeaff;font-size:22px;
+    background:linear-gradient(180deg,hsla(var(--accent-h), 77%, 18%, .45),hsla(var(--accent-h), 72%, 11%, .55));
+    border:1px solid hsla(var(--accent-h), 100%, 73%, .22);
+    color:hsl(var(--accent-h) 100% 94%);font-size:22px;
     display:flex;align-items:center;justify-content:center;
     transition:.15s ease;
   }
   .mood-btn:active{transform:scale(.94)}
   .mood-btn.on{
-    border-color:#7fb1ff;
-    background:linear-gradient(180deg,#1148b8,#0a3a8a);
-    box-shadow:0 0 18px rgba(80,140,255,.5);
+    border-color:hsl(var(--accent-h) 100% 75%);
+    background:linear-gradient(180deg,hsl(var(--accent-h) 84% 39%),hsl(var(--accent-h) 86% 29%));
+    box-shadow:0 0 18px hsla(var(--accent-h), 100%, 65%, .5);
   }
 
   /* line-draw on SVGs in section heads */
@@ -865,12 +865,98 @@
   }
   @keyframes draw{to{stroke-dashoffset:0}}
 
-  /* hue accent variable */
+  /* hue accent variable — drives the whole theme */
   :root{
     --accent-h: 220;
     --accent: hsl(var(--accent-h) 100% 64%);
     --accent-deep: hsl(var(--accent-h) 90% 40%);
+    --accent-soft: hsl(var(--accent-h) 100% 80%);
+    --accent-glow: hsl(var(--accent-h) 100% 73%);
   }
+
+  /* preset swatches — each chip previews its own hue */
+  .chip[data-h]{
+    background:
+      linear-gradient(135deg,
+        hsla(var(--h, 220), 100%, 65%, .35) 0%,
+        hsla(var(--h, 220), 100%, 45%, .35) 100%);
+    border-color: hsla(var(--h, 220), 100%, 70%, .55);
+    color: hsl(var(--h, 220) 100% 90%);
+  }
+  .chip[data-h].on{
+    box-shadow:
+      0 0 0 1px hsla(var(--h, 220), 100%, 75%, .9),
+      0 6px 18px -6px hsla(var(--h, 220), 100%, 60%, .8);
+  }
+
+  /* custom hue slider */
+  .hue-slider-wrap{
+    margin-top:14px;
+    padding:14px 14px 10px;
+    border-radius:14px;
+    background:linear-gradient(180deg,
+      hsla(var(--accent-h),77%,18%,.4),
+      hsla(var(--accent-h),72%,11%,.5));
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);
+  }
+  .hue-slider-row{
+    display:flex;align-items:center;gap:10px;
+  }
+  .hue-slider-row label{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 100% 80%);font-weight:700;
+  }
+  .hue-slider-row .hue-num{
+    margin-left:auto;font-size:12px;font-weight:700;
+    color:hsl(var(--accent-h) 100% 90%);
+    font-variant-numeric:tabular-nums;
+    min-width:42px;text-align:right;
+  }
+  input[type="range"].hue-slider{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:14px;border-radius:999px;
+    background:linear-gradient(90deg,
+      hsl(0 100% 60%) 0%,
+      hsl(60 100% 60%) 16.6%,
+      hsl(120 100% 50%) 33.3%,
+      hsl(180 100% 50%) 50%,
+      hsl(240 100% 65%) 66.6%,
+      hsl(300 100% 60%) 83.3%,
+      hsl(360 100% 60%) 100%);
+    outline:none;cursor:pointer;
+    border:1px solid hsla(var(--accent-h),100%,73%,.25);
+    box-shadow:inset 0 0 6px rgba(0,0,0,.4);
+    margin-top:10px;
+  }
+  input[type="range"].hue-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:50%;
+    background:hsl(var(--accent-h) 100% 65%);
+    border:2px solid #fff;
+    box-shadow:
+      0 0 0 2px hsla(var(--accent-h),100%,40%,.6),
+      0 4px 12px hsla(var(--accent-h),100%,50%,.55);
+    cursor:pointer;
+  }
+  input[type="range"].hue-slider::-moz-range-thumb{
+    width:20px;height:20px;border-radius:50%;
+    background:hsl(var(--accent-h) 100% 65%);
+    border:2px solid #fff;
+    box-shadow:
+      0 0 0 2px hsla(var(--accent-h),100%,40%,.6),
+      0 4px 12px hsla(var(--accent-h),100%,50%,.55);
+    cursor:pointer;
+  }
+  .reset-theme{
+    margin-top:10px;width:100%;
+    padding:8px 12px;border-radius:10px;
+    font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 100% 88%);
+    background:hsla(var(--accent-h),100%,65%,.1);
+    border:1px solid hsla(var(--accent-h),100%,73%,.3);
+    cursor:pointer;transition:background .2s;
+  }
+  .reset-theme:hover{background:hsla(var(--accent-h),100%,65%,.2)}
 
   /* small screens */
   @media (max-width:380px){
@@ -892,7 +978,7 @@
   <!-- BRAND -->
   <header class="brand">
     <div class="brand-mark">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#cfe2ff" stroke-width="2.2"
+      <svg viewBox="0 0 24 24" fill="none" stroke="hsl(var(--accent-h) 100% 91%)" stroke-width="2.2"
         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 19 L3 7 L12 16 L21 7 L21 19" />
       </svg>
@@ -909,7 +995,7 @@
   <section id="screen-home" class="screen active">
 
     <div class="card goal">
-      <span class="floater" style="width:160px;height:160px;background:#3a7bff;top:-40px;left:-40px"></span>
+      <span class="floater" style="width:160px;height:160px;background:hsl(var(--accent-h) 100% 61%);top:-40px;left:-40px"></span>
       <span class="floater" style="width:140px;height:140px;background:#b388ff;bottom:-40px;right:-30px"></span>
 
       <span class="tag">Цель · до 31 августа</span>
@@ -941,7 +1027,7 @@
       <div class="row">
         <div class="ring" id="today-ring" style="--p:0%"><span id="today-ring-text">0/0</span></div>
         <div class="grow">
-          <div style="font-size:14px;font-weight:700;color:#eaf1ff">Дневная норма</div>
+          <div style="font-size:14px;font-weight:700;color:hsl(var(--accent-h) 100% 96%)">Дневная норма</div>
           <p class="muted" style="font-size:12.5px;margin-top:3px">
             Закрывай минимум 6 пунктов в день — это база.
           </p>
@@ -970,8 +1056,8 @@
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="breathGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#7fb1ff"/>
-                <stop offset="100%" stop-color="#3a7bff"/>
+                <stop offset="0%" style="stop-color:hsl(var(--accent-h) 100% 75%)"/>
+                <stop offset="100%" style="stop-color:hsl(var(--accent-h) 100% 61%)"/>
               </linearGradient>
             </defs>
             <circle class="b-bg" cx="100" cy="100" r="90"/>
@@ -995,7 +1081,7 @@
     <div class="card" style="margin-top:14px">
       <h2>Сегодня — настроение и энергия</h2>
       <p class="muted" style="font-size:12.5px">Самочувствие 1–5. Тренируешься в плохой день? Сделай прогулку 30 мин — это тоже win.</p>
-      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9bbcff;margin-top:10px">Настроение</div>
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:hsl(var(--accent-h) 100% 80%);margin-top:10px">Настроение</div>
       <div class="mood-row" id="mood-row">
         <button class="mood-btn" data-v="1" title="плохо">😞</button>
         <button class="mood-btn" data-v="2" title="так себе">😐</button>
@@ -1003,7 +1089,7 @@
         <button class="mood-btn" data-v="4" title="хорошо">😎</button>
         <button class="mood-btn" data-v="5" title="отлично">🔥</button>
       </div>
-      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9bbcff;margin-top:14px">Энергия</div>
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:hsl(var(--accent-h) 100% 80%);margin-top:14px">Энергия</div>
       <div class="mood-row" id="energy-row">
         <button class="mood-btn" data-v="1">🪫</button>
         <button class="mood-btn" data-v="2">😴</button>
@@ -1129,7 +1215,7 @@
         <div class="meta">streak</div>
         <div class="row" style="gap:8px;align-items:baseline">
           <span class="streak-num" id="streak-num">0</span>
-          <span style="font-size:14px;color:#9bbcff">дней подряд</span>
+          <span style="font-size:14px;color:hsl(var(--accent-h) 100% 80%)">дней подряд</span>
         </div>
         <div class="label" id="streak-label">Закрой чек-лист сегодня и начни серию</div>
       </div>
@@ -1186,13 +1272,37 @@
 
     <div class="card" style="margin-top:14px">
       <h2>Цвет приложения</h2>
-      <p class="muted" style="font-size:12.5px;margin-bottom:8px">Тапни — сменится акцентный оттенок.</p>
+      <p class="muted" style="font-size:12.5px;margin-bottom:8px">Тапни на пресет — или подвинь ползунок для своего оттенка.</p>
       <div class="chips" id="accent-chips">
-        <button class="chip on" data-h="220">Сапфир</button>
-        <button class="chip" data-h="200">Лёд</button>
-        <button class="chip" data-h="260">Аметист</button>
-        <button class="chip" data-h="180">Циан</button>
-        <button class="chip" data-h="280">Магента</button>
+        <button class="chip on" data-h="220" style="--h:220">Сапфир</button>
+        <button class="chip" data-h="200" style="--h:200">Лёд</button>
+        <button class="chip" data-h="180" style="--h:180">Циан</button>
+        <button class="chip" data-h="155" style="--h:155">Изумруд</button>
+        <button class="chip" data-h="120" style="--h:120">Лайм</button>
+        <button class="chip" data-h="45" style="--h:45">Золото</button>
+        <button class="chip" data-h="20" style="--h:20">Закат</button>
+        <button class="chip" data-h="0" style="--h:0">Кровь</button>
+        <button class="chip" data-h="320" style="--h:320">Розовый</button>
+        <button class="chip" data-h="280" style="--h:280">Магента</button>
+        <button class="chip" data-h="260" style="--h:260">Аметист</button>
+      </div>
+
+      <div class="hue-slider-wrap">
+        <div class="hue-slider-row">
+          <label>Свой оттенок</label>
+          <span class="hue-num" id="hue-num">220°</span>
+        </div>
+        <input
+          type="range"
+          min="0"
+          max="360"
+          step="1"
+          value="220"
+          class="hue-slider"
+          id="hue-slider"
+          aria-label="Custom hue"
+        />
+        <button type="button" class="reset-theme" id="reset-theme">Сбросить · Сапфир</button>
       </div>
     </div>
 
@@ -1337,7 +1447,7 @@
 
     <div class="card">
       <h2>Глаза и брови</h2>
-      <p class="muted" style="font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;color:#9bbcff;font-weight:700">
+      <p class="muted" style="font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;color:hsl(var(--accent-h) 100% 80%);font-weight:700">
         Глаза — против мешков и нависшего века
       </p>
       <div class="step"><div class="n">1</div><div>
@@ -1359,7 +1469,7 @@
 
       <div class="divider"></div>
 
-      <p class="muted" style="font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;color:#9bbcff;font-weight:700">
+      <p class="muted" style="font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;color:hsl(var(--accent-h) 100% 80%);font-weight:700">
         Брови — густые и мужественные
       </p>
       <div class="step"><div class="n">1</div><div>
@@ -1512,16 +1622,16 @@
       </div>
 
       <div class="chips-label" style="margin-top:14px">Утро</div>
-      <p id="skin-am" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+      <p id="skin-am" style="font-size:13.5px;line-height:1.6;color:hsl(var(--accent-h) 100% 94%)">—</p>
 
       <div class="chips-label">Вечер</div>
-      <p id="skin-pm" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+      <p id="skin-pm" style="font-size:13.5px;line-height:1.6;color:hsl(var(--accent-h) 100% 94%)">—</p>
 
       <div class="chips-label">Что обязательно</div>
-      <p id="skin-must" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+      <p id="skin-must" style="font-size:13.5px;line-height:1.6;color:hsl(var(--accent-h) 100% 94%)">—</p>
 
       <div class="chips-label">Чего избегать</div>
-      <p id="skin-avoid" style="font-size:13.5px;line-height:1.6;color:#dfeaff">—</p>
+      <p id="skin-avoid" style="font-size:13.5px;line-height:1.6;color:hsl(var(--accent-h) 100% 94%)">—</p>
 
       <p class="muted" style="font-size:12.5px;margin-top:10px">
         <b>Базовое правило для всех:</b> SPF 30+ каждое утро — даже зимой, даже в пасмурную погоду. Это единственный реально работающий «анти-возрастной» продукт.
@@ -2015,10 +2125,10 @@
       <ul class="no"  id="shape-no"></ul>
 
       <h4>Борода</h4>
-      <p id="shape-beard" style="font-size:13.5px;color:#dfeaff;line-height:1.55"></p>
+      <p id="shape-beard" style="font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);line-height:1.55"></p>
 
       <h4>Как попросить у барбера</h4>
-      <p id="shape-barber" style="font-size:13.5px;color:#dfeaff;line-height:1.55"></p>
+      <p id="shape-barber" style="font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);line-height:1.55"></p>
     </div>
 
     <div class="card">
@@ -2031,7 +2141,7 @@
         <button class="chip"     data-t="coily">Жёсткие/курчавые</button>
         <button class="chip"     data-t="thin">Тонкие</button>
       </div>
-      <p id="texture-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+      <p id="texture-out" style="font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);line-height:1.55;margin-top:12px">—</p>
     </div>
 
     <div class="card">
@@ -2042,7 +2152,7 @@
         <button class="chip"     data-l="medium">Средние (6–10 см)</button>
         <button class="chip"     data-l="long">Длинные (10+ см)</button>
       </div>
-      <p id="length-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+      <p id="length-out" style="font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);line-height:1.55;margin-top:12px">—</p>
     </div>
 
     <div class="card">
@@ -2053,7 +2163,7 @@
         <button class="chip"    data-c="medium">Средний</button>
         <button class="chip"    data-c="low">Низкий</button>
       </div>
-      <p id="contrast-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+      <p id="contrast-out" style="font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);line-height:1.55;margin-top:12px">—</p>
     </div>
 
     <div class="card">
@@ -2065,7 +2175,7 @@
         <button class="chip" data-e="mono"><svg viewBox="0 0 24 14"><path d="M2 7 Q12 0 22 7 Q12 11 2 7Z"/><circle cx="12" cy="7" r="2" fill="currentColor"/></svg>Монолид</button>
         <button class="chip" data-e="deep"><svg viewBox="0 0 24 14"><path d="M2 8 Q12 -2 22 8"/><path d="M3 8 Q12 12 21 8"/><circle cx="12" cy="8" r="1.8" fill="currentColor"/></svg>Глубокие</button>
       </div>
-      <p id="eye-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+      <p id="eye-out" style="font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);line-height:1.55;margin-top:12px">—</p>
     </div>
 
     <div class="card">
@@ -2075,7 +2185,7 @@
         <button class="chip"    data-b="medium">Средняя</button>
         <button class="chip"    data-b="full">Полная</button>
       </div>
-      <p id="beard-out" style="font-size:13.5px;color:#dfeaff;line-height:1.55;margin-top:12px">—</p>
+      <p id="beard-out" style="font-size:13.5px;color:hsl(var(--accent-h) 100% 94%);line-height:1.55;margin-top:12px">—</p>
     </div>
 
     <div class="card">
@@ -2447,62 +2557,110 @@
 
   // ========= HAIR TEXTURE PICKER =========
   chipPicker('texture-chips', 't', {
-    straight: '<b style="color:#eaf1ff">Прямые волосы:</b> крепко держат форму. Идеальны для side part, slick back, short crop, quiff. Стайлинг: матовая глина или помада. Часто моются — выбирай мягкий шампунь без сульфатов.',
-    wavy:     '<b style="color:#eaf1ff">Волнистые:</b> золотая середина — работают почти все стрижки. Лучше всего смотрятся textured crop, French crop, messy fringe. Используй морскую соль-спрей для подчёркивания волны.',
-    curly:    '<b style="color:#eaf1ff">Кудрявые:</b> объёмные и характерные. Носят высокий top с короткими боками, taper fade, curly fringe. Никогда не суши под полотенцем (frizz). Сушка диффузором, крем для кудрей.',
-    coily:    '<b style="color:#eaf1ff">Жёсткие/курчавые:</b> taper fade, buzz, line-up, sponge twists, по форме головы. Раз в 2–3 дня — увлажняющее масло (jojoba/ши). Шампунь мягкий, 1×/нед.',
-    thin:     '<b style="color:#eaf1ff">Тонкие волосы:</b> избегай длинных стрижек (видна редкость). Buzz, short crop, French crop — твои лучшие друзья. Объём — за счёт матовой глины (не помады). Если редеют — миноксидил/трихолог.'
+    straight: '<b style="color:hsl(var(--accent-h) 100% 96%)">Прямые волосы:</b> крепко держат форму. Идеальны для side part, slick back, short crop, quiff. Стайлинг: матовая глина или помада. Часто моются — выбирай мягкий шампунь без сульфатов.',
+    wavy:     '<b style="color:hsl(var(--accent-h) 100% 96%)">Волнистые:</b> золотая середина — работают почти все стрижки. Лучше всего смотрятся textured crop, French crop, messy fringe. Используй морскую соль-спрей для подчёркивания волны.',
+    curly:    '<b style="color:hsl(var(--accent-h) 100% 96%)">Кудрявые:</b> объёмные и характерные. Носят высокий top с короткими боками, taper fade, curly fringe. Никогда не суши под полотенцем (frizz). Сушка диффузором, крем для кудрей.',
+    coily:    '<b style="color:hsl(var(--accent-h) 100% 96%)">Жёсткие/курчавые:</b> taper fade, buzz, line-up, sponge twists, по форме головы. Раз в 2–3 дня — увлажняющее масло (jojoba/ши). Шампунь мягкий, 1×/нед.',
+    thin:     '<b style="color:hsl(var(--accent-h) 100% 96%)">Тонкие волосы:</b> избегай длинных стрижек (видна редкость). Buzz, short crop, French crop — твои лучшие друзья. Объём — за счёт матовой глины (не помады). Если редеют — миноксидил/трихолог.'
   }, 'texture-out', 'mogger.hairTexture');
 
   // ========= HAIR LENGTH PICKER =========
   chipPicker('length-chips', 'l', {
-    buzz:   '<b style="color:#eaf1ff">Buzz (0–1 см):</b> минимум ухода, максимум контраста с бородой. Подчёркивает форму черепа. Идеально если волосы редкие или редеют. Стрижка раз в 2–3 нед.',
-    short:  '<b style="color:#eaf1ff">Короткие (2–5 см):</b> универсал. Можно делать crop, fade, side part. Стайлинг — глина 5 сек. Освежай каждые 3–4 недели.',
-    medium: '<b style="color:#eaf1ff">Средние (6–10 см):</b> больше вариативности — quiff, slick back, side part с укладкой. Требуют стайлинга каждое утро (3–5 мин). Глина или помада.',
-    long:   '<b style="color:#eaf1ff">Длинные (10+ см):</b> man bun, low pony, длинный slick back. Нужны: кондиционер каждое мытьё, масло на кончики 2×/нед, шёлковая наволочка. Подходит только если волосы качественные.'
+    buzz:   '<b style="color:hsl(var(--accent-h) 100% 96%)">Buzz (0–1 см):</b> минимум ухода, максимум контраста с бородой. Подчёркивает форму черепа. Идеально если волосы редкие или редеют. Стрижка раз в 2–3 нед.',
+    short:  '<b style="color:hsl(var(--accent-h) 100% 96%)">Короткие (2–5 см):</b> универсал. Можно делать crop, fade, side part. Стайлинг — глина 5 сек. Освежай каждые 3–4 недели.',
+    medium: '<b style="color:hsl(var(--accent-h) 100% 96%)">Средние (6–10 см):</b> больше вариативности — quiff, slick back, side part с укладкой. Требуют стайлинга каждое утро (3–5 мин). Глина или помада.',
+    long:   '<b style="color:hsl(var(--accent-h) 100% 96%)">Длинные (10+ см):</b> man bun, low pony, длинный slick back. Нужны: кондиционер каждое мытьё, масло на кончики 2×/нед, шёлковая наволочка. Подходит только если волосы качественные.'
   }, 'length-out', 'mogger.hairLength');
 
   // ========= CONTRAST PICKER =========
   chipPicker('contrast-chips', 'c', {
-    high:   '<b style="color:#eaf1ff">Высокий контраст:</b> темные брови, темная щетина, чёткие линии стрижки (sharp fade, line-up). Носи однотонные тёмные и чисто-белые вещи. Лицо выглядит «графично». Избегай размытых пастельных тонов — они тебя гасят.',
-    medium: '<b style="color:#eaf1ff">Средний контраст:</b> универсально. Любые стрижки и одежда. Тёплые и холодные оттенки оба работают.',
-    low:    '<b style="color:#eaf1ff">Низкий контраст:</b> блонд/светлая кожа или седина. Лучше работают мягкие переходы (taper, не sharp fade). Серые и пастельные оттенки в одежде. Тёмные брови — придают «акцент» лицу.'
+    high:   '<b style="color:hsl(var(--accent-h) 100% 96%)">Высокий контраст:</b> темные брови, темная щетина, чёткие линии стрижки (sharp fade, line-up). Носи однотонные тёмные и чисто-белые вещи. Лицо выглядит «графично». Избегай размытых пастельных тонов — они тебя гасят.',
+    medium: '<b style="color:hsl(var(--accent-h) 100% 96%)">Средний контраст:</b> универсально. Любые стрижки и одежда. Тёплые и холодные оттенки оба работают.',
+    low:    '<b style="color:hsl(var(--accent-h) 100% 96%)">Низкий контраст:</b> блонд/светлая кожа или седина. Лучше работают мягкие переходы (taper, не sharp fade). Серые и пастельные оттенки в одежде. Тёмные брови — придают «акцент» лицу.'
   }, 'contrast-out', 'mogger.contrast');
 
   // ========= EYE SHAPE PICKER =========
   chipPicker('eye-chips', 'e', {
-    almond:'<b style="color:#eaf1ff">Миндалевидные:</b> идеальная форма — подходят все типы бровей. Лучше всего смотрится слегка изогнутая, с лёгким подъёмом к концу. Не трогай форму, только подровняй стрелы.',
-    round: '<b style="color:#eaf1ff">Круглые:</b> сделай бровь чуть длиннее естественной — визуально удлинит глаз. Чёткий изгиб (arch) в верхней точке. Никаких очень коротких или закруглённых бровей — увеличат «круглость».',
-    hooded:'<b style="color:#eaf1ff">Нависшие веки:</b> чуть приподнятая бровь с акцентом на хвостик. Чем выше и тоньше хвост — тем более «открытым» выглядит глаз. Если бровь низкая — глаз кажется ещё более прикрытым.',
-    mono:  '<b style="color:#eaf1ff">Монолид (без складки):</b> прямая горизонтальная бровь без сильного изгиба — балансирует. Не делай арку — будет негармонично. Поддерживай плотность брови — она «обрамляет» глаз.',
-    deep:  '<b style="color:#eaf1ff">Глубоко посаженные:</b> естественная густая бровь без сильного арка. Не делай тонкую — глаз ещё глубже «утонет». Касторовое масло на ночь для густоты.'
+    almond:'<b style="color:hsl(var(--accent-h) 100% 96%)">Миндалевидные:</b> идеальная форма — подходят все типы бровей. Лучше всего смотрится слегка изогнутая, с лёгким подъёмом к концу. Не трогай форму, только подровняй стрелы.',
+    round: '<b style="color:hsl(var(--accent-h) 100% 96%)">Круглые:</b> сделай бровь чуть длиннее естественной — визуально удлинит глаз. Чёткий изгиб (arch) в верхней точке. Никаких очень коротких или закруглённых бровей — увеличат «круглость».',
+    hooded:'<b style="color:hsl(var(--accent-h) 100% 96%)">Нависшие веки:</b> чуть приподнятая бровь с акцентом на хвостик. Чем выше и тоньше хвост — тем более «открытым» выглядит глаз. Если бровь низкая — глаз кажется ещё более прикрытым.',
+    mono:  '<b style="color:hsl(var(--accent-h) 100% 96%)">Монолид (без складки):</b> прямая горизонтальная бровь без сильного изгиба — балансирует. Не делай арку — будет негармонично. Поддерживай плотность брови — она «обрамляет» глаз.',
+    deep:  '<b style="color:hsl(var(--accent-h) 100% 96%)">Глубоко посаженные:</b> естественная густая бровь без сильного арка. Не делай тонкую — глаз ещё глубже «утонет». Касторовое масло на ночь для густоты.'
   }, 'eye-out', 'mogger.eye');
 
   // ========= BEARD DENSITY PICKER =========
   chipPicker('beard-chips', 'b', {
-    patchy:'<b style="color:#eaf1ff">Патчи / неровная:</b> 1) Не отращивай в надежде «заполнится» — будет смотреться неопрятно. 2) Лучший вариант — короткая щетина 3–5 мм по всей длине (триммер с фиксированной длиной). 3) Минидоксил 5% локально на пустые места 1×/день, 4–6 мес. 4) Чёткий line-up у барбера. 5) Никотин и алкоголь — враги роста бороды.',
-    medium:'<b style="color:#eaf1ff">Средняя плотность:</b> 1) Идеально для короткой бороды 6–12 мм. 2) Триммер раз в 4–5 дней. 3) Масло для бороды (jojoba/argan) ежедневно — мягкость и блеск. 4) Линию реза подчёркивает барбер раз в 2–3 нед. 5) Под форму лица: круг → треугольная, квадрат → закруглённая, овал → любая.',
-    full:  '<b style="color:#eaf1ff">Полная борода:</b> 1) Можно носить и длинную, и короткую — обе работают. 2) Шампунь для бороды 2×/нед, кондиционер раз в неделю, масло каждый день. 3) Расчёска (boar bristle) утром — даёт направление и блеск. 4) Триммер для линий — line-up по щекам и шее. 5) Шея — НЕ под кадыком, а на пол-сантиметра выше. Это правило №1 опрятной бороды.'
+    patchy:'<b style="color:hsl(var(--accent-h) 100% 96%)">Патчи / неровная:</b> 1) Не отращивай в надежде «заполнится» — будет смотреться неопрятно. 2) Лучший вариант — короткая щетина 3–5 мм по всей длине (триммер с фиксированной длиной). 3) Минидоксил 5% локально на пустые места 1×/день, 4–6 мес. 4) Чёткий line-up у барбера. 5) Никотин и алкоголь — враги роста бороды.',
+    medium:'<b style="color:hsl(var(--accent-h) 100% 96%)">Средняя плотность:</b> 1) Идеально для короткой бороды 6–12 мм. 2) Триммер раз в 4–5 дней. 3) Масло для бороды (jojoba/argan) ежедневно — мягкость и блеск. 4) Линию реза подчёркивает барбер раз в 2–3 нед. 5) Под форму лица: круг → треугольная, квадрат → закруглённая, овал → любая.',
+    full:  '<b style="color:hsl(var(--accent-h) 100% 96%)">Полная борода:</b> 1) Можно носить и длинную, и короткую — обе работают. 2) Шампунь для бороды 2×/нед, кондиционер раз в неделю, масло каждый день. 3) Расчёска (boar bristle) утром — даёт направление и блеск. 4) Триммер для линий — line-up по щекам и шее. 5) Шея — НЕ под кадыком, а на пол-сантиметра выше. Это правило №1 опрятной бороды.'
   }, 'beard-out', 'mogger.beard');
 
   // ========= ACCENT COLOR PICKER =========
+  // Custom themes: presets via chips + free hue picker via slider.
+  // Persists in localStorage and updates the iOS status-bar meta color.
   (function(){
     const box = document.getElementById('accent-chips');
     if (!box) return;
+    const slider = document.getElementById('hue-slider');
+    const hueNum = document.getElementById('hue-num');
+    const resetBtn = document.getElementById('reset-theme');
+    const meta = document.getElementById('theme-color-meta');
     const KEY = 'mogger.accent';
-    function set(h){
-      document.documentElement.style.setProperty('--accent-h', h);
-      box.querySelectorAll('.chip').forEach(c =>
-        c.classList.toggle('on', c.dataset.h === h)
-      );
-      localStorage.setItem(KEY, h);
+    const DEFAULT = '220';
+
+    function syncChips(h){
+      const str = String(h);
+      let matched = false;
+      box.querySelectorAll('.chip').forEach(c => {
+        const on = c.dataset.h === str;
+        c.classList.toggle('on', on);
+        if (on) matched = true;
+      });
+      return matched;
     }
+
+    function updateMeta(h){
+      if (!meta) return;
+      // status-bar color tracks the deep background hue
+      meta.setAttribute('content', `hsl(${h} 66% 5%)`);
+    }
+
+    function set(h, opts = {}){
+      const v = Math.max(0, Math.min(360, Number(h) || 0));
+      document.documentElement.style.setProperty('--accent-h', v);
+      syncChips(v);
+      if (slider && !opts.fromSlider) slider.value = v;
+      if (hueNum) hueNum.textContent = `${v}°`;
+      updateMeta(v);
+      try { localStorage.setItem(KEY, String(v)); } catch(_){}
+    }
+
     box.addEventListener('click', e => {
       const c = e.target.closest('.chip'); if (!c) return;
       set(c.dataset.h);
       if (navigator.vibrate) navigator.vibrate(6);
     });
-    set(localStorage.getItem(KEY) || '220');
+
+    if (slider){
+      slider.addEventListener('input', e => {
+        set(e.target.value, { fromSlider: true });
+      });
+      slider.addEventListener('change', () => {
+        if (navigator.vibrate) navigator.vibrate(4);
+      });
+    }
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => {
+        set(DEFAULT);
+        if (navigator.vibrate) navigator.vibrate(8);
+      });
+    }
+
+    const stored = localStorage.getItem(KEY);
+    const initial = (stored !== null && stored !== '' && !isNaN(Number(stored)))
+      ? stored : DEFAULT;
+    set(initial);
   })();
 
   // ========= STREAK + ACHIEVEMENTS =========
@@ -2657,7 +2815,7 @@
     const W = cnv.width = window.innerWidth;
     const H = cnv.height = window.innerHeight;
     const parts = [];
-    const colors = ['#7fb1ff','#3a7bff','#b388ff','#ffd58a','#9affc8','#ffae5c'];
+    const colors = ['hsl(var(--accent-h) 100% 75%)','hsl(var(--accent-h) 100% 61%)','#b388ff','#ffd58a','#9affc8','#ffae5c'];
     for (let i = 0; i < count; i++){
       parts.push({
         x: W/2 + (Math.random()-0.5)*60,
