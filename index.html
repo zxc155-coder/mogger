@@ -1899,6 +1899,25 @@
   }
   .srch-empty{ font-size:12px;color:hsl(var(--accent-h) 30% 60%);padding:14px;text-align:center }
 
+  /* TODAY SNAPSHOT */
+  .snap-grid{ display:grid;grid-template-columns:repeat(2,1fr);gap:7px }
+  .snap-cell{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.12);
+    border-radius:10px;padding:9px 10px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .snap-cell.on{
+    background:linear-gradient(135deg,hsla(var(--accent-h),60%,18%,.65),hsla(var(--accent-h),80%,12%,.6));
+    border-color:hsla(var(--accent-h),100%,65%,.4);
+  }
+  .snap-ic{ font-size:18px;flex-shrink:0;width:28px;text-align:center;opacity:.85 }
+  .snap-cell.on .snap-ic{ opacity:1 }
+  .snap-l{ display:flex;flex-direction:column;line-height:1.15;min-width:0;flex:1 }
+  .snap-l .l-l{ font-size:10px;color:hsl(var(--accent-h) 25% 70%);font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis }
+  .snap-l .l-v{ font-size:13px;color:#fff;font-weight:700;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis }
+  .snap-l .l-v.dim{ color:hsl(var(--accent-h) 20% 55%);font-weight:500 }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -2827,6 +2846,16 @@
       </p>
     </div>
 
+    <!-- ============= TODAY SNAPSHOT ============= -->
+    <div class="card" id="snapshot-card" style="margin-top:14px">
+      <h2>Сегодня · снимок</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Сводка всего что сделал сегодня. Обновляется автоматически.
+      </p>
+      <div class="snap-grid" id="snap-grid"></div>
+      <div class="snap-foot" id="snap-foot" style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:8px;text-align:center"></div>
+    </div>
+
     <!-- ============= DAILY LOG (sleep / steps / cold / mood / gratitude / journal / money saved) ============= -->
     <div class="card" id="daily-log-card">
       <h2>Лог дня</h2>
@@ -3393,6 +3422,7 @@
         <button class="glos-cat" data-cat="diet" type="button">Питание</button>
         <button class="glos-cat" data-cat="mindset" type="button">Mindset</button>
         <button class="glos-cat" data-cat="cosm" type="button">Косметика</button>
+        <button class="glos-cat" data-cat="slang" type="button">Сленг</button>
       </div>
       <input id="glos-search" type="text" placeholder="🔍 поиск термина" style="width:100%;padding:8px 10px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.16);border-radius:8px;color:#fff;font-size:13px;margin-bottom:8px" autocomplete="off">
       <div id="glos-list" style="display:flex;flex-direction:column;gap:5px;max-height:340px;overflow-y:auto"></div>
@@ -8800,6 +8830,141 @@
     document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
   })();
 
+  // ========= TODAY SNAPSHOT =========
+  (function(){
+    const grid = document.getElementById('snap-grid');
+    const foot = document.getElementById('snap-foot');
+    if (!grid) return;
+    function todayKey(suffix){
+      const d = new Date(); const k = d.toISOString().slice(0,10);
+      return suffix ? 'mogger.'+suffix+'.'+k : 'mogger.'+k;
+    }
+    function get(key, def){ try{ const v = localStorage.getItem(key); return v === null ? def : JSON.parse(v); }catch(_){ return def; } }
+    function flat(key){ try{ return localStorage.getItem(key); }catch(_){ return null; } }
+    function compute(){
+      const today = new Date().toISOString().slice(0,10);
+      const items = [];
+      // 1. Checklist
+      try {
+        const cl = JSON.parse(flat('mogger.day.'+today) || '{}');
+        const total = Object.keys(cl).length || 10;
+        const done = Object.values(cl).filter(Boolean).length;
+        items.push({ ic:'✅', l:'Чек-лист', v:`${done}/${total||10}`, on: done >= 6 });
+      } catch(_){ items.push({ ic:'✅', l:'Чек-лист', v:'0/10', on:false }); }
+      // 2. Water 8 glasses
+      try {
+        const w = +flat('mogger.water.'+today) || 0;
+        items.push({ ic:'💧', l:'Вода', v:`${w}/8 ст`, on: w >= 6 });
+      } catch(_){ items.push({ ic:'💧', l:'Вода', v:'0', on:false }); }
+      // 3. Hydration grid 12
+      try {
+        const h = JSON.parse(flat('mogger.hyd.'+today) || '[]');
+        const cnt = Array.isArray(h) ? h.filter(Boolean).length : 0;
+        items.push({ ic:'🚰', l:'Гидро', v:`${cnt}/12 · ${cnt*250}мл`, on: cnt >= 8 });
+      } catch(_){ items.push({ ic:'🚰', l:'Гидро', v:'0/12', on:false }); }
+      // 4. Sleep hours
+      try {
+        const log = JSON.parse(flat('mogger.dailylog.'+today) || '{}');
+        const s = log.sleep ? +log.sleep : 0;
+        items.push({ ic:'😴', l:'Сон', v: s ? `${s} ч` : '—', on: s >= 7 });
+      } catch(_){ items.push({ ic:'😴', l:'Сон', v:'—', on:false }); }
+      // 5. Steps
+      try {
+        const log = JSON.parse(flat('mogger.dailylog.'+today) || '{}');
+        const st = +log.steps || 0;
+        items.push({ ic:'👟', l:'Шаги', v: st ? st.toLocaleString('ru') : '—', on: st >= 8000 });
+      } catch(_){ items.push({ ic:'👟', l:'Шаги', v:'—', on:false }); }
+      // 6. Mewing minutes
+      try {
+        const m = +flat('mogger.mewing.day.'+today) || 0;
+        items.push({ ic:'👅', l:'Mewing', v: m ? `${m} мин` : '—', on: m >= 60 });
+      } catch(_){ items.push({ ic:'👅', l:'Mewing', v:'—', on:false }); }
+      // 7. Cold shower
+      try {
+        const log = JSON.parse(flat('mogger.dailylog.'+today) || '{}');
+        items.push({ ic:'🥶', l:'Холодный душ', v: log.cold ? 'Сделал' : '—', on: !!log.cold });
+      } catch(_){ items.push({ ic:'🥶', l:'Холодный душ', v:'—', on:false }); }
+      // 8. No-fap streak
+      try {
+        const nf = +flat('mogger.nofap.streak') || 0;
+        items.push({ ic:'🚫', l:'No-fap', v: nf ? `${nf} дн` : '—', on: nf > 0 });
+      } catch(_){ items.push({ ic:'🚫', l:'No-fap', v:'—', on:false }); }
+      // 9. Workouts today
+      try {
+        const wo = JSON.parse(flat('mogger.workout.log') || '[]');
+        const c = Array.isArray(wo) ? wo.filter(w => (w.date||'').startsWith(today)).length : 0;
+        items.push({ ic:'💪', l:'Подходов', v: c ? `${c}` : '—', on: c > 0 });
+      } catch(_){ items.push({ ic:'💪', l:'Подходов', v:'—', on:false }); }
+      // 10. Food kcal
+      try {
+        const food = JSON.parse(flat('mogger.food.'+today) || '[]');
+        const k = Array.isArray(food) ? food.reduce((s,f) => s + (+f.kcal||0), 0) : 0;
+        const p = Array.isArray(food) ? food.reduce((s,f) => s + (+f.p||0), 0) : 0;
+        items.push({ ic:'🍳', l:'Еда', v: k ? `${k}кк · ${p}б` : '—', on: k > 0 });
+      } catch(_){ items.push({ ic:'🍳', l:'Еда', v:'—', on:false }); }
+      // 11. Mood/stress
+      try {
+        const ms = JSON.parse(flat('mogger.mood.'+today) || 'null');
+        if (ms && ms.mood){
+          items.push({ ic:'🙂', l:'Mood/Stress', v:`${ms.mood} / ${ms.stress||'—'}`, on: true });
+        } else {
+          items.push({ ic:'🙂', l:'Mood/Stress', v:'—', on:false });
+        }
+      } catch(_){ items.push({ ic:'🙂', l:'Mood/Stress', v:'—', on:false }); }
+      // 12. Top-3
+      try {
+        const t3 = JSON.parse(flat('mogger.top3.'+today) || '{}');
+        const done = Object.values(t3).filter(x => x && x.done).length;
+        const set = Object.values(t3).filter(x => x && x.text).length;
+        items.push({ ic:'🎯', l:'Top-3', v: set ? `${done}/${set}` : '—', on: set > 0 && done === set });
+      } catch(_){ items.push({ ic:'🎯', l:'Top-3', v:'—', on:false }); }
+      // 13. Face rate
+      try {
+        const r = JSON.parse(flat('mogger.rate.'+today) || 'null');
+        if (r && r.values){
+          const arr = Object.values(r.values).map(Number).filter(n => n>0);
+          if (arr.length){
+            const avg = (arr.reduce((s,v)=>s+v,0) / arr.length).toFixed(1);
+            items.push({ ic:'🪞', l:'Рейт', v:`${avg}/10`, on:true });
+          } else items.push({ ic:'🪞', l:'Рейт', v:'—', on:false });
+        } else items.push({ ic:'🪞', l:'Рейт', v:'—', on:false });
+      } catch(_){ items.push({ ic:'🪞', l:'Рейт', v:'—', on:false }); }
+      // 14. Money saved today
+      try {
+        const log = JSON.parse(flat('mogger.dailylog.'+today) || '{}');
+        const m = +log.savedToday || 0;
+        items.push({ ic:'💰', l:'Сэкономил', v: m ? `${m}₽` : '—', on: m > 0 });
+      } catch(_){ items.push({ ic:'💰', l:'Сэкономил', v:'—', on:false }); }
+      return items;
+    }
+    function render(){
+      const items = compute();
+      grid.innerHTML = items.map(i => {
+        const dim = i.v === '—' ? ' dim' : '';
+        return `<div class="snap-cell${i.on?' on':''}">
+          <div class="snap-ic">${i.ic}</div>
+          <div class="snap-l">
+            <div class="l-l">${i.l}</div>
+            <div class="l-v${dim}">${i.v}</div>
+          </div>
+        </div>`;
+      }).join('');
+      const completed = items.filter(i => i.on).length;
+      const total = items.length;
+      foot.textContent = completed === total ? '🔥 Чистый день — все метрики закрыты' :
+                         completed >= total*0.7 ? `Сильный день · ${completed}/${total}` :
+                         completed >= total*0.4 ? `Норм день · ${completed}/${total}` :
+                         `Старт · ${completed}/${total}`;
+    }
+    render();
+    // Re-render on relevant events
+    ['mogger:stats-changed','storage','mogger:checklist-changed','mogger:water-changed','mogger:rate-changed'].forEach(ev => {
+      window.addEventListener(ev, render);
+    });
+    // Periodic refresh (cheap)
+    setInterval(render, 30000);
+  })();
+
   // ========= GLOSSARY + SMART SEARCH =========
   (function(){
     const GLOS = [
@@ -8897,8 +9062,54 @@
       ['Vitamin C','cosm','Антиоксидант + выравнивание тона. Утренний ритуал перед SPF.'],
       ['Tret','cosm','**Третиноин** — рецептурный ретиноид. В 20× сильнее ретинола. Только по назначению, обычно дерматолог.'],
       ['Azelaic','cosm','**Азелаиновая кислота**. Против акне, розацеа, пигментации. Безопасна для всех типов кожи.'],
+      // SLANG / FORUM TERMINOLOGY
+      ['Mogging','slang','«Замоггить» — выглядеть рядом с кем-то заметно лучше. Если ты mogging\'нул друга — ты затмил его внешностью. Глагол от которого название приложения.'],
+      ['Mogger','slang','Тот кто mogging\'ит. Парень что задевает внешностью.'],
+      ['NGMI','slang','**Not Gonna Make It**. «Не вытянешь». Когда генетика/исходник так плох, что looksmax уже не спасает. Используется как приговор.'],
+      ['GMI','slang','**Gonna Make It**. «Вытянешь». Парень с потенциалом — есть на чём строить.'],
+      ['JBW','slang','**Just Be White**. Шутка что половина looksmax-проблем решается генетикой/расой. Грубоватый black-pill юмор.'],
+      ['Cope','slang','**Копинг** — самообман, оправдания. «Ты копишь» = ты сам себе врёшь чтобы не действовать.'],
+      ['Ascended','slang','«Вознёсся» — поднялся в тире looksmax-лестницы, обычно после большого изменения (накачался, борода, операция, гормоны).'],
+      ['It\'s over','slang','Мем — «всё кончено». Used когда видишь признак что тир не поднять. Полу-ироничный.'],
+      ['It\'s never over','slang','Антоним. «Никогда не поздно». Mindset того что всегда есть что улучшить.'],
+      ['Incel','slang','**Involuntary celibate**. «Невольно не имеющий отношений». Часть looksmax-комьюнити, корень многих мемов.'],
+      ['Volcel','slang','**Voluntary celibate**. «Добровольно один». Сознательное no-fap/no-cycling по принципиальным причинам.'],
+      ['KHHV','slang','**Kissless Hugless Hand-holdless Virgin**. Не целовал, не обнимал, не держал руку. Жёсткий incel-статус.'],
+      ['Truecel','slang','Тот кто реально не может ничего изменить — физический дефект, инвалидность. Отличается от пораженца без оснований.'],
+      ['Looksmin','slang','**Looks-minimizer**. Парень который недооценивает свою внешность. Противоположность looksmaxing.'],
+      ['Heightmax','slang','Максимизация роста — каблуки, лифты, exercises на удлинение позвоночника, surgery (limb-lengthening).'],
+      ['Limb lengthening','slang','**Удлинение конечностей** — хирургическая операция, ломают кости голени и растягивают по 1 мм/день. +5-8 см роста за полгода. Очень болезненно, $80-100k.'],
+      ['Hardmaxxing','slang','Жёсткие методы — операции, татуаж, импланты, гормоны. Эффект максимальный, риски тоже.'],
+      ['Frame','slang','Костяк, ширина плеч, длина ключиц. Frame не меняется во взрослом возрасте, его maxxing через осанку и тренировку трапов/дельт.'],
+      ['T-mog','slang','**Tall mog** — мог по росту. Парень который ничего не делает, просто выше = выигрывает.'],
+      ['Eye mog','slang','Мог по глазам. Hunter eyes + цвет + harmony = победа над любым jaw-mogger\'ом.'],
+      ['Jawmog','slang','Мог по челюсти. Доминантная нижняя треть лица.'],
+      ['Whitepill','slang','Оптимистичный взгляд: «Всё можно изменить». Discipline, looksmax, lifestyle работают.'],
+      ['Blackpill','slang','Пессимистичный взгляд: «Внешность решает всё, изменить нельзя». Базируется на science о halo-эффекте, дискриминации некрасивых.'],
+      ['Redpill','slang','Реалистичный взгляд: «Внешность важна, но не всё. Деньги/статус/frame тоже работают». Между whitepill и blackpill.'],
+      ['Purplepill','slang','Микс red+blue (синяя=мейнстрим, отрицает важность внешки). Признаёт реальность, но без чёрной депрессии.'],
+      ['Status','slang','Социальный статус — деньги, должность, известность. Halo похожий на красоту. Может частично компенсировать тир.'],
+      ['Game','slang','Soft-skills с женщинами — флирт, разговор, body language, харизма. PUA-комьюнити. Работает в HTN+, ниже — слабо.'],
+      ['Looks-Money-Status','slang','**LMS** триада в pickup. Чем выше суммарно — тем больше внимания. Looks — основа, остальное — мультипликатор.'],
+      ['Hypergamy','slang','«Гипергамия» — теория что женщины ищут партнёра выше себя по тиру. Топ женщины ищут топ мужчин, отсюда дефицит для middle-tier.'],
+      ['80/20 rule','slang','Шутка/теория: «80% женщин хотят 20% мужчин». Базируется на dating-app stats. Real numbers ~70/30.'],
+      ['SMV','slang','**Sexual Market Value**. Совокупная привлекательность на dating-рынке. Сумма looks, status, age, frame, game.'],
+      ['Looksmaxxxer','slang','Тот кто активно работает над внешностью. Подписан на форумы, читает research, делает гуаша по утрам.'],
+      ['Beta','slang','«Бета» — мужчина без качеств альфы (доминирование, риск, leadership). Не плохо, но конкурентно слабее.'],
+      ['Alpha','slang','«Альфа» — доминирующий, lead-mindset, frame, status. Не миф, а паттерн поведения.'],
+      ['Sigma','slang','«Сигма» — самостоятельный одиночка, не борется за иерархию, делает своё. Часто гипертрофируется в мемы.'],
+      ['Maxfax','slang','**Maxillofacial surgery** — челюстно-лицевая хирургия. Bimaxillary, BSSO, LeFort I. Жёсткая operation, ломают челюсти и переставляют.'],
+      ['BSSO','slang','**Bilateral Sagittal Split Osteotomy**. Операция на нижней челюсти — режут, выдвигают вперёд, фиксируют пластиной. 1-2 недели стиснутые зубы, $5-15k.'],
+      ['LeFort I','slang','Операция на верхней челюсти. Режут maxilla под носом, выдвигают вперёд. Меняет средний этаж лица.'],
+      ['Bimax','slang','**Bimaxillary surgery**. Обе челюсти одновременно — LeFort + BSSO. Самая радикальная maxfax-операция.'],
+      ['Genioplasty','slang','**Гениопластика** — операция на подбородке. Срез и сдвиг для выраженного chin-projection. Малая операция, заметный эффект.'],
+      ['Rhino','slang','**Ринопластика** — операция носа. Самая популярная пластика. Прямая спинка, тонкий tip, idle proportions.'],
+      ['Halo (positive)','slang','«Положительный ореол» — красивым приписывают доброту, ум. Halo может включаться от стиля, успеха, осанки.'],
+      ['Halo (negative)','slang','«Отрицательный ореол» — некрасивым приписывают глупость, агрессию, лень. Несправедливо, но реально.'],
+      ['Mirror mog','slang','Когда зеркало показывает тебя хуже чем на фото. Свет/угол. Не реальность.'],
+      ['Camera mog','slang','Когда камера ловит твой best angle и ты выглядишь лучше реальности. Зависит от focal length, света, позы.'],
     ];
-    const CAT_LABEL = { tiers:'тиры', face:'лицо', body:'тело', diet:'питание', mindset:'mindset', cosm:'косметика' };
+    const CAT_LABEL = { tiers:'тиры', face:'лицо', body:'тело', diet:'питание', mindset:'mindset', cosm:'косметика', slang:'сленг' };
 
     // ===== GLOSSARY CARD =====
     const glosList = document.getElementById('glos-list');
