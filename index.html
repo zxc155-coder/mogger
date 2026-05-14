@@ -478,6 +478,23 @@
   details[open] > summary::after{content:"−"}
   details p{font-size:13.5px;color:#bccae6;line-height:1.55;margin-top:10px}
 
+  /* Manual (how-to) inside an item card */
+  .item details.manual{
+    margin-top:10px;padding:10px 12px;border-radius:10px;
+    background:linear-gradient(180deg,rgba(120,170,255,.06),rgba(120,170,255,.02));
+    border:1px solid rgba(120,170,255,.16);
+  }
+  .item details.manual > summary{font-size:12.5px;color:#bccae6;letter-spacing:.04em}
+  .item details.manual > summary::after{font-size:16px}
+  .item details.manual ol,.item details.manual ul{margin:8px 0 0 18px;padding:0}
+  .item details.manual li{font-size:13px;color:#bccae6;line-height:1.55;margin:4px 0}
+  .item details.manual a,.item .link{
+    color:#9ec6ff;text-decoration:none;border-bottom:1px dashed rgba(158,198,255,.4);
+  }
+  .item details.manual a:hover,.item .link:hover{color:#cfe1ff;border-bottom-style:solid}
+  .item .src{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:8px;font-size:12px;color:#9ec6ff}
+  .item .src b{color:#bccae6;font-weight:600;margin-right:4px}
+
   /* tiny "today" ring */
   .ring{
     width:60px;height:60px;flex:0 0 60px;border-radius:50%;
@@ -932,7 +949,7 @@
   ============================================================ -->
   <section id="screen-money" class="screen">
     <div class="sec-head">
-      <div><h2>Заработок</h2><p>Идеи по возрасту · белые и околосерые</p></div>
+      <div><h2>Заработок</h2><p>Идеи по возрасту · с мануалами и материалами</p></div>
     </div>
 
     <div class="card">
@@ -944,122 +961,1024 @@
         <span class="pill gold">высокий доход</span>
         <span class="pill red">риск</span>
       </div>
+      <p style="margin-top:14px">В каждой карточке есть раскрывающийся <b>Мануал</b>: пошагово что делать + ссылки на бесплатное обучение (YouTube, статьи, инструменты). Цифры — реальные, по практике 2024–2025.</p>
       <div class="warn" style="margin-top:14px">
-        <b>Дисклеймер.</b> «Околосерые» схемы — это легальные на грани либо требующие самозанятости/ИП и грамотной налоговой гигиены. Никакого кардинга, мошенничества, дропов, наркоты и схем с обманом людей. Если идея противоречит закону твоей страны — не делай. Тюрьма не стоит ни одной из этих сумм.
+        <b>Дисклеймер.</b> До 14 лет — только темы без документов и ИП (карманные деньги, цифровые активы, помощь по району). С 16 — самозанятость с согласия родителей. «Околосерые» = легальные, но требуют налоговой гигиены. Никакого кардинга, скама, дропов, наркоты. Тюрьма не стоит ни одной из этих сумм.
       </div>
     </div>
 
     <div class="card">
-      <h2><span class="pill age" style="margin-right:8px;margin-top:0">13–15</span>Школьник</h2>
+      <h2><span class="pill age" style="margin-right:8px;margin-top:0">до 14</span>Без документов и ИП</h2>
+      <p style="color:#bccae6;font-size:13.5px">В этом возрасте по ТК РФ официально трудоустроиться нельзя (только творчество). Зато можно зарабатывать на цифровых активах, помощи по району, играх и контенте. Деньги выводят родители на свою карту/самозанятость.</p>
       <div class="list">
-        <div class="item"><h3><span class="dot"></span>Курьер на велике / самокате</h3>
-          <p>Яндекс.Еда, Самокат, Delivery — с 14 лет официально (с согласия родителей). 4 часа после школы = 1.5–2.5к ₽/день. Летом ×2.</p>
-          <span class="pill gr">белое</span><span class="pill gold">30–60к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Перепродажа на Авито</h3>
-          <p>Скупай дёшево на барахолках/«отдам даром» — продавай дороже. Велики, телефоны, кроссовки, конструкторы Lego. Стартовый капитал 3–5к.</p>
-          <span class="pill gr">белое</span><span class="pill gold">от 20к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>TikTok / Reels / Shorts</h3>
-          <p>Заводишь нишевый аккаунт (мемы, обзоры игр, нарезки фильмов, AI-видео). 50–100к подписчиков = реклама от 5к за пост. На старте — 0 ₽, потом плато.</p>
-          <span class="pill gr">белое</span></div>
+
+        <div class="item"><h3><span class="dot"></span>Roblox / Minecraft — продажа предметов и серверов</h3>
+          <p>Свой сервер Minecraft (Aternos бесплатно) или игра в Roblox Studio. Donate-плагины, продажа кейсов/привилегий, реклама в Discord. Реальный кейс: школьники выходят на 10–30к ₽/мес с одного сервера. Roblox-разработчики через DevEx обменивают Robux в $.</p>
+          <span class="pill gr">белое</span><span class="pill gold">10–30к/мес</span>
+          <details class="manual"><summary>Мануал: как делать (с нуля, бесплатно)</summary>
+            <ol>
+              <li>Создаёшь бесплатный Minecraft-сервер на <a href="https://aternos.org" target="_blank" rel="noopener">aternos.org</a> или Roblox-игру в <a href="https://create.roblox.com" target="_blank" rel="noopener">Roblox Studio</a>.</li>
+              <li>Базовая разработка: смотри плейлист <a href="https://www.youtube.com/results?search_query=roblox+studio+%D1%83%D1%80%D0%BE%D0%BA%D0%B8+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F" target="_blank" rel="noopener">Roblox Studio уроки с нуля</a> и <a href="https://www.youtube.com/results?search_query=minecraft+%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%BA%D0%B0%D0%BA+%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D1%82%D1%8C" target="_blank" rel="noopener">Minecraft сервер с нуля</a>.</li>
+              <li>Монетизация: в Roblox — Robux через Game Passes / Developer Products → <a href="https://create.roblox.com/docs/production/monetization/developer-exchange-program" target="_blank" rel="noopener">DevEx</a> в $. В Minecraft — donate-плагины (LuckPerms + EssentialsX + PayPal/QIWI/ЮMoney от родителей).</li>
+              <li>Маркетинг: TikTok-ролики с геймплеем + Discord-сервер + реклама в чатах майнкрафт-комьюнити (mc.ru, McSkill).</li>
+              <li>Гайд-канал на русском: <a href="https://www.youtube.com/@TheBrainDit" target="_blank" rel="noopener">TheBrainDit</a>, <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C+%D0%BD%D0%B0+roblox+%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5" target="_blank" rel="noopener">как зарабатывать на Roblox разработке</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Скины CS2 / Standoff 2 / Brawl Stars — флип</h3>
+          <p>Покупаешь дешёвые скины в Steam Market / Market.CSGO / DMarket → продаёшь дороже после апдейтов и хайпа. Реальный заработок 5–20к/мес с банка 5–10к ₽. Полностью легально через Steam-кошелёк или вывод через P2P-сервисы.</p>
+          <span class="pill gr">белое</span><span class="pill gold">5–20к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Регистрируешь Steam (от 13 лет можно с родителями). Кладёшь стартовые 1–3к ₽.</li>
+              <li>Изучаешь рынок: <a href="https://csgostash.com" target="_blank" rel="noopener">csgostash.com</a>, <a href="https://steamcommunity.com/market/" target="_blank" rel="noopener">Steam Market</a>, <a href="https://market.csgo.com" target="_blank" rel="noopener">Market.CSGO</a>.</li>
+              <li>Стратегии (3 базовых): инвест в кейсы перед обновлением операции / флип «недооценённых» скинов между Steam и Market.CSGO / холд кейсов 6–12 мес.</li>
+              <li>Гайды: <a href="https://www.youtube.com/results?search_query=cs2+%D1%82%D1%80%D0%B5%D0%B9%D0%B4+%D1%81%D0%BA%D0%B8%D0%BD%D0%BE%D0%B2+2025" target="_blank" rel="noopener">YouTube «CS2 трейд скинов 2025»</a>, ТГ-каналы «Skins Talk», «CS Investor».</li>
+              <li>Вывод: продал в Steam → не выводишь, реинвест. Или продаёшь на Market.CSGO → крипта/ЮMoney через родителей.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>TikTok / Reels / Shorts — нишевый контент</h3>
+          <p>Аккаунт-нарезка (футбол, аниме, кино, мемы, AI-видео). 0 ₽ старт, 0 показа лица. 50–100к подписчиков за 3–6 мес — реклама от 3–10к ₽/пост через биржи. Креатор-фонд YouTube Shorts при 1000 подписчиков и 10М просмотров за 90 дней — монетизация в $.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив 20–80к</span>
+          <details class="manual"><summary>Мануал: как делать (faceless)</summary>
+            <ol>
+              <li>Выбор ниши: смотри тренды на <a href="https://www.tiktok.com/creative-radar" target="_blank" rel="noopener">TikTok Creative Radar</a> и <a href="https://trends.google.com" target="_blank" rel="noopener">Google Trends</a>. Лучшие ниши 2025: AI-факты, разборы фильмов, спорт-хайлайты, лайфхаки.</li>
+              <li>Контент 100% без лица: CapCut (бесплатно) + голос с <a href="https://elevenlabs.io" target="_blank" rel="noopener">ElevenLabs</a> (бесплатные 10к символов/мес) + футажи с <a href="https://pexels.com" target="_blank" rel="noopener">Pexels</a> / <a href="https://www.pixabay.com" target="_blank" rel="noopener">Pixabay</a>.</li>
+              <li>Полный курс на русском бесплатно: <a href="https://www.youtube.com/results?search_query=%D1%84%D0%B5%D0%B9%D1%81%D0%BB%D0%B5%D1%81%D1%81+%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB+youtube+shorts+2025" target="_blank" rel="noopener">faceless канал YouTube Shorts 2025</a>, <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D1%80%D0%B0%D1%81%D0%BA%D1%80%D1%83%D1%82%D0%B8%D1%82%D1%8C+tiktok+%D0%B2+2025" target="_blank" rel="noopener">как раскрутить TikTok в 2025</a>.</li>
+              <li>Постить 2–3 раза в день первые 2 мес. Хук в первые 1.5 сек. Без хука — нет просмотров.</li>
+              <li>Монетизация: реклама через <a href="https://telega.in" target="_blank" rel="noopener">Telega.in</a>, прямые продажи каналов через TGStat. YouTube Shorts фонд + продажа товаров по партнёрке (Ozon, Aliexpress).</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-картинки → стоки и Telegram-каналы</h3>
+          <p>Генерируешь арты в Midjourney / DALL·E / Recraft / Leonardo → загружаешь на Adobe Stock / Shutterstock / Freepik AI. Один топовый автор делает $300–1500/мес. Альтернатива: нишевый ТГ-канал «обои на телефон» / «AI-арт» на 30к подписчиков = 10–25к/мес рекламы.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$200–1000/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Бесплатные генераторы: <a href="https://leonardo.ai" target="_blank" rel="noopener">Leonardo.ai</a> (150 кредитов/день), <a href="https://www.bing.com/images/create" target="_blank" rel="noopener">Bing Image Creator</a> (DALL·E 3, бесплатно), <a href="https://www.recraft.ai" target="_blank" rel="noopener">Recraft</a>.</li>
+              <li>Промпт-инжиниринг: смотри библиотеки промптов <a href="https://prompthero.com" target="_blank" rel="noopener">PromptHero</a>, <a href="https://lexica.art" target="_blank" rel="noopener">Lexica</a>.</li>
+              <li>Аккредитация на стоках: <a href="https://contributor.stock.adobe.com" target="_blank" rel="noopener">Adobe Stock Contributor</a> принимает AI-арты с указанием «Generative AI». Shutterstock — через программу AI.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C+%D0%BD%D0%B0+ai+%D1%81%D1%82%D0%BE%D0%BA%D0%B0%D1%85+adobe+stock+2025" target="_blank" rel="noopener">«как заработать на AI стоках Adobe 2025»</a>.</li>
+              <li>ТГ-канал на нише обоев: ставишь шапку, пост 3–5 раз/день. Закуп подписчиков через <a href="https://tgstat.ru" target="_blank" rel="noopener">TGStat</a> + взаимка. Окупаемость 2–4 мес.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Перепродажа на Авито (без ИП)</h3>
+          <p>«Отдам даром», барахолки, гаражные распродажи → лот на Авито +50–300%. Велики, Lego, ретро-приставки, кроссовки, телефоны. Стартовый банк от 500 ₽. Чистыми 5–25к/мес. Авито у физлиц до 30 продаж/мес не требует ИП.</p>
+          <span class="pill gr">белое</span><span class="pill gold">5–25к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Аккаунт Авито (открывают родители на свой телефон). Привязка карты для безопасной сделки — карта родителей.</li>
+              <li>Источники товара: чат «Отдам даром» района в ТГ, группы ВК «Отдам / Барахолка», объявления «срочно», подъездные «бесплатно».</li>
+              <li>Ниши с х2–х5: Lego (особенно лимитки), велосипеды (отмыть/смазать), телефоны (диагностика), ретро-консоли, кроссовки.</li>
+              <li>Гайды: <a href="https://www.youtube.com/results?search_query=%D0%BF%D0%B5%D1%80%D0%B5%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0+%D0%BD%D0%B0+%D0%B0%D0%B2%D0%B8%D1%82%D0%BE+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«перепродажа на Авито с нуля 2025»</a>.</li>
+              <li>Фото: один фон, естественный свет. Описание: 3 строки + что НЕ работает (честность ↑ конверсию).</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Буст / прокачка в играх (FunPay)</h3>
+          <p>CS2, Dota 2, Valorant, Genshin, Brawl Stars, Standoff 2. Если играешь выше среднего — продаёшь буст ранга/прокачку через FunPay. 300–2000 ₽ за заказ. FunPay — самая крупная биржа в РФ. Деньги выводят родители на ЮMoney/карту.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">риск VAC/ban</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Регистрация на <a href="https://funpay.com" target="_blank" rel="noopener">funpay.com</a> (привязка ЮMoney/банковской карты родителей).</li>
+              <li>Выбор игры: где ты в топ-15% по навыку. Если ниже — буст затянется, репутация умрёт.</li>
+              <li>Защита от ban: ТОЛЬКО через TeamViewer / AnyDesk на ПК заказчика, не вводи свои данные на чужой аккаунт. Никаких чит-программ.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C+%D0%BD%D0%B0+funpay+%D0%B1%D1%83%D1%81%D1%82+2025" target="_blank" rel="noopener">«как заработать на FunPay буст 2025»</a>.</li>
+              <li>Ценник: смотри средний на бирже, ставь −10–15% на первые 10 заказов для рейтинга, потом +20%.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Помощь по району — выгул собак, помощь старшим</h3>
+          <p>Выгул собак 200–400 ₽/прогулка × 2 собаки × 30 дней = 12–24к/мес чистыми. Помощь пенсионерам с интернетом/телефоном — 300–500 ₽/визит. Расклейка объявлений — 50–80 ₽/штука. Реальный неинтернет-кэш без документов.</p>
+          <span class="pill gr">белое</span><span class="pill gold">10–25к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Объявления: в подъездах своего и соседних домов, в районных чатах ВК и ТГ («Барыбино», «Митино» и т.п.), на Авито в категории «Услуги».</li>
+              <li>Текст: «Школьник, 13 лет, выгуляю собаку 30–60 мин, $address. Звонить родителям: $phone». Указывай возраст — это плюс для тёплой аудитории, не минус.</li>
+              <li>Безопасность: первые 3–4 встречи только с родителями, потом — только знакомые из дома/двора.</li>
+              <li>Допы: уход за хомяками/кошками на время отпуска хозяев (1500–3000 ₽ за неделю), полив цветов (500 ₽/неделю).</li>
+              <li>Похожие истории и тарифы: статья <a href="https://100points.ru/blog/career/rabota-dlya-detei-10-12-let-info/" target="_blank" rel="noopener">«Работа для детей 10–12 лет»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Telegram-канал на детской/подростковой нише</h3>
+          <p>Мемы, гайды по играм, разборы аниме/манги, школьные лайфхаки. 0 ₽ старт. 10–30к подписчиков за 4–6 мес. Реклама от 1.5–5к ₽/пост через @Telega_in_bot или прямые продажи. Карта родителей для вывода.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив 15–60к</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Создаёшь канал в Telegram. Название — короткое, отражает суть («МЕМЫ ПО ИГРАМ», «АНИМЕ КОРОТКО»).</li>
+              <li>Контент: 3–6 постов/день первые 2 мес. Источники — Reddit, Pinterest, западные ТГ-каналы. Главное правило: перевод/локализация, не плагиат 1:1.</li>
+              <li>Привлечение: взаимный пиар (ВП) через биржи <a href="https://telega.in" target="_blank" rel="noopener">Telega.in</a>, <a href="https://tgstat.ru" target="_blank" rel="noopener">TGStat</a>; залив посевов после 1к подписчиков.</li>
+              <li>Монетизация: реклама с 5к подписчиков. Расценка = (подписчики / 1000) × 200–400 ₽. На 30к — 6–12к за пост.</li>
+              <li>Курс бесплатно: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D1%80%D0%B0%D1%81%D0%BA%D1%80%D1%83%D1%82%D0%B8%D1%82%D1%8C+telegram+%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«как раскрутить Telegram канал с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Прохождение игр / получение ачивок</h3>
+          <p>Платное прохождение сложных миссий, фарм валюты, открытие ачивок на FunPay/Boosty. Genshin / HoYoverse, Albion Online, EVE Online. Ставки 200–1500 ₽ за заказ. Хочешь играть — играй и получай деньги.</p>
+          <span class="pill gr">белое</span><span class="pill gold">10–30к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Выбираешь 1–2 игры, где ты сильнее среднего и любишь долго играть.</li>
+              <li>Регистрация на <a href="https://funpay.com" target="_blank" rel="noopener">FunPay</a>, <a href="https://playerauctions.com" target="_blank" rel="noopener">PlayerAuctions</a> (международная), <a href="https://eldorado.gg" target="_blank" rel="noopener">Eldorado.gg</a>.</li>
+              <li>Создаёшь карточки услуг: «Прохождение Genshin недельного босса», «Открытие 100 сундуков», «Фарм 5к ресурсов».</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+%D0%BD%D0%B0+%D0%BF%D1%80%D0%BE%D1%85%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B8+%D0%B8%D0%B3%D1%80+funpay" target="_blank" rel="noopener">«заработок на прохождении игр FunPay»</a>.</li>
+              <li>Ставь первые цены −20% от средней, после 5–10 отзывов — поднимаешь до средней + 10–15%.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Сдача макулатуры / металла / электроники</h3>
+          <p>Картон / бумага — 5–12 ₽/кг, металл — 18–35 ₽/кг, медь — 700–900 ₽/кг. С подъезда дома реально собрать 100–300 кг бумаги за месяц. Электроника на разбор: старый ПК = 1500–3000 ₽ за плату/радиаторы. Зимой объёмы х2 (упаковка от подарков).</p>
+          <span class="pill gr">белое</span><span class="pill gold">3–15к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Найти точки приёма: на <a href="https://2gis.ru" target="_blank" rel="noopener">2ГИС</a> запрос «приём макулатуры»/«приём металла». Цены — на <a href="https://ecology.spb.ru" target="_blank" rel="noopener">ecology.spb.ru</a> и подобных региональных.</li>
+              <li>Источники: ТЦ (договорись с грузчиками — отдают коробки за 50 ₽), офисы (бесплатно за вынос), сбор в подъездах своих домов.</li>
+              <li>Электроника: «Авито отдам даром» → старый ПК → разбор → плата + радиатор + БП → пункт приёма.</li>
+              <li>Логистика: ручная тележка с Озона за 1.5к ₽. Окупается за неделю.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C+%D0%BD%D0%B0+%D0%BC%D0%B0%D0%BA%D1%83%D0%BB%D0%B0%D1%82%D1%83%D1%80%D0%B5+2025" target="_blank" rel="noopener">«как заработать на макулатуре 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Цифровые шаблоны (Notion, школьные планеры)</h3>
+          <p>Шаблоны Notion для учёбы / расписания / трекеров — продажа на Gumroad / Boosty / Wildberries (через родителей) / в своём ТГ. Один шаблон делаешь раз, продаёшь $2–10 × сотни раз. Чистый пассив.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив 5–40к</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Создаёшь крутой шаблон в Notion (бесплатно): «Расписание + трекер учёбы», «План на ЕГЭ», «Дневник физической формы».</li>
+              <li>Делаешь обложку в Canva, описание, превью.</li>
+              <li>Площадки: <a href="https://gumroad.com" target="_blank" rel="noopener">Gumroad</a> ($/PayPal), <a href="https://boosty.to" target="_blank" rel="noopener">Boosty</a> (₽), <a href="https://wildberries.ru" target="_blank" rel="noopener">Wildberries</a> «цифровые товары» через карточку родителей.</li>
+              <li>Маркетинг: TikTok / Reels с разбором фишек шаблона, бесплатная демо-версия → платная PRO.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0+notion+%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BE%D0%B2+2025" target="_blank" rel="noopener">«продажа Notion шаблонов 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>Майнинг на школьном ПК</h3>
-          <p>На своей GTX 1660+/RTX майнить эфир-клоны / Kaspa в фоне. 200–800 ₽/день при +50% к счёту за свет. Если свет платят родители — спроси разрешение.</p>
-          <span class="pill gray">околосерое</span><span class="pill red">риск железа</span></div>
-        <div class="item"><h3><span class="dot"></span>Буст / прокачка аккаунтов в играх</h3>
-          <p>Dota 2, CS2, Valorant, WoW. Если играешь выше среднего — продаёшь буст ранга. 500–2000 ₽ за ранг. Площадка: BoostMMR, FunPay.</p>
-          <span class="pill gray">околосерое</span><span class="pill red">бан аккаунта</span></div>
-        <div class="item"><h3><span class="dot"></span>Школьная «перекупка» еды/энергетиков</h3>
-          <p>Берёшь оптом в «Светофоре» / на «Озоне» — продаёшь в школе на 2–3× дороже. Простая математика, чистый кэш.</p>
-          <span class="pill gray">околосерое</span></div>
-        <div class="item"><h3><span class="dot"></span>Репетиторство для младших</h3>
-          <p>Математика / английский для 3–7 классов. 400–800 ₽/час, удалёнка через Скайп / Зум. Реклама в чатах района.</p>
-          <span class="pill gr">белое</span></div>
+          <p>На GTX 1660 Super+ / RTX 3060+ фоновый майнинг Kaspa / Alephium / Nexa через NiceHash. 80–400 ₽/день при доступной электроэнергии. Спросить разрешения у родителей! Карта тяжелеет, но при умеренных нагрузках живёт 3+ года.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">износ железа</span>
+          <details class="manual"><summary>Мануал: как делать (только с разрешения родителей)</summary>
+            <ol>
+              <li>Проверяешь доход на калькуляторе: <a href="https://www.nicehash.com/profitability-calculator" target="_blank" rel="noopener">nicehash.com/profitability-calculator</a> — вбиваешь свою видеокарту.</li>
+              <li>Регистрируешь NiceHash, скачиваешь NiceHash Miner. Запуск — только когда не играешь, через таймер автозапуска.</li>
+              <li>Снижаешь Power Limit карты до 70–80% через MSI Afterburner — меньше износ, ниже температура, доход почти не падает.</li>
+              <li>Вывод: NiceHash → биткоин-кошелёк или карта родителей через P2P-биржу (Bybit/OKX).</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BC%D0%B0%D0%B9%D0%BD%D0%B8%D0%BD%D0%B3+%D0%BD%D0%B0+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D0%BA%D0%B0%D1%80%D1%82%D0%B5+2025+nicehash" target="_blank" rel="noopener">«майнинг на видеокарте 2025 NiceHash»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Школьная микро-перепродажа</h3>
+          <p>Опт в «Светофоре» / на Озоне → продажа одноклассникам с маржой 50–150%: энергетики, шоколад, наклейки, стикерпаки, чехлы. Окупаемость 1 день. Только не нарушай школьные правила (некоторые школы прямо запрещают).</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">3–10к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Анализ спроса: 1 неделя наблюдаешь, что покупают одноклассники в столовой / окрестных магазинах.</li>
+              <li>Закуп: в «Светофоре», на «Озоне» опт через карточку родителей. Цены сравниваешь по <a href="https://prices-search.ru" target="_blank" rel="noopener">prices-search.ru</a>.</li>
+              <li>Ценообразование: цена закупа × 2 (минимум). На энергетиках в школе реально продавать 50→120 ₽.</li>
+              <li>Логистика: компактный рюкзак, портативная сумка-холодильник летом.</li>
+              <li>Не нарваться: уточни в уставе школы запреты на «спекуляцию», избегай палева — продавай только друзьям/знакомым.</li>
+            </ol>
+          </details>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="pill age" style="margin-right:8px;margin-top:0">13–15</span>Первые официальные деньги</h2>
+      <p style="color:#bccae6;font-size:13.5px">С 14 — можно заключать трудовой договор с согласия родителей (ТК РФ, ст. 63), летом подработка в кафе/магазине, доставка. Самозанятость — с 14 с согласия родителей (с 2024 года). ИП по-прежнему с 18.</p>
+      <div class="list">
+
+        <div class="item"><h3><span class="dot"></span>Курьер пешком / на велике (Я.Еда, Самокат)</h3>
+          <p>С 14 лет официально (нужно согласие родителей и справка из школы). 4 ч/день после школы = 1.5–2.5к ₽/день. Летом — 60–90к/мес. Самокат, Яндекс.Еда, Купер, Delivery Club, СДЭК.</p>
+          <span class="pill gr">белое</span><span class="pill gold">30–80к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Документы: паспорт, СНИЛС, согласие родителей (бланк скачиваешь на сайте сервиса), справка из школы.</li>
+              <li>Приложения: <a href="https://yandex.ru/jobs/vacancies/all/courier" target="_blank" rel="noopener">Я.Еда / Самокат / Купер курьеры</a>, <a href="https://www.delivery-club.ru/jobs" target="_blank" rel="noopener">Delivery Club</a>.</li>
+              <li>Что выгоднее: пешие в центре города → больше точек, меньше пробок. Велосипед/самокат — за город или большие радиусы.</li>
+              <li>Лайфхак: брать «пиковые часы» (12:00–14:00 обед, 19:00–21:00 ужин) — там оплата ×1.5–2.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BA%D1%83%D1%80%D1%8C%D0%B5%D1%80+%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81+%D0%B5%D0%B4%D0%B0+%D1%80%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+2025" target="_blank" rel="noopener">«курьер Я.Еда реальный заработок 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Faceless YouTube Shorts (AI-канал)</h3>
+          <p>Канал-нарезка без лица: ИИ озвучка + футажи + субтитры. Реальные кейсы 2024–2025: $500–3000/мес с одного канала через AdSense и партнёрки. Срок до монетизации — 60–120 дней при ежедневном постинге.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$500–3000/мес</span>
+          <details class="manual"><summary>Мануал: как сделать faceless канал с нуля</summary>
+            <ol>
+              <li>Ниша c высоким CPM: финансы, технологии, биохакинг, AI-инструменты, история, кино-разборы. Анализ — через <a href="https://vidiq.com" target="_blank" rel="noopener">VidIQ</a> или <a href="https://tubebuddy.com" target="_blank" rel="noopener">TubeBuddy</a> (бесплатные планы).</li>
+              <li>Скрипты: ChatGPT / Claude / Gemini генерируют, ты переписываешь под свой стиль (чисто AI — режется YouTube за «inauthentic content»).</li>
+              <li>Озвучка: <a href="https://elevenlabs.io" target="_blank" rel="noopener">ElevenLabs</a> (10к символов/мес бесплатно), для русского — <a href="https://www.tts.silero.ai" target="_blank" rel="noopener">Silero</a>.</li>
+              <li>Футажи: <a href="https://pexels.com" target="_blank" rel="noopener">Pexels</a>, <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>, <a href="https://www.storyblocks.com" target="_blank" rel="noopener">Storyblocks</a>. AI-видео: <a href="https://runwayml.com" target="_blank" rel="noopener">Runway</a>, Sora.</li>
+              <li>Монтаж: CapCut / DaVinci Resolve (оба бесплатно). Постить 1–3 ролика/день.</li>
+              <li>Полный курс на русском: <a href="https://www.youtube.com/results?search_query=faceless+youtube+channel+%D0%BD%D0%B0+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%BE%D0%BC+2025" target="_blank" rel="noopener">«faceless YouTube channel на русском 2025»</a>. Англ. кейс: <a href="https://exploreaitools.com/faceless-youtube-channel-ai-guide-2/" target="_blank" rel="noopener">$2.5k/мес кейс</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Монтаж Reels / Shorts на заказ (CapCut + AI)</h3>
+          <p>Эксперты/блогеры ищут монтажёров Reels. Тариф новичка 500–1500 ₽/ролик × 30 роликов/мес = 15–45к/мес. После 3 мес — 2000–4000 ₽/ролик. С AI-озвучкой и автогенерацией субтитров скорость ×3.</p>
+          <span class="pill gr">белое</span><span class="pill gold">15–60к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Учишь монтаж бесплатно: <a href="https://www.youtube.com/results?search_query=capcut+%D1%83%D1%80%D0%BE%D0%BA%D0%B8+%D0%B4%D0%BB%D1%8F+%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B8%D1%85+2025" target="_blank" rel="noopener">«CapCut уроки для начинающих 2025»</a>, <a href="https://www.youtube.com/results?search_query=davinci+resolve+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F" target="_blank" rel="noopener">«DaVinci Resolve с нуля»</a>.</li>
+              <li>Собираешь портфолио: 5–10 «учебных» Reels на свободные темы (бери чужие ролики, делай свой ремикс).</li>
+              <li>Биржи и поиск клиентов: <a href="https://kwork.ru" target="_blank" rel="noopener">Kwork</a>, <a href="https://www.fl.ru" target="_blank" rel="noopener">FL.ru</a>, <a href="https://workspace.ru" target="_blank" rel="noopener">Workspace</a>, ТГ-чаты «Монтажёры Reels», прямой DM экспертам в Instagram*/ВК с готовым тестовым роликом.</li>
+              <li>Ускорение: <a href="https://www.opus.pro" target="_blank" rel="noopener">Opus Clip</a>, <a href="https://www.submagic.co" target="_blank" rel="noopener">Submagic</a>, <a href="https://www.veed.io" target="_blank" rel="noopener">VEED</a> — AI-автомонтаж и автосубтитры.</li>
+              <li>Ценник: первый месяц 500–1000 ₽/ролик, после 10 отзывов — 1500–2500, после 30 отзывов — 3000–5000.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Перепродажа на Авито / Юле</h3>
+          <p>Барахолки → дороже. Велики, телефоны, кроссовки, Lego, ретро-консоли, кофе-машины с подъездов. Стартовый банк 3–5к ₽, через 3 мес чистыми 25–60к/мес. Авито у физлиц до 30 продаж/мес — без ИП.</p>
+          <span class="pill gr">белое</span><span class="pill gold">25–60к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Источники: «Авито Отдам даром», ТГ-чаты «Барахолка $city», группы ВК, объявления «срочно».</li>
+              <li>Топ-ниши с х2–х5: Lego (особенно лимитки и наборы Technic), велосипеды (мойка + смазка), iPhone/Samsung (диагностика через iMazing/3uTools), кроссовки лимитированные.</li>
+              <li>Фото: естественный свет, белый фон (простыня). Заголовок с ключами: «iPhone 13 128GB чёрный, идеал, чек».</li>
+              <li>Аналитика цен: <a href="https://avito.ru" target="_blank" rel="noopener">Avito</a> поиск по нише за 7 дней — медиана продаж.</li>
+              <li>Гайды: <a href="https://www.youtube.com/results?search_query=%D0%B0%D0%B2%D0%B8%D1%82%D0%BE+%D0%BF%D0%B5%D1%80%D0%B5%D0%BA%D1%83%D0%BF+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025+%D1%80%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA" target="_blank" rel="noopener">«Авито перекуп с нуля 2025 реальный заработок»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Telegram-канал на нише</h3>
+          <p>Финансы / автомобили / мужской лайфстайл / IT / мемы. 10к подписчиков = от 3–5к ₽ за рекламный пост. Закуп — Telega.in. Окупаемость канала 4–8 мес, потом чистый пассив 30–100к/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив 30–100к</span>
+          <details class="manual"><summary>Мануал: как раскрутить канал с нуля</summary>
+            <ol>
+              <li>Выбор ниши: смотри <a href="https://tgstat.ru/ratings/channels" target="_blank" rel="noopener">TGStat рейтинги</a> — где CPM рекламы выше при равном количестве подписчиков. Топ: финансы, IT, недвижимость, авто, маркетинг.</li>
+              <li>Контент: 3–5 постов/день первые 2 мес, потом 2–3. Структура — польза/инсайт + картинка + хук в первой строке.</li>
+              <li>Закуп подписчиков: посевы через <a href="https://telega.in" target="_blank" rel="noopener">Telega.in</a> или напрямую в каналах близкой тематики. Бюджет на старт — от 20к.</li>
+              <li>Монетизация: реклама с 5к подписчиков. Расценки: <a href="https://tgstat.ru" target="_blank" rel="noopener">tgstat.ru</a>.</li>
+              <li>Полный курс: <a href="https://www.youtube.com/results?search_query=%D1%82%D0%B5%D0%BB%D0%B5%D0%B3%D1%80%D0%B0%D0%BC+%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+2025" target="_blank" rel="noopener">«Телеграм канал с нуля заработок 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Дроп через родителей на Wildberries (FBS)</h3>
+          <p>Родители открывают самозанятость → ты ведёшь карточки на WB. Маржа 30–50%, оборот за 6 мес — 100–400к/мес. Ниши с быстрым стартом: текстиль, аксессуары для телефона, мерч, носки/бельё, корм для животных.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">30–150к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Родители регистрируют самозанятость в «Мой налог» (бесплатно, 5 минут).</li>
+              <li>Анализ ниш: <a href="https://mpstats.io" target="_blank" rel="noopener">MPStats</a>, <a href="https://moneyplace.io" target="_blank" rel="noopener">MoneyPlace</a> (есть бесплатные тарифы), <a href="https://chat.openai.com" target="_blank" rel="noopener">ChatGPT</a> запрос «топ-ниши на WB с маржой 30%+ 2025».</li>
+              <li>Закуп товара: <a href="https://sadovod-online.ru" target="_blank" rel="noopener">Садовод</a>, <a href="https://1688.com" target="_blank" rel="noopener">1688.com</a> (Китай через посредника), местные опты.</li>
+              <li>Карточка: фото с фотобоксом 1.5к ₽ с Озона, описание с ключами через <a href="https://wbstat.pro" target="_blank" rel="noopener">WBStat</a>.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=wildberries+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025+%D1%87%D0%B5%D1%81%D1%82%D0%BD%D1%8B%D0%B9+%D0%BA%D0%B5%D0%B9%D1%81" target="_blank" rel="noopener">«Wildberries с нуля 2025 честный кейс»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Буст / прокачка в играх (FunPay)</h3>
+          <p>Если в топе ранга в CS2, Dota 2, Valorant, Apex — продаёшь буст. 500–3000 ₽ за ранг. Площадки: <a href="https://funpay.com" class="link" target="_blank" rel="noopener">FunPay</a>, BoostMMR. Главный риск — VAC/ban при заходе на чужой акк.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">бан акка</span>
+          <details class="manual"><summary>Мануал: как делать безопасно</summary>
+            <ol>
+              <li>Регистрация на FunPay, привязка ЮMoney / карты родителей.</li>
+              <li>Защита от ban: используешь только AnyDesk/TeamViewer на ПК клиента, заранее запрашиваешь скриншот настроек безопасности.</li>
+              <li>Топ-игры по марже 2025: Valorant (новые сезоны), CS2 (Premier), Dota 2 (новый патч после TI), Genshin Impact (Spiral Abyss).</li>
+              <li>Ценник: средний по бирже −15% на первые 10 заказов → +10% к среднему после 5★ рейтинга.</li>
+              <li>Гайды: <a href="https://www.youtube.com/results?search_query=%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+%D0%BD%D0%B0+%D0%B1%D1%83%D1%81%D1%82%D0%B5+%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%BE%D0%B2+funpay+2025" target="_blank" rel="noopener">«заработок на бусте FunPay 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Промпт-инжиниринг и продажа промптов</h3>
+          <p>Продаёшь готовые промпты для ChatGPT / Midjourney / Sora на <a href="https://promptbase.com" class="link" target="_blank" rel="noopener">PromptBase</a>. Цена $1.99–9.99 за промпт. Топ-авторы делают $500–3000/мес. Полностью пассивный доход после создания.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$300–2000/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Учишь промпт-инженерию бесплатно: <a href="https://learnprompting.org" target="_blank" rel="noopener">learnprompting.org</a>, <a href="https://www.promptingguide.ai" target="_blank" rel="noopener">PromptingGuide.ai</a>.</li>
+              <li>Анализируешь топ-продажи на <a href="https://promptbase.com" target="_blank" rel="noopener">PromptBase</a>: какие ниши покупают (логотипы, аватары, бизнес-промпты, иконки).</li>
+              <li>Делаешь 10–20 промптов в одной нише, оформляешь карточки с превью.</li>
+              <li>Дополнительные площадки: <a href="https://www.aiprm.com" target="_blank" rel="noopener">AIPRM</a>, <a href="https://chatx.ai" target="_blank" rel="noopener">ChatX</a>, продажа на Gumroad.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0+%D0%BF%D1%80%D0%BE%D0%BC%D0%BF%D1%82%D0%BE%D0%B2+promptbase+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+2025" target="_blank" rel="noopener">«продажа промптов PromptBase заработок 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Перепродажа кроссовок (sneaker reselling)</h3>
+          <p>Nike SNKRS, adidas Confirmed, релизы Yeezy / Jordan / Travis Scott. Ловишь дроп → продаёшь на StockX / GOAT / Авито / в Telegram +30–80%. Нужны 2–3 аккаунта SNKRS, быстрый интернет, удача в лотерее.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">10–50к за пару</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Установить SNKRS, adidas Confirmed, регистрация в Nike / adidas членстве (бесплатно).</li>
+              <li>Календарь дропов: <a href="https://sneakernews.com" target="_blank" rel="noopener">SneakerNews</a>, <a href="https://hypebeast.com" target="_blank" rel="noopener">Hypebeast</a>, ТГ «Дропы Nike SNKRS».</li>
+              <li>Перепродажа: <a href="https://stockx.com" target="_blank" rel="noopener">StockX</a> (международная), <a href="https://www.goat.com" target="_blank" rel="noopener">GOAT</a>, Авито, ТГ-чаты ресейл.</li>
+              <li>Аутентификация: ОБЯЗАТЕЛЬНО только новые с чеком. На StockX/GOAT — встроенная проверка. На Авито — фото + чек.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=%D0%BF%D0%B5%D1%80%D0%B5%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0+%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%BE%D0%B2%D0%BE%D0%BA+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%BA%D0%B0%D0%BA+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C+2025" target="_blank" rel="noopener">«перепродажа кроссовок с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Помощь школьникам с домашкой / репетитор по ровесникам</h3>
+          <p>Математика, английский, физика для младших классов (3–7). 400–800 ₽/час в Zoom/Skype. Без ИП пока редкие занятия (не регулярный бизнес). С 14 — можешь оформить самозанятость с согласия родителей.</p>
+          <span class="pill gr">белое</span><span class="pill gold">15–40к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Выбор предмета: тот, где у тебя 4–5 и интерес. Лучше всего — английский (вечный спрос) и математика (5–8 класс).</li>
+              <li>Поиск учеников: чаты ВК и ТГ района «Мамы $city», доска объявлений в школе, рекомендации друзей.</li>
+              <li>Подготовка: бесплатные методички ФИПИ, банк заданий <a href="https://uchi.ru" target="_blank" rel="noopener">Учи.ру</a>, <a href="https://sdamgia.ru" target="_blank" rel="noopener">Сдам ГИА</a>.</li>
+              <li>Платформы: <a href="https://repetitors.info" target="_blank" rel="noopener">Repetitors.info</a>, <a href="https://buki.ru" target="_blank" rel="noopener">Buki</a>, <a href="https://upstudy.ru" target="_blank" rel="noopener">UpStudy</a>.</li>
+              <li>Цены: первый ученик 300–400 ₽/час для отзыва, потом 500–800 за 45 мин занятие.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Доставка / склад / автомойка (с 14 на лето)</h3>
+          <p>Wildberries / Ozon ПВЗ, ВкусВилл, Магнит, автомойки. С 14 лет с согласия родителей и медсправкой. 2/2, 35-часовая неделя, 50–80к/мес. Самый стабильный кэш на стартовый капитал.</p>
+          <span class="pill gr">белое</span><span class="pill gold">50–80к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Документы: паспорт, СНИЛС, согласие родителей, справка из школы, медкнижка (для пищевых).</li>
+              <li>Где искать: <a href="https://hh.ru" target="_blank" rel="noopener">HH.ru</a> фильтр «от 14 лет», <a href="https://rabota.ru" target="_blank" rel="noopener">Rabota.ru</a>, ТГ-каналы «Подработка $city».</li>
+              <li>Топ-вакансии лето 2025: ПВЗ WB/Ozon (сидячая, лёгкая), упаковка на складе, курьер пешком.</li>
+              <li>Закон с 01.09.2025: подростки 14–18 могут работать в выходные и праздники в каникулы (ст. 268 ТК РФ).</li>
+              <li>Хорошие практики: <a href="https://www.vbr.ru/sovety/help/people-and-economic/idei-podrabotki-dlya-podrostkov-i-shkolnikov/" target="_blank" rel="noopener">статья «Идеи подработки для подростков»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Школьная микро-перепродажа</h3>
+          <p>Опт «Светофор» / Озон → одноклассники с маржой 50–150%: энергетики, шоколад, AirPods-копии, чехлы, наклейки, стикерпаки. Окупаемость 1 день. Проверь правила своей школы (некоторые запрещают).</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">5–15к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Анализ спроса: неделю наблюдай, что покупают в столовой / у магазина возле школы.</li>
+              <li>Закуп: <a href="https://svetofor.info" target="_blank" rel="noopener">«Светофор»</a> (опт), Озон с картой родителей, рынки.</li>
+              <li>Маркап: цена закупа × 2 минимум. Энергетик 50 ₽ → 100–120 ₽ в школе.</li>
+              <li>Логистика: рюкзак с термо-вставкой летом (Озон, 1500 ₽). Можно холодильник со льдом.</li>
+              <li>Гайды: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C+%D0%B2+%D1%88%D0%BA%D0%BE%D0%BB%D0%B5+%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0+%D0%BE%D0%B4%D0%BD%D0%BE%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BD%D0%B8%D0%BA%D0%B0%D0%BC" target="_blank" rel="noopener">«как заработать в школе перепродажа»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
       </div>
     </div>
 
     <div class="card">
       <h2><span class="pill age" style="margin-right:8px;margin-top:0">16–17</span>Старшая школа</h2>
+      <p style="color:#bccae6;font-size:13.5px">Самозанятость с согласия родителей, фриланс, первые серьёзные ниши. AI-инструменты дают х3 к скорости работы — этим грех не пользоваться.</p>
       <div class="list">
-        <div class="item"><h3><span class="dot"></span>Самозанятость + фриланс</h3>
-          <p>С 16 лет легально открыть самозанятость. Дизайн в Figma, монтаж Reels, копирайт, переводы. Kwork, FL.ru, Upwork (через прокладку). Старт: 15–40к/мес, через год 60–120к.</p>
-          <span class="pill gr">белое</span><span class="pill gold">до 150к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Доставка / склад / автомойка</h3>
-          <p>Я.Маркет, Wildberries, Озон — пункты выдачи берут с 16 лет. График 2/2, 50–80к/мес. Тупой, но стабильный кэш на стартовый капитал.</p>
-          <span class="pill gr">белое</span></div>
-        <div class="item"><h3><span class="dot"></span>Ставки на спорт (value betting)</h3>
-          <p>Не «угадывание», а математика: ловишь коэффициенты выше справедливых. Нужно 50–100к банка, дисциплина и калькулятор. Реально +5–15% к банку в месяц. Букмекеры режут лимиты — счета быстро урезают.</p>
-          <span class="pill gray">околосерое</span><span class="pill red">риск слива</span></div>
+
+        <div class="item"><h3><span class="dot"></span>Самозанятость + фриланс через AI</h3>
+          <p>Дизайн в Figma, монтаж Reels, копирайт, переводы, тексты — всё в 3 раза быстрее через ChatGPT/Claude/Midjourney. Старт 15–40к/мес → через год 80–200к. Площадки: Kwork, FL.ru, Workspace, Upwork.</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 200к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Самозанятость в «<a href="https://npd.nalog.ru" target="_blank" rel="noopener">Мой налог</a>» (бесплатно, налог 4% от физлица / 6% от юр.лица). С 14 лет — с согласия родителей.</li>
+              <li>Скилл-стек 2025: <a href="https://www.figma.com" target="_blank" rel="noopener">Figma</a> + <a href="https://www.framer.com" target="_blank" rel="noopener">Framer</a> + <a href="https://www.tilda.cc" target="_blank" rel="noopener">Tilda</a>, AI: ChatGPT, Claude, Midjourney, Runway, ElevenLabs.</li>
+              <li>Бесплатные курсы: <a href="https://htmlacademy.ru" target="_blank" rel="noopener">HTML Academy</a>, <a href="https://stepik.org" target="_blank" rel="noopener">Stepik</a>, <a href="https://hyperskill.org" target="_blank" rel="noopener">Hyperskill</a>, <a href="https://www.coursera.org" target="_blank" rel="noopener">Coursera (audit free)</a>.</li>
+              <li>Биржи: <a href="https://kwork.ru" target="_blank" rel="noopener">Kwork</a> (РФ), <a href="https://fl.ru" target="_blank" rel="noopener">FL.ru</a> (РФ), <a href="https://workspace.ru" target="_blank" rel="noopener">Workspace</a>, <a href="https://upwork.com" target="_blank" rel="noopener">Upwork</a> (через посредника). Прямой DM экспертам в LinkedIn / Telegram.</li>
+              <li>Стратегия: 50 откликов в день первый месяц, тестовое бесплатно (один! не серия), фокус на ОДНОЙ нише.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-агентства / автоматизация на n8n / Make</h3>
+          <p>Делаешь автоматизации для бизнеса: бот-ответы, лиды из чата в CRM, рассылки, парсинг. Тариф «маленькая авто» 15–40к ₽, «средняя» 60–150к. С 5 клиентами — 200–500к/мес. Это самая хайповая ниша 2025.</p>
+          <span class="pill gr">белое</span><span class="pill gold">100–500к/мес</span>
+          <details class="manual"><summary>Мануал: как стать AI-агентом</summary>
+            <ol>
+              <li>Учишься платформам: <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> (open-source, бесплатный self-host), <a href="https://www.make.com" target="_blank" rel="noopener">Make</a>, <a href="https://zapier.com" target="_blank" rel="noopener">Zapier</a>.</li>
+              <li>Бесплатные курсы: <a href="https://www.youtube.com/results?search_query=n8n+tutorial+2025+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9" target="_blank" rel="noopener">«n8n tutorial 2025 русский»</a>, канал <a href="https://www.youtube.com/@nateherk" target="_blank" rel="noopener">Nate Herk</a> (англ., лучший в нише).</li>
+              <li>Топ-сценарии для продажи: AI-ассистент в Telegram, авто-ответы клиентам, парсинг + контакт-маркетинг, генерация постов соц-сетей по контент-плану, CRM-автоматизация.</li>
+              <li>Поиск клиентов: ТГ-чаты «n8n / Make / AI агенты RU», DM малому бизнесу с готовым демо, биржа <a href="https://upwork.com" target="_blank" rel="noopener">Upwork</a> (теги n8n / Zapier / AI Agent).</li>
+              <li>Реальный кейс на русском: <a href="https://www.youtube.com/results?search_query=ai+%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%81%D1%82%D0%B2%D0%BE+n8n+make+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+2025" target="_blank" rel="noopener">«AI агентство n8n заработок 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Telegram-боты под заказ</h3>
+          <p>Простые боты (квиз, заявки, рассылка) — 5–20к ₽. Сложные с интеграциями (CRM, оплата, AI) — 50–200к. Без программирования делаешь на BotHelp / SaleBot. Программирование — на Python через aiogram.</p>
+          <span class="pill gr">белое</span><span class="pill gold">50–250к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Без кода: <a href="https://salebot.pro" target="_blank" rel="noopener">SaleBot</a>, <a href="https://bothelp.io" target="_blank" rel="noopener">BotHelp</a>, <a href="https://botmother.com" target="_blank" rel="noopener">Botmother</a>.</li>
+              <li>С кодом (Python): курс <a href="https://stepik.org/course/153380" target="_blank" rel="noopener">«Telegram-бот на Python aiogram»</a> на Stepik, документация <a href="https://docs.aiogram.dev" target="_blank" rel="noopener">aiogram</a>.</li>
+              <li>AI-помощник для кода: <a href="https://cursor.com" target="_blank" rel="noopener">Cursor</a> (бесплатный план), <a href="https://www.windsurf.com" target="_blank" rel="noopener">Windsurf</a> — пишут бота за тебя.</li>
+              <li>Поиск клиентов: <a href="https://kwork.ru" target="_blank" rel="noopener">Kwork</a>, <a href="https://fl.ru" target="_blank" rel="noopener">FL.ru</a>, ТГ-чаты «Telegram-боты под заказ», прямой DM бизнесам.</li>
+              <li>Кейс: <a href="https://www.youtube.com/results?search_query=%D1%82%D0%B5%D0%BB%D0%B5%D0%B3%D1%80%D0%B0%D0%BC+%D0%B1%D0%BE%D1%82%D1%8B+%D0%BD%D0%B0+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+2025" target="_blank" rel="noopener">«Телеграм боты на заказ заработок 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>SMM-менеджер у эксперта/блогера</h3>
+          <p>Ведёшь Reels/ТГ/ВК эксперту за фикс 30–80к/мес. Через 6 мес — 2–3 клиента × 50к = 100–150к. После года → своё мини-агентство со 100к+ MRR.</p>
+          <span class="pill gr">белое</span><span class="pill gold">30–150к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Скиллы: контент-план, монтаж Reels (CapCut), копирайт, аналитика (LiveDune / TGStat).</li>
+              <li>Курсы бесплатно: <a href="https://www.youtube.com/results?search_query=smm+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%BA%D1%83%D1%80%D1%81+2025" target="_blank" rel="noopener">«SMM с нуля курс 2025»</a>, материалы <a href="https://www.skillbox.ru/media/marketing/" target="_blank" rel="noopener">Skillbox Media</a> (статьи бесплатно).</li>
+              <li>Кейсы: для портфолио ведёшь 2 учебных аккаунта (свой + кого-то из друзей).</li>
+              <li>Поиск клиентов: вступаешь в чаты экспертов в нише (психологи, нутрициологи, фитнес-тренеры), пишешь DM с аудитом аккаунта и предложением.</li>
+              <li>Ценник: первый клиент 20–30к/мес, второй 40–60к, третий 60–100к.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Дроп через родителей на Wildberries / Ozon</h3>
+          <p>Родители оформляют самозанятость или ИП → ты ведёшь карточки, аналитику, закупку. С банком 50–100к за 6 мес: оборот 300–600к/мес, маржа 30–50% = 100–300к/мес чистыми.</p>
+          <span class="pill gr">белое</span><span class="pill gold">100–300к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Регистрация: родители открывают <a href="https://seller.wildberries.ru" target="_blank" rel="noopener">WB Selling</a> и <a href="https://seller.ozon.ru" target="_blank" rel="noopener">Ozon Seller</a>.</li>
+              <li>Аналитика ниш: <a href="https://mpstats.io" target="_blank" rel="noopener">MPStats</a>, <a href="https://moneyplace.io" target="_blank" rel="noopener">MoneyPlace</a>, <a href="https://chat.openai.com" target="_blank" rel="noopener">ChatGPT</a> для топ-ниш.</li>
+              <li>Закуп: <a href="https://sadovod-online.ru" target="_blank" rel="noopener">Садовод</a>, <a href="https://1688.com" target="_blank" rel="noopener">1688 (Китай)</a>, опты в твоём городе.</li>
+              <li>Карточки: AI-фото генератор <a href="https://photoroom.com" target="_blank" rel="noopener">PhotoRoom</a>, описания через ChatGPT по ключам из <a href="https://wbstat.pro" target="_blank" rel="noopener">WBStat</a>.</li>
+              <li>Полный курс: <a href="https://www.youtube.com/results?search_query=wildberries+%D1%81%D0%B5%D0%BB%D0%BB%D0%B5%D1%80+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025+%D1%87%D0%B5%D1%81%D1%82%D0%BD%D1%8B%D0%B9+%D0%BA%D0%B5%D0%B9%D1%81" target="_blank" rel="noopener">«WB seller с нуля 2025 честный кейс»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Faceless YouTube + AdSense</h3>
+          <p>Не Shorts, а полноценные ролики 8–15 мин с AI-озвучкой и компиляцией. Ниши: AI-туториалы, разборы трейдинга/крипты, true crime, обзоры технологий. После монетизации (1000 подписчиков + 4000 часов) — $500–5000/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$500–5000/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Стратегия: выбираешь нишу с CPM $15+ (тех, финансы, AI). Анализ через <a href="https://vidiq.com" target="_blank" rel="noopener">VidIQ</a>.</li>
+              <li>Контент-стек: ChatGPT для скриптов → ElevenLabs для голоса → Pexels/Pixabay для футажей → CapCut / DaVinci для монтажа → <a href="https://www.canva.com" target="_blank" rel="noopener">Canva</a> для обложек.</li>
+              <li>Частота: 2–3 ролика в неделю стабильно. Срок до AdSense: 90–180 дней при правильной нише.</li>
+              <li>Полный кейс: <a href="https://exploreaitools.com/faceless-youtube-channel-ai-guide-2/" target="_blank" rel="noopener">$2.5k/мес faceless канал</a>, <a href="https://laptopmindset.com/how-to-start-monetize-a-faceless-youtube-channel-in-late-2025/" target="_blank" rel="noopener">Faceless канал late 2025</a>.</li>
+              <li>Аналитика: смотришь топ-ролики конкурентов через <a href="https://www.tubebuddy.com" target="_blank" rel="noopener">TubeBuddy</a>, делаешь лучше.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Vibe-кодинг (Cursor / Windsurf / Claude Code)</h3>
+          <p>Делаешь сайты / мини-приложения / парсеры под клиентов через AI-IDE. Полный цикл «идея → деплой» — за 2–5 дней. Чек простого сайта 20–60к, MVP бота 50–200к. Самая «горячая» ниша конца 2025 года.</p>
+          <span class="pill gr">белое</span><span class="pill gold">100–400к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Инструменты: <a href="https://cursor.com" target="_blank" rel="noopener">Cursor</a> (бесплатный план 14 дней, потом $20), <a href="https://www.windsurf.com" target="_blank" rel="noopener">Windsurf</a>, <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a> (CLI), <a href="https://lovable.dev" target="_blank" rel="noopener">Lovable</a> / <a href="https://v0.dev" target="_blank" rel="noopener">v0</a> для no-code MVP.</li>
+              <li>Базовые знания: HTML/CSS/JS на уровне «понимаю что происходит» (1–2 недели по <a href="https://htmlacademy.ru" target="_blank" rel="noopener">HTML Academy</a> бесплатно), деплой на <a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> или <a href="https://www.netlify.com" target="_blank" rel="noopener">Netlify</a>.</li>
+              <li>Курсы: <a href="https://www.youtube.com/results?search_query=cursor+ai+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+vibe+coding+2025+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9" target="_blank" rel="noopener">«Cursor AI с нуля vibe coding 2025 русский»</a>.</li>
+              <li>Портфолио: 3–5 проектов выложи на GitHub + лендинг с демо.</li>
+              <li>Поиск клиентов: <a href="https://upwork.com" target="_blank" rel="noopener">Upwork</a>, <a href="https://kwork.ru" target="_blank" rel="noopener">Kwork</a>, ТГ-чаты «фриланс разработчики», DM малому бизнесу.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Доставка / склад / ПВЗ / автомойка</h3>
+          <p>Я.Маркет, WB, Озон — пункты выдачи берут с 16 лет. График 2/2, 50–80к/мес. Тупой, но стабильный кэш на стартовый капитал для других ниш.</p>
+          <span class="pill gr">белое</span><span class="pill gold">50–80к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Где искать: <a href="https://hh.ru" target="_blank" rel="noopener">HH.ru</a> с фильтром «от 16 лет», <a href="https://rabota.ru" target="_blank" rel="noopener">Rabota.ru</a>, ТГ-каналы «Подработка $city».</li>
+              <li>Документы: паспорт, СНИЛС, согласие родителей (до 18), медкнижка для пищевых.</li>
+              <li>Что выгоднее: ПВЗ Wildberries / Ozon (сидячка, лёгкая работа), курьер (стартовый бонус 5–20к в Я.Доставке), автомойка (чаевые).</li>
+              <li>Закон: с 01.09.2025 несовершеннолетние могут работать в выходные и праздники в каникулы.</li>
+              <li>Статья: <a href="https://www.vbr.ru/sovety/help/people-and-economic/idei-podrabotki-dlya-podrostkov-i-shkolnikov/" target="_blank" rel="noopener">«Идеи подработки для подростков»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Ставки на спорт — value betting</h3>
+          <p>Не «угадывание», а математика: ищешь коэффициенты выше справедливых через сравнивалки. Реально +5–15% к банку в месяц. Букмекеры режут лимиты — счета быстро урезают. Только с банком 30–100к.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">риск слива</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Учишь теорию: <a href="https://valuebetting.expert" target="_blank" rel="noopener">RebelBetting</a> / <a href="https://www.pinnacle.com/en/betting-articles" target="_blank" rel="noopener">Pinnacle articles</a>, ютуб-канал «BetBurger», «Value Betting RU».</li>
+              <li>Софт для поиска вэлью: <a href="https://www.rebelbetting.com" target="_blank" rel="noopener">RebelBetting</a> ($120/мес, окупается с первой недели), <a href="https://www.oddsportal.com" target="_blank" rel="noopener">OddsPortal</a> (бесплатно для ручного).</li>
+              <li>Банкролл: минимум 30к, ставки 1–2% от банка. Меньше — слив за 1 неделю.</li>
+              <li>Букмекеры в РФ: Winline, Фонбет, BetBoom, Pari, БК «Лига Ставок».</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=value+betting+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«value betting русский с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>Перепродажа кроссовок / лимиток</h3>
-          <p>Nike SNKRS, adidas Confirmed, релизы Yeezy / Jordan. Ловишь дроп — продаёшь на StockX / Авито / Telegram +30–80%. Нужны несколько аккаунтов и быстрый интернет.</p>
-          <span class="pill gray">околосерое</span><span class="pill gold">10–50к за пару</span></div>
-        <div class="item"><h3><span class="dot"></span>Telegram-канал на нише</h3>
-          <p>Финансы / IT / автомобили / мужской лайфстайл. 10к подписчиков = от 3–5к за пост рекламы. Закуп трафика через Telega.in. Окупаемость 4–8 мес.</p>
-          <span class="pill gr">белое</span><span class="pill gold">пассив 30–100к</span></div>
+          <p>Nike SNKRS, adidas Confirmed, релизы Yeezy / Jordan / Travis Scott. Дроп → +30–80% на ресейле. Нужны 2–3 SNKRS-аккаунта и быстрый интернет.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">10–50к за пару</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Календарь дропов: <a href="https://sneakernews.com" target="_blank" rel="noopener">SneakerNews</a>, <a href="https://hypebeast.com" target="_blank" rel="noopener">Hypebeast</a>, ТГ «Дропы Nike SNKRS RU».</li>
+              <li>Аккаунты: SNKRS на 2–3 номера семьи (не более — банят).</li>
+              <li>Ресейл: <a href="https://stockx.com" target="_blank" rel="noopener">StockX</a>, <a href="https://www.goat.com" target="_blank" rel="noopener">GOAT</a>, Авито, ТГ-каналы «Ресейл кроссовок».</li>
+              <li>Проверка цены: <a href="https://stockx.com" target="_blank" rel="noopener">StockX</a> historic data, медиана последних 10 продаж.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=sneaker+reselling+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9+2025" target="_blank" rel="noopener">«sneaker reselling с нуля русский 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>OnlyFans-менеджмент (chatter)</h3>
-          <p>Отвечаешь от лица модели в чате 6–10 ч/день. 0 русского — ноль шансов. Английский B2+ нужен. Платят $800–2000/мес. Полностью легально, но «серая» репутация.</p>
-          <span class="pill gray">околосерое</span><span class="pill gold">$1–2к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Арбитраж трафика (white)</h3>
-          <p>Льёшь рекламу с TikTok / Telegram на офферы (финансы, обучение, игры). Партнёрки: Admitad, ePN, LeadGid. Старт от 10к на тесты. Высокая кривая обучения.</p>
-          <span class="pill gray">околосерое</span><span class="pill gold">от 100к/мес</span><span class="pill red">слив бюджета</span></div>
+          <p>Отвечаешь от лица модели в чате 6–10 ч/день. Английский B2+ обязателен. Платят $800–2500/мес. Легально, но «серая» репутация в РФ.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">$1–2.5к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Поиск работы: ТГ-чаты «OF chatter jobs», ТГ-каналы «OF agency RU», LinkedIn вакансии «chatter / chat operator».</li>
+              <li>Английский B2+: проверка на <a href="https://www.efset.org" target="_blank" rel="noopener">EF SET</a> бесплатно.</li>
+              <li>Скилл-сет: эмпатия, гибкие речевые шаблоны, базовое знание сленга, скорость печати 250+ зн/мин.</li>
+              <li>Безопасность: ТОЛЬКО проверенные агентства (отзывы в LinkedIn / Glassdoor), договор, не путать со скам-вакансиями.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=onlyfans+chatter+job+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9+2025" target="_blank" rel="noopener">«OnlyFans chatter работа русский 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Арбитраж трафика (white-офферы)</h3>
+          <p>Льёшь рекламу с TikTok / Telegram / Я.Директ на белые офферы (финансы, обучение, игры через CPA). Партнёрки: Admitad, ePN, Salid. Старт от 10–30к на тесты. ROI 50–200% при настройке.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">от 100к/мес</span><span class="pill red">слив бюджета</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>CPA-сети: <a href="https://www.admitad.com" target="_blank" rel="noopener">Admitad</a>, <a href="https://epn.bz" target="_blank" rel="noopener">ePN</a>, <a href="https://salid.ru" target="_blank" rel="noopener">Salid</a>, <a href="https://cpa.ru" target="_blank" rel="noopener">CPA.ru</a>.</li>
+              <li>Источники трафика: Я.Директ, TikTok Ads, Telegram Ads, ВК Реклама.</li>
+              <li>Аналитика и трекеры: <a href="https://keitaro.io" target="_blank" rel="noopener">Keitaro</a> ($24/мес), <a href="https://binom.org" target="_blank" rel="noopener">Binom</a>.</li>
+              <li>Курсы: <a href="https://protraffic.com" target="_blank" rel="noopener">ProTraffic</a> блог, ТГ-каналы «Арбитраж трафика 2025», <a href="https://www.youtube.com/results?search_query=%D0%B0%D1%80%D0%B1%D0%B8%D1%82%D1%80%D0%B0%D0%B6+%D1%82%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D0%B0+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025+%D0%B1%D0%B5%D0%BB%D1%8B%D0%B5+%D0%BE%D1%84%D1%84%D0%B5%D1%80%D1%8B" target="_blank" rel="noopener">«арбитраж трафика с нуля 2025 белые офферы»</a>.</li>
+              <li>Правило: 70% бюджета — на тесты. Без A/B-тестирования = слив за 2 недели.</li>
+            </ol>
+          </details>
+        </div>
+
       </div>
     </div>
 
     <div class="card">
       <h2><span class="pill age" style="margin-right:8px;margin-top:0">18–21</span>Студент / молодой взрослый</h2>
+      <p style="color:#bccae6;font-size:13.5px">ИП / самозанятость без ограничений. Большой банк не нужен — нужен один сильный навык и системность. AI-эпоха сократила «время до первых 300к» до 6–12 мес.</p>
       <div class="list">
-        <div class="item"><h3><span class="dot"></span>IT / разработка</h3>
-          <p>Frontend / Backend / DevOps — самый честный х10 по деньгам. Учишься 6–12 мес по бесплатным ресурсам (htmlacademy, Hyperskill, Stepik). Джун: 80–150к, мидл через 1.5 года: 200–350к. Полный ремоут возможен.</p>
-          <span class="pill gr">белое</span><span class="pill gold">до 400к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Криптотрейдинг / DeFi-фарминг</h3>
-          <p>Не «гадание», а: фарм пулов на Aave/Curve, лоу-риск стейкинг (3–8% годовых в USDT), маркет-мейкинг ботами. Серьёзно — после изучения. Без знаний — слив на 100% за месяц.</p>
-          <span class="pill gray">околосерое</span><span class="pill red">высокий риск</span></div>
-        <div class="item"><h3><span class="dot"></span>Криптоарбитраж P2P</h3>
-          <p>Покупаешь USDT на одной бирже / у одного P2P-продавца дешевле, продаёшь дороже на другой. Маржа 1–3% за круг. Дневной оборот 200–500к → 5–15к чистыми/день. Налоговая риторика и блокировки карт — главный риск.</p>
-          <span class="pill gray">околосерое</span><span class="pill gold">100–300к/мес</span><span class="pill red">блок карт</span></div>
+
+        <div class="item"><h3><span class="dot"></span>IT / разработка (AI-augmented)</h3>
+          <p>Frontend / Backend / DevOps. С Cursor/Claude Code время на проект ×3. Учишься 4–8 мес по бесплатным ресурсам. Джун в найме: 100–180к, мидл через 1–1.5 года: 250–400к. Полный ремоут.</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 500к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Маршрут с нуля до джуна за 4–8 мес: <a href="https://htmlacademy.ru/courses" target="_blank" rel="noopener">HTML Academy</a> → <a href="https://hyperskill.org" target="_blank" rel="noopener">Hyperskill</a> (трек Frontend / Backend Python) → <a href="https://stepik.org" target="_blank" rel="noopener">Stepik</a>.</li>
+              <li>Стек 2025: Frontend — React/Next.js/TypeScript, Backend — Python/FastAPI или Go, БД — Postgres, инфра — Docker, AWS.</li>
+              <li>AI-tooling: <a href="https://cursor.com" target="_blank" rel="noopener">Cursor</a>, <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a>, <a href="https://github.com/features/copilot" target="_blank" rel="noopener">GitHub Copilot</a>. Учишь сам, AI помогает писать.</li>
+              <li>Pet-проекты: 3–5 шт. на <a href="https://github.com" target="_blank" rel="noopener">GitHub</a> (Todo + Auth + чат + клон чего-то реального).</li>
+              <li>Поиск работы: <a href="https://hh.ru" target="_blank" rel="noopener">HH.ru</a>, <a href="https://career.habr.com" target="_blank" rel="noopener">Хабр Карьера</a>, <a href="https://djinni.co" target="_blank" rel="noopener">Djinni</a> (EU), <a href="https://wellfound.com" target="_blank" rel="noopener">Wellfound</a> (US стартапы), ТГ «Я.Найм».</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-агентство (n8n / Make / Zapier)</h3>
+          <p>Самая горячая ниша конца 2025. Делаешь автоматизации бизнесам: AI-ассистенты, CRM-интеграции, парсинг + контент-маркетинг. Один клиент = 80–300к/мес. С 3–5 клиентами — 400к–1.5М/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">400к–1.5М/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Платформы: <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> (open-source, всё в одном), <a href="https://www.make.com" target="_blank" rel="noopener">Make</a>, <a href="https://zapier.com" target="_blank" rel="noopener">Zapier</a>.</li>
+              <li>AI-стек: <a href="https://platform.openai.com" target="_blank" rel="noopener">OpenAI API</a>, <a href="https://www.anthropic.com" target="_blank" rel="noopener">Anthropic Claude</a>, <a href="https://ai.google.dev" target="_blank" rel="noopener">Gemini</a>, эмбеддинги для RAG: <a href="https://www.pinecone.io" target="_blank" rel="noopener">Pinecone</a> / <a href="https://qdrant.tech" target="_blank" rel="noopener">Qdrant</a>.</li>
+              <li>Лучший канал на ENG: <a href="https://www.youtube.com/@nateherk" target="_blank" rel="noopener">Nate Herk</a>. На русском: <a href="https://www.youtube.com/results?search_query=n8n+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9+%D0%BA%D1%83%D1%80%D1%81+2025" target="_blank" rel="noopener">«n8n русский курс 2025»</a>.</li>
+              <li>Шаблоны для продажи: AI-ресепшен в Telegram, авто-составление КП по брифу, авто-постинг в соцсети, парсинг конкурентов + email/ТГ-рассылка.</li>
+              <li>Поиск клиентов: cold DM в LinkedIn/ТГ, выступления на бизнес-форумах, продажа через свой YouTube/ТГ с разборами кейсов.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Промпт-инженер в найме (Сбер/Я/VK)</h3>
+          <p>Новая профессия 2024–2025. Сбер, Яндекс, VK, Avito платят 150–500к/мес. Не «оператор ChatGPT», а проектировщик AI-флоу: оценка моделей, RAG, fine-tuning, бенчмарки.</p>
+          <span class="pill gr">белое</span><span class="pill gold">200–500к/мес</span>
+          <details class="manual"><summary>Мануал: как стать промпт-инженером</summary>
+            <ol>
+              <li>База: <a href="https://learnprompting.org" target="_blank" rel="noopener">learnprompting.org</a>, <a href="https://www.promptingguide.ai" target="_blank" rel="noopener">PromptingGuide.ai</a>, <a href="https://www.deeplearning.ai" target="_blank" rel="noopener">DeepLearning.AI</a> бесплатные курсы.</li>
+              <li>Python + API: <a href="https://platform.openai.com/docs" target="_blank" rel="noopener">OpenAI API docs</a>, <a href="https://docs.anthropic.com" target="_blank" rel="noopener">Anthropic docs</a>.</li>
+              <li>Продвинутое: RAG, vector DB, fine-tuning, eval-сеты, A/B-тесты промптов.</li>
+              <li>Портфолио: 3–5 AI-проектов на GitHub + Notion-страница с разбором.</li>
+              <li>Вакансии: HH.ru «промпт-инженер», LinkedIn «prompt engineer», ТГ «AI Jobs RU». Обзор зарплат: <a href="https://radiotochki.net/blog/ai/prompt-inzhener-kto-v-rossii-2025-zarabatyvaet-na-magicheskih-zaprosah-k-ii-obzor-kak-stat.html" target="_blank" rel="noopener">«Промпт-инженер в России 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>SMM-агентство (микро)</h3>
-          <p>Берёшь 3–5 клиентов на ведение Telegram / Reels / контекст. Чек 30–80к/мес с клиента. Сам = SMM-щик + менеджер + дизайнер. Через год нанимаешь джунов под себя.</p>
-          <span class="pill gr">белое</span><span class="pill gold">от 200к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Дропшиппинг / Wildberries-FBS</h3>
-          <p>Регаешь ИП, грузишь товар на склад WB / Озон. Маржа 30–60%, оборот за 6 мес выйдет на 300–600к/мес. Нужно 100–300к стартового капитала и аналитика ниш (Mpstats, MoneyPlace).</p>
-          <span class="pill gr">белое</span><span class="pill gold">до 500к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Грей-арбитраж трафика</h3>
-          <p>Гемблинг / беттинг / нутра / адалт партнёрки (Gambling.pro, AdsEmpire, CPA.ru). Чистый ROI 100–300%. Бюджет на тесты: 50–200к. Серая зона по законам РФ → выводи через крипту/нерезидентские карты.</p>
-          <span class="pill gray">околосерое</span><span class="pill gold">100к–1М/мес</span><span class="pill red">бан акков</span></div>
+          <p>3–5 клиентов на ведение Reels / Telegram / контекст. Чек 50–100к/мес с клиента. После года → нанимаешь джунов и масштабируешь до 1.5–3 М MRR.</p>
+          <span class="pill gr">белое</span><span class="pill gold">300к–1.5М/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Скиллы: контент-стратегия, монтаж Reels, копирайт, аналитика. AI-tools для всего: <a href="https://www.notion.so" target="_blank" rel="noopener">Notion AI</a> для контент-планов, ChatGPT для текстов, <a href="https://www.opus.pro" target="_blank" rel="noopener">Opus Clip</a> для нарезок.</li>
+              <li>Первые клиенты: cold DM экспертам в нише (психологи, нутрициологи, юристы, тренеры) с аудитом их соц.сетей.</li>
+              <li>Юридическое: <a href="https://npd.nalog.ru" target="_blank" rel="noopener">Самозанятость</a> с первого клиента. Договор оказания услуг — шаблон в Notion.</li>
+              <li>Скейл: с 3-го клиента — нанимаешь джуна-монтажёра за 20–30к/клиент. Через 6 мес — менеджер по работе с клиентами.</li>
+              <li>Кейсы и обучение: <a href="https://www.skillbox.ru/media/marketing/" target="_blank" rel="noopener">Skillbox Media</a> (бесплатно), курс <a href="https://www.youtube.com/results?search_query=smm+%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%81%D1%82%D0%B2%D0%BE+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«SMM-агентство с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Дропшиппинг / Wildberries-FBS (свой ИП)</h3>
+          <p>ИП, груз товар на склад WB / Озон. Маржа 30–60%, оборот за 6 мес — 300–800к/мес. Нужно 100–300к капитала и хорошая аналитика ниш.</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 800к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Регистрация ИП через <a href="https://www.nalog.gov.ru" target="_blank" rel="noopener">«Госуслуги»</a> (3 дня, 0 ₽). УСН 6% доходы.</li>
+              <li>Аналитика: <a href="https://mpstats.io" target="_blank" rel="noopener">MPStats</a>, <a href="https://moneyplace.io" target="_blank" rel="noopener">MoneyPlace</a>, <a href="https://wbstat.pro" target="_blank" rel="noopener">WBStat</a>.</li>
+              <li>Логистика: FBS (грузишь сам на склад) или FBO (склад WB упаковывает). Старт — FBS, потом перевод на FBO.</li>
+              <li>Закуп: <a href="https://1688.com" target="_blank" rel="noopener">1688</a> через посредника <a href="https://t.me/cargocenter" target="_blank" rel="noopener">Cargo</a>, <a href="https://sadovod-online.ru" target="_blank" rel="noopener">Садовод</a>, опты в твоём городе.</li>
+              <li>Полный курс бесплатно: <a href="https://www.youtube.com/results?search_query=wildberries+%D1%81%D0%B5%D0%BB%D0%BB%D0%B5%D1%80+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D1%87%D0%B5%D1%81%D1%82%D0%BD%D1%8B%D0%B9+%D0%BA%D0%B5%D0%B9%D1%81+2025" target="_blank" rel="noopener">«WB seller с нуля честный кейс 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Криптоарбитраж P2P</h3>
+          <p>Покупаешь USDT/USDC дешевле, продаёшь дороже между биржами и P2P-площадками. Маржа 0.5–2% за круг. Оборот 300–800к/день → 5–20к чистыми. Главные риски — блокировка карт по 115-ФЗ.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">100–300к/мес</span><span class="pill red">блок карт</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Биржи: <a href="https://www.bybit.com" target="_blank" rel="noopener">Bybit P2P</a>, <a href="https://www.okx.com" target="_blank" rel="noopener">OKX P2P</a>, <a href="https://www.bitget.com" target="_blank" rel="noopener">Bitget P2P</a>, <a href="https://www.htx.com" target="_blank" rel="noopener">HTX</a>.</li>
+              <li>Связки: <a href="https://bitsmedia.app" target="_blank" rel="noopener">BitsMedia</a>, <a href="https://www.cryptocompare.com" target="_blank" rel="noopener">CryptoCompare</a>, ТГ-чаты «P2P связки RU».</li>
+              <li>Защита от 115-ФЗ: несколько карт разных банков, не более 30% оборота через одну, белая «легенда» движения средств, не дробить платежи.</li>
+              <li>Курсы: <a href="https://www.youtube.com/results?search_query=p2p+%D0%B0%D1%80%D0%B1%D0%B8%D1%82%D1%80%D0%B0%D0%B6+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9" target="_blank" rel="noopener">«P2P арбитраж с нуля 2025 русский»</a>.</li>
+              <li>Старт банк: 100–200к, иначе маржа меньше комиссий.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>DeFi-фарминг / стейкинг (низкий риск)</h3>
+          <p>Не «трейдинг», а: стейкинг USDT/USDC на Aave/Curve (4–9% APY), restaking на EigenLayer/Renzo, лотереи Pendle. Реальный пассив 8–20% годовых на $10–100к.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">смарт-контракт риск</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Кошелёк: <a href="https://metamask.io" target="_blank" rel="noopener">MetaMask</a> / <a href="https://rabby.io" target="_blank" rel="noopener">Rabby</a>.</li>
+              <li>Low-risk протоколы: <a href="https://aave.com" target="_blank" rel="noopener">Aave</a> (Ethereum/Base/Arbitrum), <a href="https://curve.fi" target="_blank" rel="noopener">Curve</a>, <a href="https://www.pendle.finance" target="_blank" rel="noopener">Pendle</a>.</li>
+              <li>Аналитика доходностей: <a href="https://defillama.com/yields" target="_blank" rel="noopener">DefiLlama Yields</a>, <a href="https://app.pods.finance" target="_blank" rel="noopener">Pods</a>.</li>
+              <li>Безопасность: только TVL $500M+, проверенный аудит, не более 30% портфеля в один протокол.</li>
+              <li>Курс: <a href="https://www.youtube.com/results?search_query=defi+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%BC%D0%B0%D0%BD%D1%83%D0%B0%D0%BB+2025+%D1%81%D1%82%D0%B5%D0%B9%D0%BA%D0%B8%D0%BD%D0%B3+%D1%84%D0%B0%D1%80%D0%BC%D0%B8%D0%BD%D0%B3" target="_blank" rel="noopener">«DeFi с нуля 2025 стейкинг фарминг»</a>, канал <a href="https://www.youtube.com/@CoinBureau" target="_blank" rel="noopener">Coin Bureau</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Стримы / донаты + AI-инструменты</h3>
+          <p>Twitch / Kick / YouTube Live. Старт 0 ₽. После 6–12 мес активного стрима — 30–200к/мес от подписок, донатов, рекламы. Faceless-стримы с AI-vTuber (Live2D + ElevenLabs) — новый тренд 2025.</p>
+          <span class="pill gr">белое</span><span class="pill gold">30–200к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Стек: <a href="https://obsproject.com" target="_blank" rel="noopener">OBS Studio</a> (бесплатно), <a href="https://streamlabs.com" target="_blank" rel="noopener">Streamlabs</a>, <a href="https://restream.io" target="_blank" rel="noopener">Restream</a> для мультистрима.</li>
+              <li>Faceless / AI-vTuber: <a href="https://www.live2d.com" target="_blank" rel="noopener">Live2D</a> + <a href="https://denchisoft.com" target="_blank" rel="noopener">VTube Studio</a>.</li>
+              <li>Ниша 2025: SaaS-разработка стримом, AI-эксперименты, обзоры новинок, спид-ран, NoSleep чтение.</li>
+              <li>Расписание: 3–5 стримов в неделю, по 3–4 часа. Без расписания = ноль.</li>
+              <li>Курсы: <a href="https://www.youtube.com/results?search_query=%D1%81%D1%82%D1%80%D0%B8%D0%BC+twitch+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9" target="_blank" rel="noopener">«стрим Twitch с нуля 2025 русский»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Грей-арбитраж трафика (CPA)</h3>
+          <p>Гемблинг / беттинг / нутра / дейтинг партнёрки. ROI 100–300%, цикл тестов 2–4 недели. Серая зона по законам РФ → выводи через крипту/нерезидентские карты. Бюджет на тесты от 100к.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">100к–1М/мес</span><span class="pill red">бан акков</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>CPA-сети грей: <a href="https://gambling.pro" target="_blank" rel="noopener">Gambling.pro</a>, <a href="https://3snet.co" target="_blank" rel="noopener">3SNet</a>, <a href="https://adsempire.com" target="_blank" rel="noopener">AdsEmpire</a>, <a href="https://cpamatica.io" target="_blank" rel="noopener">CPAmatica</a>.</li>
+              <li>Источники: Facebook Ads (через антидетект-браузер), TikTok Ads, Telegram Ads, push-сети (PropellerAds, RichAds).</li>
+              <li>Антидетект: <a href="https://gologin.com" target="_blank" rel="noopener">GoLogin</a>, <a href="https://multilogin.com" target="_blank" rel="noopener">Multilogin</a>. Фарминг аккаунтов перед заливом.</li>
+              <li>Трекеры: <a href="https://keitaro.io" target="_blank" rel="noopener">Keitaro</a>, <a href="https://binom.org" target="_blank" rel="noopener">Binom</a>.</li>
+              <li>Сообщества: <a href="https://protraffic.com" target="_blank" rel="noopener">ProTraffic</a>, ТГ «Affiliate Stars», курсы <a href="https://www.youtube.com/results?search_query=%D0%B0%D1%80%D0%B1%D0%B8%D1%82%D1%80%D0%B0%D0%B6+%D0%B3%D1%80%D0%B5%D0%B9+%D0%BD%D1%83%D1%82%D1%80%D0%B0+%D0%B3%D0%B5%D0%BC%D0%B1%D0%BB%D0%B8%D0%BD%D0%B3+2025" target="_blank" rel="noopener">«арбитраж грей нутра гемблинг 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>Перегон авто из-за рубежа</h3>
-          <p>Япония / Корея / Армения / Грузия → РФ. Маржа 200–500к с машины. Нужны 1.5–3 млн оборотного капитала + знание таможни. Серая прослойка — занижение стоимости в декларации.</p>
-          <span class="pill gray">околосерое</span><span class="pill gold">300–800к/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Стримы / донат-площадки</h3>
-          <p>Twitch / Kick / YouTube Live. Старт без денег. Через 6–12 мес активного стрима — 30–150к/мес от подписок и донатов. Главное — нишевание и расписание.</p>
-          <span class="pill gr">белое</span></div>
+          <p>Япония / Корея / Армения / Грузия → РФ. Маржа 200–500к с машины. Оборот капитала 1.5–3 млн + знание таможни. Серое — занижение стоимости в декларации, льготы по белорусскому/армянскому транзиту.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">300–800к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Источники авто: <a href="https://www.encar.com" target="_blank" rel="noopener">Encar (Корея)</a>, <a href="https://www.beforward.jp" target="_blank" rel="noopener">BeForward (Япония)</a>, аукционы USS/HAA, дилеры в ОАЭ.</li>
+              <li>Калькуляторы таможни: <a href="https://www.tks.ru/auto" target="_blank" rel="noopener">tks.ru/auto</a>, <a href="https://customs-calc.ru" target="_blank" rel="noopener">customs-calc.ru</a>.</li>
+              <li>Логистика и брокеры: ТГ-каналы «Перегон авто RU», брокеры на форумах <a href="https://www.drive2.ru" target="_blank" rel="noopener">Drive2</a>.</li>
+              <li>Утильсбор 2024–2025: следи за изменениями (в 2024 повысили в 7×). Считай маржу с актуальным сбором.</li>
+              <li>Курс на YouTube: <a href="https://www.youtube.com/results?search_query=%D0%BF%D0%B5%D1%80%D0%B5%D0%B3%D0%BE%D0%BD+%D0%B0%D0%B2%D1%82%D0%BE+%D1%81+%D0%BA%D0%BE%D1%80%D0%B5%D0%B8+2025+%D1%80%D0%B0%D1%81%D1%87%D1%91%D1%82" target="_blank" rel="noopener">«перегон авто из Кореи 2025 расчёт»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>TikTok Shop / Live-commerce</h3>
+          <p>Продаёшь товары через TikTok Shop (запущен в РФ через прокладку Сбермаркет / Я.Маркет; полноценно — в США/Турции). Лайв-стрим с продажей → конверсия 5–15%. Селлеры выходят на $5–30к/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$3–30к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Регистрация: <a href="https://shop.tiktok.com" target="_blank" rel="noopener">TikTok Shop Seller Center</a> (требуется зарубежный паспорт/юр.лицо).</li>
+              <li>Альтернатива для РФ: продажа партнёрских товаров через <a href="https://www.tiktok.com/business" target="_blank" rel="noopener">TikTok Business</a> с переходом на Озон/WB.</li>
+              <li>Топ-ниши: гаджеты, лайфхак-товары, beauty, фитнес-гаджеты, кухонные мелочи.</li>
+              <li>Контент: формат «showcase» — 15–30 сек, показ + плюсы + CTA.</li>
+              <li>Кейсы: <a href="https://www.youtube.com/results?search_query=tiktok+shop+seller+with+%241000+a+day+2025" target="_blank" rel="noopener">«TikTok Shop $1000/day 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>UGC-креатор (создание рекламы для брендов)</h3>
+          <p>Снимаешь короткие видео с продуктом бренда, продаёшь напрямую. Один ролик — $50–500 (€/₽ для местных). Топ-UGC-креаторы делают $5–20к/мес. Нишу взорвали в 2023–2025: бренды не хотят сами снимать.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$3–20к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Что такое UGC: контент в стиле «обычного пользователя», но снятый профессионально. Бренд получает права и крутит на своих площадках.</li>
+              <li>Портфолио: 3–5 учебных UGC на товары, которые есть у тебя дома.</li>
+              <li>Площадки: <a href="https://www.ugc.com" target="_blank" rel="noopener">UGC.com</a>, <a href="https://www.influee.co" target="_blank" rel="noopener">Influee</a>, <a href="https://www.thecirqle.com" target="_blank" rel="noopener">The Cirqle</a>, <a href="https://www.aspire.io" target="_blank" rel="noopener">Aspire</a>.</li>
+              <li>Прямые DM: малые бренды в Instagram*/ВК — предлагаешь 1 ролик бесплатно для портфолио, остальные за деньги.</li>
+              <li>Курс: <a href="https://www.youtube.com/results?search_query=ugc+creator+%D0%B1%D0%B5%D0%B7+%D0%BB%D0%B8%D1%86%D0%B0+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9+2025" target="_blank" rel="noopener">«UGC creator с нуля русский 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
       </div>
     </div>
 
     <div class="card">
       <h2><span class="pill age" style="margin-right:8px;margin-top:0">22+</span>Взрослый</h2>
+      <p style="color:#bccae6;font-size:13.5px">Капитал, опыт, связи — три рычага. Здесь главное — не количество дел, а правильно выбранный 1 + дисциплина.</p>
       <div class="list">
-        <div class="item"><h3><span class="dot"></span>Найм + грейды</h3>
-          <p>Если ты в найме — главный левередж это смена работы каждые 12–18 мес. Каждый прыжок +30–60% к окладу. Через 4 года в IT/маркетинге/продажах: 300–600к/мес.</p>
-          <span class="pill gr">белое</span><span class="pill gold">х2 за 4 года</span></div>
-        <div class="item"><h3><span class="dot"></span>Свой продукт / SaaS</h3>
-          <p>Маленький B2B-софт под узкую нишу (CRM для барбершопов, бот-аналитика для Telegram). MRR 200–500к с 30–50 клиентов. Идеально с IT-бэкграундом.</p>
-          <span class="pill gr">белое</span><span class="pill gold">пассив от 300к</span></div>
+
+        <div class="item"><h3><span class="dot"></span>Найм + грейды (IT/менеджмент/продажи)</h3>
+          <p>В найме главный левередж — смена работы каждые 12–18 мес. Каждый прыжок +30–60% к окладу. Через 4 года в IT/маркетинге/B2B-продажах: 350–800к/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">х2 за 4 года</span>
+          <details class="manual"><summary>Мануал: как масштабировать оклад</summary>
+            <ol>
+              <li>Площадки: <a href="https://hh.ru" target="_blank" rel="noopener">HH.ru</a>, <a href="https://career.habr.com" target="_blank" rel="noopener">Хабр Карьера</a>, <a href="https://linkedin.com/jobs" target="_blank" rel="noopener">LinkedIn</a>, <a href="https://wellfound.com" target="_blank" rel="noopener">Wellfound</a>, <a href="https://www.glassdoor.com" target="_blank" rel="noopener">Glassdoor</a>.</li>
+              <li>Подготовка к интервью: <a href="https://www.pramp.com" target="_blank" rel="noopener">Pramp</a> (бесплатные моки), <a href="https://www.interviewing.io" target="_blank" rel="noopener">interviewing.io</a>.</li>
+              <li>Стратегия: всегда веди параллельный пайплайн собеседований раз в 12–18 мес. Оффер ускоряет переговоры на текущем месте +20% к зарплате.</li>
+              <li>Резюме / LinkedIn: фокус на impact (числа, %), не на обязанностях.</li>
+              <li>Курс по grade-планированию: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D1%80%D0%B0%D1%81%D1%82%D0%B8+%D0%B2+%D0%BD%D0%B0%D0%B9%D0%BC%D0%B5+it+%D0%BC%D0%B8%D0%B4%D0%BB+%D1%81%D0%B5%D0%BD%D1%8C%D0%BE%D1%80+2025" target="_blank" rel="noopener">«как расти в найме IT мидл сеньор 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Свой SaaS / micro-SaaS</h3>
+          <p>Маленький B2B-софт под узкую нишу (CRM для барбершопов, бот-аналитика для ТГ, AI-ресепшен для клиник). MRR 200–500к с 30–50 клиентов. Идеально с IT-бэкграундом + AI ускоряет MVP до 1–2 недель.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив от 300к</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Поиск ниши: <a href="https://www.indiehackers.com" target="_blank" rel="noopener">Indie Hackers</a>, <a href="https://www.microsaas.io" target="_blank" rel="noopener">MicroSaaS</a>, <a href="https://www.producthunt.com" target="_blank" rel="noopener">Product Hunt</a>.</li>
+              <li>MVP за 1–2 недели: Cursor / Claude Code → <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> (БД + auth) → <a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> (хостинг) → <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> / <a href="https://www.paddle.com" target="_blank" rel="noopener">Paddle</a> (оплата).</li>
+              <li>Первые клиенты: cold DM в LinkedIn / ТГ-чатах, <a href="https://www.reddit.com" target="_blank" rel="noopener">Reddit</a> релевантные сабреддиты, выступление на индустриальных форумах.</li>
+              <li>Маркетинг: SEO-блог (даже 2–3 поста в неделю), <a href="https://www.producthunt.com" target="_blank" rel="noopener">Product Hunt</a> запуск, твиттер-маркетинг.</li>
+              <li>Полные кейсы: <a href="https://www.youtube.com/@pieterlevels" target="_blank" rel="noopener">Pieter Levels</a> (легенда micro-SaaS), <a href="https://www.starterstory.com" target="_blank" rel="noopener">Starter Story</a> кейсы.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-консалтинг для среднего бизнеса</h3>
+          <p>Внедрение AI в процессы средних компаний (50–500 чел): автоматизация, AI-ассистенты, корпоративная RAG-база, eval-фреймворки. Чек проекта 500к–5М. 2–4 клиента/год = 3–15М годовых.</p>
+          <span class="pill gr">белое</span><span class="pill gold">3–15М/год</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Экспертиза: глубокая работа с LLM, vector DB, eval, RAG-системами. Курсы: <a href="https://www.deeplearning.ai" target="_blank" rel="noopener">DeepLearning.AI</a> (LangChain, RAG, ML Engineering).</li>
+              <li>Кейсы: 2–3 внедрения «бесплатно за отзыв» + посты с результатами в LinkedIn.</li>
+              <li>Поиск клиентов: LinkedIn (cold outreach к директорам), выступления на конференциях, контент-маркетинг через ТГ-канал / YouTube.</li>
+              <li>Договоры: всегда фиксированный объём + результат + предоплата 30–50%. Юристы: ТГ-чаты «Юр.поддержка IT».</li>
+              <li>Курс по выходу в консалтинг: <a href="https://www.youtube.com/results?search_query=%D0%B2%D1%8B%D1%85%D0%BE%D0%B4+%D0%B2+ai+%D0%BA%D0%BE%D0%BD%D1%81%D0%B0%D0%BB%D1%82%D0%B8%D0%BD%D0%B3+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«AI консалтинг с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>Образование / инфобиз (честный)</h3>
-          <p>Курсы по своей экспертизе через GetCourse / собственный лендинг. С 1000 подписчиков и нормальным продуктом — 500к–2М за запуск. Не путать с «успехоложеством».</p>
-          <span class="pill gr">белое</span><span class="pill gold">до 2М/запуск</span></div>
+          <p>Курсы по своей экспертизе через GetCourse / Boosty / собственный лендинг. С 1000 подписчиков и нормальным продуктом — 500к–2М за запуск. Не путать с «успехоложеством».</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 2М/запуск</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Платформы: <a href="https://getcourse.ru" target="_blank" rel="noopener">GetCourse</a> (РФ), <a href="https://www.kajabi.com" target="_blank" rel="noopener">Kajabi</a> (мир), <a href="https://teachable.com" target="_blank" rel="noopener">Teachable</a>, <a href="https://boosty.to" target="_blank" rel="noopener">Boosty</a> (для подписной модели).</li>
+              <li>Формат запуска: «прогрев» через бесплатный вебинар → курс. <a href="https://www.youtube.com/results?search_query=%D1%87%D0%B5%D1%81%D1%82%D0%BD%D1%8B%D0%B9+%D0%B8%D0%BD%D1%84%D0%BE%D0%B1%D0%B8%D0%B7+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025+%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D0%BA" target="_blank" rel="noopener">Гайд по запуску</a>.</li>
+              <li>Контент-маркетинг: ТГ-канал + YouTube + Reels = три источника аудитории.</li>
+              <li>Воронка: <a href="https://www.notion.so" target="_blank" rel="noopener">Notion</a> бесплатный мини-курс → email-серия → платный курс.</li>
+              <li>Кейсы и тактики: <a href="https://miloshurban.com" target="_blank" rel="noopener">Милош Шурбан</a>, ТГ «Инфобиз 2.0», курс <a href="https://www.youtube.com/results?search_query=%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D0%BA+%D0%BA%D1%83%D1%80%D1%81%D0%B0+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+getcourse+2025" target="_blank" rel="noopener">«запуск курса с нуля GetCourse 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>Сдача квартиры посуточно</h3>
-          <p>Своя или субаренда. Маржа 30–70к/мес с квартиры. Каналы: Авито, Суточно.ру, Booking-аналоги. С 3–5 квартир — это полная занятость и 200–400к/мес.</p>
-          <span class="pill gr">белое</span></div>
-        <div class="item"><h3><span class="dot"></span>Маркет-мейкинг / алготрейдинг</h3>
-          <p>Боты на Bybit/OKX/Binance. MM-стратегии дают 3–8% в месяц на стабильных парах. Нужно: программирование, статистика, риск-менеджмент. Без этого — слив.</p>
-          <span class="pill gray">околосерое</span><span class="pill red">высокий риск</span></div>
+          <p>Своя или субаренда. Маржа 30–80к/мес с квартиры. Каналы: Авито, Суточно.ру, Booking-аналоги (Островок, Bronevik). С 3–5 квартир — это полная занятость и 200–500к/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">200–500к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Старт без капитала — субаренда: договариваешься с собственником о субаренде с правом сдачи посуточно (письменно!), маржа = твоя цена − его фикс.</li>
+              <li>Площадки: <a href="https://sutochno.ru" target="_blank" rel="noopener">Суточно.ру</a>, <a href="https://ostrovok.ru" target="_blank" rel="noopener">Островок</a>, <a href="https://bronevik.com" target="_blank" rel="noopener">Bronevik</a>, <a href="https://www.airbnb.ru" target="_blank" rel="noopener">Airbnb</a> (международные брони), <a href="https://avito.ru" target="_blank" rel="noopener">Авито</a>.</li>
+              <li>Автоматизация: <a href="https://hibox.io" target="_blank" rel="noopener">Hibox</a> / <a href="https://realtycalendar.com" target="_blank" rel="noopener">Realty Calendar</a> — синхронизация календарей.</li>
+              <li>Услуги уборки: договор с клининг-компанией за 1–1.5к на уборку (сам не убираешь!).</li>
+              <li>Курсы: <a href="https://www.youtube.com/results?search_query=%D0%BF%D0%BE%D1%81%D1%83%D1%82%D0%BE%D1%87%D0%BD%D0%B0%D1%8F+%D0%B0%D1%80%D0%B5%D0%BD%D0%B4%D0%B0+%D1%81%D1%83%D0%B1%D0%B0%D1%80%D0%B5%D0%BD%D0%B4%D0%B0+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«посуточная аренда субаренда с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Алготрейдинг / маркет-мейкинг</h3>
+          <p>Боты на Bybit/OKX/Binance. MM-стратегии дают 3–8% в месяц на стабильных парах. Нужно: программирование (Python), статистика, риск-менеджмент. Без этого — слив банка за месяц.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">высокий риск</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Стек: Python + <a href="https://github.com/freqtrade/freqtrade" target="_blank" rel="noopener">Freqtrade</a> (open-source), <a href="https://hummingbot.org" target="_blank" rel="noopener">Hummingbot</a> (для MM).</li>
+              <li>API биржи: <a href="https://bybit-exchange.github.io/docs/" target="_blank" rel="noopener">Bybit API</a>, <a href="https://www.okx.com/docs-v5/" target="_blank" rel="noopener">OKX API</a>.</li>
+              <li>Бэктест перед заливом: минимум 2–3 года истории на 5–10 парах. Без бэктеста = казино.</li>
+              <li>Риск-менеджмент: stop-loss на каждой сделке, не более 1–2% капитала на позицию, дневной лимит просадки −3% → выключаем бота.</li>
+              <li>Учеба: <a href="https://www.youtube.com/@QuantConnect" target="_blank" rel="noopener">QuantConnect</a>, <a href="https://www.youtube.com/results?search_query=%D0%B0%D0%BB%D0%B3%D0%BE%D1%82%D1%80%D0%B5%D0%B9%D0%B4%D0%B8%D0%BD%D0%B3+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%BA%D1%80%D0%B8%D0%BF%D1%82%D0%B0+2025+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9" target="_blank" rel="noopener">«алготрейдинг с нуля крипта 2025 русский»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
         <div class="item"><h3><span class="dot"></span>Серый импорт техники</h3>
-          <p>iPhone / MacBook / GPU из ОАЭ, Казахстана, Армении в РФ. Маржа 10–25% с устройства. Нужны проверенные поставщики и логистика. Серость — обход параллельного импорта и НДС.</p>
-          <span class="pill gray">околосерое</span><span class="pill gold">до 1М/мес</span></div>
-        <div class="item"><h3><span class="dot"></span>Скупка / реселл недвижимости</h3>
-          <p>Покупаешь убитую квартиру в спальнике → косметика за 300–600к → продаёшь +20–35%. Цикл 3–6 мес. Капитал от 4 млн (или ипотека + первоначалка).</p>
-          <span class="pill gr">белое</span><span class="pill gold">500к–1.5М/сделка</span></div>
-        <div class="item"><h3><span class="dot"></span>Партнёрство в существующем бизнесе</h3>
-          <p>Не открывай с нуля кофейню. Найди работающий бизнес с EBITDA 200–500к/мес и зайди долей 20–30%. Окупаемость 2–3 года вместо 5–7.</p>
-          <span class="pill gr">белое</span></div>
+          <p>iPhone / MacBook / GPU из ОАЭ, Казахстана, Турции, Армении в РФ. Маржа 10–25% с устройства. Нужны проверенные поставщики и логистика. Серость — обход параллельного импорта и НДС.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">до 1М/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Источники: посредники в ОАЭ (Дубай), Казахстан (Алматы), Армения (Ереван), Турция (Стамбул). Поиск — ТГ-чаты «Импорт техники RU».</li>
+              <li>Логистика: ТГ-каналы «Карго RU», <a href="https://www.cdek.ru" target="_blank" rel="noopener">СДЭК</a> международный (для мелких партий).</li>
+              <li>Реализация: своя витрина на Авито/в ТГ-канале + B2B продажи рознице.</li>
+              <li>Юридически: ИП на УСН, проверка партий через ЕАЭС — официальный параллельный импорт допустим (с 2022).</li>
+              <li>Кейс: <a href="https://www.youtube.com/results?search_query=%D0%BF%D0%B0%D1%80%D0%B0%D0%BB%D0%BB%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82+%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8+iphone+macbook+2025" target="_blank" rel="noopener">«параллельный импорт техники iPhone MacBook 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Скупка / реселл недвижимости (флипинг)</h3>
+          <p>Покупаешь убитую квартиру в спальнике → косметика за 400–800к → продаёшь +20–40%. Цикл 3–6 мес. Капитал от 4 млн (или ипотека + первоначалка от 1 млн).</p>
+          <span class="pill gr">белое</span><span class="pill gold">500к–1.5М/сделка</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Источники: <a href="https://cian.ru" target="_blank" rel="noopener">ЦИАН</a>, <a href="https://avito.ru/all/kvartiry" target="_blank" rel="noopener">Авито</a>, ТГ-каналы «Недвижимость от собственника $city», прямой обход подъездов «срочно».</li>
+              <li>Расчёт: цена с дисконтом 15–25% от рынка + ремонт 5–10к ₽/м² → продажа по рынку.</li>
+              <li>Юридическое: проверка чистоты через <a href="https://rosreestr.gov.ru" target="_blank" rel="noopener">Росреестр</a>, нотариус, аккредитив на сделке.</li>
+              <li>Команда: дизайнер интерьеров + бригада ремонта (50–80к/мес фикс на 2–3 квартиры) + риелтор-продажник (1% от сделки).</li>
+              <li>Курсы: <a href="https://www.youtube.com/results?search_query=%D1%84%D0%BB%D0%B8%D0%BF%D0%B8%D0%BD%D0%B3+%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«флипинг квартир с нуля 2025»</a>, ТГ «Флиппинг RU».</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Партнёрство в действующем бизнесе</h3>
+          <p>Не открывай с нуля кофейню. Найди работающий бизнес с EBITDA 200–800к/мес и зайди долей 20–40%. Окупаемость 2–3 года вместо 5–7.</p>
+          <span class="pill gr">белое</span><span class="pill gold">партнёрский ROI</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Поиск: <a href="https://www.beboss.ru" target="_blank" rel="noopener">BeBoss</a>, <a href="https://altera-invest.ru" target="_blank" rel="noopener">Altera Invest</a>, <a href="https://www.avito.ru/all/predlozheniya_uslug/biznes" target="_blank" rel="noopener">Авито (продажа бизнеса)</a>, ТГ-каналы «Готовый бизнес».</li>
+              <li>Due diligence: 3 года финансовой отчётности, проверка ОКВЭД, договора аренды, кредиты, налоги, репутация (<a href="https://focus.kontur.ru" target="_blank" rel="noopener">Контур.Фокус</a>).</li>
+              <li>Юридически: договор купли-продажи доли через нотариуса, корпоративный договор.</li>
+              <li>Структура: оптимально 20–40%, чтобы был серьёзный голос, но не вся ответственность.</li>
+              <li>Подкасты для понимания: <a href="https://www.youtube.com/@TPraktika" target="_blank" rel="noopener">«Трансформатор»</a>, <a href="https://www.youtube.com/@FedyaOvchinnikov" target="_blank" rel="noopener">Овчинников (Додо)</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-обёртка SaaS (wrapper)</h3>
+          <p>Делаешь UI-обёртку поверх OpenAI / Claude / Replicate API под узкую нишу: AI-юрист для договоров, AI-копирайтер на ниши, AI-fitness coach. MRR 500к–3М за 12 мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив до 3М</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Идея: <a href="https://aiagentsdirectory.com" target="_blank" rel="noopener">AI Agents Directory</a> для трендов, <a href="https://theresanaiforthat.com" target="_blank" rel="noopener">There's An AI For That</a> для анализа конкурентов.</li>
+              <li>Стек: Next.js + Vercel + OpenAI/Anthropic API + Supabase + Stripe. MVP за 1 неделю с Cursor / Lovable / v0.</li>
+              <li>Цены: фримиум-модель → $9–49/мес → корпоративный тариф $199–999.</li>
+              <li>Дистрибуция: <a href="https://www.producthunt.com" target="_blank" rel="noopener">Product Hunt</a>, Reddit, X (Twitter), <a href="https://www.indiehackers.com" target="_blank" rel="noopener">Indie Hackers</a>.</li>
+              <li>Кейсы: <a href="https://www.youtube.com/results?search_query=ai+wrapper+saas+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%BA%D0%B5%D0%B9%D1%81+2025" target="_blank" rel="noopener">«AI wrapper SaaS с нуля кейс 2025»</a>, твиттер <a href="https://twitter.com/levelsio" target="_blank" rel="noopener">@levelsio</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Франшиза с быстрой окупаемостью</h3>
+          <p>Бургер-ларёк (Бургер 73, Долбаёбургер), DonerKing, Crazy Donut, Сушкоф. Окупаемость 8–18 мес. Старт 1.5–4 млн ₽. Маржа 15–30% от выручки.</p>
+          <span class="pill gr">белое</span><span class="pill gold">300–800к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Каталоги: <a href="https://www.beboss.ru/franchise" target="_blank" rel="noopener">BeBoss.ru</a>, <a href="https://franshiza.ru" target="_blank" rel="noopener">Franshiza.ru</a>, <a href="https://topfranchise.ru" target="_blank" rel="noopener">TopFranchise</a>.</li>
+              <li>Проверка: рейтинг франшизы, отзывы франчайзи на форумах, финансовый отчёт головной компании.</li>
+              <li>Расчёт ROI: средняя выручка × маржа − аренда − зарплаты − роялти − паушалка ÷ окупаемость.</li>
+              <li>Локация: 2GIS, Яндекс.Карты, ходовой проходимость через сервисы геомаркетинга.</li>
+              <li>Курсы: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D0%B2%D1%8B%D0%B1%D1%80%D0%B0%D1%82%D1%8C+%D1%84%D1%80%D0%B0%D0%BD%D1%88%D0%B8%D0%B7%D1%83+2025+%D0%BE%D0%BA%D1%83%D0%BF%D0%B0%D0%B5%D0%BC%D0%BE%D1%81%D1%82%D1%8C" target="_blank" rel="noopener">«как выбрать франшизу 2025 окупаемость»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Инвестиции (долгосрочный портфель)</h3>
+          <p>Не «трейдинг», а долгосрок: широкий ETF (или его аналоги на МосБирже), див-акции, облигации, золото. Историческая среднегодовая 8–12% в $ / 12–18% в ₽. Real-pass для 22+ — нужен капитал 1М+ ₽ для ощутимого дохода.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив 10–20%/год</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Брокер: <a href="https://www.tinkoff.ru/invest" target="_blank" rel="noopener">Т-Инвестиции</a>, <a href="https://www.sberbank.ru/sberinvestor" target="_blank" rel="noopener">Сбер Инвестиции</a>, <a href="https://broker.vtb.ru" target="_blank" rel="noopener">ВТБ Мои Инвестиции</a>.</li>
+              <li>ИИС (тип А) для налоговых вычетов — 13% от пополнения до 400к/год. ИИС-3 с 2024 — повышенный лимит вычетов.</li>
+              <li>Портфель: 60% акции (MOEX10/SBMX/TMOS), 30% облигации (ОФЗ + корпораты), 10% золото (TGLD / GLDRUB).</li>
+              <li>Книги: «Разумный инвестор» Б.Грэхем, «Случайная прогулка по Уолл-стрит» Б.Малкиел.</li>
+              <li>Каналы / блоги: <a href="https://www.youtube.com/@AlexKolyada" target="_blank" rel="noopener">Александр Коляда</a>, <a href="https://www.youtube.com/results?search_query=%D0%B4%D0%BE%D0%BB%D0%B3%D0%BE%D1%81%D1%80%D0%BE%D1%87%D0%BD%D1%8B%D0%B5+%D0%B8%D0%BD%D0%B2%D0%B5%D1%81%D1%82%D0%B8%D1%86%D0%B8%D0%B8+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D1%80%D1%84+2025+%D0%BF%D0%BE%D1%80%D1%82%D1%84%D0%B5%D0%BB%D1%8C" target="_blank" rel="noopener">«долгосрочные инвестиции с нуля РФ 2025 портфель»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>AI и нейросети — 2025 (отдельная вертикаль)</h2>
+      <p style="color:#bccae6;font-size:13.5px">Ниша «горит» — спрос x10 за 2024. Подходит с любого возраста (где не нужен ИП — выводят родители). Главное — освоить инструменты, потом монетизация по 10+ форматам.</p>
+      <div class="list">
+
+        <div class="item"><h3><span class="dot"></span>AI-аватары и нейро-блогеры</h3>
+          <p>Создаёшь нейро-блогера (Live2D + ElevenLabs + автогенерация контента). Ниши: новости AI, разборы инвестиций, образование. Топ-кейсы — 100–500к подписчиков за 6 мес. Реклама 5–50к ₽/пост.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив 50–500к</span>
+          <details class="manual"><summary>Мануал: как создать AI-аватар</summary>
+            <ol>
+              <li>Аватар: <a href="https://www.heygen.com" target="_blank" rel="noopener">HeyGen</a> (фото→говорящее видео), <a href="https://www.synthesia.io" target="_blank" rel="noopener">Synthesia</a>, <a href="https://www.d-id.com" target="_blank" rel="noopener">D-ID</a>.</li>
+              <li>Голос: <a href="https://elevenlabs.io" target="_blank" rel="noopener">ElevenLabs</a> (клонирование голоса). 5 минут записи — твой голос навсегда.</li>
+              <li>Скрипты: ChatGPT / Claude по контент-плану в Notion.</li>
+              <li>Распространение: TikTok, YouTube Shorts, Reels, Telegram-канал.</li>
+              <li>Курс: <a href="https://www.youtube.com/results?search_query=ai+avatar+influencer+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+heygen+2025+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9" target="_blank" rel="noopener">«AI avatar influencer с нуля HeyGen 2025 русский»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-генерация коротких видео для соцсетей</h3>
+          <p>Sora / Runway / Kling / Veo создают видео по тексту. Делаешь короткие виральные ролики для брендов или продаёшь стоковые видео. Топ-авторы — $1–10к/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$1–10к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Инструменты: <a href="https://openai.com/sora" target="_blank" rel="noopener">Sora</a> (OpenAI), <a href="https://runwayml.com" target="_blank" rel="noopener">Runway Gen-3</a>, <a href="https://klingai.com" target="_blank" rel="noopener">Kling AI</a>, <a href="https://deepmind.google/technologies/veo/" target="_blank" rel="noopener">Veo (Google)</a>, <a href="https://hailuoai.video" target="_blank" rel="noopener">Hailuo</a>.</li>
+              <li>Промпт-стиль: чёткий visual prompt + 3–5 сек длина + указание камеры / стиля.</li>
+              <li>Стоки: <a href="https://contributor.stock.adobe.com" target="_blank" rel="noopener">Adobe Stock</a> принимает AI-видео с пометкой.</li>
+              <li>Реклама для брендов: cold DM малым брендам в Instagram*/ВК — «10 AI-роликов за $200».</li>
+              <li>Курс: <a href="https://www.youtube.com/results?search_query=ai+video+generation+sora+runway+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«AI video generation Sora Runway с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>RAG-системы и AI-ассистенты под бизнес</h3>
+          <p>Делаешь корпоративную AI-базу знаний (внутренний ChatGPT по докам компании). Чек проекта 200к–2М. Бизнесы платят, чтобы сотрудники не искали в почте по 30 минут.</p>
+          <span class="pill gr">белое</span><span class="pill gold">200к–2М/проект</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Стек: <a href="https://www.langchain.com" target="_blank" rel="noopener">LangChain</a> / <a href="https://www.llamaindex.ai" target="_blank" rel="noopener">LlamaIndex</a>, vector DB (<a href="https://qdrant.tech" target="_blank" rel="noopener">Qdrant</a> / <a href="https://www.pinecone.io" target="_blank" rel="noopener">Pinecone</a>), LLM (OpenAI / Claude / GigaChat).</li>
+              <li>Курсы: <a href="https://learn.deeplearning.ai" target="_blank" rel="noopener">DeepLearning.AI</a> «LangChain for LLM», <a href="https://www.youtube.com/results?search_query=rag+system+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9+%D0%BC%D0%B0%D0%BD%D1%83%D0%B0%D0%BB+2025" target="_blank" rel="noopener">«RAG system с нуля русский мануал 2025»</a>.</li>
+              <li>Демо-проект: своя RAG над любыми 100 PDF-документами, выложи на GitHub.</li>
+              <li>Поиск клиентов: cold-outreach в LinkedIn / ТГ HR-директорам и CTO средних компаний.</li>
+              <li>Кейсы продаж: <a href="https://www.youtube.com/@nateherk" target="_blank" rel="noopener">Nate Herk</a> «AI agencies that make $50k/mo».</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Продажа GPT-ассистентов и кастомных моделей</h3>
+          <p>Создаёшь специализированных GPT-агентов в GPT Store (OpenAI) / на Poe / в собственном Telegram-боте. Топ-разработчики делают $1–10к/мес пассивом.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$500–10к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>GPT Store: <a href="https://chatgpt.com/gpts" target="_blank" rel="noopener">ChatGPT GPTs</a> — создавай и публикуй (доход через программу creator-revenue OpenAI).</li>
+              <li>Poe: <a href="https://poe.com" target="_blank" rel="noopener">Poe by Quora</a> — продажа доступа к ботам через подписку.</li>
+              <li>Свои AI-боты в Telegram: aiogram + OpenAI API → монетизация подпиской через Telegram Stars или ЮKassa.</li>
+              <li>Топ-ниши: SEO-копирайтер, юр.ассистент, контент-планер, English tutor, fitness coach.</li>
+              <li>Курс: <a href="https://www.youtube.com/results?search_query=%D0%BA%D0%B0%D0%BA+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C+%D0%BD%D0%B0+gpt+store+chatgpt+2025" target="_blank" rel="noopener">«как заработать на GPT Store ChatGPT 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-дизайн на стоках</h3>
+          <p>Midjourney / Recraft / DALL·E для иллюстраций → Adobe Stock / Shutterstock / Freepik. Топ-авторы делают $500–3000/мес с одного аккаунта, в нескольких — х2-х3.</p>
+          <span class="pill gr">белое</span><span class="pill gold">$300–3000/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Инструменты: <a href="https://www.midjourney.com" target="_blank" rel="noopener">Midjourney</a>, <a href="https://www.recraft.ai" target="_blank" rel="noopener">Recraft</a> (есть бесплатные кредиты), <a href="https://leonardo.ai" target="_blank" rel="noopener">Leonardo</a>.</li>
+              <li>Стоки: <a href="https://contributor.stock.adobe.com" target="_blank" rel="noopener">Adobe Stock</a>, <a href="https://submit.shutterstock.com" target="_blank" rel="noopener">Shutterstock</a>, <a href="https://www.freepik.com/contributors" target="_blank" rel="noopener">Freepik Contributors</a>.</li>
+              <li>Стратегия: тематические серии 50–100 артов в одном стиле, теги ключевые слова, описание под SEO стока.</li>
+              <li>Анализ конкурентов: <a href="https://stock.adobe.com" target="_blank" rel="noopener">Adobe Stock</a> поиск по нишам, что покупают.</li>
+              <li>Гайд: <a href="https://www.youtube.com/results?search_query=ai+art+stock+microstock+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+2025" target="_blank" rel="noopener">«AI art stock microstock с нуля заработок 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Vibe-coding agency (vibe-разработка под клиентов)</h3>
+          <p>Сайты, лендинги, MVP под клиентов с помощью Cursor / Lovable / v0 / Bolt. Стандартный лендинг 30–80к ₽, MVP бота / приложения 100–500к. С 3 клиентами в месяц — 300к–1.5М.</p>
+          <span class="pill gr">белое</span><span class="pill gold">300к–1.5М/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Инструменты: <a href="https://lovable.dev" target="_blank" rel="noopener">Lovable</a> (no-code SaaS за минуты), <a href="https://v0.dev" target="_blank" rel="noopener">v0 (Vercel)</a>, <a href="https://bolt.new" target="_blank" rel="noopener">Bolt</a>, Cursor + Claude.</li>
+              <li>Деплой: <a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> бесплатно, <a href="https://www.netlify.com" target="_blank" rel="noopener">Netlify</a>, <a href="https://railway.app" target="_blank" rel="noopener">Railway</a>.</li>
+              <li>Портфолио: 5–10 готовых демо на GitHub + лендинг.</li>
+              <li>Поиск клиентов: Upwork / Kwork / ТГ-чаты, прямой DM малому бизнесу с уже готовым демо их сайта.</li>
+              <li>Курс: <a href="https://www.youtube.com/results?search_query=vibe+coding+lovable+cursor+v0+agency+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+2025" target="_blank" rel="noopener">«vibe coding Lovable Cursor v0 agency с нуля 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>Озвучка через AI-голос (дубляж видео)</h3>
+          <p>Берёшь видео блогеров → дубляж в ElevenLabs/Whisper на другие языки → перепостинг в национальные YouTube/ТГ-каналы. Топ-кейсы — 50–200к подписчиков и $1–5к/мес. Часто работает с разрешения автора (или контентом без прав).</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">$500–5к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Инструменты: <a href="https://elevenlabs.io/dubbing" target="_blank" rel="noopener">ElevenLabs Dubbing</a> (29 языков, лучшее качество), <a href="https://www.heygen.com" target="_blank" rel="noopener">HeyGen Video Translate</a>.</li>
+              <li>Whisper для транскрибации (бесплатно через OpenAI Whisper / <a href="https://github.com/m-bain/whisperX" target="_blank" rel="noopener">WhisperX</a>).</li>
+              <li>Перевод: GPT-4 / Claude для адаптации под целевой язык.</li>
+              <li>Согласие автора: для коммерческого дубляжа всегда. Если без — это нарушение авторских прав.</li>
+              <li>Кейсы: <a href="https://www.youtube.com/results?search_query=ai+dubbing+youtube+%D1%81%D0%B2%D0%BE%D0%B8+%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D1%8B+%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%BA+2025" target="_blank" rel="noopener">«AI dubbing YouTube свои каналы заработок 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="item"><h3><span class="dot"></span>AI-логотипы и брендинг</h3>
+          <p>Recraft / Midjourney / Looka для генерации логотипов и брендинг-наборов. Цена комплекта 5–25к ₽ за бренд. 10–20 заказов в месяц = 50–500к чистыми.</p>
+          <span class="pill gr">белое</span><span class="pill gold">50–500к/мес</span>
+          <details class="manual"><summary>Мануал: как делать</summary>
+            <ol>
+              <li>Инструменты: <a href="https://www.recraft.ai" target="_blank" rel="noopener">Recraft</a> (вектор!), <a href="https://www.looka.com" target="_blank" rel="noopener">Looka</a>, Midjourney → векторизация через <a href="https://vectorizer.ai" target="_blank" rel="noopener">Vectorizer.AI</a>.</li>
+              <li>Финализация: Figma / Illustrator для тонкой настройки.</li>
+              <li>Портфолио: 20–30 логотипов в Behance + Dribbble + лендинг.</li>
+              <li>Биржи: <a href="https://kwork.ru" target="_blank" rel="noopener">Kwork</a>, <a href="https://99designs.com" target="_blank" rel="noopener">99designs</a>, <a href="https://www.fiverr.com" target="_blank" rel="noopener">Fiverr</a>.</li>
+              <li>Курс: <a href="https://www.youtube.com/results?search_query=ai+logo+design+%D1%81+%D0%BD%D1%83%D0%BB%D1%8F+recraft+midjourney+%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF%D1%8B+2025" target="_blank" rel="noopener">«AI logo design с нуля Recraft Midjourney 2025»</a>.</li>
+            </ol>
+          </details>
+        </div>
+
       </div>
     </div>
 
