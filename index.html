@@ -2047,6 +2047,31 @@
   .streak-pill.on{ background:linear-gradient(135deg,hsla(var(--accent-h),100%,30%,.4),hsla(var(--accent-h),100%,50%,.3));border-color:hsla(var(--accent-h),100%,73%,.4) }
   .streak-pill.on .v{ color:hsl(var(--accent-h) 100% 75%) }
 
+  /* MONTH CAL */
+  .mcal-cell{
+    aspect-ratio:1/1;border-radius:4px;display:flex;align-items:center;justify-content:center;
+    font-size:10px;color:hsl(var(--accent-h) 30% 65%);font-weight:700;
+    background:hsla(var(--accent-h),60%,13%,.4);
+  }
+  .mcal-cell.l1{ background:hsla(var(--accent-h),70%,30%,.6);color:#fff }
+  .mcal-cell.l2{ background:hsla(var(--accent-h),80%,42%,.75);color:#fff }
+  .mcal-cell.l3{ background:hsla(var(--accent-h),90%,55%,.85);color:#fff }
+  .mcal-cell.l4{ background:hsl(var(--accent-h) 100% 65%);color:#000 }
+  .mcal-cell.today{ outline:2px solid #fff;outline-offset:1px;z-index:2 }
+  .mcal-cell.empty{ visibility:hidden }
+
+  /* PR LIST */
+  .pr-row{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:9px;padding:8px 10px;display:flex;align-items:center;gap:8px;
+  }
+  .pr-row .pr-n{ flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;color:#fff;font-size:13px }
+  .pr-row .pr-v{ font-weight:900;color:hsl(var(--accent-h) 100% 70%);font-size:14px;white-space:nowrap }
+  .pr-row .pr-d{ font-size:10px;color:hsl(var(--accent-h) 30% 60%);white-space:nowrap }
+  .pr-row .pr-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px }
+  .pr-row .pr-1rm{ font-size:10px;color:hsl(var(--accent-h) 30% 65%);font-weight:600 }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3611,6 +3636,39 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
       </div>
+    </div>
+
+    <!-- ============= MONTH CALENDAR ============= -->
+    <div class="card" id="month-card" style="margin-top:14px">
+      <h2>Месяц · календарь</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Цвет ячейки = % выполнения чек-листа в тот день. Тёмный = пропуск, ярче = больше пунктов.
+      </p>
+      <div class="row" style="gap:6px;justify-content:space-between;margin-bottom:6px">
+        <button id="mcal-prev" type="button" class="ghost">←</button>
+        <span id="mcal-label" style="font-weight:700;color:#fff;font-size:14px"></span>
+        <button id="mcal-next" type="button" class="ghost">→</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-size:9.5px;color:hsl(var(--accent-h) 30% 65%);text-align:center;font-weight:700;margin-bottom:3px">
+        <div>пн</div><div>вт</div><div>ср</div><div>чт</div><div>пт</div><div>сб</div><div>вс</div>
+      </div>
+      <div id="mcal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px"></div>
+      <div style="font-size:11px;color:hsl(var(--accent-h) 30% 70%);margin-top:8px;text-align:center" id="mcal-stats"></div>
+    </div>
+
+    <!-- ============= EXERCISE PR TRACKER ============= -->
+    <div class="card" id="pr-card" style="margin-top:14px">
+      <h2>PR · твои рекорды</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Записывай личные рекорды. Видно прогресс по упражнению.
+      </p>
+      <div class="row" style="gap:6px;flex-wrap:wrap;margin-bottom:8px">
+        <input id="pr-name" type="text" placeholder="напр. Жим лёжа" maxlength="40" style="flex:2;min-width:120px;padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <input id="pr-weight" type="number" step="0.5" placeholder="кг" style="width:70px;padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <input id="pr-reps" type="number" placeholder="повт" style="width:65px;padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="pr-add" type="button" class="pri">+</button>
+      </div>
+      <div id="pr-list" style="display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto"></div>
     </div>
 
     <!-- ============= STREAKS DASHBOARD ============= -->
@@ -9286,6 +9344,125 @@
       const all = getAll();
       all.push({ name: t, deadline: dl.value || '', pct: 0, created: Date.now() });
       setAll(all); txt.value = ''; dl.value = ''; render();
+    });
+    render();
+  })();
+
+  // ========= MONTH CALENDAR =========
+  (function(){
+    const grid = document.getElementById('mcal-grid');
+    const label = document.getElementById('mcal-label');
+    const prev = document.getElementById('mcal-prev');
+    const next = document.getElementById('mcal-next');
+    const stats = document.getElementById('mcal-stats');
+    if (!grid) return;
+    let viewYear = new Date().getFullYear();
+    let viewMonth = new Date().getMonth();
+    function getChecklistPct(date){
+      try {
+        const c = JSON.parse(localStorage.getItem('mogger.checklist.'+date) || '{}');
+        const done = Object.values(c).filter(Boolean).length;
+        return done / 10;
+      } catch(_){ return 0; }
+    }
+    function render(){
+      const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+      label.textContent = `${monthNames[viewMonth]} ${viewYear}`;
+      const firstDay = new Date(viewYear, viewMonth, 1);
+      const lastDay = new Date(viewYear, viewMonth+1, 0);
+      const startWeekday = (firstDay.getDay() + 6) % 7; // Mon=0
+      const days = lastDay.getDate();
+      const todayISO = new Date().toISOString().slice(0,10);
+      let html = '';
+      for (let i = 0; i < startWeekday; i++) html += '<div class="mcal-cell empty"></div>';
+      let totalPct = 0, daysWithData = 0;
+      for (let d = 1; d <= days; d++){
+        const dt = new Date(viewYear, viewMonth, d);
+        const iso = dt.toISOString().slice(0,10);
+        const pct = getChecklistPct(iso);
+        if (pct > 0){ totalPct += pct; daysWithData++; }
+        let cls = '';
+        if (pct >= 0.9) cls = 'l4';
+        else if (pct >= 0.7) cls = 'l3';
+        else if (pct >= 0.4) cls = 'l2';
+        else if (pct > 0) cls = 'l1';
+        const isToday = iso === todayISO ? 'today' : '';
+        html += `<div class="mcal-cell ${cls} ${isToday}" title="${iso}: ${Math.round(pct*100)}%">${d}</div>`;
+      }
+      grid.innerHTML = html;
+      if (daysWithData > 0){
+        stats.textContent = `Дней с данными: ${daysWithData} · средн. ${Math.round(totalPct/daysWithData*100)}%`;
+      } else {
+        stats.textContent = 'Нет данных за этот месяц.';
+      }
+    }
+    prev.addEventListener('click', () => {
+      viewMonth--; if (viewMonth < 0){ viewMonth = 11; viewYear--; } render();
+    });
+    next.addEventListener('click', () => {
+      viewMonth++; if (viewMonth > 11){ viewMonth = 0; viewYear++; } render();
+    });
+    render();
+    window.addEventListener('storage', render);
+  })();
+
+  // ========= PR TRACKER =========
+  (function(){
+    const list = document.getElementById('pr-list');
+    const name = document.getElementById('pr-name');
+    const w = document.getElementById('pr-weight');
+    const r = document.getElementById('pr-reps');
+    const add = document.getElementById('pr-add');
+    if (!list) return;
+    const KEY = 'mogger.prs';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function epley(w, r){ return w * (1 + r/30); }
+    function render(){
+      const all = getAll();
+      if (!all.length){
+        list.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px;text-align:center">Нет записей. Добавь рекорд выше.</div>';
+        return;
+      }
+      // Sort by date desc
+      const sorted = [...all].sort((a,b) => b.date - a.date);
+      // Group by name for best
+      const best = {};
+      all.forEach(p => {
+        const e = epley(p.weight, p.reps);
+        if (!best[p.name] || e > best[p.name]) best[p.name] = e;
+      });
+      list.innerHTML = sorted.slice(0, 40).map((p, i) => {
+        const realI = all.indexOf(p);
+        const e1rm = epley(p.weight, p.reps);
+        const isBest = best[p.name] === e1rm;
+        const dt = new Date(p.date);
+        return `
+          <div class="pr-row">
+            <span class="pr-n">${(p.name||'').replace(/</g,'&lt;')}${isBest ? ' 🏆' : ''}</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1px">
+              <span class="pr-v">${p.weight}кг × ${p.reps}</span>
+              <span class="pr-1rm">1RM ~${e1rm.toFixed(1)}кг</span>
+            </div>
+            <span class="pr-d">${dt.getDate()}.${(dt.getMonth()+1).toString().padStart(2,'0')}</span>
+            <button class="pr-x" data-i="${realI}" type="button">×</button>
+          </div>
+        `;
+      }).join('');
+      list.querySelectorAll('.pr-x').forEach(b => b.addEventListener('click', e => {
+        const i = +e.currentTarget.dataset.i;
+        const all = getAll();
+        all.splice(i,1); setAll(all); render();
+      }));
+    }
+    add.addEventListener('click', () => {
+      const n = name.value.trim(); if (!n) return;
+      const ww = +w.value || 0;
+      const rr = +r.value || 0;
+      if (!ww || !rr) return;
+      const all = getAll();
+      all.push({ name: n, weight: ww, reps: rr, date: Date.now() });
+      setAll(all); w.value = ''; r.value = ''; render();
     });
     render();
   })();
