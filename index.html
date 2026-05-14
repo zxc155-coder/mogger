@@ -1821,6 +1821,84 @@
   .supp-row .supp-x{ font-size:14px;color:hsl(var(--accent-h) 30% 60%);cursor:pointer;padding:2px 5px }
   .supp-empty{ font-size:11px;color:hsl(var(--accent-h) 30% 60%);padding:6px 0 }
 
+  /* GLOSSARY */
+  .glos-cat{
+    padding:4px 9px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.06em;
+    background:hsla(var(--accent-h),60%,14%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 75%);cursor:pointer;
+  }
+  .glos-cat.on{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;border-color:transparent;
+  }
+  .glos-item{
+    background:hsla(var(--accent-h),60%,11%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.12);
+    border-radius:8px;padding:8px 10px;cursor:pointer;
+    transition:all .15s ease;
+  }
+  .glos-item:hover{
+    background:hsla(var(--accent-h),60%,14%,.7);
+    border-color:hsla(var(--accent-h),100%,73%,.28);
+  }
+  .glos-item .gh-row{ display:flex;align-items:center;justify-content:space-between;gap:8px }
+  .glos-item .gh-term{ font-size:13.5px;font-weight:800;color:#fff;letter-spacing:.02em }
+  .glos-item .gh-cat{
+    font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 80% 70%);
+    background:hsla(var(--accent-h),60%,20%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);
+    padding:2px 6px;border-radius:999px;flex-shrink:0;
+  }
+  .glos-item .gh-body{
+    font-size:12.5px;line-height:1.45;color:hsl(var(--accent-h) 20% 88%);
+    margin-top:5px;display:none;
+  }
+  .glos-item.open .gh-body{ display:block }
+  .glos-empty{ font-size:11.5px;color:hsl(var(--accent-h) 30% 60%);padding:8px;text-align:center }
+
+  /* SEARCH MODAL */
+  .srch-tab{
+    padding:5px 10px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.06em;
+    background:hsla(var(--accent-h),60%,14%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 75%);cursor:pointer;
+  }
+  .srch-tab.on{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;border-color:transparent;
+  }
+  .srch-result{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:8px;padding:9px 11px;cursor:pointer;
+    transition:all .12s ease;
+  }
+  .srch-result:hover{
+    background:hsla(var(--accent-h),60%,15%,.75);
+    border-color:hsla(var(--accent-h),100%,73%,.3);
+  }
+  .srch-result .sr-top{ display:flex;align-items:center;justify-content:space-between;gap:6px }
+  .srch-result .sr-title{ font-size:13.5px;font-weight:800;color:#fff }
+  .srch-result .sr-kind{
+    font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:hsl(var(--accent-h) 80% 70%);
+    background:hsla(var(--accent-h),60%,20%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);
+    padding:2px 6px;border-radius:999px;flex-shrink:0;
+  }
+  .srch-result .sr-snip{
+    font-size:11.5px;color:hsl(var(--accent-h) 20% 75%);
+    margin-top:4px;line-height:1.4;
+    overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  }
+  .srch-result mark{
+    background:hsla(var(--accent-h),100%,60%,.4);
+    color:#fff;padding:0 2px;border-radius:3px;
+  }
+  .srch-empty{ font-size:12px;color:hsl(var(--accent-h) 30% 60%);padding:14px;text-align:center }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -2672,8 +2750,30 @@
       <small>HARD MODE</small>
       <h1>MOGGER</h1>
     </div>
+    <button type="button" id="brand-search" title="Умный поиск" aria-label="Поиск" style="background:hsla(var(--accent-h),50%,20%,.55);border:1px solid hsla(var(--accent-h),60%,40%,.4);color:hsl(var(--accent-h) 100% 88%);font-size:16px;padding:8px 10px;border-radius:10px;cursor:pointer;margin-right:6px">🔍</button>
     <button type="button" id="brand-profile" title="Профиль / цель / параметры" aria-label="Профиль" style="background:hsla(var(--accent-h),50%,20%,.55);border:1px solid hsla(var(--accent-h),60%,40%,.4);color:hsl(var(--accent-h) 100% 88%);font-size:18px;padding:8px 10px;border-radius:10px;cursor:pointer">⚙</button>
   </header>
+
+  <!-- ============= SEARCH MODAL ============= -->
+  <div id="search-modal" style="display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);align-items:flex-start;justify-content:center;padding:60px 12px 16px">
+    <div style="width:100%;max-width:520px;background:hsla(var(--accent-h),60%,8%,.96);border:1px solid hsla(var(--accent-h),100%,73%,.22);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;max-height:88vh">
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:18px">🔍</span>
+        <input id="search-input" type="text" placeholder="Найди что угодно: mewing, ramus, HTN, кардио, скакалка, ретинол…" style="flex:1;padding:10px 12px;background:hsla(var(--accent-h),60%,11%,.7);border:1px solid hsla(var(--accent-h),100%,73%,.18);border-radius:10px;color:#fff;font-size:14.5px" autocomplete="off">
+        <button type="button" id="search-close" style="background:hsla(0,0%,30%,.5);border:none;color:#fff;font-size:18px;padding:6px 10px;border-radius:8px;cursor:pointer">×</button>
+      </div>
+      <div id="search-tabs" style="display:flex;gap:6px;flex-wrap:wrap;font-size:11px">
+        <button class="srch-tab on" data-tab="all" type="button">Всё</button>
+        <button class="srch-tab" data-tab="glossary" type="button">Словарь</button>
+        <button class="srch-tab" data-tab="cards" type="button">Карточки</button>
+        <button class="srch-tab" data-tab="tips" type="button">Советы</button>
+        <button class="srch-tab" data-tab="actions" type="button">Действия</button>
+      </div>
+      <div id="search-results" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;min-height:120px">
+        <div class="srch-hint" style="font-size:12px;color:hsl(var(--accent-h) 30% 60%);padding:10px;text-align:center">Начни печатать или открой Словарь ниже.</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================
        HOME
@@ -3277,6 +3377,25 @@
         </div>
       </div>
       <button id="dayend-save" type="button" class="pri" style="width:100%;margin-top:6px">Сохранить</button>
+    </div>
+
+    <!-- ============= GLOSSARY / СЛОВАРЬ ============= -->
+    <div class="card" id="glossary-card" style="margin-top:14px">
+      <h2>Словарь · что значит</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Mogging, looksmax, мужские тиры, анатомия лица. Тапни термин — откроется объяснение.
+      </p>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+        <button class="glos-cat on" data-cat="all" type="button">Все</button>
+        <button class="glos-cat" data-cat="tiers" type="button">Тиры</button>
+        <button class="glos-cat" data-cat="face" type="button">Лицо</button>
+        <button class="glos-cat" data-cat="body" type="button">Тело</button>
+        <button class="glos-cat" data-cat="diet" type="button">Питание</button>
+        <button class="glos-cat" data-cat="mindset" type="button">Mindset</button>
+        <button class="glos-cat" data-cat="cosm" type="button">Косметика</button>
+      </div>
+      <input id="glos-search" type="text" placeholder="🔍 поиск термина" style="width:100%;padding:8px 10px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.16);border-radius:8px;color:#fff;font-size:13px;margin-bottom:8px" autocomplete="off">
+      <div id="glos-list" style="display:flex;flex-direction:column;gap:5px;max-height:340px;overflow-y:auto"></div>
     </div>
 
     <!-- ============= DAILY QUOTE / FACT ============= -->
@@ -8679,6 +8798,297 @@
     });
     render();
     document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= GLOSSARY + SMART SEARCH =========
+  (function(){
+    const GLOS = [
+      // TIERS (мужские)
+      ['SUBHUMAN','tiers','Самый низ мужской «лестницы» по looksmax-форумам. Лицо вызывает дискомфорт у девушек, шансы 0. Можно вытащить через хирургию, спорт и стиль, но потолок низкий.'],
+      ['LTN','tiers','**Low-Tier Normie**. Ниже среднего. Тебя не замечают, девушки общаются вежливо но без интереса. Подавляющее большинство мужчин ~80% «invisible» зона.'],
+      ['MTN','tiers','**Mid-Tier Normie**. Средний парень. Внешность нейтральная, не отталкивает но не привлекает. С прокачкой стиля, бороды и тела можно сдвинуться в HTN.'],
+      ['HTN','tiers','**High-Tier Normie**. Выше среднего. Замечают, есть симпатии, можно знакомиться без mogging-проблем. Реалистичный потолок для большинства с дисциплиной.'],
+      ['CHADLITE','tiers','«Лайт» версия чада. Внешне явно красивый, но не идеальный. Сильная челюсть/глаза/рост, и эстетичное лицо.'],
+      ['CHAD','tiers','Эталонный мужчина по канонам — идеальная челюсть (Sean O\'Pry, Brad Pitt в молодости). Очень редкая зона, ~1-2% мужчин.'],
+      ['GIGACHAD','tiers','Мем-уровень. Дикая челюсть+скулы+рост+тело. Топ 0.1%. Реальные примеры — Berrick Obama, модельный уровень с фотогенично-доминирующими чертами.'],
+      ['TRU ADAM','tiers','Финальный идеал в looksmax-лестнице. Эталонный мужчина, ассоциируется с Адамом из Библии. Уровень почти недостижим без хирургии.'],
+      // TIERS (женские)
+      ['LTB','tiers','**Low-Tier Becky**. Низ женской лестницы. Внешность не привлекает мужчин, шансы низкие.'],
+      ['MTB','tiers','**Mid-Tier Becky**. Средняя девушка. Не отталкивает но без особенного внимания.'],
+      ['HTB','tiers','**High-Tier Becky**. Симпатичная девушка выше среднего. Замечают, общаются, флиртуют.'],
+      ['STACY','tiers','Эталон женской красоты, аналог Чада. Идеальная фигура, лицо, грация — топ 1-2% женщин.'],
+      ['TRU EVA','tiers','Финал женской лестницы. Эталонная женщина, Ева. Уровень практически недостижим.'],
+      // FACE / АНАТОМИЯ
+      ['Mewing','face','Техника удерживать **язык прижатым к нёбу** весь день (а не на дне рта). Долгий mewing подтягивает midface, улучшает прикус, может сдвинуть скулы/челюсть вперёд (особенно у детей). У взрослых — лёгкие изменения за 1-2 года.'],
+      ['Ramus','face','Восходящая ветвь нижней челюсти — от уха до угла челюсти. Чем длиннее и шире ramus, тем мужественнее нижняя треть лица. Один из главных факторов «hard jawline».'],
+      ['Masseter','face','Жевательная мышца. Растёт от жёсткой еды/жвачки → визуально утолщает угол челюсти, делает лицо квадратнее. Боксёры и mogger\'ы тренируют масеттер жвачкой Falim/Mastic.'],
+      ['Gonial angle','face','**Угол челюсти** — между ramus и горизонтальной частью нижней челюсти. Идеал у мужчин: 110-120° (острый). Тупой угол >130° = слабая челюсть.'],
+      ['Hunter eyes','face','**Глаза охотника**. Глубоко-посаженные, с лёгким положительным наклоном (positive canthal tilt), узким верхним веком, выраженным надбровным гребнем. Symbol альфа-маскулинности. Альтернатива — prey eyes (выпуклые, округлые, низ).'],
+      ['Canthal tilt','face','Наклон оси глаз. Линия от внутреннего к внешнему уголку. **Положительный** (внешний выше) = аттрактивно, охотничий. **Отрицательный** (внешний ниже) = «грустный взгляд», prey.'],
+      ['Midface','face','Средняя треть лица — от линии бровей до основания носа. **Короткий midface** = эстетично, длинный = "horsey face".'],
+      ['Bigonial width','face','Ширина челюсти у её углов. Чем шире — тем более «карта» V-shape лица. Главный показатель ramus-доминирования.'],
+      ['FWHR','face','**Facial Width-to-Height Ratio**. Ширина лица / высота от губы до брови. Высокий FWHR (1.9+) = доминирующий, агрессивный, мужской. Низкий = soft, beta-визуал.'],
+      ['Maxilla','face','Верхняя челюсть. Хорошее переднее положение даёт выдающиеся скулы и compact midface. Mewing подтягивает maxilla forward.'],
+      ['Mandible','face','Нижняя челюсть. Большой mandible = mogger jaw. Маленький («женский подбородок») = плохо для мужчин.'],
+      ['Buccal fat','face','Жир на щеках. **Hollow cheeks** (впалые щёки) = эстетично. Лишний buccal fat = «moonface». Делают операцию buccal fat removal.'],
+      ['Brow ridge','face','**Надбровные дуги**. Выраженные у мужчин (тестостерон). Соц-перцепция: дуги = маскулинно. Плоский лоб = феминно.'],
+      ['Glide','face','Расстояние от губ до подбородка по профилю. Чёткий «glide» = эстетичный профиль. Recessed = плохо.'],
+      ['Submental','face','Подподбородочная зона. Двойной подбородок = бьёт по mogger-внешке. Снимается дефицитом + мезотерапией.'],
+      ['Halo effect','face','**Эффект ореола** — красивым приписывают доброту, ум, успех. Это работает реально, исследования подтверждены. Looksmax = намеренное использование этого эффекта.'],
+      ['Looksmax','face','**Looksmaxxing** — улучшение внешности любыми способами (тренировка лица, mewing, диета, скин-кер, стрижка, операции). Цель — поднять свой tier.'],
+      ['Softmax','face','Безопасные практики: mewing, чистая кожа, борода, стиль, скиннифит, диета. Не операции.'],
+      ['Hardmax','face','Жёсткое улучшение: пластика, бимаксиллярные операции, gnathic surgery, implants. Высокий риск, но реальные изменения.'],
+      ['Frame','face','**Каркас** — рост, ширина плеч, длина рук, объём кости. Не качается, дано генетически. Узкое frame = halo-нет.'],
+      ['Compact midface','face','«Сжатый» midface — короткое расстояние от глаз до носа. Подростки с хорошей генетикой → mogger.'],
+      ['Negative tilt','face','Антоним hunter eyes. Внешний угол ниже внутреннего. Soft, грустный, female-coded.'],
+      // BODY
+      ['PPL','body','**Push-Pull-Legs**. Сплит на 3 дня — Грудь+плечи+трицепс / Спина+бицепс / Ноги. Можно 6 дней, можно через день. Топ-3 сплита для натуральных.'],
+      ['UL','body','**Upper-Lower**. Верх / Низ. По 2 раза в неделю каждый. Лёгкий restart-сплит.'],
+      ['1RM','body','**One-rep max** — максимум на 1 повторение. Считается через формулу Epley: `1RM = вес × (1 + повторы/30)`. Базовый показатель силы.'],
+      ['RPE','body','**Rate of Perceived Exertion** 1-10. Сколько повторов осталось в баке. RPE 10 = до отказа, RPE 7-8 = норма для гипертрофии.'],
+      ['Hypertrophy','body','**Гипертрофия** — рост мышцы. Нужны 6-15 повторов с RPE 7-9, 10-20 рабочих сетов на группу/нед.'],
+      ['Strength','body','**Сила**. 1-5 повторов, RPE 8-9, длинный отдых 3-5 мин. Базовая работа со штангой.'],
+      ['Volume','body','**Объём** = подходы × повторы × вес. Главный двигатель роста.'],
+      ['Deload','body','**Разгрузочная неделя** каждые 4-8 нед. Снижаешь объём/интенсивность 30-50%. Помогает CNS и суставам.'],
+      ['Calisthenics','body','**Калистеника** — упражнения со своим весом. Турник, брусья, отжимания, пистолеты. Топ-аспект — bodyweight skills.'],
+      ['HIIT','body','**High-Intensity Interval Training**. Короткие циклы максимум-отдых. Tabata, EMOM, Norwegian 4×4.'],
+      ['Zone 2','body','**Зона 2 пульса** ~60-70% от MaxHR. Лёгкое кардио 45-90 мин. Растит митохондрии, оптимально для жиросжигания и здоровья сердца.'],
+      ['EMOM','body','**Every Minute On the Minute**. Каждую минуту делаешь N повторов, остаток минуты — отдых.'],
+      ['Tabata','body','8 циклов × (20 сек работа / 10 сек отдых) = 4 минуты ада. Жжёт калории, ловит лактат.'],
+      ['Maxout','body','**Тест 1RM** — поход к максимальному весу. Раз в 6-12 нед чтобы видеть прогресс.'],
+      ['Double-unders','body','Двойные прыжки скакалкой — за 1 прыжок скакалка проходит дважды. Тяжелее single, режет жир.'],
+      ['L-sit','body','Угол на брусьях/полу — корпус вверх, ноги горизонтально. Жёсткий core/hip flexor.'],
+      ['Handstand','body','Стойка на руках. Скилл, грузит плечи, баланс, кор. Прогрессия: стена → freestand.'],
+      // DIET
+      ['TDEE','diet','**Total Daily Energy Expenditure** — суммарный расход калорий за день. Базовый метаболизм × коэф. активности.'],
+      ['BMR','diet','**Basal Metabolic Rate** — базовый метаболизм. Сколько кушает тело в полном покое.'],
+      ['Mifflin-St Jeor','diet','Формула BMR: M: 10w+6.25h−5a+5. Ж: 10w+6.25h−5a−161. w=вес кг, h=рост см, a=возраст.'],
+      ['Deficit','diet','**Дефицит** — есть меньше TDEE на 300-700 ккал. Жир уходит ~0.5-1 кг/нед.'],
+      ['Surplus','diet','**Профицит** — есть больше TDEE на 200-500 ккал. Мышцы растут (медленно, но без жира).'],
+      ['Recomp','diet','**Body recomposition** — одновременно растут мышцы и уходит жир. Возможно у новичков или возвращающихся.'],
+      ['Macros','diet','**Макронутриенты** — белок (4 ккал/г), жир (9 ккал/г), угл (4 ккал/г). Норма белка 1.6-2.2 г/кг.'],
+      ['Bulk','diet','**Набор массы** — profцит, цель максимум мышц.'],
+      ['Cut','diet','**Сушка** — дефицит, цель максимум жиросжигания при сохранении мышц.'],
+      ['Maintenance','diet','**Поддержка** — есть ровно TDEE, вес стабилен. Хороший diet break между bulk/cut.'],
+      ['16:8','diet','**Интервальное голодание**. 16 часов без еды, 8 часов окно еды. Самый популярный IF.'],
+      ['OMAD','diet','**One Meal A Day**. Один приём пищи в день. Жёсткое IF (23:1). Не для каждого.'],
+      ['Refeed','diet','**Рефид** — день с поддержкой/профицитом во время cut. Сбрасывает лептин, спасает CNS.'],
+      ['Cheat day','diet','День «свободной еды». 1 раз в 1-2 недели. Психологическая разгрузка.'],
+      ['Protein sparing','diet','Питание с минимумом жиров/углей, белок 2-3 г/кг, для агрессивного cut при сохранении мышц.'],
+      ['Whey','diet','Сывороточный белок. Топ-добавка для closing protein gap. 1 скуп ~25 г белка.'],
+      ['Creatine','diet','**Креатин моногидрат** 5 г/день. +5-10% силы, +1-2 кг воды в мышцах. Самая исследованная добавка.'],
+      // MINDSET
+      ['No-fap','mindset','Воздержание от эякуляции/порно. Сторонники: больше тестостерона, мотивации, ясности. Наука: эффект небольшой, но реальный.'],
+      ['Discipline','mindset','**Дисциплина** — делать что обещал себе, даже когда лень. Главный навык mogger\'а.'],
+      ['Stoicism','mindset','**Стоицизм**. Контролируй эмоции, фокус на том что зависит от тебя. Marcus Aurelius, Epictetus.'],
+      ['Pomodoro','mindset','25 мин фокус / 5 мин отдых. После 4 циклов — длинный 15 мин перерыв.'],
+      ['Locus of control','mindset','**Локус контроля** — внутренний (я отвечаю) vs внешний (мир/судьба). Внутренний = успешные, mogger-mindset.'],
+      ['Cold exposure','mindset','Холодный душ / лёд / cold plunge. Поднимает дофамин на 250% на 2-3 часа, тренирует ЦНС, иммунитет.'],
+      ['Streak','mindset','Серия дней подряд. 7, 30, 100 дней. Психология цепной реакции — рвать жалко.'],
+      ['Identity','mindset','Не "я хочу качаться" а "я — мужчина что качается". Сдвиг идентичности → автоматическое поведение.'],
+      // COSMETICS
+      ['SPF','cosm','**Sun Protection Factor**. Защита от UVB. SPF 30 = блокирует 96.7%, SPF 50 = 98%. Mast-have для anti-aging.'],
+      ['Retinol','cosm','Витамин A для кожи. Обновляет клетки, убирает морщины, осветляет пигмент. Топ-ингредиент anti-aging. Старт 0.1-0.3%.'],
+      ['Niacinamide','cosm','Витамин B3 для кожи. Сужает поры, выравнивает тон, контролирует жир. Дешёвый и эффективный.'],
+      ['BHA','cosm','**Beta-hydroxy acid** (салициловая 2%). Чистит поры, против акне. Маст-хэв для жирной/проблемной кожи.'],
+      ['AHA','cosm','**Alpha-hydroxy acids** (гликолевая, молочная). Эксфолиация поверхности, ровный тон.'],
+      ['Hyaluronic','cosm','**Гиалуроновая кислота**. Притягивает воду в кожу. Увлажнение. Безопасна для всех.'],
+      ['Ceramides','cosm','Жирные кислоты-кирпичики кожного барьера. Восстанавливают повреждённую кожу.'],
+      ['Vitamin C','cosm','Антиоксидант + выравнивание тона. Утренний ритуал перед SPF.'],
+      ['Tret','cosm','**Третиноин** — рецептурный ретиноид. В 20× сильнее ретинола. Только по назначению, обычно дерматолог.'],
+      ['Azelaic','cosm','**Азелаиновая кислота**. Против акне, розацеа, пигментации. Безопасна для всех типов кожи.'],
+    ];
+    const CAT_LABEL = { tiers:'тиры', face:'лицо', body:'тело', diet:'питание', mindset:'mindset', cosm:'косметика' };
+
+    // ===== GLOSSARY CARD =====
+    const glosList = document.getElementById('glos-list');
+    const glosSearch = document.getElementById('glos-search');
+    let activeCat = 'all';
+    function renderGlos(){
+      const q = (glosSearch && glosSearch.value || '').toLowerCase().trim();
+      const list = GLOS.filter(([term,cat]) => {
+        if (activeCat !== 'all' && cat !== activeCat) return false;
+        if (q && !term.toLowerCase().includes(q)) return false;
+        return true;
+      });
+      if (!list.length){ glosList.innerHTML = '<div class="glos-empty">Ничего не найдено.</div>'; return; }
+      glosList.innerHTML = list.map(([term,cat,body]) => {
+        const safeTerm = term.replace(/</g,'&lt;');
+        const safeBody = body.replace(/</g,'&lt;').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+        return `<div class="glos-item" data-t="${safeTerm}">
+          <div class="gh-row">
+            <span class="gh-term">${safeTerm}</span>
+            <span class="gh-cat">${CAT_LABEL[cat]||cat}</span>
+          </div>
+          <div class="gh-body">${safeBody}</div>
+        </div>`;
+      }).join('');
+      glosList.querySelectorAll('.glos-item').forEach(it => it.addEventListener('click', () => it.classList.toggle('open')));
+    }
+    document.querySelectorAll('#glossary-card .glos-cat').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('#glossary-card .glos-cat').forEach(x => x.classList.remove('on'));
+      b.classList.add('on');
+      activeCat = b.dataset.cat;
+      renderGlos();
+    }));
+    if (glosSearch) glosSearch.addEventListener('input', renderGlos);
+    if (glosList) renderGlos();
+
+    // ===== SMART SEARCH MODAL =====
+    const modal = document.getElementById('search-modal');
+    const btn = document.getElementById('brand-search');
+    const closeBtn = document.getElementById('search-close');
+    const inp = document.getElementById('search-input');
+    const resBox = document.getElementById('search-results');
+    if (!modal || !btn) return;
+
+    // Collect indexable items from the DOM (cards, tips), plus actions and glossary
+    function buildCardIndex(){
+      const items = [];
+      // Cards across all screens — index by h2 + first paragraph/snippet
+      document.querySelectorAll('section.screen .card').forEach(card => {
+        const h2 = card.querySelector('h2');
+        if (!h2) return;
+        const title = h2.textContent.trim();
+        const screen = card.closest('.screen');
+        const screenId = screen ? screen.id.replace('screen-','') : 'home';
+        const id = card.id || null;
+        // First couple paragraphs / cells
+        let snip = '';
+        card.querySelectorAll('p, .dl-lbl, .muted, .dl-mini, .scn-row').forEach(p => {
+          if (snip.length < 220) snip += ' ' + p.textContent.trim();
+        });
+        items.push({ kind:'card', title, snip: snip.slice(0,200), screen: screenId, anchor: id || h2.textContent.slice(0,40) });
+      });
+      // Tips/advices — captured via existing data attrs on tip cards
+      document.querySelectorAll('[data-tip], .tip').forEach(t => {
+        const txt = t.textContent.trim();
+        if (txt.length < 30 || txt.length > 320) return;
+        items.push({ kind:'tip', title: txt.slice(0,60)+(txt.length>60?'…':''), snip: txt, screen:'tips', anchor: null });
+      });
+      // Quick actions
+      [
+        ['Открыть онбординг','#brand-profile','Поменять цель, пол, рост, вес, % жира','home'],
+        ['Темы и сцена','#scene-card','25 цветовых пресетов, 9 анимированных сцен','home'],
+        ['Экспорт JSON','#export-import-card','Скачать бэкап всех данных','home'],
+        ['Импорт JSON','#export-import-card','Восстановить из бэкапа','home'],
+        ['Hydration grid','#hydration-card','12 ячеек × 250 мл = 3 л','home'],
+        ['Vitamins','#supp-card','Чек-лист добавок: D3, Omega, Mg, Zn','home'],
+        ['Mood / Stress','#mood-card','Запись 1-10, тренд 30 дней','home'],
+        ['Mewing timer','#mewing-card','Таймер mewing на весь день','face'],
+        ['Face exercises','#face-ex-card','16 упражнений руками','face'],
+        ['Cosmetics auto-pick','#cosmetics-card','Подбор косметики по типу кожи','face'],
+        ['Workout PPL','#workout-card','Штанга / скакалка / своё тело / кардио','body'],
+        ['Rest timer','#rest-card','60-300 сек таймер отдыха','stats'],
+        ['1RM Epley','#onerm-card','Подсчёт максимума','stats'],
+        ['Cardio log','#cardio-card','Бег, велик, скакалка, плавание','stats'],
+        ['Fasting timer','#fast-card','16:8 / 18:6 / 20:4 / OMAD','stats'],
+        ['Max records','#records-card','PR отжимания, подтяги, приседы','stats'],
+        ['Multi-goal','#goals-card','Несколько целей с прогрессом','stats'],
+        ['AI haircut','#hair-card','Подбор стрижки по форме лица','hair'],
+      ].forEach(a => items.push({ kind:'action', title:a[0], snip:a[2], screen:a[3], anchor:a[1].replace('#','') }));
+      // Glossary
+      GLOS.forEach(([term,cat,body]) => items.push({ kind:'glos', title: term, snip: body, screen: 'home', anchor:'glossary-card', cat }));
+      return items;
+    }
+
+    let INDEX = null;
+    let activeTab = 'all';
+
+    function highlight(text, q){
+      if (!q) return text.replace(/</g,'&lt;');
+      const safe = text.replace(/</g,'&lt;');
+      try{
+        const re = new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+        return safe.replace(re, '<mark>$1</mark>');
+      }catch(_){ return safe; }
+    }
+    function go(item){
+      modal.style.display = 'none';
+      // Switch screen
+      const target = document.getElementById('screen-'+item.screen);
+      if (target){
+        document.querySelectorAll('section.screen').forEach(s => s.classList.remove('active'));
+        target.classList.add('active');
+        document.querySelectorAll('nav.bottom button[data-screen]').forEach(b => {
+          b.setAttribute('aria-selected', b.dataset.screen === item.screen ? 'true' : 'false');
+        });
+        try{ document.dispatchEvent(new CustomEvent('screen:enter', { detail: { name: item.screen }})); }catch(_){}
+      }
+      setTimeout(() => {
+        if (item.anchor){
+          const el = document.getElementById(item.anchor);
+          if (el){
+            el.scrollIntoView({ behavior:'smooth', block:'start' });
+            el.style.outline = '2px solid hsl(var(--accent-h) 100% 60%)';
+            el.style.outlineOffset = '4px';
+            setTimeout(() => { el.style.outline = ''; }, 1800);
+            if (item.kind === 'glos'){
+              setTimeout(() => {
+                const gi = document.querySelector(`.glos-item[data-t="${(item.title||'').replace(/"/g,'')}"]`);
+                if (gi){ gi.classList.add('open'); gi.scrollIntoView({ behavior:'smooth', block:'center' }); }
+              }, 400);
+            }
+          }
+        }
+      }, 80);
+    }
+    function render(){
+      const q = (inp.value || '').trim();
+      if (!INDEX) INDEX = buildCardIndex();
+      let list = INDEX;
+      if (activeTab !== 'all'){
+        const map = { glossary:'glos', cards:'card', tips:'tip', actions:'action' };
+        list = list.filter(i => i.kind === map[activeTab]);
+      }
+      if (q){
+        const ql = q.toLowerCase();
+        list = list.filter(i => i.title.toLowerCase().includes(ql) || (i.snip||'').toLowerCase().includes(ql));
+        list.sort((a,b) => {
+          const at = a.title.toLowerCase().startsWith(ql) ? 0 : 1;
+          const bt = b.title.toLowerCase().startsWith(ql) ? 0 : 1;
+          if (at !== bt) return at - bt;
+          return a.title.length - b.title.length;
+        });
+      }
+      list = list.slice(0, 50);
+      if (!list.length){ resBox.innerHTML = '<div class="srch-empty">Ничего не нашлось по запросу.</div>'; return; }
+      resBox.innerHTML = list.map((i,idx) => {
+        const kind = i.kind === 'glos' ? (CAT_LABEL[i.cat]||'словарь') : (i.kind === 'card' ? i.screen : i.kind === 'tip' ? 'совет' : 'действие');
+        return `<div class="srch-result" data-idx="${idx}">
+          <div class="sr-top"><span class="sr-title">${highlight(i.title, q)}</span><span class="sr-kind">${kind}</span></div>
+          <div class="sr-snip">${highlight(i.snip||'', q)}</div>
+        </div>`;
+      }).join('');
+      resBox.querySelectorAll('.srch-result').forEach(el => el.addEventListener('click', () => {
+        const idx = +el.dataset.idx;
+        if (Number.isFinite(idx) && list[idx]) go(list[idx]);
+      }));
+    }
+    function open(){
+      INDEX = buildCardIndex();
+      modal.style.display = 'flex';
+      inp.value = '';
+      activeTab = 'all';
+      document.querySelectorAll('#search-tabs .srch-tab').forEach(t => t.classList.toggle('on', t.dataset.tab==='all'));
+      render();
+      setTimeout(() => inp.focus(), 60);
+    }
+    function close(){ modal.style.display = 'none'; }
+    btn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') close();
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k'){ e.preventDefault(); open(); }
+    });
+    inp.addEventListener('input', render);
+    document.querySelectorAll('#search-tabs .srch-tab').forEach(t => t.addEventListener('click', () => {
+      document.querySelectorAll('#search-tabs .srch-tab').forEach(x => x.classList.remove('on'));
+      t.classList.add('on');
+      activeTab = t.dataset.tab;
+      render();
+    }));
   })();
 
   // ========= HYDRATION HOURLY GRID =========
