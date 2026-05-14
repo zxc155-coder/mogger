@@ -2139,6 +2139,44 @@
   }
   .meas-tile .meas-d{ font-size:10px;color:hsl(var(--accent-h) 100% 70%);font-weight:700;margin-top:2px;min-height:13px }
 
+  /* BODY FAT */
+  .bf-grid{ display:grid;grid-template-columns:repeat(2, 1fr);gap:8px }
+  .bf-tile{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:9px;padding:7px 9px;
+  }
+  .bf-tile label{ font-size:10.5px;color:hsl(var(--accent-h) 30% 70%);font-weight:700 }
+  .bf-tile input{
+    width:100%;padding:5px 7px;background:hsla(var(--accent-h),60%,7%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);border-radius:6px;color:#fff;font-size:13px;font-weight:700;margin-top:3px;
+  }
+
+  /* QUICK FOOD */
+  .qf-cat{
+    background:hsla(var(--accent-h),60%,15%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 80%);padding:4px 9px;border-radius:11px;cursor:pointer;font-size:11px;font-weight:700;
+  }
+  .qf-cat.on{ background:hsl(var(--accent-h) 100% 55%);color:#000;border-color:transparent }
+  .qf-item{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:9px;padding:7px 8px;cursor:pointer;text-align:center;
+  }
+  .qf-item:active{ transform:scale(.96) }
+  .qf-item .qf-n{ font-size:11.5px;color:#fff;font-weight:700;line-height:1.2;margin-bottom:3px;display:block }
+  .qf-item .qf-m{ font-size:9.5px;color:hsl(var(--accent-h) 30% 70%);font-weight:700 }
+
+  /* MANTRAS */
+  .mantra-row{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:8px;padding:6px 9px;font-size:12px;color:#fff;display:flex;align-items:center;gap:6px;
+  }
+  .mantra-row .mt-t{ flex:1;font-style:italic }
+  .mantra-row .mt-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:13px }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3703,6 +3741,58 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
       </div>
+    </div>
+
+    <!-- ============= BODY FAT NAVY ============= -->
+    <div class="card" id="bf-card" style="margin-top:14px">
+      <h2>% жира · Navy method</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Метод U.S. Navy — точнее визуальной оценки. Замерь шею, талию (для женщин ещё бёдра) и рост.
+      </p>
+      <div class="bf-grid">
+        <div class="bf-tile"><label>Шея, см</label><input id="bf-neck" type="number" step="0.5" placeholder="38"></div>
+        <div class="bf-tile"><label>Талия, см</label><input id="bf-waist" type="number" step="0.5" placeholder="82"></div>
+        <div class="bf-tile" id="bf-hips-tile" style="display:none"><label>Бёдра, см</label><input id="bf-hips" type="number" step="0.5" placeholder="95"></div>
+        <div class="bf-tile"><label>Рост, см</label><input id="bf-height" type="number" step="0.5" placeholder="180"></div>
+      </div>
+      <button id="bf-calc" type="button" class="pri" style="width:100%;margin-top:8px">Рассчитать</button>
+      <div id="bf-result" style="margin-top:8px;font-size:13px;line-height:1.6;color:hsl(var(--accent-h) 30% 85%);min-height:22px"></div>
+    </div>
+
+    <!-- ============= QUICK FOOD ADDER ============= -->
+    <div class="card" id="qfood-card" style="margin-top:14px">
+      <h2>Еда · быстро добавить</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Тапни — добавится в лог еды сегодня с готовыми калориями/белком. Часто едят чаще.
+      </p>
+      <div class="row" style="gap:5px;flex-wrap:wrap;margin-bottom:8px;font-size:11px">
+        <button class="qf-cat on" data-cat="all" type="button">Все</button>
+        <button class="qf-cat" data-cat="protein" type="button">Белок</button>
+        <button class="qf-cat" data-cat="carbs" type="button">Углеводы</button>
+        <button class="qf-cat" data-cat="fats" type="button">Жиры</button>
+        <button class="qf-cat" data-cat="snack" type="button">Снэк</button>
+        <button class="qf-cat" data-cat="drink" type="button">Напиток</button>
+      </div>
+      <div id="qfood-list" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(115px, 1fr));gap:6px"></div>
+      <div id="qfood-msg" style="font-size:11px;color:hsl(120 70% 65%);margin-top:6px;text-align:center;min-height:14px"></div>
+    </div>
+
+    <!-- ============= CUSTOM MANTRAS ============= -->
+    <div class="card" id="mantra-card" style="margin-top:14px">
+      <h2>Свои мантры</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Аффирмации которые работают именно для тебя. Будут показываться вместе с дефолтными в случайном порядке.
+      </p>
+      <div id="mantra-current" style="font-style:italic;font-size:14.5px;color:#fff;text-align:center;padding:12px;background:hsla(var(--accent-h),60%,11%,.55);border-radius:10px;border:1px solid hsla(var(--accent-h),100%,73%,.14);line-height:1.5;min-height:60px;display:flex;align-items:center;justify-content:center">Добавь свою мантру ниже.</div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <button id="mantra-prev" type="button" class="ghost" style="flex:1">←</button>
+        <button id="mantra-next" type="button" class="ghost" style="flex:1">→</button>
+      </div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <input id="mantra-input" type="text" placeholder="«Я каждый день становлюсь сильнее»" maxlength="100" style="flex:1;padding:8px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="mantra-add" type="button" class="pri">+</button>
+      </div>
+      <div id="mantra-list" style="display:flex;flex-direction:column;gap:5px;margin-top:8px;max-height:200px;overflow-y:auto"></div>
     </div>
 
     <!-- ============= BODY MEASUREMENTS ============= -->
@@ -9586,6 +9676,170 @@
       const all = getAll();
       all.push({ name: t, deadline: dl.value || '', pct: 0, created: Date.now() });
       setAll(all); txt.value = ''; dl.value = ''; render();
+    });
+    render();
+  })();
+
+  // ========= BODY FAT NAVY =========
+  (function(){
+    const neck = document.getElementById('bf-neck');
+    const waist = document.getElementById('bf-waist');
+    const hips = document.getElementById('bf-hips');
+    const hipsTile = document.getElementById('bf-hips-tile');
+    const height = document.getElementById('bf-height');
+    const calc = document.getElementById('bf-calc');
+    const result = document.getElementById('bf-result');
+    if (!calc) return;
+    try{
+      const profile = JSON.parse(localStorage.getItem('mogger.profile') || '{}');
+      if (profile.sex === 'f' || profile.sex === 'female') hipsTile.style.display = '';
+      if (profile.height){ height.value = profile.height; }
+    }catch(_){}
+    function run(){
+      const n = +neck.value;
+      const w = +waist.value;
+      const h = +height.value;
+      const hp = +hips.value;
+      try {
+        const profile = JSON.parse(localStorage.getItem('mogger.profile') || '{}');
+        const isFemale = profile.sex === 'f' || profile.sex === 'female';
+        if (!n || !w || !h){ result.innerHTML = '⚠️ Заполни шею, талию и рост.'; return; }
+        if (isFemale && !hp){ result.innerHTML = '⚠️ Для женского расчёта нужны ещё бёдра.'; return; }
+        let bf;
+        if (isFemale){
+          bf = 163.205 * Math.log10(w + hp - n) - 97.684 * Math.log10(h) - 78.387;
+        } else {
+          bf = 86.010 * Math.log10(w - n) - 70.041 * Math.log10(h) + 36.76;
+        }
+        if (!isFinite(bf) || bf < 3 || bf > 60){ result.innerHTML = '⚠️ Проверь замеры — результат за пределами разумного.'; return; }
+        let lvl, advice;
+        if (isFemale){
+          if (bf < 14) { lvl='Минимум'; advice='Очень мало жира. Часто = нет цикла. Рекомендуется выше 18%.'; }
+          else if (bf < 21) { lvl='Атлетка'; advice='Спортивный диапазон. Видны мышцы.'; }
+          else if (bf < 25) { lvl='Фит'; advice='Здоровый норм. Видна талия, плоский живот.'; }
+          else if (bf < 32) { lvl='Норма'; advice='В пределах нормы. Если хочешь cut — целься в 22-25%.'; }
+          else { lvl='Избыток'; advice='Дефицит ккал 300-500/день + силовая 3×/нед.'; }
+        } else {
+          if (bf < 6) { lvl='Опасно низко'; advice='Только спортсмены в пик-форме.'; }
+          else if (bf < 11) { lvl='Sub-10 shredded'; advice='Видны пресс + вены. Сложно держать.'; }
+          else if (bf < 15) { lvl='Athlete / fit'; advice='Идеальный диапазон. Пресс виден.'; }
+          else if (bf < 20) { lvl='Норма'; advice='Cut до 12-14% даст ascended look.'; }
+          else if (bf < 25) { lvl='Skinny-fat / softmax'; advice='Cut до 15%. Поднимать тестостерон.'; }
+          else { lvl='Избыток'; advice='Дефицит 500-700 ккал + 10к шагов + 3 силовых/нед.'; }
+        }
+        const color = bf < (isFemale ? 18 : 12) ? 'hsl(200 70% 65%)' : bf < (isFemale ? 25 : 18) ? 'hsl(120 70% 65%)' : bf < (isFemale ? 32 : 25) ? 'hsl(45 90% 65%)' : 'hsl(0 70% 65%)';
+        result.innerHTML = `<b style="color:${color};font-size:18px">${bf.toFixed(1)}%</b> · <b>${lvl}</b><br>` +
+          `<span style="font-size:11.5px;color:hsl(var(--accent-h) 30% 75%)">${advice}</span>`;
+        try{ localStorage.setItem('mogger.bf.last', JSON.stringify({bf: bf.toFixed(1), date: Date.now()})); }catch(_){}
+      } catch(e){ result.innerHTML = '⚠️ Ошибка расчёта.'; }
+    }
+    calc.addEventListener('click', run);
+  })();
+
+  // ========= QUICK FOOD ADDER =========
+  (function(){
+    const FOODS = [
+      { n:'Куриная грудка 150г', k:248, p:46, c:0, f:6, cat:'protein' },
+      { n:'Яйцо отварное', k:78, p:6, c:0.6, f:5, cat:'protein' },
+      { n:'Творог 5% 200г', k:242, p:36, c:6, f:10, cat:'protein' },
+      { n:'Греческий йогурт 150г', k:97, p:15, c:6, f:0, cat:'protein' },
+      { n:'Лосось 100г', k:208, p:22, c:0, f:13, cat:'protein' },
+      { n:'Говядина 100г', k:250, p:26, c:0, f:15, cat:'protein' },
+      { n:'Whey 30г', k:120, p:24, c:2, f:1.5, cat:'protein' },
+      { n:'Тунец консерв.', k:140, p:30, c:0, f:1, cat:'protein' },
+      { n:'Овсянка 50г сух', k:190, p:7, c:33, f:3, cat:'carbs' },
+      { n:'Рис варёный 200г', k:280, p:5, c:62, f:0.5, cat:'carbs' },
+      { n:'Гречка варёная 200г', k:230, p:9, c:42, f:1.5, cat:'carbs' },
+      { n:'Хлеб ржаной кус.', k:80, p:3, c:14, f:1, cat:'carbs' },
+      { n:'Картофель 200г', k:160, p:4, c:36, f:0, cat:'carbs' },
+      { n:'Макароны 100г сух', k:355, p:11, c:71, f:1.5, cat:'carbs' },
+      { n:'Банан', k:90, p:1, c:23, f:0, cat:'carbs' },
+      { n:'Яблоко', k:80, p:0, c:21, f:0, cat:'snack' },
+      { n:'Орехи 30г', k:200, p:7, c:6, f:18, cat:'fats' },
+      { n:'Авокадо 1/2', k:160, p:2, c:8, f:15, cat:'fats' },
+      { n:'Оливк. масло 1ст.л', k:120, p:0, c:0, f:14, cat:'fats' },
+      { n:'Арахис. паста 30г', k:180, p:7, c:6, f:14, cat:'fats' },
+      { n:'Сыр чеддер 30г', k:120, p:7, c:0, f:10, cat:'fats' },
+      { n:'Тёмный шоколад 20г', k:115, p:1.5, c:9, f:8, cat:'snack' },
+      { n:'Протеинбар', k:200, p:20, c:18, f:6, cat:'snack' },
+      { n:'Кофе чёрный', k:5, p:0, c:0, f:0, cat:'drink' },
+      { n:'Кофе с молоком', k:80, p:4, c:8, f:3, cat:'drink' },
+      { n:'Зелёный чай', k:0, p:0, c:0, f:0, cat:'drink' },
+      { n:'Кока-кола 0.5л', k:210, p:0, c:53, f:0, cat:'drink' },
+      { n:'Пиво 0.5л', k:215, p:2, c:18, f:0, cat:'drink' },
+      { n:'Кефир 1% 250мл', k:100, p:7, c:10, f:2.5, cat:'drink' },
+    ];
+    const list = document.getElementById('qfood-list');
+    const msg = document.getElementById('qfood-msg');
+    if (!list) return;
+    let cat = 'all';
+    function render(){
+      const filtered = FOODS.filter(f => cat === 'all' || f.cat === cat);
+      list.innerHTML = filtered.map((f, i) => {
+        const idx = FOODS.indexOf(f);
+        return `<div class="qf-item" data-i="${idx}">
+          <span class="qf-n">${f.n}</span>
+          <span class="qf-m">${f.k}ккал · ${f.p}г</span>
+        </div>`;
+      }).join('');
+      list.querySelectorAll('.qf-item').forEach(it => it.addEventListener('click', () => {
+        const f = FOODS[+it.dataset.i];
+        try {
+          const k = 'mogger.food.'+new Date().toISOString().slice(0,10);
+          const arr = JSON.parse(localStorage.getItem(k) || '[]');
+          arr.push({ n: f.n, k: f.k, p: f.p, t: Date.now() });
+          localStorage.setItem(k, JSON.stringify(arr));
+          window.dispatchEvent(new Event('storage'));
+        } catch(_){}
+        msg.textContent = '✓ Добавлено: ' + f.n;
+        setTimeout(() => msg.textContent = '', 2000);
+      }));
+    }
+    document.querySelectorAll('.qf-cat').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.qf-cat').forEach(x => x.classList.remove('on'));
+      b.classList.add('on'); cat = b.dataset.cat; render();
+    }));
+    render();
+  })();
+
+  // ========= CUSTOM MANTRAS =========
+  (function(){
+    const current = document.getElementById('mantra-current');
+    const prev = document.getElementById('mantra-prev');
+    const next = document.getElementById('mantra-next');
+    const input = document.getElementById('mantra-input');
+    const add = document.getElementById('mantra-add');
+    const listEl = document.getElementById('mantra-list');
+    if (!current) return;
+    const KEY = 'mogger.mantras';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    let idx = 0;
+    function render(){
+      const all = getAll();
+      if (!all.length){
+        current.textContent = 'Добавь свою мантру ниже.';
+        listEl.innerHTML = '';
+        return;
+      }
+      idx = idx % all.length;
+      current.textContent = '«' + all[idx] + '»';
+      listEl.innerHTML = all.map((m, i) => `
+        <div class="mantra-row">
+          <span class="mt-t">${(m||'').replace(/</g,'&lt;')}</span>
+          <button class="mt-x" data-i="${i}" type="button">×</button>
+        </div>
+      `).join('');
+      listEl.querySelectorAll('.mt-x').forEach(b => b.addEventListener('click', e => {
+        const i = +e.currentTarget.dataset.i;
+        const all = getAll(); all.splice(i,1); setAll(all); render();
+      }));
+    }
+    prev.addEventListener('click', () => { idx = (idx - 1 + getAll().length) % Math.max(1, getAll().length); render(); });
+    next.addEventListener('click', () => { idx = (idx + 1) % Math.max(1, getAll().length); render(); });
+    add.addEventListener('click', () => {
+      const t = input.value.trim(); if (!t) return;
+      const all = getAll(); all.push(t); setAll(all); input.value = ''; idx = all.length-1; render();
     });
     render();
   })();
