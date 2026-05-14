@@ -1990,6 +1990,48 @@
     color:#fff;border-color:transparent;
   }
 
+  /* SUN BTN */
+  .sun-btn{
+    background:hsla(45,80%,50%,.18);
+    border:1px solid hsla(45,80%,60%,.3);
+    color:hsl(45 80% 80%);font-weight:700;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:13px;
+  }
+  .sun-btn:active{ transform:scale(.96) }
+
+  /* READING */
+  .book-row{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:9px;padding:8px 10px;display:flex;flex-direction:column;gap:6px;
+  }
+  .book-row.done{ opacity:.55 }
+  .book-row .b-top{ display:flex;align-items:center;gap:8px }
+  .book-row .b-title{ flex:1;font-size:13px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap }
+  .book-row .b-title.done{ text-decoration:line-through;color:hsl(var(--accent-h) 30% 60%) }
+  .book-row .b-check{
+    width:22px;height:22px;border-radius:6px;border:1.5px solid hsla(var(--accent-h),100%,73%,.4);
+    background:none;color:hsl(var(--accent-h) 100% 70%);font-size:13px;font-weight:900;cursor:pointer;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .book-row .b-check.on{ background:hsl(var(--accent-h) 100% 60%);border-color:transparent;color:#fff }
+  .book-row .b-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px }
+  .book-row .b-bar-wrap{ display:flex;align-items:center;gap:8px }
+  .book-row input[type="range"]{ flex:1;accent-color:hsl(var(--accent-h) 100% 60%) }
+  .book-row .b-pct{ font-size:10.5px;font-weight:700;color:hsl(var(--accent-h) 80% 70%);min-width:50px;text-align:right }
+
+  /* CYCLE */
+  .cycle-cell{
+    aspect-ratio:1/1;border-radius:4px;
+    background:hsla(var(--accent-h),60%,15%,.5);
+    display:flex;align-items:center;justify-content:center;
+    font-size:9px;color:hsl(var(--accent-h) 30% 70%);font-weight:700;
+  }
+  .cycle-cell.t-menstr{ background:hsl(0 70% 50% / .8);color:#fff }
+  .cycle-cell.t-follic{ background:hsl(200 70% 50% / .8);color:#fff }
+  .cycle-cell.t-ovul{ background:hsl(45 90% 50% / .9);color:#000 }
+  .cycle-cell.t-luteal{ background:hsl(280 60% 50% / .8);color:#fff }
+  .cycle-cell.today{ outline:2px solid #fff;outline-offset:1px;z-index:2 }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3553,6 +3595,63 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(40 90% 60%);margin-right:6px"></span>Углеводы <b id="pie-c-pct">0%</b> · <span id="pie-c-g">0</span>г · <span id="pie-c-kc">0</span>кк</div>
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ============= SUN EXPOSURE ============= -->
+    <div class="card" id="sun-card" style="margin-top:14px">
+      <h2>Солнце · Vit D</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        20-30 мин в день на открытом солнце = D3 + настроение + тестостерон. Светлая кожа быстрее, тёмная медленнее.
+      </p>
+      <div class="row" style="gap:6px;flex-wrap:wrap">
+        <button class="sun-btn" data-add="5" type="button">+5</button>
+        <button class="sun-btn" data-add="10" type="button">+10</button>
+        <button class="sun-btn" data-add="15" type="button">+15</button>
+        <button class="sun-btn" data-add="30" type="button">+30</button>
+        <button id="sun-reset" type="button" class="ghost">сброс</button>
+      </div>
+      <div style="font-size:13px;margin-top:8px;text-align:center">
+        Сегодня: <b id="sun-today">0</b> мин · <span id="sun-msg" style="color:hsl(var(--accent-h) 30% 70%);font-size:11.5px">—</span>
+      </div>
+    </div>
+
+    <!-- ============= READING LIST ============= -->
+    <div class="card" id="reading-card" style="margin-top:14px">
+      <h2>Книги · читаю</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Что читаешь сейчас. Тапни ✓ — отметишь как «дочитал». Прогресс ставь руками.
+      </p>
+      <div id="reading-list" style="display:flex;flex-direction:column;gap:7px"></div>
+      <div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">
+        <input id="book-title" type="text" placeholder="название книги" maxlength="80" style="flex:1;min-width:140px;padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <input id="book-pages" type="number" placeholder="страниц" min="1" max="9999" style="width:90px;padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="book-add" type="button" class="pri">+ Книга</button>
+      </div>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px;text-align:center">
+        Дочитано книг: <b id="book-done">0</b>
+      </div>
+    </div>
+
+    <!-- ============= CYCLE / PERIOD TRACKER ============= -->
+    <div class="card" id="cycle-card" style="margin-top:14px">
+      <h2>Цикл · трекер</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Если ты женщина — для трекинга менструации. Если мужчина — можно для трекинга «энергетических циклов» (28-дневный гормональный ритм).
+      </p>
+      <div class="row" style="gap:6px;flex-wrap:wrap">
+        <button id="cycle-start" type="button" class="pri">Старт цикла сегодня</button>
+        <button id="cycle-clear" type="button" class="ghost">Сброс</button>
+      </div>
+      <div style="font-size:12.5px;margin-top:8px;line-height:1.6" id="cycle-info">
+        Цикл не начат. Тапни «Старт цикла» в первый день месячных / нового энерго-цикла.
+      </div>
+      <div id="cycle-cells" style="display:grid;grid-template-columns:repeat(14,1fr);gap:2px;margin-top:8px"></div>
+      <div style="display:flex;gap:10px;font-size:10.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px;justify-content:center;flex-wrap:wrap">
+        <span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:hsl(0 70% 55%);margin-right:3px"></span>менстр</span>
+        <span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:hsl(200 70% 55%);margin-right:3px"></span>фоллик</span>
+        <span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:hsl(45 90% 55%);margin-right:3px"></span>овуляция</span>
+        <span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:hsl(280 60% 55%);margin-right:3px"></span>лютеин</span>
       </div>
     </div>
 
@@ -9129,6 +9228,146 @@
       setAll(all); txt.value = ''; dl.value = ''; render();
     });
     render();
+  })();
+
+  // ========= SUN EXPOSURE =========
+  (function(){
+    const today = document.getElementById('sun-today');
+    const msg = document.getElementById('sun-msg');
+    const reset = document.getElementById('sun-reset');
+    if (!today) return;
+    const dayKey = () => 'mogger.sun.' + new Date().toISOString().slice(0,10);
+    function render(){
+      const v = +localStorage.getItem(dayKey()) || 0;
+      today.textContent = v;
+      if (v === 0) msg.textContent = '— ещё не вышел';
+      else if (v < 10) msg.textContent = 'мало, нужно 20+';
+      else if (v < 25) msg.textContent = 'неплохо, цель близко';
+      else if (v < 60) msg.textContent = '🔥 цель достигнута';
+      else msg.textContent = 'сожги нос, дай отдых';
+      msg.style.color = v >= 20 ? 'hsl(120 70% 65%)' : 'hsl(var(--accent-h) 30% 70%)';
+    }
+    document.querySelectorAll('.sun-btn').forEach(b => b.addEventListener('click', () => {
+      const cur = +localStorage.getItem(dayKey()) || 0;
+      try{ localStorage.setItem(dayKey(), cur + (+b.dataset.add)); }catch(_){}
+      render();
+    }));
+    reset.addEventListener('click', () => { try{ localStorage.removeItem(dayKey()); }catch(_){} render(); });
+    render();
+  })();
+
+  // ========= READING LIST =========
+  (function(){
+    const list = document.getElementById('reading-list');
+    const titleI = document.getElementById('book-title');
+    const pagesI = document.getElementById('book-pages');
+    const add = document.getElementById('book-add');
+    const doneOut = document.getElementById('book-done');
+    if (!list) return;
+    const KEY = 'mogger.books';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function render(){
+      const all = getAll();
+      doneOut.textContent = all.filter(b => b.done).length;
+      const active = all.filter(b => !b.done);
+      const done = all.filter(b => b.done);
+      const shown = [...active, ...done].slice(0, 10);
+      if (!all.length){
+        list.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px;text-align:center">Книг нет. Добавь то что читаешь сейчас.</div>';
+        return;
+      }
+      list.innerHTML = shown.map((b,i) => {
+        const realIdx = all.indexOf(b);
+        return `
+          <div class="book-row ${b.done?'done':''}">
+            <div class="b-top">
+              <button class="b-check ${b.done?'on':''}" data-i="${realIdx}" type="button">✓</button>
+              <span class="b-title ${b.done?'done':''}">${(b.title||'').replace(/</g,'&lt;')}</span>
+              <button class="b-x" data-i="${realIdx}" type="button">×</button>
+            </div>
+            ${b.pages ? `
+              <div class="b-bar-wrap">
+                <input type="range" min="0" max="${b.pages}" value="${b.progress||0}" data-i="${realIdx}" class="b-r">
+                <span class="b-pct">${b.progress||0}/${b.pages}</span>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+      list.querySelectorAll('.b-check').forEach(c => c.addEventListener('click', e => {
+        const i = +e.currentTarget.dataset.i;
+        const all = getAll();
+        if (all[i]){ all[i].done = !all[i].done; if (all[i].done && all[i].pages) all[i].progress = all[i].pages; setAll(all); render(); }
+      }));
+      list.querySelectorAll('.b-x').forEach(b => b.addEventListener('click', e => {
+        const i = +e.currentTarget.dataset.i;
+        const all = getAll();
+        all.splice(i,1); setAll(all); render();
+      }));
+      list.querySelectorAll('.b-r').forEach(r => r.addEventListener('input', e => {
+        const i = +e.target.dataset.i;
+        const all = getAll();
+        if (all[i]){ all[i].progress = +e.target.value; if (all[i].progress >= all[i].pages) all[i].done = true; setAll(all); render(); }
+      }));
+    }
+    add.addEventListener('click', () => {
+      const t = titleI.value.trim(); if (!t) return;
+      const p = +pagesI.value || 0;
+      const all = getAll();
+      all.push({ title: t, pages: p, progress: 0, done: false, added: Date.now() });
+      setAll(all); titleI.value = ''; pagesI.value = ''; render();
+    });
+    render();
+  })();
+
+  // ========= CYCLE TRACKER =========
+  (function(){
+    const start = document.getElementById('cycle-start');
+    const clear = document.getElementById('cycle-clear');
+    const info = document.getElementById('cycle-info');
+    const cells = document.getElementById('cycle-cells');
+    if (!start) return;
+    const KEY = 'mogger.cycle.start';
+    function getDay(){
+      const s = localStorage.getItem(KEY);
+      if (!s) return null;
+      const startD = new Date(s);
+      const today = new Date(); today.setHours(0,0,0,0); startD.setHours(0,0,0,0);
+      return Math.floor((today-startD)/86400000) % 28;
+    }
+    function phase(day){
+      if (day < 5) return { l: 'Менструация', c: 't-menstr', desc: 'Энергия низкая. Лёгкие тренировки, больше сна.' };
+      if (day < 13) return { l: 'Фолликулярная', c: 't-follic', desc: 'Энергия растёт. Время тяжёлых тренировок и сложных задач.' };
+      if (day < 16) return { l: 'Овуляция', c: 't-ovul', desc: 'Пик энергии и социальности. Лучшее время для maxout, важных встреч.' };
+      return { l: 'Лютеиновая', c: 't-luteal', desc: 'Энергия падает. PMS, сладкое тянет. Стоит держать сахар + Mg.' };
+    }
+    function render(){
+      const d = getDay();
+      if (d === null){
+        info.textContent = 'Цикл не начат. Тапни «Старт цикла» в первый день месячных / нового энерго-цикла.';
+        cells.innerHTML = '';
+        return;
+      }
+      const p = phase(d);
+      info.innerHTML = `<b>День ${d+1}/28</b> — ${p.l}<br><span style="color:hsl(var(--accent-h) 30% 70%);font-size:11.5px">${p.desc}</span>`;
+      cells.innerHTML = Array.from({length:28}, (_,i) => {
+        const ph = phase(i);
+        const isToday = i === d;
+        return `<div class="cycle-cell ${ph.c} ${isToday?'today':''}" title="День ${i+1}: ${ph.l}">${i+1}</div>`;
+      }).join('');
+    }
+    start.addEventListener('click', () => {
+      const today = new Date().toISOString().slice(0,10);
+      try{ localStorage.setItem(KEY, today); }catch(_){}
+      render();
+    });
+    clear.addEventListener('click', () => {
+      try{ localStorage.removeItem(KEY); }catch(_){}
+      render();
+    });
+    render();
+    setInterval(render, 60000);
   })();
 
   // ========= AFFIRMATIONS =========
