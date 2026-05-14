@@ -2032,6 +2032,21 @@
   .cycle-cell.t-luteal{ background:hsl(280 60% 50% / .8);color:#fff }
   .cycle-cell.today{ outline:2px solid #fff;outline-offset:1px;z-index:2 }
 
+  /* STREAKS GRID */
+  .streak-grid{
+    display:grid;grid-template-columns:repeat(auto-fit, minmax(72px, 1fr));gap:7px;
+  }
+  .streak-pill{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;
+  }
+  .streak-pill .ic{ font-size:18px;line-height:1 }
+  .streak-pill .v{ font-size:18px;font-weight:900;color:#fff;line-height:1.1 }
+  .streak-pill .lbl{ font-size:9.5px;color:hsl(var(--accent-h) 30% 70%);font-weight:700;letter-spacing:.04em;text-transform:uppercase }
+  .streak-pill.on{ background:linear-gradient(135deg,hsla(var(--accent-h),100%,30%,.4),hsla(var(--accent-h),100%,50%,.3));border-color:hsla(var(--accent-h),100%,73%,.4) }
+  .streak-pill.on .v{ color:hsl(var(--accent-h) 100% 75%) }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3596,6 +3611,51 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
       </div>
+    </div>
+
+    <!-- ============= STREAKS DASHBOARD ============= -->
+    <div class="card" id="streaks-card" style="margin-top:14px">
+      <h2>Серии · все привычки</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Подряд дней без пропуска. Если хоть один день пропустил — обнуляется.
+      </p>
+      <div class="streak-grid" id="streak-grid"></div>
+    </div>
+
+    <!-- ============= TODAY WORKOUT ============= -->
+    <div class="card" id="todayw-card" style="margin-top:14px">
+      <h2>Тренировка · сегодня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Авто-выбор по PPL-ротации (6-дневка). Тапни «Сделал» — сдвинет на следующий.
+      </p>
+      <div style="font-size:13px;line-height:1.7;background:hsla(var(--accent-h),60%,11%,.55);border-radius:10px;padding:10px;border:1px solid hsla(var(--accent-h),100%,73%,.14)" id="todayw-text"></div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <button id="todayw-skip" type="button" class="ghost">Пропустить</button>
+        <button id="todayw-done" type="button" class="pri" style="flex:2">✓ Сделал тренировку</button>
+      </div>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:8px;text-align:center">
+        Сделано: <b id="todayw-done-count">0</b> · Цикл: <b id="todayw-cycle">0/6</b>
+      </div>
+    </div>
+
+    <!-- ============= GOAL WEIGHT PROJECTION ============= -->
+    <div class="card" id="gwp-card" style="margin-top:14px">
+      <h2>Цель по весу · прогноз</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Введи целевой вес и темп. Покажет через сколько дойдёшь при текущем дефиците/профиците ккал.
+      </p>
+      <div class="row" style="gap:6px;flex-wrap:wrap;margin-bottom:6px">
+        <div style="flex:1;min-width:90px">
+          <label style="font-size:11px;color:hsl(var(--accent-h) 30% 70%);display:block;margin-bottom:2px">Цель, кг</label>
+          <input id="gwp-target" type="number" step="0.5" placeholder="75" style="width:100%;padding:8px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        </div>
+        <div style="flex:1;min-width:90px">
+          <label style="font-size:11px;color:hsl(var(--accent-h) 30% 70%);display:block;margin-bottom:2px">Δ ккал/день</label>
+          <input id="gwp-deficit" type="number" placeholder="-300" style="width:100%;padding:8px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        </div>
+      </div>
+      <button id="gwp-calc" type="button" class="pri" style="width:100%">Рассчитать</button>
+      <div id="gwp-result" style="font-size:13px;margin-top:8px;line-height:1.6;color:hsl(var(--accent-h) 30% 85%);min-height:22px"></div>
     </div>
 
     <!-- ============= SUN EXPOSURE ============= -->
@@ -9228,6 +9288,149 @@
       setAll(all); txt.value = ''; dl.value = ''; render();
     });
     render();
+  })();
+
+  // ========= STREAKS DASHBOARD =========
+  (function(){
+    const grid = document.getElementById('streak-grid');
+    if (!grid) return;
+    function calc(checkFn, maxDays = 365){
+      let s = 0;
+      const now = new Date();
+      for (let i = 0; i < maxDays; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        const k = dt.toISOString().slice(0,10);
+        const ok = checkFn(k);
+        if (ok) s++;
+        else if (i === 0) continue;
+        else break;
+      }
+      return s;
+    }
+    function get(key, def){ try{ return JSON.parse(localStorage.getItem(key)||JSON.stringify(def)); }catch(_){ return def; } }
+    function getStreaks(){
+      return [
+        { ic:'💧', lbl:'вода 8', v: calc(d => (get('mogger.water.'+d, 0) >= 8)) },
+        { ic:'🚰', lbl:'гидро 12', v: calc(d => (get('mogger.hydration.'+d, 0) >= 12)) },
+        { ic:'👅', lbl:'mewing', v: calc(d => (get('mogger.mewingMin.'+d, 0) >= 30)) },
+        { ic:'🥶', lbl:'хол. душ', v: calc(d => !!get('mogger.cold.'+d, false)) },
+        { ic:'😴', lbl:'сон 7+', v: calc(d => (get('mogger.dailylog.'+d, {}).sleep || 0) >= 7) },
+        { ic:'👟', lbl:'10к шагов', v: calc(d => (get('mogger.dailylog.'+d, {}).steps || 0) >= 10000) },
+        { ic:'💪', lbl:'трениров.', v: calc(d => Array.isArray(get('mogger.workout.sets.'+d, [])) && get('mogger.workout.sets.'+d, []).length > 0) },
+        { ic:'🍳', lbl:'белок', v: calc(d => {
+          const food = get('mogger.food.'+d, []);
+          if (!Array.isArray(food)) return false;
+          const p = food.reduce((s,f)=>s+(+f.p||0),0);
+          return p >= 100;
+        }) },
+        { ic:'☀', lbl:'солнце 15', v: calc(d => (+get('mogger.sun.'+d, 0)) >= 15) },
+        { ic:'🦷', lbl:'зубы 2×', v: calc(d => { const b = get('mogger.brush.'+d, {}); return b.morning && b.evening; }) },
+        { ic:'🚫', lbl:'no-fap', v: (function(){
+          const r = localStorage.getItem('mogger.nofap.start');
+          if (!r) return 0;
+          return Math.floor((Date.now() - +r) / 86400000);
+        })() },
+        { ic:'🎯', lbl:'top-3', v: calc(d => {
+          const t = get('mogger.top3.'+d, {});
+          return t['0'] && t['1'] && t['2'];
+        }) },
+        { ic:'💆', lbl:'дренаж', v: calc(d => !!get('mogger.checklist.'+d, {})[3]) },
+        { ic:'🧘', lbl:'медит.', v: calc(d => (+get('mogger.medit.'+d, 0)) >= 5) },
+      ];
+    }
+    function render(){
+      const ss = getStreaks();
+      grid.innerHTML = ss.map(s =>
+        `<div class="streak-pill ${s.v >= 3 ? 'on' : ''}" title="${s.lbl}">
+          <div class="ic">${s.ic}</div>
+          <div class="v">${s.v}</div>
+          <div class="lbl">${s.lbl}</div>
+        </div>`).join('');
+    }
+    render();
+    setInterval(render, 60000);
+    window.addEventListener('storage', render);
+  })();
+
+  // ========= TODAY WORKOUT (PPL ROTATION) =========
+  (function(){
+    const text = document.getElementById('todayw-text');
+    const done = document.getElementById('todayw-done');
+    const skip = document.getElementById('todayw-skip');
+    const count = document.getElementById('todayw-done-count');
+    const cycle = document.getElementById('todayw-cycle');
+    if (!text) return;
+    const SPLITS = [
+      { name:'PUSH A', items:['Жим штанги лёжа 4×6-8','Жим гантелей на наклонной 3×8-10','Жим стоя 4×6-8','Разводки 3×12','Французский / трицепс 3×10','Отжимания на брусьях 3×amrap'] },
+      { name:'PULL A', items:['Подтягивания широким 4×6-10','Тяга штанги к поясу 4×6-8','Тяга вертикального блока 3×10','Шраги 3×12','Бицепс штангой 3×8','Молот 3×10'] },
+      { name:'LEGS A', items:['Присед со штангой 4×6-8','Жим ногами 3×10','Сгибания лёжа 3×10','Икры стоя 4×15','Голень сидя 3×15','Планка 3×60с'] },
+      { name:'PUSH B', items:['Жим гантелей лёжа 4×8','Жим под углом 3×8-10','Армейский жим гантелей 3×10','Подъём гантелей в стороны 3×15','Калибровка трицепса 3×10','Разгибания на трицепс 3×12'] },
+      { name:'PULL B', items:['Подтягивания обратным хватом 4×8','Тяга гантели одной 3×10','Тяга T-bar 3×10','Шраги гантелей 3×12','Бицепс гантелями 3×10','Концентрированные 3×12'] },
+      { name:'LEGS B', items:['Становая тяга 4×5','Выпады с гантелями 3×10/нога','Болгарские приседы 3×10/нога','Подъёмы икр сидя 4×15','Гиперэкстензия 3×12','Боковая планка 3×40с'] },
+    ];
+    function getIdx(){ return +localStorage.getItem('mogger.todayw.idx') || 0; }
+    function setIdx(i){ try{ localStorage.setItem('mogger.todayw.idx', i); }catch(_){} }
+    function render(){
+      const idx = getIdx() % SPLITS.length;
+      const s = SPLITS[idx];
+      text.innerHTML = `<b style="font-size:14.5px;color:hsl(var(--accent-h) 100% 70%)">${s.name}</b><br>` +
+        s.items.map(it => `• ${it}`).join('<br>');
+      count.textContent = +localStorage.getItem('mogger.todayw.count') || 0;
+      cycle.textContent = `${(idx % 6) + 1}/6`;
+    }
+    done.addEventListener('click', () => {
+      const c = +localStorage.getItem('mogger.todayw.count') || 0;
+      try{ localStorage.setItem('mogger.todayw.count', c+1); }catch(_){}
+      setIdx(getIdx()+1);
+      render();
+    });
+    skip.addEventListener('click', () => { setIdx(getIdx()+1); render(); });
+    render();
+  })();
+
+  // ========= GOAL WEIGHT PROJECTION =========
+  (function(){
+    const target = document.getElementById('gwp-target');
+    const def = document.getElementById('gwp-deficit');
+    const calc = document.getElementById('gwp-calc');
+    const result = document.getElementById('gwp-result');
+    if (!target) return;
+    function run(){
+      try {
+        const profile = JSON.parse(localStorage.getItem('mogger.profile') || '{}');
+        const current = +profile.weight || 0;
+        const tgt = +target.value;
+        const dKcal = +def.value;
+        if (!current){ result.innerHTML = '⚠️ Сначала заполни вес в профиле (⚙ вверху).'; return; }
+        if (!tgt){ result.innerHTML = '⚠️ Введи целевой вес.'; return; }
+        if (!dKcal){ result.innerHTML = '⚠️ Введи Δ ккал/день (например -300 для cut или +200 для bulk).'; return; }
+        const diff = tgt - current;
+        const direction = diff < 0 ? 'сбросить' : 'набрать';
+        const absDiff = Math.abs(diff);
+        const sameSign = (dKcal < 0 && diff < 0) || (dKcal > 0 && diff > 0);
+        if (!sameSign){
+          result.innerHTML = `⚠️ Направление не совпадает. Чтобы ${direction} ${absDiff.toFixed(1)}кг — нужен ${diff < 0 ? 'дефицит (отрицательный)' : 'профицит (положительный)'} ккал.`;
+          return;
+        }
+        const kcalPerKg = 7700;
+        const days = Math.round(absDiff * kcalPerKg / Math.abs(dKcal));
+        const weeks = (days/7).toFixed(1);
+        const months = (days/30).toFixed(1);
+        const date = new Date();
+        date.setDate(date.getDate() + days);
+        result.innerHTML = `<b style="color:hsl(var(--accent-h) 100% 75%)">${direction} ${absDiff.toFixed(1)}кг → ${tgt}кг</b><br>` +
+          `≈ ${days} дней (${weeks} нед / ${months} мес)<br>` +
+          `Дата цели: <b>${date.toLocaleDateString('ru-RU')}</b><br>` +
+          `<span style="font-size:11px;color:hsl(var(--accent-h) 30% 70%)">Прогноз линейный. В реальности скорость замедляется при приближении к цели — закладывай +20% времени.</span>`;
+        try{ localStorage.setItem('mogger.gwp', JSON.stringify({target: tgt, deficit: dKcal})); }catch(_){}
+      } catch(e){ result.innerHTML = '⚠️ Ошибка расчёта.'; }
+    }
+    try {
+      const saved = JSON.parse(localStorage.getItem('mogger.gwp') || '{}');
+      if (saved.target) target.value = saved.target;
+      if (saved.deficit) def.value = saved.deficit;
+    } catch(_){}
+    calc.addEventListener('click', run);
   })();
 
   // ========= SUN EXPOSURE =========
