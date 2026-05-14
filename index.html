@@ -2218,6 +2218,31 @@
   .pr2-step .pr-ic{ font-size:16px;flex-shrink:0 }
   .pr2-step .pr-d{ font-size:10px;color:hsl(var(--accent-h) 30% 65%);margin-left:auto;flex-shrink:0;font-weight:700 }
 
+  /* MORNING ROUTINE */
+  .mr-step{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:8px;padding:7px 10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#fff;
+  }
+  .mr-step.done{ opacity:.55;text-decoration:line-through }
+  .mr-step .mr-c{
+    width:20px;height:20px;border-radius:5px;border:1.5px solid hsla(var(--accent-h),100%,73%,.4);
+    background:none;display:flex;align-items:center;justify-content:center;color:hsl(var(--accent-h) 100% 70%);font-size:12px;font-weight:900;flex-shrink:0;
+  }
+  .mr-step.done .mr-c{ background:hsl(var(--accent-h) 100% 60%);border-color:transparent;color:#fff }
+  .mr-step .mr-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px;margin-left:auto }
+
+  /* ACHIEVEMENTS */
+  .ach-tile{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
+  }
+  .ach-tile .ach-ic{ font-size:24px;line-height:1 }
+  .ach-tile .ach-n{ font-size:10px;font-weight:700;color:hsl(var(--accent-h) 30% 75%);line-height:1.2 }
+  .ach-tile.locked{ opacity:.35 }
+  .ach-tile.locked .ach-ic{ filter:grayscale(1) }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3781,6 +3806,49 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(40 90% 60%);margin-right:6px"></span>Углеводы <b id="pie-c-pct">0%</b> · <span id="pie-c-g">0</span>г · <span id="pie-c-kc">0</span>кк</div>
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ============= WEIGHT GRAPH ============= -->
+    <div class="card" id="wg-card" style="margin-top:14px">
+      <h2>Вес · график</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Записывай вес утром натощак. Линия = тренд за 30 точек. Минимум 3 записи для графика.
+      </p>
+      <div class="row" style="gap:6px;margin-bottom:8px">
+        <input id="wg-input" type="number" step="0.1" placeholder="вес, кг" style="flex:1;padding:8px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="wg-add" type="button" class="pri">Записать</button>
+      </div>
+      <svg id="wg-svg" viewBox="0 0 300 120" style="width:100%;background:hsla(var(--accent-h),60%,8%,.6);border-radius:10px;border:1px solid hsla(var(--accent-h),100%,73%,.14)"></svg>
+      <div style="font-size:11px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px;text-align:center" id="wg-stats"></div>
+    </div>
+
+    <!-- ============= MORNING ROUTINE ============= -->
+    <div class="card" id="mr-card" style="margin-top:14px">
+      <h2>Утренняя рутина</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Построй свой идеальный утренний ритуал. Таймер общий + отметки по шагам. Сброс в полночь.
+      </p>
+      <div id="mr-steps" style="display:flex;flex-direction:column;gap:5px"></div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <input id="mr-input" type="text" placeholder="напр. 10 мин прогулка" maxlength="40" style="flex:1;padding:7px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="mr-add" type="button" class="pri">+</button>
+      </div>
+      <button id="mr-presets" type="button" class="ghost" style="width:100%;margin-top:8px;font-size:11.5px">Загрузить пример</button>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px;text-align:center">
+        Streak: <b id="mr-streak">0</b> 🔥
+      </div>
+    </div>
+
+    <!-- ============= ACHIEVEMENTS ============= -->
+    <div class="card" id="ach-card" style="margin-top:14px">
+      <h2>Достижения</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Разблокируются автоматически. Когда видишь 🔓 — значит ещё не выполнено.
+      </p>
+      <div id="ach-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(90px, 1fr));gap:7px"></div>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:8px;text-align:center">
+        Открыто: <b id="ach-count">0</b> / <b id="ach-total">0</b>
       </div>
     </div>
 
@@ -9778,6 +9846,242 @@
       setAll(all); txt.value = ''; dl.value = ''; render();
     });
     render();
+  })();
+
+  // ========= WEIGHT GRAPH =========
+  (function(){
+    const svg = document.getElementById('wg-svg');
+    const input = document.getElementById('wg-input');
+    const add = document.getElementById('wg-add');
+    const stats = document.getElementById('wg-stats');
+    if (!svg) return;
+    const KEY = 'mogger.weight.history';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function render(){
+      const all = getAll().slice(-30);
+      if (all.length < 2){
+        svg.innerHTML = '<text x="150" y="65" text-anchor="middle" fill="hsl(var(--accent-h) 30% 60%)" font-size="11">Минимум 2 записи для графика</text>';
+        stats.textContent = all.length + ' записей';
+        return;
+      }
+      const vals = all.map(a => a.v);
+      const mn = Math.min(...vals);
+      const mx = Math.max(...vals);
+      const range = mx - mn || 1;
+      const pad = 15;
+      const w = 300, h = 120;
+      const pw = w - pad*2, ph = h - pad*2;
+      const pts = all.map((a,i) => ({
+        x: pad + (i/(all.length-1)) * pw,
+        y: pad + ph - ((a.v - mn) / range) * ph,
+      }));
+      const line = pts.map((p,i) => `${i===0?'M':'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+      const dots = pts.map(p => `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.5" fill="hsl(var(--accent-h) 100% 65%)"/>`).join('');
+      const labels = `
+        <text x="${pad}" y="${pad-3}" font-size="8" fill="hsl(var(--accent-h) 30% 70%)">${mx.toFixed(1)}кг</text>
+        <text x="${pad}" y="${h-3}" font-size="8" fill="hsl(var(--accent-h) 30% 70%)">${mn.toFixed(1)}кг</text>
+      `;
+      svg.innerHTML = `
+        <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h-pad}" stroke="hsla(var(--accent-h),60%,30%,.5)" stroke-width="0.5"/>
+        <line x1="${pad}" y1="${h-pad}" x2="${w-pad}" y2="${h-pad}" stroke="hsla(var(--accent-h),60%,30%,.5)" stroke-width="0.5"/>
+        <path d="${line}" fill="none" stroke="hsl(var(--accent-h) 100% 60%)" stroke-width="2"/>
+        ${dots}
+        ${labels}
+      `;
+      const first = vals[0], last = vals[vals.length-1];
+      const diff = last - first;
+      stats.innerHTML = `${all.length} записей · ${first.toFixed(1)} → ${last.toFixed(1)}кг · <span style="color:${diff<=0?'hsl(120 70% 65%)':'hsl(0 70% 65%)'}">${diff > 0?'+':''}${diff.toFixed(1)}кг</span>`;
+    }
+    add.addEventListener('click', () => {
+      const v = +input.value; if (!v) return;
+      const all = getAll();
+      all.push({ v, d: Date.now() });
+      setAll(all); input.value = ''; render();
+    });
+    render();
+  })();
+
+  // ========= MORNING ROUTINE =========
+  (function(){
+    const steps = document.getElementById('mr-steps');
+    const input = document.getElementById('mr-input');
+    const add = document.getElementById('mr-add');
+    const presets = document.getElementById('mr-presets');
+    const streak = document.getElementById('mr-streak');
+    if (!steps) return;
+    const KEY = 'mogger.mr.steps';
+    function getSteps(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setSteps(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function getDoneKey(){ return 'mogger.mr.done.'+new Date().toISOString().slice(0,10); }
+    function getDone(){ try{ return JSON.parse(localStorage.getItem(getDoneKey())||'{}'); }catch(_){ return {}; } }
+    function setDone(d){ try{ localStorage.setItem(getDoneKey(), JSON.stringify(d)); }catch(_){} }
+    function calcStreak(){
+      let s = 0;
+      const now = new Date();
+      const arr = getSteps();
+      if (!arr.length) return 0;
+      for (let i = 0; i < 365; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        const k = 'mogger.mr.done.'+dt.toISOString().slice(0,10);
+        try {
+          const d = JSON.parse(localStorage.getItem(k)||'{}');
+          const allDone = arr.every((_,j)=>d[j]);
+          if (allDone) s++;
+          else if (i===0) continue;
+          else break;
+        }catch(_){ break; }
+      }
+      return s;
+    }
+    function render(){
+      const arr = getSteps();
+      const done = getDone();
+      if (!arr.length){
+        steps.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px;text-align:center">Шагов нет. Добавь или загрузи пример.</div>';
+        streak.textContent = 0;
+        return;
+      }
+      steps.innerHTML = arr.map((s,i) => `
+        <div class="mr-step ${done[i]?'done':''}" data-i="${i}">
+          <div class="mr-c">${done[i]?'✓':''}</div>
+          <span>${i+1}. ${s.replace(/</g,'&lt;')}</span>
+          <button class="mr-x" data-i="${i}" type="button">×</button>
+        </div>
+      `).join('');
+      steps.querySelectorAll('.mr-step').forEach(el => el.addEventListener('click', e => {
+        if (e.target.classList.contains('mr-x')) return;
+        const i = +el.dataset.i;
+        const d = getDone(); d[i] = !d[i]; setDone(d); render();
+      }));
+      steps.querySelectorAll('.mr-x').forEach(b => b.addEventListener('click', e => {
+        e.stopPropagation();
+        const i = +e.currentTarget.dataset.i;
+        const arr = getSteps(); arr.splice(i,1); setSteps(arr); render();
+      }));
+      streak.textContent = calcStreak();
+    }
+    add.addEventListener('click', () => {
+      const t = input.value.trim(); if (!t) return;
+      const arr = getSteps(); arr.push(t); setSteps(arr); input.value = ''; render();
+    });
+    presets.addEventListener('click', () => {
+      if (!confirm('Заменить текущие шаги примером?')) return;
+      setSteps(['Подъём без снуза','Стакан воды','Холодное лицо 30с','Mewing + растяжка 2 мин','Дыхание 4-7-8','Утреннее солнце 5-10 мин','Завтрак белковый','SPF','Чек-лист — open MOGGER']);
+      render();
+    });
+    render();
+  })();
+
+  // ========= ACHIEVEMENTS =========
+  (function(){
+    const grid = document.getElementById('ach-grid');
+    const count = document.getElementById('ach-count');
+    const total = document.getElementById('ach-total');
+    if (!grid) return;
+    function get(k,d){ try{ return JSON.parse(localStorage.getItem(k)||JSON.stringify(d)); }catch(_){ return d; } }
+    const ACH = [
+      { ic:'🔥', n:'7-day streak', check: () => {
+        let s = 0; const now = new Date();
+        for (let i = 0; i < 7; i++){
+          const dt = new Date(now); dt.setDate(dt.getDate()-i);
+          const c = get('mogger.checklist.'+dt.toISOString().slice(0,10), {});
+          if (Object.values(c).filter(Boolean).length >= 5) s++; else break;
+        }
+        return s >= 7;
+      }},
+      { ic:'💪', n:'100 отжиманий', check:() => (+get('mogger.max.pushups', {}).val || 0) >= 100 },
+      { ic:'🏋', n:'1RM > 100кг', check:() => {
+        const prs = get('mogger.prs', []);
+        return prs.some(p => p.weight * (1 + p.reps/30) >= 100);
+      }},
+      { ic:'📚', n:'5 книг', check:() => get('mogger.books', []).filter(b=>b.done).length >= 5 },
+      { ic:'🥶', n:'30 хол. душей', check:() => {
+        let c = 0;
+        for (let i = 0; i < 365; i++){
+          const dt = new Date(); dt.setDate(dt.getDate()-i);
+          if (get('mogger.cold.'+dt.toISOString().slice(0,10), false)) c++;
+        }
+        return c >= 30;
+      }},
+      { ic:'😴', n:'7 дн сон 8+', check:() => {
+        let s = 0; const now = new Date();
+        for (let i = 0; i < 7; i++){
+          const dt = new Date(now); dt.setDate(dt.getDate()-i);
+          const log = get('mogger.dailylog.'+dt.toISOString().slice(0,10), {});
+          if ((+log.sleep||0) >= 8) s++; else break;
+        }
+        return s >= 7;
+      }},
+      { ic:'💧', n:'Вода 30 дн', check:() => {
+        let c = 0;
+        for (let i = 0; i < 30; i++){
+          const dt = new Date(); dt.setDate(dt.getDate()-i);
+          if ((+get('mogger.water.'+dt.toISOString().slice(0,10), 0)) >= 8) c++;
+        }
+        return c >= 30;
+      }},
+      { ic:'🎯', n:'10 целей', check:() => get('mogger.ltg', []).filter(g => g.pct >= 100).length >= 10 },
+      { ic:'📝', n:'30 заметок', check:() => get('mogger.notes', []).length >= 30 },
+      { ic:'🏃', n:'Кардио 20 сес', check:() => {
+        let c = 0;
+        for (let i = 0; i < 365; i++){
+          const dt = new Date(); dt.setDate(dt.getDate()-i);
+          const log = get('mogger.cardio.'+dt.toISOString().slice(0,10), []);
+          if (Array.isArray(log) && log.length) c++;
+        }
+        return c >= 20;
+      }},
+      { ic:'🧘', n:'Медитация 14д', check:() => {
+        let s = 0; const now = new Date();
+        for (let i = 0; i < 365; i++){
+          const dt = new Date(now); dt.setDate(dt.getDate()-i);
+          if ((+get('mogger.medit.'+dt.toISOString().slice(0,10), 0)) >= 5) s++; else if (i===0) continue; else break;
+        }
+        return s >= 14;
+      }},
+      { ic:'⭐', n:'Первый рейт', check:() => !!localStorage.getItem('mogger.rate.overall') },
+      { ic:'💊', n:'Suppl 7 дн', check:() => {
+        let s = 0; const now = new Date();
+        for (let i = 0; i < 7; i++){
+          const dt = new Date(now); dt.setDate(dt.getDate()-i);
+          const d = get('mogger.suppl.'+dt.toISOString().slice(0,10), {});
+          if (Object.values(d).filter(Boolean).length >= 3) s++; else break;
+        }
+        return s >= 7;
+      }},
+      { ic:'📷', n:'Before/After', check:() => !!localStorage.getItem('mogger.cmp.before') && !!localStorage.getItem('mogger.cmp.after') },
+      { ic:'🚫', n:'No-fap 30д', check:() => {
+        const r = localStorage.getItem('mogger.nofap.start');
+        if (!r) return false;
+        return Math.floor((Date.now() - +r) / 86400000) >= 30;
+      }},
+      { ic:'🦷', n:'Зубы 14 дн', check:() => {
+        let s = 0; const now = new Date();
+        for (let i = 0; i < 365; i++){
+          const dt = new Date(now); dt.setDate(dt.getDate()-i);
+          const b = get('mogger.brush.'+dt.toISOString().slice(0,10), {});
+          if (b.morning && b.evening) s++; else if (i===0) continue; else break;
+        }
+        return s >= 14;
+      }},
+    ];
+    function render(){
+      let unlocked = 0;
+      grid.innerHTML = ACH.map(a => {
+        const ok = a.check();
+        if (ok) unlocked++;
+        return `<div class="ach-tile ${ok?'':'locked'}">
+          <div class="ach-ic">${ok ? a.ic : '🔓'}</div>
+          <div class="ach-n">${a.n}</div>
+        </div>`;
+      }).join('');
+      count.textContent = unlocked;
+      total.textContent = ACH.length;
+    }
+    render();
+    setInterval(render, 30000);
+    window.addEventListener('storage', render);
   })();
 
   // ========= WEEKLY REVIEW =========
