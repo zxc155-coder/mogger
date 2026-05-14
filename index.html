@@ -2123,6 +2123,22 @@
   .skin-step.done .ss-n{ text-decoration:line-through;color:hsl(var(--accent-h) 30% 60%) }
   .skin-step .ss-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px }
 
+  /* MEASUREMENTS */
+  .meas-grid{
+    display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;
+  }
+  .meas-tile{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:8px 10px;
+  }
+  .meas-tile label{ font-size:10.5px;color:hsl(var(--accent-h) 30% 70%);font-weight:700;letter-spacing:.04em;text-transform:uppercase }
+  .meas-tile input{
+    width:100%;padding:5px 7px;background:hsla(var(--accent-h),60%,7%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);border-radius:6px;color:#fff;font-size:13px;font-weight:700;margin-top:3px;
+  }
+  .meas-tile .meas-d{ font-size:10px;color:hsl(var(--accent-h) 100% 70%);font-weight:700;margin-top:2px;min-height:13px }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3686,6 +3702,64 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(40 90% 60%);margin-right:6px"></span>Углеводы <b id="pie-c-pct">0%</b> · <span id="pie-c-g">0</span>г · <span id="pie-c-kc">0</span>кк</div>
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ============= BODY MEASUREMENTS ============= -->
+    <div class="card" id="meas-card" style="margin-top:14px">
+      <h2>Замеры тела · история</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Сантиметровая лента, утром натощак. Хотя бы раз в неделю. Линия = тренд за 90 дней.
+      </p>
+      <div class="meas-grid" id="meas-grid"></div>
+      <button id="meas-save" type="button" class="pri" style="width:100%;margin-top:10px">Сохранить замер сегодня</button>
+      <div id="meas-history" style="margin-top:10px;font-size:11px;color:hsl(var(--accent-h) 30% 70%)"></div>
+    </div>
+
+    <!-- ============= RECOVERY SCORE ============= -->
+    <div class="card" id="rec-card" style="margin-top:14px">
+      <h2>Recovery · готовность</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Композитный балл готовности к нагрузке. Считается из сна + RHR + soreness + стресса.
+      </p>
+      <div style="display:flex;align-items:center;gap:14px;background:hsla(var(--accent-h),60%,11%,.55);border-radius:12px;padding:12px;border:1px solid hsla(var(--accent-h),100%,73%,.14)">
+        <div id="rec-circle" style="position:relative;width:80px;height:80px;flex-shrink:0">
+          <svg viewBox="0 0 80 80" style="width:100%;height:100%;transform:rotate(-90deg)">
+            <circle cx="40" cy="40" r="34" fill="none" stroke="hsla(var(--accent-h),60%,20%,.6)" stroke-width="8"/>
+            <circle id="rec-arc" cx="40" cy="40" r="34" fill="none" stroke="hsl(120 70% 55%)" stroke-width="8" stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+            <div id="rec-val" style="font-size:24px;font-weight:900;line-height:1">—</div>
+            <div style="font-size:9px;color:hsl(var(--accent-h) 30% 70%);font-weight:700">из 100</div>
+          </div>
+        </div>
+        <div style="flex:1;font-size:12px;line-height:1.5">
+          <div id="rec-label" style="font-weight:900;font-size:14px;color:#fff;margin-bottom:3px">—</div>
+          <div id="rec-advice" style="color:hsl(var(--accent-h) 30% 80%);font-size:11.5px">Заполни сон, RHR и soreness — появится оценка.</div>
+        </div>
+      </div>
+      <div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">
+        <div style="flex:1;min-width:80px">
+          <label style="font-size:10.5px;color:hsl(var(--accent-h) 30% 70%);display:block">Soreness 1-10</label>
+          <input id="rec-sore" type="number" min="1" max="10" placeholder="1=ноль" style="width:100%;padding:6px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:6px;color:#fff;font-size:12px">
+        </div>
+        <button id="rec-save" type="button" class="pri" style="flex-basis:100%">Сохранить + пересчитать</button>
+      </div>
+    </div>
+
+    <!-- ============= DAILY CHALLENGE ============= -->
+    <div class="card" id="challenge-card" style="margin-top:14px">
+      <h2>Челлендж дня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Одно сложное задание на каждый день. Закрыл — streak. Пропустил — обнулился.
+      </p>
+      <div id="ch-text" style="font-size:14px;font-weight:700;background:hsla(var(--accent-h),60%,11%,.55);border-radius:10px;padding:12px;border:1px solid hsla(var(--accent-h),100%,73%,.14);text-align:center;line-height:1.5;color:#fff;min-height:60px;display:flex;align-items:center;justify-content:center"></div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <button id="ch-reroll" type="button" class="ghost" style="flex:1">🎲 Рандом</button>
+        <button id="ch-done" type="button" class="pri" style="flex:2">✓ Сделал</button>
+      </div>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px;text-align:center">
+        Челленджей закрыто: <b id="ch-count">0</b> · Streak: <b id="ch-streak">0</b> 🔥
       </div>
     </div>
 
@@ -9512,6 +9586,269 @@
       const all = getAll();
       all.push({ name: t, deadline: dl.value || '', pct: 0, created: Date.now() });
       setAll(all); txt.value = ''; dl.value = ''; render();
+    });
+    render();
+  })();
+
+  // ========= BODY MEASUREMENTS =========
+  (function(){
+    const grid = document.getElementById('meas-grid');
+    const save = document.getElementById('meas-save');
+    const histEl = document.getElementById('meas-history');
+    if (!grid) return;
+    const PARTS = [
+      { k:'neck', l:'Шея' },
+      { k:'chest', l:'Грудь' },
+      { k:'waist', l:'Талия' },
+      { k:'hips', l:'Бёдра' },
+      { k:'biceps_l', l:'Бицепс ◀' },
+      { k:'biceps_r', l:'Бицепс ▶' },
+      { k:'thigh_l', l:'Бедро ◀' },
+      { k:'thigh_r', l:'Бедро ▶' },
+    ];
+    const KEY = 'mogger.meas';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function latest(){
+      const all = getAll();
+      return all.length ? all[all.length-1] : null;
+    }
+    function render(){
+      const cur = latest() || {};
+      const all = getAll();
+      // Find prev session for delta calc
+      const prev = all.length >= 2 ? all[all.length-2] : null;
+      grid.innerHTML = PARTS.map(p => {
+        const v = cur[p.k] || '';
+        let delta = '';
+        if (prev && prev[p.k] && cur[p.k]){
+          const d = cur[p.k] - prev[p.k];
+          if (Math.abs(d) > 0.05){
+            delta = (d > 0 ? '+' : '') + d.toFixed(1) + ' см';
+            delta = `<span style="color:${d>0?'hsl(120 70% 65%)':'hsl(0 70% 65%)'}">${delta}</span>`;
+          }
+        }
+        return `<div class="meas-tile">
+          <label>${p.l}</label>
+          <input type="number" step="0.5" data-k="${p.k}" value="${v}" placeholder="см">
+          <div class="meas-d">${delta || '&nbsp;'}</div>
+        </div>`;
+      }).join('');
+      const inputs = grid.querySelectorAll('input');
+      inputs.forEach(inp => inp.addEventListener('change', e => {
+        // Update the latest entry in memory but don't persist until "save"
+        e.target.dataset.dirty = '1';
+      }));
+      // History summary
+      if (!all.length){ histEl.textContent = 'Нет замеров. Введи значения и сохрани.'; return; }
+      const first = all[0];
+      const last = all[all.length-1];
+      const days = Math.round((last.date - first.date) / 86400000);
+      const totals = PARTS.map(p => {
+        if (first[p.k] && last[p.k] && first[p.k] !== last[p.k]){
+          const d = last[p.k] - first[p.k];
+          return `${p.l}: ${(d>0?'+':'')}${d.toFixed(1)}см`;
+        }
+        return null;
+      }).filter(Boolean);
+      histEl.innerHTML = `За ${days||0} дн (${all.length} замеров): ${totals.join(' · ') || 'без изменений'}`;
+    }
+    save.addEventListener('click', () => {
+      const inputs = grid.querySelectorAll('input');
+      const entry = { date: Date.now() };
+      let hasData = false;
+      inputs.forEach(inp => {
+        const v = +inp.value || 0;
+        if (v > 0){ entry[inp.dataset.k] = v; hasData = true; }
+      });
+      if (!hasData){ alert('Введи хотя бы одно значение.'); return; }
+      const all = getAll(); all.push(entry); setAll(all); render();
+      save.textContent = 'Сохранено ✓';
+      setTimeout(() => save.textContent = 'Сохранить замер сегодня', 1500);
+    });
+    render();
+  })();
+
+  // ========= RECOVERY SCORE =========
+  (function(){
+    const arc = document.getElementById('rec-arc');
+    const val = document.getElementById('rec-val');
+    const label = document.getElementById('rec-label');
+    const advice = document.getElementById('rec-advice');
+    const sore = document.getElementById('rec-sore');
+    const save = document.getElementById('rec-save');
+    if (!arc) return;
+    function score(){
+      try {
+        const today = new Date().toISOString().slice(0,10);
+        const log = JSON.parse(localStorage.getItem('mogger.dailylog.'+today) || '{}');
+        const vitals = JSON.parse(localStorage.getItem('mogger.vitals.'+today) || '{}');
+        const moodObj = JSON.parse(localStorage.getItem('mogger.mood.'+today) || '{}');
+        const sleepH = +log.sleep || 0;
+        const sleepQ = +log.sleepQ || 0;
+        const rhr = +vitals.rhr || 0;
+        const stress = +moodObj.stress || 0;
+        const soreVal = +localStorage.getItem('mogger.soreness.'+today) || 0;
+        let score = 0; let parts = 0;
+        // sleep duration: max 30 at 8h+
+        if (sleepH > 0){ score += Math.min(30, sleepH/8*30); parts++; }
+        // sleep quality: max 20 at 10/10
+        if (sleepQ > 0){ score += sleepQ*2; parts++; }
+        // RHR: max 20 (lower = better, baseline 60)
+        if (rhr > 0){
+          const rhrScore = Math.max(0, Math.min(20, 20 - (rhr-50)*0.5));
+          score += rhrScore; parts++;
+        }
+        // Stress: max 15 (lower = better)
+        if (stress > 0){ score += 15 - stress*1.5; parts++; }
+        // Soreness: max 15 (lower = better)
+        if (soreVal > 0){ score += 15 - soreVal*1.5; parts++; }
+        return parts >= 2 ? Math.round(Math.max(0, Math.min(100, score / parts * (100/20)))) : null;
+      } catch(e){ return null; }
+    }
+    function render(){
+      const s = score();
+      // Load saved soreness
+      const sk = 'mogger.soreness.'+new Date().toISOString().slice(0,10);
+      sore.value = localStorage.getItem(sk) || '';
+      if (s === null){
+        val.textContent = '—';
+        label.textContent = 'Нет данных';
+        advice.textContent = 'Заполни сон, RHR, soreness — появится оценка.';
+        arc.style.strokeDashoffset = '213.6';
+        return;
+      }
+      val.textContent = s;
+      val.style.color = s >= 80 ? 'hsl(120 70% 65%)' : s >= 60 ? 'hsl(45 90% 65%)' : s >= 40 ? 'hsl(25 90% 65%)' : 'hsl(0 70% 65%)';
+      const off = 213.6 - (s/100)*213.6;
+      arc.style.strokeDashoffset = off;
+      arc.style.stroke = s >= 80 ? 'hsl(120 70% 55%)' : s >= 60 ? 'hsl(45 90% 55%)' : s >= 40 ? 'hsl(25 90% 55%)' : 'hsl(0 70% 55%)';
+      if (s >= 85){ label.textContent = 'Огонь, можно жесть'; advice.textContent = 'Иди на maxout, тяжёлая тренировка приветствуется.'; }
+      else if (s >= 70){ label.textContent = 'Норм, готов'; advice.textContent = 'Стандартная тренировка по плану.'; }
+      else if (s >= 50){ label.textContent = 'Средне'; advice.textContent = 'Делай, но без рекордов. Лёгкий-средний день.'; }
+      else if (s >= 30){ label.textContent = 'Низко'; advice.textContent = 'Лёгкое кардио, растяжка, восстановление. Без тяжёлого.'; }
+      else { label.textContent = 'Стоп'; advice.textContent = 'Только отдых. Тяжёлая тренировка сегодня = травма + откат.'; }
+    }
+    save.addEventListener('click', () => {
+      const sk = 'mogger.soreness.'+new Date().toISOString().slice(0,10);
+      try{ if (sore.value) localStorage.setItem(sk, sore.value); else localStorage.removeItem(sk); }catch(_){}
+      render();
+    });
+    render();
+    setInterval(render, 60000);
+  })();
+
+  // ========= DAILY CHALLENGE =========
+  (function(){
+    const CHALLENGES = [
+      '100 отжиманий за день (любыми подходами)',
+      '50 берпи без перерыва',
+      'Холодный душ 3 минуты',
+      'Прогулка 10000 шагов',
+      'День без сахара и фастфуда',
+      'Не открывать соц-сети до обеда',
+      'Написать 3 благодарности от руки',
+      'Тренировка на пустой желудок утром',
+      'Тишина 1 час — без музыки, тв, разговоров',
+      'Прочитать 30 страниц книги',
+      'Медитация 20 минут',
+      'Сходить в спортзал когда не хочется',
+      'Поприветствовать незнакомца взглядом и улыбкой',
+      'День без алкоголя',
+      'Написать 200 слов в дневнике',
+      'Турник: максимум подтягиваний за один подход',
+      'Бег 5 км любым темпом',
+      'Не пользоваться лифтом весь день — только лестница',
+      'Лечь до 22:30 без экранов',
+      'Подняться с первого будильника',
+      '20 минут растяжки',
+      'Сделать дело которое откладывал больше недели',
+      'Позвонить родителям',
+      'Поесть только цельную еду 1 день',
+      'Не жаловаться 24 часа',
+      'Закончить день раньше с помощью списка task на завтра',
+      'Холодное обливание после душа 1 минута',
+      'Без кофеина 1 день',
+      '3 часа без телефона',
+      'Написать письмо себе на год вперёд',
+      'Расхламить 1 зону квартиры',
+      'Пешком до места куда обычно на машине',
+      '100 приседаний в один заход',
+      'Пробежать длиннее обычной дистанции',
+      'Mewing 8 часов без пропуска',
+      'День в полной тишине после 21:00',
+      'Не смотреть зеркало 24 часа (кроме гигиены)',
+      'Поговорить с собой на иностранном языке 20 мин',
+      'Сделать новую вещь которую никогда не пробовал',
+      'Закрыть одну долгую задачу одним заходом',
+    ];
+    const text = document.getElementById('ch-text');
+    const reroll = document.getElementById('ch-reroll');
+    const done = document.getElementById('ch-done');
+    const count = document.getElementById('ch-count');
+    const streak = document.getElementById('ch-streak');
+    if (!text) return;
+    function getDayKey(){ return 'mogger.challenge.'+new Date().toISOString().slice(0,10); }
+    function getCurrent(){
+      const k = getDayKey();
+      let stored = localStorage.getItem(k);
+      if (!stored){
+        const r = Math.floor(Math.random()*CHALLENGES.length);
+        const obj = { idx: r, done: false };
+        try{ localStorage.setItem(k, JSON.stringify(obj)); }catch(_){}
+        return obj;
+      }
+      try{ return JSON.parse(stored); }catch(_){ return { idx: 0, done: false }; }
+    }
+    function setCurrent(obj){
+      try{ localStorage.setItem(getDayKey(), JSON.stringify(obj)); }catch(_){}
+    }
+    function countDone(){
+      let c = 0;
+      for (let i = 0; i < localStorage.length; i++){
+        const k = localStorage.key(i);
+        if (k && k.startsWith('mogger.challenge.')){
+          try{
+            const v = JSON.parse(localStorage.getItem(k));
+            if (v.done) c++;
+          }catch(_){}
+        }
+      }
+      return c;
+    }
+    function calcStreak(){
+      let s = 0;
+      const now = new Date();
+      for (let i = 0; i < 365; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        const k = 'mogger.challenge.'+dt.toISOString().slice(0,10);
+        try {
+          const v = JSON.parse(localStorage.getItem(k) || '{}');
+          if (v.done) s++;
+          else if (i === 0) continue;
+          else break;
+        } catch(_){ break; }
+      }
+      return s;
+    }
+    function render(){
+      const c = getCurrent();
+      text.innerHTML = CHALLENGES[c.idx] + (c.done ? ' <span style="color:hsl(120 70% 65%)">✓</span>' : '');
+      done.textContent = c.done ? '✓ Сделано' : '✓ Сделал';
+      done.style.opacity = c.done ? 0.6 : 1;
+      count.textContent = countDone();
+      streak.textContent = calcStreak();
+    }
+    reroll.addEventListener('click', () => {
+      const c = getCurrent();
+      c.idx = Math.floor(Math.random()*CHALLENGES.length);
+      c.done = false;
+      setCurrent(c); render();
+    });
+    done.addEventListener('click', () => {
+      const c = getCurrent();
+      c.done = !c.done;
+      setCurrent(c); render();
     });
     render();
   })();
