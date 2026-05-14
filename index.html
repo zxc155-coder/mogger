@@ -2088,6 +2088,41 @@
   .hab-item:active{ background:hsla(var(--accent-h),60%,17%,.7) }
   .hab-item .hb-c{ font-size:9px;color:hsl(var(--accent-h) 30% 65%);font-weight:700;text-transform:uppercase;margin-left:auto;flex-shrink:0 }
 
+  /* NOTES */
+  .note-row{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:8px;padding:7px 10px;display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:#fff;
+  }
+  .note-row .nt-t{ flex:1;word-break:break-word;line-height:1.4 }
+  .note-row .nt-d{ font-size:9.5px;color:hsl(var(--accent-h) 30% 60%);flex-shrink:0;margin-top:2px }
+  .note-row .nt-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px;padding:0 }
+
+  /* TIME BUDGET */
+  .tb-row{
+    display:flex;align-items:center;gap:8px;
+    background:hsla(var(--accent-h),60%,11%,.45);
+    border-radius:7px;padding:5px 8px;
+  }
+  .tb-row .tb-n{ font-size:12px;color:#fff;flex:1;font-weight:600 }
+  .tb-row input{ width:48px;padding:5px 7px;background:hsla(var(--accent-h),60%,7%,.7);border:1px solid hsla(var(--accent-h),100%,73%,.18);border-radius:6px;color:#fff;font-size:12px;text-align:center }
+
+  /* SKINCARE */
+  .skin-mode.pri{ background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));color:#fff }
+  .skin-step{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:9px;padding:8px 10px;display:flex;align-items:center;gap:8px;cursor:pointer;
+  }
+  .skin-step .ss-c{
+    width:22px;height:22px;border-radius:6px;border:1.5px solid hsla(var(--accent-h),100%,73%,.4);
+    background:none;display:flex;align-items:center;justify-content:center;color:hsl(var(--accent-h) 100% 70%);font-size:13px;font-weight:900;flex-shrink:0;
+  }
+  .skin-step.done .ss-c{ background:hsl(var(--accent-h) 100% 60%);border-color:transparent;color:#fff }
+  .skin-step .ss-n{ flex:1;font-size:13px;font-weight:600;color:#fff }
+  .skin-step.done .ss-n{ text-decoration:line-through;color:hsl(var(--accent-h) 30% 60%) }
+  .skin-step .ss-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3652,6 +3687,53 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
       </div>
+    </div>
+
+    <!-- ============= QUICK NOTES ============= -->
+    <div class="card" id="notes-card" style="margin-top:14px">
+      <h2>Заметки · быстро</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Любая мысль, идея, наблюдение. Сохраняется автоматически. Тапни ✕ чтобы удалить.
+      </p>
+      <div class="row" style="gap:6px;margin-bottom:8px">
+        <input id="note-input" type="text" placeholder="новая мысль…" maxlength="300" style="flex:1;padding:8px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="note-add" type="button" class="pri">+</button>
+      </div>
+      <div id="notes-list" style="display:flex;flex-direction:column;gap:5px;max-height:300px;overflow-y:auto"></div>
+      <div style="font-size:11px;color:hsl(var(--accent-h) 30% 65%);margin-top:6px;text-align:center">
+        Записано: <b id="notes-count">0</b>
+      </div>
+    </div>
+
+    <!-- ============= TIME BUDGET ============= -->
+    <div class="card" id="tb-card" style="margin-top:14px">
+      <h2>Время дня · 24ч</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Сколько часов на что уходит. Сумма не должна быть больше 24. Покажет график.
+      </p>
+      <div id="tb-rows" style="display:flex;flex-direction:column;gap:6px"></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:hsl(var(--accent-h) 30% 70%);margin-top:8px">
+        Сумма: <b id="tb-sum">0</b> / 24ч <span id="tb-warn" style="color:hsl(0 70% 65%);margin-left:8px"></span>
+      </div>
+      <div id="tb-bar" style="display:flex;height:18px;border-radius:9px;overflow:hidden;margin-top:8px;background:hsla(var(--accent-h),60%,11%,.55)"></div>
+    </div>
+
+    <!-- ============= SKINCARE ROUTINE ============= -->
+    <div class="card" id="skin-card" style="margin-top:14px">
+      <h2>Уход · AM / PM рутина</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Построй свою рутину утром и вечером. Тапни шаг — отметишь как сделано. Сброс в полночь.
+      </p>
+      <div class="row" style="gap:6px;margin-bottom:10px">
+        <button class="skin-mode pri" data-m="am" type="button" style="flex:1">☀ Утро</button>
+        <button class="skin-mode ghost" data-m="pm" type="button" style="flex:1">🌙 Вечер</button>
+      </div>
+      <div id="skin-steps" style="display:flex;flex-direction:column;gap:6px"></div>
+      <div class="row" style="gap:6px;margin-top:10px">
+        <input id="skin-add-input" type="text" placeholder="напр. Niacinamide" maxlength="40" style="flex:1;padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="skin-add" type="button" class="pri">+ Шаг</button>
+      </div>
+      <button id="skin-presets" type="button" class="ghost" style="width:100%;margin-top:8px;font-size:11.5px">Загрузить пример</button>
     </div>
 
     <!-- ============= PHOTO COMPARISON SLIDER ============= -->
@@ -9432,6 +9514,178 @@
       setAll(all); txt.value = ''; dl.value = ''; render();
     });
     render();
+  })();
+
+  // ========= QUICK NOTES =========
+  (function(){
+    const list = document.getElementById('notes-list');
+    const input = document.getElementById('note-input');
+    const add = document.getElementById('note-add');
+    const count = document.getElementById('notes-count');
+    if (!list) return;
+    const KEY = 'mogger.notes';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function render(){
+      const all = getAll();
+      count.textContent = all.length;
+      if (!all.length){
+        list.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px;text-align:center">Заметок нет. Запиши первую мысль.</div>';
+        return;
+      }
+      list.innerHTML = all.slice().reverse().slice(0,50).map((n,i) => {
+        const realI = all.length - 1 - i;
+        const dt = new Date(n.t);
+        const dStr = `${dt.getDate()}.${(dt.getMonth()+1).toString().padStart(2,'0')}`;
+        return `<div class="note-row">
+          <span class="nt-t">${(n.s||'').replace(/</g,'&lt;')}</span>
+          <span class="nt-d">${dStr}</span>
+          <button class="nt-x" data-i="${realI}" type="button">×</button>
+        </div>`;
+      }).join('');
+      list.querySelectorAll('.nt-x').forEach(b => b.addEventListener('click', e => {
+        const i = +e.currentTarget.dataset.i;
+        const all = getAll(); all.splice(i,1); setAll(all); render();
+      }));
+    }
+    function addNote(){
+      const t = input.value.trim(); if (!t) return;
+      const all = getAll();
+      all.push({ s: t, t: Date.now() });
+      setAll(all); input.value = ''; render();
+    }
+    add.addEventListener('click', addNote);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') addNote(); });
+    render();
+  })();
+
+  // ========= TIME BUDGET =========
+  (function(){
+    const rows = document.getElementById('tb-rows');
+    const sumOut = document.getElementById('tb-sum');
+    const warn = document.getElementById('tb-warn');
+    const bar = document.getElementById('tb-bar');
+    if (!rows) return;
+    const ITEMS = [
+      { n:'Сон', def:8, h:240 },
+      { n:'Работа/Учёба', def:8, h:0 },
+      { n:'Тренировка', def:1, h:120 },
+      { n:'Еда', def:1.5, h:30 },
+      { n:'Уход за лицом', def:0.5, h:300 },
+      { n:'Соцсети', def:1, h:340 },
+      { n:'Чтение/обуч.', def:1, h:200 },
+      { n:'Друзья/семья', def:1.5, h:60 },
+      { n:'Прогулка', def:0.5, h:100 },
+      { n:'Прочее', def:1, h:0 },
+    ];
+    const KEY = 'mogger.timebudget';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'null') || ITEMS.map(i => ({n:i.n,v:i.def})); }catch(_){ return ITEMS.map(i => ({n:i.n,v:i.def})); } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    let data = getAll();
+    function render(){
+      rows.innerHTML = data.map((d,i) => {
+        return `<div class="tb-row">
+          <span class="tb-n">${d.n}</span>
+          <input type="number" min="0" max="24" step="0.25" data-i="${i}" value="${d.v}">
+          <span style="font-size:10.5px;color:hsl(var(--accent-h) 30% 65%)">ч</span>
+        </div>`;
+      }).join('');
+      rows.querySelectorAll('input').forEach(inp => inp.addEventListener('input', e => {
+        const i = +e.target.dataset.i;
+        data[i].v = +e.target.value || 0;
+        setAll(data); summarize();
+      }));
+      summarize();
+    }
+    function summarize(){
+      const sum = data.reduce((s,d)=>s+(+d.v||0),0);
+      sumOut.textContent = sum.toFixed(1);
+      sumOut.style.color = sum > 24 ? 'hsl(0 70% 65%)' : sum >= 22 ? 'hsl(120 70% 65%)' : '#fff';
+      warn.textContent = sum > 24 ? ' ⚠️ больше суток!' : '';
+      // Render bar
+      const total = Math.max(sum, 24);
+      bar.innerHTML = data.filter(d => d.v > 0).map((d,i) => {
+        const item = ITEMS.find(x => x.n === d.n);
+        const hue = item ? item.h : (i*36) % 360;
+        const w = (d.v/total)*100;
+        return `<div title="${d.n}: ${d.v}ч" style="width:${w}%;background:hsl(${hue} 70% 55%);"></div>`;
+      }).join('');
+    }
+    render();
+  })();
+
+  // ========= SKINCARE ROUTINE =========
+  (function(){
+    const steps = document.getElementById('skin-steps');
+    const addInput = document.getElementById('skin-add-input');
+    const add = document.getElementById('skin-add');
+    const presets = document.getElementById('skin-presets');
+    if (!steps) return;
+    const KEY_S = 'mogger.skin.steps';
+    const KEY_M = 'mogger.skin.mode';
+    function getMode(){ return localStorage.getItem(KEY_M) || 'am'; }
+    function setMode(m){ try{ localStorage.setItem(KEY_M, m); }catch(_){} }
+    function getSteps(mode){
+      try { return JSON.parse(localStorage.getItem(KEY_S+'.'+mode) || '[]'); } catch(_){ return []; }
+    }
+    function setSteps(mode, arr){
+      try { localStorage.setItem(KEY_S+'.'+mode, JSON.stringify(arr)); } catch(_){}
+    }
+    function getDoneKey(){ return 'mogger.skin.done.'+ new Date().toISOString().slice(0,10); }
+    function getDone(){ try{ return JSON.parse(localStorage.getItem(getDoneKey())||'{}'); }catch(_){ return {}; } }
+    function setDone(d){ try{ localStorage.setItem(getDoneKey(), JSON.stringify(d)); }catch(_){} }
+    function render(){
+      const mode = getMode();
+      document.querySelectorAll('.skin-mode').forEach(b => {
+        b.classList.toggle('pri', b.dataset.m === mode);
+        b.classList.toggle('ghost', b.dataset.m !== mode);
+      });
+      const arr = getSteps(mode);
+      const done = getDone();
+      if (!arr.length){
+        steps.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px;text-align:center">Шагов нет. Добавь или загрузи пример.</div>';
+        return;
+      }
+      steps.innerHTML = arr.map((s,i) => {
+        const key = mode+'_'+i;
+        const isDone = !!done[key];
+        return `<div class="skin-step ${isDone?'done':''}" data-k="${key}" data-i="${i}">
+          <div class="ss-c">${isDone?'✓':''}</div>
+          <span class="ss-n">${(i+1)+'. '+s.replace(/</g,'&lt;')}</span>
+          <button class="ss-x" data-i="${i}" type="button">×</button>
+        </div>`;
+      }).join('');
+      steps.querySelectorAll('.skin-step').forEach(el => el.addEventListener('click', e => {
+        if (e.target.classList.contains('ss-x')) return;
+        const k = el.dataset.k;
+        const done = getDone();
+        done[k] = !done[k]; setDone(done); render();
+      }));
+      steps.querySelectorAll('.ss-x').forEach(b => b.addEventListener('click', e => {
+        e.stopPropagation();
+        const i = +e.currentTarget.dataset.i;
+        const arr = getSteps(getMode());
+        arr.splice(i,1); setSteps(getMode(), arr); render();
+      }));
+    }
+    document.querySelectorAll('.skin-mode').forEach(b => b.addEventListener('click', () => {
+      setMode(b.dataset.m); render();
+    }));
+    add.addEventListener('click', () => {
+      const t = addInput.value.trim(); if (!t) return;
+      const arr = getSteps(getMode());
+      arr.push(t); setSteps(getMode(), arr); addInput.value = ''; render();
+    });
+    presets.addEventListener('click', () => {
+      const m = getMode();
+      const preset = m === 'am'
+        ? ['Умывание (gentle cleanser)','Тоник (по желанию)','Niacinamide серум','Увлажняющий крем','SPF 30+']
+        : ['Двойное очищение','Тоник','Ретинол / третиноин','Hyaluronic acid','Питательный крем','Бальзам губ'];
+      if (!confirm('Заменить текущие шаги примером?')) return;
+      setSteps(m, preset); render();
+    });
+    render();
+    setInterval(render, 60000);
   })();
 
   // ========= PHOTO COMPARISON SLIDER =========
