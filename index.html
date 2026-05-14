@@ -320,6 +320,33 @@
   .item .pill.gold{color:#ffd58a;border-color:rgba(255,200,120,.35);background:rgba(255,180,60,.08)}
   .item .pill.red {color:#ff9aa9;border-color:rgba(255,120,140,.35);background:rgba(255,80,110,.08)}
   .item .pill.gr  {color:#9affc8;border-color:rgba(120,255,180,.3); background:rgba(60,255,150,.07)}
+  .item .pill.gray{color:#c9b9ff;border-color:rgba(170,140,255,.35);background:rgba(140,100,255,.10)}
+  .item .pill.age {color:#ffd58a;border-color:rgba(255,200,120,.35);background:rgba(255,180,60,.08);letter-spacing:.12em}
+
+  /* Responsive video container */
+  .video-frame{
+    position:relative;width:100%;
+    aspect-ratio:16/9;
+    margin-top:12px;border-radius:14px;overflow:hidden;
+    border:1px solid rgba(120,170,255,.25);
+    background:#02061a;
+    box-shadow:0 12px 28px -12px rgba(0,30,120,.7);
+  }
+  .video-frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;
+  }
+  .video-cap{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:8px;font-size:12px;color:#8aa5d6;
+  }
+  .video-cap a{color:#9bbcff;text-decoration:none;border-bottom:1px dashed rgba(155,188,255,.4)}
+  .warn{
+    margin-top:6px;padding:10px 12px;border-radius:12px;
+    background:linear-gradient(180deg,rgba(120,60,30,.25),rgba(60,20,10,.3));
+    border:1px solid rgba(255,170,110,.3);
+    color:#ffd0a8;font-size:12.5px;line-height:1.5;
+  }
+  .warn b{color:#ffe2c2}
 
   /* Streak / check toggle */
   .item .check{
@@ -390,7 +417,7 @@
     box-shadow:
       0 16px 32px -16px rgba(0,30,120,.7),
       0 0 0 1px rgba(120,170,255,.06);
-    display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
+    display:grid;grid-template-columns:repeat(6,1fr);gap:3px;
     z-index:10;
     margin-bottom:env(safe-area-inset-bottom);
   }
@@ -573,6 +600,12 @@
           <svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c1 1 2 2 2 4h4c0-2 1-3 2-4a6 6 0 0 0-4-10Z"/></svg>
         </span>
         Советы<br><small>Что реально работает</small>
+      </button>
+      <button data-go="money">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v0M18 15v0"/></svg>
+        </span>
+        Заработок<br><small>Идеи по возрасту</small>
       </button>
     </div>
 
@@ -800,6 +833,41 @@
     </div>
 
     <div class="card">
+      <h2>Скакалка · гайд для начинающих</h2>
+      <p class="muted" style="font-size:13px;margin-bottom:4px">Самый дешёвый кардио-инструмент. 10 минут в день = сушка, лимфа, координация. Главное — правильная техника, иначе колени и спина.</p>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/TxUvz1VoLio"
+          title="Как правильно прыгать на скакалке — для начинающих"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <div class="video-cap">
+        <span>Видеоурок · 10 мин</span>
+        <a href="https://www.youtube.com/watch?v=TxUvz1VoLio" target="_blank" rel="noopener">Открыть в YouTube ↗</a>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="step"><div class="n">1</div><div><h4>Длина скакалки</h4><p>Встань на середину троса одной ногой, подними ручки вверх — они должны доходить до подмышек или чуть ниже. Слишком длинная — путается, слишком короткая — заденешь голову.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h4>Стойка</h4><p>Ноги вместе, колени мягкие, спина прямая. Локти прижаты к рёбрам, кисти чуть впереди бёдер. Смотри вперёд, не под ноги.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h4>Крути кистями, не руками</h4><p>Главная ошибка новичков — махать всей рукой от плеча. Плечи и локти неподвижны, работают только запястья. Это экономит силы и убирает «закидывание» троса.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h4>Прыжок низкий</h4><p>Отрыв от пола — 2–3 см, ровно чтобы трос прошёл под стопами. Приземление на носки, пятки пола не касаются. Никаких высоких прыжков «как в школе».</p></div></div>
+      <div class="step"><div class="n">5</div><div><h4>Ритм: один прыжок — один оборот</h4><p>Не делай «двойную раскачку» (прыжок-прыжок-оборот) — это тормозит обучение. Сразу учись на один оборот один прыжок.</p></div></div>
+      <div class="step"><div class="n">6</div><div><h4>Прогрессия первой недели</h4><p>День 1–2: 5 подходов × 30 секунд (отдых 60 сек). День 3–5: 5 × 1 мин. К концу недели — 10 минут суммарно. Дальше добавляй по минуте.</p></div></div>
+
+      <div class="divider"></div>
+      <h2 style="font-size:15px">Частые ошибки</h2>
+      <details><summary>Прыгаешь высоко</summary><p>Колени и голеностоп быстро забьются. Цель — еле оторваться от пола, трос проходит впритык.</p></details>
+      <details><summary>Машешь руками от плеча</summary><p>Локти приклей к бокам. Если ручки уходят в стороны — трос укорачивается и ты цепляешься.</p></details>
+      <details><summary>Смотришь под ноги</summary><p>Голова опускается — сутулишься — теряешь ритм. Взгляд вперёд, в одну точку.</p></details>
+      <details><summary>Прыгаешь на пятки</summary><p>Только носки и подушечки стопы. Иначе ударная нагрузка в колени и поясницу.</p></details>
+      <details><summary>Прыгаешь на бетоне без кроссовок</summary><p>Только амортизирующая поверхность (резина, паркет, дерево) + кроссовки. На голом бетоне колени посыпятся за 2 недели.</p></details>
+    </div>
+
+    <div class="card">
       <h2>Питание (грубый каркас)</h2>
       <div class="list">
         <div class="item"><h3><span class="dot"></span>Белок 1.8–2.2 г/кг</h3><p>Яйца, курица, говядина, рыба, творог (если переносишь молочку).</p></div>
@@ -859,6 +927,178 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       MONEY / ЗАРАБОТОК
+  ============================================================ -->
+  <section id="screen-money" class="screen">
+    <div class="sec-head">
+      <div><h2>Заработок</h2><p>Идеи по возрасту · белые и околосерые</p></div>
+    </div>
+
+    <div class="card">
+      <h2>Как читать раздел</h2>
+      <p>Каждая идея помечена ярлыком:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+        <span class="pill gr">белое</span>
+        <span class="pill gray">околосерое</span>
+        <span class="pill gold">высокий доход</span>
+        <span class="pill red">риск</span>
+      </div>
+      <div class="warn" style="margin-top:14px">
+        <b>Дисклеймер.</b> «Околосерые» схемы — это легальные на грани либо требующие самозанятости/ИП и грамотной налоговой гигиены. Никакого кардинга, мошенничества, дропов, наркоты и схем с обманом людей. Если идея противоречит закону твоей страны — не делай. Тюрьма не стоит ни одной из этих сумм.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="pill age" style="margin-right:8px;margin-top:0">13–15</span>Школьник</h2>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>Курьер на велике / самокате</h3>
+          <p>Яндекс.Еда, Самокат, Delivery — с 14 лет официально (с согласия родителей). 4 часа после школы = 1.5–2.5к ₽/день. Летом ×2.</p>
+          <span class="pill gr">белое</span><span class="pill gold">30–60к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Перепродажа на Авито</h3>
+          <p>Скупай дёшево на барахолках/«отдам даром» — продавай дороже. Велики, телефоны, кроссовки, конструкторы Lego. Стартовый капитал 3–5к.</p>
+          <span class="pill gr">белое</span><span class="pill gold">от 20к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>TikTok / Reels / Shorts</h3>
+          <p>Заводишь нишевый аккаунт (мемы, обзоры игр, нарезки фильмов, AI-видео). 50–100к подписчиков = реклама от 5к за пост. На старте — 0 ₽, потом плато.</p>
+          <span class="pill gr">белое</span></div>
+        <div class="item"><h3><span class="dot"></span>Майнинг на школьном ПК</h3>
+          <p>На своей GTX 1660+/RTX майнить эфир-клоны / Kaspa в фоне. 200–800 ₽/день при +50% к счёту за свет. Если свет платят родители — спроси разрешение.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">риск железа</span></div>
+        <div class="item"><h3><span class="dot"></span>Буст / прокачка аккаунтов в играх</h3>
+          <p>Dota 2, CS2, Valorant, WoW. Если играешь выше среднего — продаёшь буст ранга. 500–2000 ₽ за ранг. Площадка: BoostMMR, FunPay.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">бан аккаунта</span></div>
+        <div class="item"><h3><span class="dot"></span>Школьная «перекупка» еды/энергетиков</h3>
+          <p>Берёшь оптом в «Светофоре» / на «Озоне» — продаёшь в школе на 2–3× дороже. Простая математика, чистый кэш.</p>
+          <span class="pill gray">околосерое</span></div>
+        <div class="item"><h3><span class="dot"></span>Репетиторство для младших</h3>
+          <p>Математика / английский для 3–7 классов. 400–800 ₽/час, удалёнка через Скайп / Зум. Реклама в чатах района.</p>
+          <span class="pill gr">белое</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="pill age" style="margin-right:8px;margin-top:0">16–17</span>Старшая школа</h2>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>Самозанятость + фриланс</h3>
+          <p>С 16 лет легально открыть самозанятость. Дизайн в Figma, монтаж Reels, копирайт, переводы. Kwork, FL.ru, Upwork (через прокладку). Старт: 15–40к/мес, через год 60–120к.</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 150к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Доставка / склад / автомойка</h3>
+          <p>Я.Маркет, Wildberries, Озон — пункты выдачи берут с 16 лет. График 2/2, 50–80к/мес. Тупой, но стабильный кэш на стартовый капитал.</p>
+          <span class="pill gr">белое</span></div>
+        <div class="item"><h3><span class="dot"></span>Ставки на спорт (value betting)</h3>
+          <p>Не «угадывание», а математика: ловишь коэффициенты выше справедливых. Нужно 50–100к банка, дисциплина и калькулятор. Реально +5–15% к банку в месяц. Букмекеры режут лимиты — счета быстро урезают.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">риск слива</span></div>
+        <div class="item"><h3><span class="dot"></span>Перепродажа кроссовок / лимиток</h3>
+          <p>Nike SNKRS, adidas Confirmed, релизы Yeezy / Jordan. Ловишь дроп — продаёшь на StockX / Авито / Telegram +30–80%. Нужны несколько аккаунтов и быстрый интернет.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">10–50к за пару</span></div>
+        <div class="item"><h3><span class="dot"></span>Telegram-канал на нише</h3>
+          <p>Финансы / IT / автомобили / мужской лайфстайл. 10к подписчиков = от 3–5к за пост рекламы. Закуп трафика через Telega.in. Окупаемость 4–8 мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив 30–100к</span></div>
+        <div class="item"><h3><span class="dot"></span>OnlyFans-менеджмент (chatter)</h3>
+          <p>Отвечаешь от лица модели в чате 6–10 ч/день. 0 русского — ноль шансов. Английский B2+ нужен. Платят $800–2000/мес. Полностью легально, но «серая» репутация.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">$1–2к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Арбитраж трафика (white)</h3>
+          <p>Льёшь рекламу с TikTok / Telegram на офферы (финансы, обучение, игры). Партнёрки: Admitad, ePN, LeadGid. Старт от 10к на тесты. Высокая кривая обучения.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">от 100к/мес</span><span class="pill red">слив бюджета</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="pill age" style="margin-right:8px;margin-top:0">18–21</span>Студент / молодой взрослый</h2>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>IT / разработка</h3>
+          <p>Frontend / Backend / DevOps — самый честный х10 по деньгам. Учишься 6–12 мес по бесплатным ресурсам (htmlacademy, Hyperskill, Stepik). Джун: 80–150к, мидл через 1.5 года: 200–350к. Полный ремоут возможен.</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 400к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Криптотрейдинг / DeFi-фарминг</h3>
+          <p>Не «гадание», а: фарм пулов на Aave/Curve, лоу-риск стейкинг (3–8% годовых в USDT), маркет-мейкинг ботами. Серьёзно — после изучения. Без знаний — слив на 100% за месяц.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">высокий риск</span></div>
+        <div class="item"><h3><span class="dot"></span>Криптоарбитраж P2P</h3>
+          <p>Покупаешь USDT на одной бирже / у одного P2P-продавца дешевле, продаёшь дороже на другой. Маржа 1–3% за круг. Дневной оборот 200–500к → 5–15к чистыми/день. Налоговая риторика и блокировки карт — главный риск.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">100–300к/мес</span><span class="pill red">блок карт</span></div>
+        <div class="item"><h3><span class="dot"></span>SMM-агентство (микро)</h3>
+          <p>Берёшь 3–5 клиентов на ведение Telegram / Reels / контекст. Чек 30–80к/мес с клиента. Сам = SMM-щик + менеджер + дизайнер. Через год нанимаешь джунов под себя.</p>
+          <span class="pill gr">белое</span><span class="pill gold">от 200к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Дропшиппинг / Wildberries-FBS</h3>
+          <p>Регаешь ИП, грузишь товар на склад WB / Озон. Маржа 30–60%, оборот за 6 мес выйдет на 300–600к/мес. Нужно 100–300к стартового капитала и аналитика ниш (Mpstats, MoneyPlace).</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 500к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Грей-арбитраж трафика</h3>
+          <p>Гемблинг / беттинг / нутра / адалт партнёрки (Gambling.pro, AdsEmpire, CPA.ru). Чистый ROI 100–300%. Бюджет на тесты: 50–200к. Серая зона по законам РФ → выводи через крипту/нерезидентские карты.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">100к–1М/мес</span><span class="pill red">бан акков</span></div>
+        <div class="item"><h3><span class="dot"></span>Перегон авто из-за рубежа</h3>
+          <p>Япония / Корея / Армения / Грузия → РФ. Маржа 200–500к с машины. Нужны 1.5–3 млн оборотного капитала + знание таможни. Серая прослойка — занижение стоимости в декларации.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">300–800к/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Стримы / донат-площадки</h3>
+          <p>Twitch / Kick / YouTube Live. Старт без денег. Через 6–12 мес активного стрима — 30–150к/мес от подписок и донатов. Главное — нишевание и расписание.</p>
+          <span class="pill gr">белое</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="pill age" style="margin-right:8px;margin-top:0">22+</span>Взрослый</h2>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>Найм + грейды</h3>
+          <p>Если ты в найме — главный левередж это смена работы каждые 12–18 мес. Каждый прыжок +30–60% к окладу. Через 4 года в IT/маркетинге/продажах: 300–600к/мес.</p>
+          <span class="pill gr">белое</span><span class="pill gold">х2 за 4 года</span></div>
+        <div class="item"><h3><span class="dot"></span>Свой продукт / SaaS</h3>
+          <p>Маленький B2B-софт под узкую нишу (CRM для барбершопов, бот-аналитика для Telegram). MRR 200–500к с 30–50 клиентов. Идеально с IT-бэкграундом.</p>
+          <span class="pill gr">белое</span><span class="pill gold">пассив от 300к</span></div>
+        <div class="item"><h3><span class="dot"></span>Образование / инфобиз (честный)</h3>
+          <p>Курсы по своей экспертизе через GetCourse / собственный лендинг. С 1000 подписчиков и нормальным продуктом — 500к–2М за запуск. Не путать с «успехоложеством».</p>
+          <span class="pill gr">белое</span><span class="pill gold">до 2М/запуск</span></div>
+        <div class="item"><h3><span class="dot"></span>Сдача квартиры посуточно</h3>
+          <p>Своя или субаренда. Маржа 30–70к/мес с квартиры. Каналы: Авито, Суточно.ру, Booking-аналоги. С 3–5 квартир — это полная занятость и 200–400к/мес.</p>
+          <span class="pill gr">белое</span></div>
+        <div class="item"><h3><span class="dot"></span>Маркет-мейкинг / алготрейдинг</h3>
+          <p>Боты на Bybit/OKX/Binance. MM-стратегии дают 3–8% в месяц на стабильных парах. Нужно: программирование, статистика, риск-менеджмент. Без этого — слив.</p>
+          <span class="pill gray">околосерое</span><span class="pill red">высокий риск</span></div>
+        <div class="item"><h3><span class="dot"></span>Серый импорт техники</h3>
+          <p>iPhone / MacBook / GPU из ОАЭ, Казахстана, Армении в РФ. Маржа 10–25% с устройства. Нужны проверенные поставщики и логистика. Серость — обход параллельного импорта и НДС.</p>
+          <span class="pill gray">околосерое</span><span class="pill gold">до 1М/мес</span></div>
+        <div class="item"><h3><span class="dot"></span>Скупка / реселл недвижимости</h3>
+          <p>Покупаешь убитую квартиру в спальнике → косметика за 300–600к → продаёшь +20–35%. Цикл 3–6 мес. Капитал от 4 млн (или ипотека + первоначалка).</p>
+          <span class="pill gr">белое</span><span class="pill gold">500к–1.5М/сделка</span></div>
+        <div class="item"><h3><span class="dot"></span>Партнёрство в существующем бизнесе</h3>
+          <p>Не открывай с нуля кофейню. Найди работающий бизнес с EBITDA 200–500к/мес и зайди долей 20–30%. Окупаемость 2–3 года вместо 5–7.</p>
+          <span class="pill gr">белое</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Правила, чтобы не сесть и не слить</h2>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>Финансовая гигиена</h3>
+          <p>Отдельная карта под бизнес. Самозанятость или ИП с первой 1000 ₽. Не таскай крупные суммы по физическим картам — банки режут под 115-ФЗ.</p>
+          <span class="pill gr">обязательно</span></div>
+        <div class="item"><h3><span class="dot"></span>Никогда не «дроп»</h3>
+          <p>«Дай я через твою карту прогоню 500к, тебе 5%» — это статья 187 УК (до 7 лет). Любые «прокладки» под чужие деньги — нет.</p>
+          <span class="pill red">нельзя</span></div>
+        <div class="item"><h3><span class="dot"></span>Не давай личные данные</h3>
+          <p>Никаких сканов паспорта в Telegram-чатах, никаких СНИЛС за «бонус». 90% серых ниш = пробив документов и кредиты на твоё имя.</p>
+          <span class="pill red">нельзя</span></div>
+        <div class="item"><h3><span class="dot"></span>Считай ROI</h3>
+          <p>«5к за час» звучит круто, но если ты потратил 6 ч на поиск клиента — это 800 ₽/ч. Веди табличку: время × деньги. Иначе залипнешь в дешёвой нише.</p>
+          <span class="pill">привычка</span></div>
+        <div class="item"><h3><span class="dot"></span>Реинвестируй 50–70%</h3>
+          <p>Первый год — ни одной покупки понтов. Всё в оборотку / новые офферы / обучение. Через 12 мес — х3–х5 к доходу. Купил айфон с первой 100к = откатился на 6 мес.</p>
+          <span class="pill gold">база</span></div>
+        <div class="item"><h3><span class="dot"></span>Минимум 2 источника</h3>
+          <p>Один канал = один бан / одна блокировка = ноль. Всегда веди параллельно 2 направления: одно стабильное (найм / WB), одно высокомаржинальное (арбитраж / крипта).</p>
+          <span class="pill">правило</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Что НЕ делать (никогда)</h2>
+      <div class="list">
+        <div class="item"><h3><span class="dot"></span>Кардинг, скам, фишинг</h3><p>Тюрьма за чужие деньги. Без вариантов.</p><span class="pill red">статья</span></div>
+        <div class="item"><h3><span class="dot"></span>Закладки / наркошоп</h3><p>228.1 — от 4 до пожизненного. Ни одна сумма не стоит.</p><span class="pill red">статья</span></div>
+        <div class="item"><h3><span class="dot"></span>Финансовые пирамиды</h3><p>«Гарантированно 30% в месяц», «закрытый клуб инвесторов» — всегда скам. Все деньги сольют.</p><span class="pill red">скам</span></div>
+        <div class="item"><h3><span class="dot"></span>Бинарные опционы / Forex-кухни</h3><p>Не «трейдинг», а казино с заведомо отрицательным мат. ожиданием. 99% сливают депозит за месяц.</p><span class="pill red">скам</span></div>
+        <div class="item"><h3><span class="dot"></span>«Лёгкие деньги в Telegram»</h3><p>«Перевожу 10к — получаешь 50к через час» — старейший развод. Любая «работа на дому без вложений с доходом 5к/день» = развод.</p><span class="pill red">скам</span></div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <!-- ============================================================
@@ -884,6 +1124,10 @@
   <button data-go="tips" role="tab">
     <svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c1 1 2 2 2 4h4c0-2 1-3 2-4a6 6 0 0 0-4-10Z"/></svg>
     Советы
+  </button>
+  <button data-go="money" role="tab">
+    <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v0M18 15v0"/></svg>
+    Деньги
   </button>
 </nav>
 
