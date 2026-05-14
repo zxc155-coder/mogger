@@ -2243,6 +2243,14 @@
   .ach-tile.locked{ opacity:.35 }
   .ach-tile.locked .ach-ic{ filter:grayscale(1) }
 
+  /* DOPAMINE DETOX */
+  .dd-btn{
+    background:hsla(var(--accent-h),60%,15%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 80%);font-weight:700;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:13px;
+  }
+  .dd-btn:active{ transform:scale(.96) }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3806,6 +3814,41 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(40 90% 60%);margin-right:6px"></span>Углеводы <b id="pie-c-pct">0%</b> · <span id="pie-c-g">0</span>г · <span id="pie-c-kc">0</span>кк</div>
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ============= DOPAMINE DETOX ============= -->
+    <div class="card" id="dd-card" style="margin-top:14px">
+      <h2>Допамин детокс</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Выбери срок без соцсетей/игр/порно/сладкого. Таймер покажет сколько осталось. Каждый час = +1 XP.
+      </p>
+      <div class="row" style="gap:5px;flex-wrap:wrap;margin-bottom:8px">
+        <button class="dd-btn" data-h="4" type="button">4ч</button>
+        <button class="dd-btn" data-h="12" type="button">12ч</button>
+        <button class="dd-btn" data-h="24" type="button">24ч</button>
+        <button class="dd-btn" data-h="48" type="button">48ч</button>
+        <button class="dd-btn" data-h="72" type="button">72ч</button>
+        <button id="dd-stop" type="button" class="ghost">Стоп</button>
+      </div>
+      <div id="dd-status" style="text-align:center;padding:12px;background:hsla(var(--accent-h),60%,11%,.55);border-radius:10px;border:1px solid hsla(var(--accent-h),100%,73%,.14);min-height:50px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px">
+        <div id="dd-time" style="font-size:22px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums"></div>
+        <div id="dd-msg" style="font-size:12px;color:hsl(var(--accent-h) 30% 70%)">Не активен. Выбери длительность.</div>
+      </div>
+      <div style="font-size:11px;color:hsl(var(--accent-h) 30% 65%);margin-top:6px;text-align:center">
+        Завершённых детоксов: <b id="dd-count">0</b> · XP: <b id="dd-xp">0</b>
+      </div>
+    </div>
+
+    <!-- ============= STRETCHING ============= -->
+    <div class="card" id="stretch-card" style="margin-top:14px">
+      <h2>Растяжка · 10 мин</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        8 упражнений по 45-60 сек. Делай после тренировки или перед сном. Кликни — отметишь.
+      </p>
+      <div id="stretch-steps" style="display:flex;flex-direction:column;gap:5px"></div>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px;text-align:center">
+        Streak: <b id="stretch-streak">0</b> 🔥
       </div>
     </div>
 
@@ -9845,6 +9888,113 @@
       all.push({ name: t, deadline: dl.value || '', pct: 0, created: Date.now() });
       setAll(all); txt.value = ''; dl.value = ''; render();
     });
+    render();
+  })();
+
+  // ========= DOPAMINE DETOX =========
+  (function(){
+    const time = document.getElementById('dd-time');
+    const msg = document.getElementById('dd-msg');
+    const stop = document.getElementById('dd-stop');
+    const countEl = document.getElementById('dd-count');
+    const xpEl = document.getElementById('dd-xp');
+    if (!time) return;
+    const KEY = 'mogger.detox';
+    function getDetox(){ try{ return JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(_){ return null; } }
+    function setDetox(d){ try{ if (d) localStorage.setItem(KEY, JSON.stringify(d)); else localStorage.removeItem(KEY); }catch(_){} }
+    function updateStats(){
+      const c = +localStorage.getItem('mogger.detox.count') || 0;
+      const x = +localStorage.getItem('mogger.detox.xp') || 0;
+      countEl.textContent = c; xpEl.textContent = x;
+    }
+    function tick(){
+      const d = getDetox();
+      if (!d){
+        time.textContent = '';
+        msg.textContent = 'Не активен. Выбери длительность.';
+        return;
+      }
+      const end = d.start + d.hours * 3600000;
+      const left = end - Date.now();
+      if (left <= 0){
+        // Completed!
+        const earned = d.hours;
+        const c = (+localStorage.getItem('mogger.detox.count') || 0) + 1;
+        const x = (+localStorage.getItem('mogger.detox.xp') || 0) + earned;
+        try{ localStorage.setItem('mogger.detox.count', c); localStorage.setItem('mogger.detox.xp', x); }catch(_){}
+        setDetox(null);
+        time.textContent = '✓ DONE';
+        time.style.color = 'hsl(120 70% 65%)';
+        msg.textContent = `Детокс ${d.hours}ч завершён! +${earned} XP`;
+        updateStats();
+        return;
+      }
+      const h = Math.floor(left / 3600000);
+      const m = Math.floor((left % 3600000) / 60000);
+      const s = Math.floor((left % 60000) / 1000);
+      time.textContent = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+      time.style.color = '#fff';
+      const pct = ((1 - left/(d.hours*3600000)) * 100).toFixed(0);
+      msg.textContent = `Детокс ${d.hours}ч · ${pct}% пройдено`;
+    }
+    document.querySelectorAll('.dd-btn').forEach(b => b.addEventListener('click', () => {
+      const h = +b.dataset.h;
+      setDetox({ start: Date.now(), hours: h });
+      tick();
+    }));
+    stop.addEventListener('click', () => { setDetox(null); tick(); });
+    tick();
+    updateStats();
+    setInterval(tick, 1000);
+  })();
+
+  // ========= STRETCHING ROUTINE =========
+  (function(){
+    const steps = document.getElementById('stretch-steps');
+    const streak = document.getElementById('stretch-streak');
+    if (!steps) return;
+    const EXERCISES = [
+      { ic:'🦵', n:'Квадрицепс (стоя, согни)', d:'45с/нога' },
+      { ic:'🦿', n:'Подколенные (стоя, наклон)', d:'45с/нога' },
+      { ic:'🦘', n:'Выпад + бедро', d:'45с/сторона' },
+      { ic:'🧘', n:'Поза голубя', d:'60с/сторона' },
+      { ic:'🤸', n:'Кошка-корова', d:'45с' },
+      { ic:'🙆', n:'Открытие груди в дверном', d:'45с' },
+      { ic:'🦒', n:'Шея в стороны + назад', d:'30с×3' },
+      { ic:'🧎', n:'Поза ребёнка', d:'60с' },
+    ];
+    function dayKey(){ return 'mogger.stretch.' + new Date().toISOString().slice(0,10); }
+    function get(){ try{ return JSON.parse(localStorage.getItem(dayKey()) || '{}'); }catch(_){ return {}; } }
+    function set(o){ try{ localStorage.setItem(dayKey(), JSON.stringify(o)); }catch(_){} }
+    function calcStreak(){
+      let s = 0; const now = new Date();
+      for (let i = 0; i < 365; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        const k = 'mogger.stretch.'+dt.toISOString().slice(0,10);
+        try {
+          const v = JSON.parse(localStorage.getItem(k) || '{}');
+          if (EXERCISES.every((_,j) => v[j])) s++;
+          else if (i === 0) continue;
+          else break;
+        } catch(_){ break; }
+      }
+      return s;
+    }
+    function render(){
+      const done = get();
+      steps.innerHTML = EXERCISES.map((e,i) => `
+        <div class="pr2-step ${done[i]?'done':''}" data-i="${i}">
+          <span class="pr-ic">${e.ic}</span>
+          <span>${i+1}. ${e.n}</span>
+          <span class="pr-d">${e.d}</span>
+        </div>
+      `).join('');
+      steps.querySelectorAll('.pr2-step').forEach(el => el.addEventListener('click', () => {
+        const i = +el.dataset.i;
+        const d = get(); d[i] = !d[i]; set(d); render();
+      }));
+      streak.textContent = calcStreak();
+    }
     render();
   })();
 
