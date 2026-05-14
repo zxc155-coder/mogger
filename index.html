@@ -1918,6 +1918,52 @@
   .snap-l .l-v{ font-size:13px;color:#fff;font-weight:700;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis }
   .snap-l .l-v.dim{ color:hsl(var(--accent-h) 20% 55%);font-weight:500 }
 
+  /* WINS / MISTAKES / LESSONS */
+  .wml-fields{ display:flex;flex-direction:column;gap:7px }
+  .wml-row{ display:flex;flex-direction:column;gap:3px }
+  .wml-l{ font-size:11px;font-weight:700;color:hsl(var(--accent-h) 30% 75%);letter-spacing:.04em }
+  .wml-row input{
+    padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px;
+  }
+  .wml-hist-item{
+    padding:7px 9px;border-bottom:1px solid hsla(var(--accent-h),100%,73%,.08);
+  }
+  .wml-hist-item .wh-d{ font-size:10.5px;color:hsl(var(--accent-h) 40% 70%);font-weight:700;letter-spacing:.05em }
+  .wml-hist-item .wh-l{ font-size:11.5px;color:hsl(var(--accent-h) 20% 88%);margin-top:2px }
+
+  /* CONFIDENCE */
+  .conf-btn{
+    width:24px;height:30px;border-radius:6px;font-size:11.5px;font-weight:700;
+    background:hsla(var(--accent-h),60%,14%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 75%);cursor:pointer;
+  }
+  .conf-btn.on{
+    background:linear-gradient(180deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 40%));
+    color:#fff;border-color:transparent;
+  }
+
+  /* PIN LOCK */
+  .pin-dot{
+    width:14px;height:14px;border-radius:50%;
+    background:hsla(var(--accent-h),60%,15%,.6);
+    border:1.5px solid hsla(var(--accent-h),100%,73%,.5);
+    transition:all .2s ease;
+  }
+  .pin-dot.on{
+    background:hsl(var(--accent-h) 100% 60%);
+    border-color:hsl(var(--accent-h) 100% 70%);
+    box-shadow:0 0 10px hsla(var(--accent-h),100%,60%,.6);
+  }
+  .pin-key{
+    height:64px;border-radius:14px;font-size:22px;font-weight:700;color:#fff;
+    background:hsla(var(--accent-h),60%,16%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);
+    cursor:pointer;
+  }
+  .pin-key:active{ background:hsla(var(--accent-h),60%,22%,.9) }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3406,6 +3452,112 @@
         </div>
       </div>
       <button id="dayend-save" type="button" class="pri" style="width:100%;margin-top:6px">Сохранить</button>
+    </div>
+
+    <!-- ============= WINS / MISTAKES / LESSONS ============= -->
+    <div class="card" id="wml-card" style="margin-top:14px">
+      <h2>Дневная рефлексия</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Три коротких поля перед сном. Это то что делает каждый день осознанным.
+      </p>
+      <div class="wml-fields">
+        <div class="wml-row">
+          <label class="wml-l">🏆 Победа дня</label>
+          <input id="wml-win" type="text" placeholder="что получилось" maxlength="120">
+        </div>
+        <div class="wml-row">
+          <label class="wml-l">⚠️ Ошибка / срыв</label>
+          <input id="wml-mistake" type="text" placeholder="где облажался" maxlength="120">
+        </div>
+        <div class="wml-row">
+          <label class="wml-l">💡 Урок / инсайт</label>
+          <input id="wml-lesson" type="text" placeholder="что понял" maxlength="120">
+        </div>
+      </div>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <button id="wml-save" type="button" class="pri" style="flex:1">Сохранить на сегодня</button>
+        <button id="wml-history" type="button" class="ghost">История</button>
+      </div>
+      <div id="wml-list" style="display:none;margin-top:8px;max-height:240px;overflow-y:auto;font-size:12px;line-height:1.5"></div>
+    </div>
+
+    <!-- ============= CONFIDENCE METER ============= -->
+    <div class="card" id="conf-card" style="margin-top:14px">
+      <h2>Уверенность · сегодня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        1-10 каждый день. Видно динамику за месяц.
+      </p>
+      <div class="conf-row" style="display:flex;gap:5px;justify-content:space-between;margin-bottom:8px">
+        <button class="conf-btn" data-v="1" type="button">1</button>
+        <button class="conf-btn" data-v="2" type="button">2</button>
+        <button class="conf-btn" data-v="3" type="button">3</button>
+        <button class="conf-btn" data-v="4" type="button">4</button>
+        <button class="conf-btn" data-v="5" type="button">5</button>
+        <button class="conf-btn" data-v="6" type="button">6</button>
+        <button class="conf-btn" data-v="7" type="button">7</button>
+        <button class="conf-btn" data-v="8" type="button">8</button>
+        <button class="conf-btn" data-v="9" type="button">9</button>
+        <button class="conf-btn" data-v="10" type="button">10</button>
+      </div>
+      <div class="dl-mini" style="font-size:11.5px">
+        <span>сегодня: <b id="conf-today">—</b></span> ·
+        <span>30 дн: <b id="conf-avg">—</b></span> ·
+        <span>тренд: <b id="conf-trend">—</b></span>
+      </div>
+      <svg id="conf-chart" viewBox="0 0 300 60" preserveAspectRatio="none" style="width:100%;height:60px;margin-top:8px;display:none"></svg>
+    </div>
+
+    <!-- ============= MACROS PIE CHART ============= -->
+    <div class="card" id="macros-pie-card" style="margin-top:14px">
+      <h2>Макро · пирог</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Распределение калорий сегодня. Идеал bulking: 30/50/20 (Б/У/Ж). Cut: 40/30/30.
+      </p>
+      <div style="display:flex;align-items:center;gap:14px">
+        <svg id="macros-pie" viewBox="0 0 100 100" style="width:120px;height:120px;flex-shrink:0">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="hsla(var(--accent-h),60%,15%,.6)" stroke-width="14"/>
+          <circle id="pie-p" cx="50" cy="50" r="42" fill="none" stroke="hsl(140 70% 55%)" stroke-width="14" stroke-dasharray="0 264" transform="rotate(-90 50 50)"/>
+          <circle id="pie-c" cx="50" cy="50" r="42" fill="none" stroke="hsl(40 90% 60%)" stroke-width="14" stroke-dasharray="0 264" transform="rotate(-90 50 50)"/>
+          <circle id="pie-f" cx="50" cy="50" r="42" fill="none" stroke="hsl(0 80% 60%)" stroke-width="14" stroke-dasharray="0 264" transform="rotate(-90 50 50)"/>
+          <text x="50" y="48" text-anchor="middle" fill="#fff" font-size="14" font-weight="800" id="pie-total">0</text>
+          <text x="50" y="62" text-anchor="middle" fill="hsl(var(--accent-h) 30% 70%)" font-size="8">ккал</text>
+        </svg>
+        <div style="flex:1;display:flex;flex-direction:column;gap:5px;font-size:12.5px">
+          <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(140 70% 55%);margin-right:6px"></span>Белок <b id="pie-p-pct">0%</b> · <span id="pie-p-g">0</span>г · <span id="pie-p-kc">0</span>кк</div>
+          <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(40 90% 60%);margin-right:6px"></span>Углеводы <b id="pie-c-pct">0%</b> · <span id="pie-c-g">0</span>г · <span id="pie-c-kc">0</span>кк</div>
+          <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============= PIN LOCK ============= -->
+    <div class="card" id="pin-card" style="margin-top:14px">
+      <h2>Приватность · PIN</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        4-значный код. После установки приложение блокируется при запуске.
+        Все данные остаются на устройстве — PIN только закрывает доступ.
+      </p>
+      <div id="pin-state">
+        <div class="dl-mini" style="font-size:12.5px;margin-bottom:8px">
+          Статус: <b id="pin-status">не установлен</b>
+        </div>
+        <div class="row" style="gap:6px">
+          <button id="pin-set" type="button" class="pri">Установить PIN</button>
+          <button id="pin-remove" type="button" class="ghost" style="display:none">Снять PIN</button>
+          <button id="pin-test" type="button" class="ghost" style="display:none">Проверить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIN LOCK OVERLAY -->
+    <div id="pin-overlay" style="display:none;position:fixed;inset:0;z-index:200;background:hsla(var(--accent-h),60%,5%,.98);align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:20px">
+      <h2 style="font-size:22px;margin:0">MOGGER заблокирован</h2>
+      <p style="color:hsl(var(--accent-h) 30% 70%);margin:0;font-size:12.5px">Введи 4 цифры</p>
+      <div id="pin-input-row" style="display:flex;gap:10px;margin:10px 0">
+        <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+      </div>
+      <div id="pin-pad" style="display:grid;grid-template-columns:repeat(3,72px);gap:10px"></div>
+      <div id="pin-err" style="color:hsl(0 80% 65%);font-size:13px;min-height:18px"></div>
     </div>
 
     <!-- ============= GLOSSARY / СЛОВАРЬ ============= -->
@@ -8828,6 +8980,256 @@
     });
     render();
     document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= WINS / MISTAKES / LESSONS =========
+  (function(){
+    const win = document.getElementById('wml-win');
+    const mis = document.getElementById('wml-mistake');
+    const les = document.getElementById('wml-lesson');
+    const save = document.getElementById('wml-save');
+    const histBtn = document.getElementById('wml-history');
+    const list = document.getElementById('wml-list');
+    if (!win) return;
+    const todayKey = () => 'mogger.wml.' + new Date().toISOString().slice(0,10);
+    function load(){
+      try {
+        const d = JSON.parse(localStorage.getItem(todayKey()) || '{}');
+        win.value = d.win || ''; mis.value = d.mistake || ''; les.value = d.lesson || '';
+      } catch(_){}
+    }
+    function persist(){
+      const d = { win: win.value.trim(), mistake: mis.value.trim(), lesson: les.value.trim() };
+      try { localStorage.setItem(todayKey(), JSON.stringify(d)); } catch(_){}
+    }
+    save.addEventListener('click', () => { persist(); save.textContent = 'Сохранено ✓'; setTimeout(()=>{ save.textContent = 'Сохранить на сегодня'; }, 1200); });
+    let histOpen = false;
+    histBtn.addEventListener('click', () => {
+      histOpen = !histOpen;
+      list.style.display = histOpen ? 'block' : 'none';
+      histBtn.textContent = histOpen ? 'Скрыть' : 'История';
+      if (histOpen){
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++){
+          const k = localStorage.key(i);
+          if (k && k.startsWith('mogger.wml.')){
+            try {
+              const v = JSON.parse(localStorage.getItem(k) || '{}');
+              if (v.win || v.mistake || v.lesson) items.push({ date: k.slice('mogger.wml.'.length), ...v });
+            } catch(_){}
+          }
+        }
+        items.sort((a,b) => b.date.localeCompare(a.date));
+        if (!items.length) { list.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px">Пока нет записей.</div>'; return; }
+        list.innerHTML = items.slice(0,90).map(i => {
+          const lines = [];
+          if (i.win) lines.push(`🏆 ${i.win.replace(/</g,'&lt;')}`);
+          if (i.mistake) lines.push(`⚠️ ${i.mistake.replace(/</g,'&lt;')}`);
+          if (i.lesson) lines.push(`💡 ${i.lesson.replace(/</g,'&lt;')}`);
+          return `<div class="wml-hist-item"><div class="wh-d">${i.date}</div><div class="wh-l">${lines.join('<br>')}</div></div>`;
+        }).join('');
+      }
+    });
+    load();
+  })();
+
+  // ========= CONFIDENCE METER =========
+  (function(){
+    const btns = document.querySelectorAll('#conf-card .conf-btn');
+    const today = document.getElementById('conf-today');
+    const avg = document.getElementById('conf-avg');
+    const trend = document.getElementById('conf-trend');
+    const chart = document.getElementById('conf-chart');
+    if (!today) return;
+    const tKey = () => 'mogger.conf.' + new Date().toISOString().slice(0,10);
+    function get(d){ try{ return +localStorage.getItem('mogger.conf.'+d) || 0; }catch(_){ return 0; } }
+    function set(d, v){ try{ localStorage.setItem('mogger.conf.'+d, String(v)); }catch(_){} }
+    function update(){
+      const tk = tKey().replace('mogger.conf.','');
+      const v = get(tk);
+      btns.forEach(b => b.classList.toggle('on', +b.dataset.v === v));
+      today.textContent = v || '—';
+      // 30-day stats
+      const vals = [];
+      const now = new Date();
+      for (let i = 0; i < 30; i++){
+        const d = new Date(now); d.setDate(d.getDate()-i);
+        const k = d.toISOString().slice(0,10);
+        const x = get(k); if (x) vals.unshift({ d:k, v:x });
+      }
+      if (vals.length){
+        const a = (vals.reduce((s,x)=>s+x.v,0)/vals.length).toFixed(1);
+        avg.textContent = a;
+        if (vals.length >= 4){
+          const half = Math.floor(vals.length/2);
+          const recent = vals.slice(half).reduce((s,x)=>s+x.v,0)/(vals.length-half);
+          const past = vals.slice(0,half).reduce((s,x)=>s+x.v,0)/half;
+          const diff = recent - past;
+          trend.textContent = diff > 0.5 ? '↑ растёт' : diff < -0.5 ? '↓ падает' : '— ровно';
+          trend.style.color = diff > 0.5 ? 'hsl(120 70% 65%)' : diff < -0.5 ? 'hsl(0 80% 65%)' : '';
+        } else trend.textContent = '—';
+        // chart
+        chart.style.display = '';
+        const w = 300, h = 60, pad = 4;
+        const pts = vals.map((p,i) => {
+          const x = pad + (vals.length === 1 ? w/2-pad : i * ((w-2*pad)/(vals.length-1)));
+          const y = h - pad - ((p.v-1)/9) * (h-2*pad);
+          return `${x},${y}`;
+        }).join(' ');
+        chart.innerHTML = `
+          <polyline points="${pts}" fill="none" stroke="hsl(var(--accent-h) 100% 60%)" stroke-width="2"/>
+          ${vals.map(p => {
+            const i = vals.indexOf(p);
+            const x = pad + (vals.length === 1 ? w/2-pad : i * ((w-2*pad)/(vals.length-1)));
+            const y = h - pad - ((p.v-1)/9) * (h-2*pad);
+            return `<circle cx="${x}" cy="${y}" r="2" fill="hsl(var(--accent-h) 100% 70%)"/>`;
+          }).join('')}
+        `;
+      } else { avg.textContent = '—'; trend.textContent = '—'; }
+    }
+    btns.forEach(b => b.addEventListener('click', () => {
+      set(tKey().replace('mogger.conf.',''), +b.dataset.v);
+      update();
+      try { window.dispatchEvent(new Event('mogger:stats-changed')); } catch(_){}
+    }));
+    update();
+  })();
+
+  // ========= MACROS PIE =========
+  (function(){
+    if (!document.getElementById('macros-pie')) return;
+    function render(){
+      try {
+        const today = new Date().toISOString().slice(0,10);
+        const food = JSON.parse(localStorage.getItem('mogger.food.'+today) || '[]');
+        const p = food.reduce((s,f)=>s + (+f.p||0), 0);
+        const c = food.reduce((s,f)=>s + (+f.c||0), 0);
+        const f = food.reduce((s,fo)=>s + (+fo.f||0), 0);
+        const k = food.reduce((s,fo)=>s + (+fo.kcal||0), 0);
+        const pK = p*4, cK = c*4, fK = f*9;
+        const totalKc = pK + cK + fK;
+        const circ = 264; // 2*pi*42
+        const pPct = totalKc ? pK/totalKc : 0;
+        const cPct = totalKc ? cK/totalKc : 0;
+        const fPct = totalKc ? fK/totalKc : 0;
+        const pLen = pPct * circ;
+        const cLen = cPct * circ;
+        const fLen = fPct * circ;
+        const pEl = document.getElementById('pie-p');
+        const cEl = document.getElementById('pie-c');
+        const fEl = document.getElementById('pie-f');
+        pEl.setAttribute('stroke-dasharray', `${pLen} ${circ-pLen}`);
+        pEl.setAttribute('stroke-dashoffset', 0);
+        cEl.setAttribute('stroke-dasharray', `${cLen} ${circ-cLen}`);
+        cEl.setAttribute('stroke-dashoffset', -pLen);
+        fEl.setAttribute('stroke-dasharray', `${fLen} ${circ-fLen}`);
+        fEl.setAttribute('stroke-dashoffset', -(pLen+cLen));
+        document.getElementById('pie-total').textContent = k;
+        document.getElementById('pie-p-pct').textContent = Math.round(pPct*100)+'%';
+        document.getElementById('pie-c-pct').textContent = Math.round(cPct*100)+'%';
+        document.getElementById('pie-f-pct').textContent = Math.round(fPct*100)+'%';
+        document.getElementById('pie-p-g').textContent = p;
+        document.getElementById('pie-c-g').textContent = c;
+        document.getElementById('pie-f-g').textContent = f;
+        document.getElementById('pie-p-kc').textContent = pK;
+        document.getElementById('pie-c-kc').textContent = cK;
+        document.getElementById('pie-f-kc').textContent = fK;
+      } catch(_){}
+    }
+    render();
+    ['mogger:stats-changed','storage','mogger:food-changed'].forEach(ev => window.addEventListener(ev, render));
+    setInterval(render, 5000);
+  })();
+
+  // ========= PIN LOCK =========
+  (function(){
+    const setBtn = document.getElementById('pin-set');
+    const rmBtn = document.getElementById('pin-remove');
+    const testBtn = document.getElementById('pin-test');
+    const status = document.getElementById('pin-status');
+    const overlay = document.getElementById('pin-overlay');
+    const dots = overlay ? overlay.querySelectorAll('.pin-dot') : [];
+    const pad = document.getElementById('pin-pad');
+    const errEl = document.getElementById('pin-err');
+    if (!setBtn || !overlay) return;
+    const PIN_KEY = 'mogger.pin.code';
+    const SESS_KEY = 'mogger.pin.unlocked';
+    let entering = [];
+    let mode = 'verify'; // 'verify', 'set-new', 'confirm-new', 'verify-remove'
+    let newPin = '';
+    function getPin(){ try{ return localStorage.getItem(PIN_KEY) || ''; }catch(_){ return ''; } }
+    function setPin(v){ try{ localStorage.setItem(PIN_KEY, v); }catch(_){} }
+    function clearPin(){ try{ localStorage.removeItem(PIN_KEY); }catch(_){} }
+    function refresh(){
+      const pin = getPin();
+      status.textContent = pin ? 'установлен' : 'не установлен';
+      status.style.color = pin ? 'hsl(120 70% 65%)' : '';
+      rmBtn.style.display = pin ? '' : 'none';
+      testBtn.style.display = pin ? '' : 'none';
+      setBtn.textContent = pin ? 'Изменить PIN' : 'Установить PIN';
+    }
+    function drawDots(){
+      dots.forEach((d,i) => d.classList.toggle('on', i < entering.length));
+    }
+    function openOverlay(m){
+      mode = m; entering = []; newPin = ''; errEl.textContent = '';
+      const titles = { verify:'MOGGER заблокирован', 'set-new':'Введи новый PIN', 'confirm-new':'Повтори новый PIN', 'verify-remove':'Введи текущий PIN' };
+      overlay.querySelector('h2').textContent = titles[m] || 'MOGGER заблокирован';
+      overlay.style.display = 'flex';
+      drawDots();
+    }
+    function closeOverlay(){ overlay.style.display = 'none'; entering = []; drawDots(); }
+    function handleKey(k){
+      if (k === 'del'){
+        entering.pop(); drawDots(); errEl.textContent = '';
+        return;
+      }
+      if (entering.length >= 4) return;
+      entering.push(k);
+      drawDots();
+      if (entering.length === 4){
+        const code = entering.join('');
+        setTimeout(() => {
+          if (mode === 'verify'){
+            if (code === getPin()){
+              try { sessionStorage.setItem(SESS_KEY, '1'); }catch(_){}
+              closeOverlay();
+            } else { errEl.textContent = 'Неверный PIN'; entering = []; drawDots(); }
+          } else if (mode === 'set-new'){
+            newPin = code; entering = []; drawDots();
+            mode = 'confirm-new';
+            overlay.querySelector('h2').textContent = 'Повтори новый PIN';
+          } else if (mode === 'confirm-new'){
+            if (code === newPin){
+              setPin(code); refresh(); closeOverlay();
+              try { sessionStorage.setItem(SESS_KEY, '1'); }catch(_){}
+            } else { errEl.textContent = 'Не совпадает. Начни заново.'; entering = []; newPin = ''; mode = 'set-new'; overlay.querySelector('h2').textContent = 'Введи новый PIN'; drawDots(); }
+          } else if (mode === 'verify-remove'){
+            if (code === getPin()){
+              clearPin(); refresh(); closeOverlay();
+            } else { errEl.textContent = 'Неверный PIN'; entering = []; drawDots(); }
+          }
+        }, 200);
+      }
+    }
+    // Render keypad: 1-9, [del] 0 [hint or empty]
+    const keys = ['1','2','3','4','5','6','7','8','9','del','0','x'];
+    pad.innerHTML = keys.map(k => {
+      if (k === 'x') return '<div></div>';
+      const lbl = k === 'del' ? '⌫' : k;
+      return `<button class="pin-key" data-k="${k}" type="button">${lbl}</button>`;
+    }).join('');
+    pad.querySelectorAll('.pin-key').forEach(b => b.addEventListener('click', () => handleKey(b.dataset.k)));
+    setBtn.addEventListener('click', () => openOverlay('set-new'));
+    rmBtn.addEventListener('click', () => openOverlay('verify-remove'));
+    testBtn.addEventListener('click', () => openOverlay('verify'));
+    refresh();
+    // Auto-lock on first load if PIN exists and not unlocked in this session
+    if (getPin()){
+      let unlocked = false;
+      try { unlocked = !!sessionStorage.getItem(SESS_KEY); }catch(_){}
+      if (!unlocked) openOverlay('verify');
+    }
   })();
 
   // ========= TODAY SNAPSHOT =========
