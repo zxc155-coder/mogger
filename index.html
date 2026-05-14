@@ -2177,6 +2177,47 @@
   .mantra-row .mt-t{ flex:1;font-style:italic }
   .mantra-row .mt-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:13px }
 
+  /* WEEKLY REVIEW */
+  .wr-tile{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:9px;padding:7px 8px;text-align:center;
+  }
+  .wr-tile .wr-v{ font-size:18px;font-weight:900;color:#fff;line-height:1.1 }
+  .wr-tile .wr-l{ font-size:9.5px;color:hsl(var(--accent-h) 30% 70%);font-weight:700;text-transform:uppercase;margin-top:2px }
+
+  /* WORKOUT TEMPLATES */
+  .wt-card{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:8px 10px;
+  }
+  .wt-card .wt-h{ display:flex;align-items:center;gap:6px }
+  .wt-card .wt-n{ flex:1;font-weight:700;color:#fff;font-size:13.5px }
+  .wt-card textarea{
+    width:100%;min-height:60px;padding:7px;background:hsla(var(--accent-h),60%,7%,.7);
+    border:1px solid hsla(var(--accent-h),100%,73%,.18);border-radius:6px;color:#fff;font-size:12px;font-family:inherit;resize:vertical;margin-top:6px;
+  }
+  .wt-card .wt-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px }
+
+  /* DAILY INTENTION */
+  .di-preset{
+    background:hsla(var(--accent-h),60%,15%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 80%);padding:5px 10px;border-radius:11px;cursor:pointer;font-size:11px;font-weight:700;
+  }
+  .di-preset:active{ background:hsl(var(--accent-h) 100% 55%);color:#000 }
+
+  /* POSTURE STEPS */
+  .pr2-step{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:8px;padding:7px 10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#fff;
+  }
+  .pr2-step.done{ opacity:.6;text-decoration:line-through }
+  .pr2-step .pr-ic{ font-size:16px;flex-shrink:0 }
+  .pr2-step .pr-d{ font-size:10px;color:hsl(var(--accent-h) 30% 65%);margin-left:auto;flex-shrink:0;font-weight:700 }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3740,6 +3781,65 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(40 90% 60%);margin-right:6px"></span>Углеводы <b id="pie-c-pct">0%</b> · <span id="pie-c-g">0</span>г · <span id="pie-c-kc">0</span>кк</div>
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ============= WEEKLY REVIEW ============= -->
+    <div class="card" id="wr-card" style="margin-top:14px">
+      <h2>Неделя · обзор</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Авто-сводка прошлой недели. Видно где провалился, где сильный.
+      </p>
+      <div id="wr-summary" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px"></div>
+      <div id="wr-best" style="font-size:12.5px;line-height:1.6;background:hsla(120,40%,20%,.3);border:1px solid hsla(120,60%,40%,.3);border-radius:8px;padding:8px 10px;color:hsl(120 70% 80%)"></div>
+      <div id="wr-worst" style="font-size:12.5px;line-height:1.6;background:hsla(0,40%,20%,.3);border:1px solid hsla(0,60%,40%,.3);border-radius:8px;padding:8px 10px;color:hsl(0 70% 80%);margin-top:6px"></div>
+    </div>
+
+    <!-- ============= WORKOUT TEMPLATES ============= -->
+    <div class="card" id="wt-card" style="margin-top:14px">
+      <h2>Шаблоны тренировок</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Сохрани свою любимую тренировку — потом загрузишь одной кнопкой. Каждый шаблон = название + список упражнений.
+      </p>
+      <div id="wt-list" style="display:flex;flex-direction:column;gap:6px"></div>
+      <div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">
+        <input id="wt-name" type="text" placeholder="название (напр. Push)" maxlength="40" style="flex:1;min-width:120px;padding:7px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <button id="wt-add" type="button" class="pri">+ Шаблон</button>
+      </div>
+    </div>
+
+    <!-- ============= DAILY INTENTION ============= -->
+    <div class="card" id="di-card" style="margin-top:14px">
+      <h2>Намерение дня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Одно слово или короткая фраза — лейтмотив этого дня. Дисциплина / Тишина / Сила / Любовь.
+      </p>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input id="di-text" type="text" placeholder="напр. Тишина" maxlength="40" style="flex:1;padding:11px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.18);border-radius:9px;color:hsl(var(--accent-h) 100% 80%);font-size:16px;font-weight:800;text-align:center;letter-spacing:.04em">
+      </div>
+      <div class="row" style="gap:5px;flex-wrap:wrap;margin-top:8px">
+        <button class="di-preset" type="button">Дисциплина</button>
+        <button class="di-preset" type="button">Тишина</button>
+        <button class="di-preset" type="button">Сила</button>
+        <button class="di-preset" type="button">Любовь</button>
+        <button class="di-preset" type="button">Фокус</button>
+        <button class="di-preset" type="button">Прогресс</button>
+        <button class="di-preset" type="button">Терпение</button>
+        <button class="di-preset" type="button">Смелость</button>
+        <button class="di-preset" type="button">Глубина</button>
+      </div>
+      <div id="di-hist" style="font-size:11px;color:hsl(var(--accent-h) 30% 65%);margin-top:8px;text-align:center"></div>
+    </div>
+
+    <!-- ============= POSTURE ROUTINE ============= -->
+    <div class="card" id="pr2-card" style="margin-top:14px">
+      <h2>Осанка · 5 минут</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        7 упражнений по 30-60 сек. После рабочего дня = -90% болей в шее/спине. Кликни шаг — отметишь сделано.
+      </p>
+      <div id="pr2-steps" style="display:flex;flex-direction:column;gap:5px"></div>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:6px;text-align:center">
+        Сделано подряд дней: <b id="pr2-streak">0</b> 🔥
       </div>
     </div>
 
@@ -9678,6 +9778,189 @@
       setAll(all); txt.value = ''; dl.value = ''; render();
     });
     render();
+  })();
+
+  // ========= WEEKLY REVIEW =========
+  (function(){
+    const summary = document.getElementById('wr-summary');
+    const best = document.getElementById('wr-best');
+    const worst = document.getElementById('wr-worst');
+    if (!summary) return;
+    function get(k, d){ try{ return JSON.parse(localStorage.getItem(k) || JSON.stringify(d)); }catch(_){ return d; } }
+    function render(){
+      const days = [];
+      const now = new Date();
+      for (let i = 0; i < 7; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate() - i);
+        days.push(dt.toISOString().slice(0,10));
+      }
+      let totals = { sleep:0, water:0, steps:0, checklist:0, workouts:0, cold:0 };
+      let counts = { sleep:0, water:0, steps:0 };
+      days.forEach(d => {
+        const log = get('mogger.dailylog.'+d, {});
+        if (log.sleep){ totals.sleep += +log.sleep; counts.sleep++; }
+        if (log.steps){ totals.steps += +log.steps; counts.steps++; }
+        const w = +get('mogger.water.'+d, 0);
+        if (w){ totals.water += w; counts.water++; }
+        const c = get('mogger.checklist.'+d, {});
+        const done = Object.values(c).filter(Boolean).length;
+        totals.checklist += done;
+        const sets = get('mogger.workout.sets.'+d, []);
+        if (Array.isArray(sets) && sets.length) totals.workouts++;
+        if (get('mogger.cold.'+d, false)) totals.cold++;
+      });
+      summary.innerHTML = `
+        <div class="wr-tile"><div class="wr-v">${counts.sleep ? (totals.sleep/counts.sleep).toFixed(1) : '—'}</div><div class="wr-l">сон avg</div></div>
+        <div class="wr-tile"><div class="wr-v">${counts.steps ? Math.round(totals.steps/counts.steps/1000) + 'к' : '—'}</div><div class="wr-l">шагов avg</div></div>
+        <div class="wr-tile"><div class="wr-v">${totals.water || '—'}</div><div class="wr-l">воды нед.</div></div>
+        <div class="wr-tile"><div class="wr-v">${Math.round(totals.checklist/7)}/10</div><div class="wr-l">чек-лист avg</div></div>
+        <div class="wr-tile"><div class="wr-v">${totals.workouts}/7</div><div class="wr-l">тренир.</div></div>
+        <div class="wr-tile"><div class="wr-v">${totals.cold}/7</div><div class="wr-l">хол. душ</div></div>
+      `;
+      // Best / worst
+      const wins = [];
+      const losses = [];
+      if (totals.workouts >= 5) wins.push('🏋 Тренировка ' + totals.workouts + '/7');
+      else if (totals.workouts < 3) losses.push('🏋 Тренировок мало (' + totals.workouts + '/7)');
+      if (counts.sleep && totals.sleep/counts.sleep >= 7.5) wins.push('😴 Сон стабильный');
+      else if (counts.sleep && totals.sleep/counts.sleep < 6.5) losses.push('😴 Сон ниже 7ч в среднем');
+      if (totals.cold >= 5) wins.push('🥶 Холодный душ ' + totals.cold + '/7');
+      else if (totals.cold < 2) losses.push('🥶 Хол. душ почти нет');
+      if (totals.checklist/7 >= 7) wins.push('✓ Чек-лист часто закрыт');
+      else if (totals.checklist/7 < 3) losses.push('✓ Чек-лист почти не выполняется');
+      if (counts.steps && totals.steps/counts.steps >= 8000) wins.push('👟 Шагов >8к/день');
+      else if (counts.steps && totals.steps/counts.steps < 4000) losses.push('👟 Шагов мало (<4к)');
+      best.innerHTML = wins.length ? '🏆 ' + wins.join(' · ') : 'Пока без сильных побед — добавь больше данных или будь активнее.';
+      worst.innerHTML = losses.length ? '⚠️ ' + losses.join(' · ') : '👍 Слабых зон не вижу.';
+    }
+    render();
+    setInterval(render, 60000);
+    window.addEventListener('storage', render);
+  })();
+
+  // ========= WORKOUT TEMPLATES =========
+  (function(){
+    const list = document.getElementById('wt-list');
+    const nameI = document.getElementById('wt-name');
+    const add = document.getElementById('wt-add');
+    if (!list) return;
+    const KEY = 'mogger.wt';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function render(){
+      const all = getAll();
+      if (!all.length){
+        list.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px;text-align:center">Шаблонов нет. Создай первый ниже.</div>';
+        return;
+      }
+      list.innerHTML = all.map((t,i) => `
+        <div class="wt-card">
+          <div class="wt-h">
+            <span class="wt-n">${(t.name||'').replace(/</g,'&lt;')}</span>
+            <button class="wt-x" data-i="${i}" type="button">×</button>
+          </div>
+          <textarea data-i="${i}" placeholder="Жим лёжа 4×8&#10;Подтягивания 3×10&#10;...">${(t.body||'').replace(/</g,'&lt;')}</textarea>
+        </div>
+      `).join('');
+      list.querySelectorAll('textarea').forEach(t => t.addEventListener('input', e => {
+        const i = +e.target.dataset.i;
+        const all = getAll();
+        if (all[i]){ all[i].body = e.target.value; setAll(all); }
+      }));
+      list.querySelectorAll('.wt-x').forEach(b => b.addEventListener('click', e => {
+        if (!confirm('Удалить шаблон?')) return;
+        const i = +e.currentTarget.dataset.i;
+        const all = getAll(); all.splice(i,1); setAll(all); render();
+      }));
+    }
+    add.addEventListener('click', () => {
+      const n = nameI.value.trim(); if (!n) return;
+      const all = getAll(); all.push({ name: n, body: '' }); setAll(all); nameI.value = ''; render();
+    });
+    render();
+  })();
+
+  // ========= DAILY INTENTION =========
+  (function(){
+    const text = document.getElementById('di-text');
+    const hist = document.getElementById('di-hist');
+    if (!text) return;
+    function dayKey(){ return 'mogger.intention.' + new Date().toISOString().slice(0,10); }
+    function load(){
+      text.value = localStorage.getItem(dayKey()) || '';
+      // Count last 7 days
+      let n = 0;
+      const now = new Date();
+      for (let i = 0; i < 7; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        if (localStorage.getItem('mogger.intention.'+dt.toISOString().slice(0,10))) n++;
+      }
+      hist.textContent = `Намерений за неделю: ${n}/7`;
+    }
+    text.addEventListener('input', () => {
+      try{
+        if (text.value.trim()) localStorage.setItem(dayKey(), text.value.trim());
+        else localStorage.removeItem(dayKey());
+      }catch(_){}
+      load();
+    });
+    document.querySelectorAll('.di-preset').forEach(b => b.addEventListener('click', () => {
+      text.value = b.textContent;
+      text.dispatchEvent(new Event('input'));
+    }));
+    load();
+  })();
+
+  // ========= POSTURE ROUTINE =========
+  (function(){
+    const steps = document.getElementById('pr2-steps');
+    const streak = document.getElementById('pr2-streak');
+    if (!steps) return;
+    const EXERCISES = [
+      { ic:'🐢', n:'Подбородок назад (chin tuck)', d:'30с×3' },
+      { ic:'🤸', n:'Растяжка кошка-корова', d:'30с' },
+      { ic:'🙆', n:'Открытие груди в дверном проёме', d:'40с' },
+      { ic:'🧘', n:'Поза ребёнка', d:'45с' },
+      { ic:'🦒', n:'Растяжка шеи в стороны', d:'30с×2' },
+      { ic:'🦅', n:'Скрестить руки → плечи', d:'30с' },
+      { ic:'👼', n:'Лопатки сжимай-разжимай 20 раз', d:'30с' },
+    ];
+    function dayKey(){ return 'mogger.posture.' + new Date().toISOString().slice(0,10); }
+    function get(){ try{ return JSON.parse(localStorage.getItem(dayKey()) || '{}'); }catch(_){ return {}; } }
+    function set(o){ try{ localStorage.setItem(dayKey(), JSON.stringify(o)); }catch(_){} }
+    function calcStreak(){
+      let s = 0;
+      const now = new Date();
+      for (let i = 0; i < 365; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        const k = 'mogger.posture.'+dt.toISOString().slice(0,10);
+        try {
+          const v = JSON.parse(localStorage.getItem(k) || '{}');
+          const allDone = EXERCISES.every((_,j) => v[j]);
+          if (allDone) s++;
+          else if (i === 0) continue;
+          else break;
+        } catch(_){ break; }
+      }
+      return s;
+    }
+    function render(){
+      const done = get();
+      steps.innerHTML = EXERCISES.map((e, i) => `
+        <div class="pr2-step ${done[i]?'done':''}" data-i="${i}">
+          <span class="pr-ic">${e.ic}</span>
+          <span>${i+1}. ${e.n}</span>
+          <span class="pr-d">${e.d}</span>
+        </div>
+      `).join('');
+      steps.querySelectorAll('.pr2-step').forEach(el => el.addEventListener('click', () => {
+        const i = +el.dataset.i;
+        const d = get(); d[i] = !d[i]; set(d); render();
+      }));
+      streak.textContent = calcStreak();
+    }
+    render();
+    setInterval(render, 60000);
   })();
 
   // ========= BODY FAT NAVY =========
