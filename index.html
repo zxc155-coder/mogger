@@ -2072,6 +2072,22 @@
   .pr-row .pr-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 55%);cursor:pointer;font-size:14px }
   .pr-row .pr-1rm{ font-size:10px;color:hsl(var(--accent-h) 30% 65%);font-weight:600 }
 
+  /* HABIT GALLERY */
+  .hab-cat{
+    background:hsla(var(--accent-h),60%,15%,.5);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 80%);padding:4px 9px;border-radius:11px;cursor:pointer;font-size:11px;font-weight:700;
+  }
+  .hab-cat.on{ background:hsl(var(--accent-h) 100% 55%);color:#000;border-color:transparent }
+  .hab-item{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.13);
+    border-radius:8px;padding:7px 10px;cursor:pointer;font-size:12.5px;color:hsl(var(--accent-h) 25% 90%);
+    display:flex;align-items:center;gap:8px;
+  }
+  .hab-item:active{ background:hsla(var(--accent-h),60%,17%,.7) }
+  .hab-item .hb-c{ font-size:9px;color:hsl(var(--accent-h) 30% 65%);font-weight:700;text-transform:uppercase;margin-left:auto;flex-shrink:0 }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3636,6 +3652,76 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
       </div>
+    </div>
+
+    <!-- ============= PHOTO COMPARISON SLIDER ============= -->
+    <div class="card" id="compare-card" style="margin-top:14px">
+      <h2>До / После · сравнение</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Перетягивай ползунок чтобы сравнить два своих фото. Загрузи «До» и «Сейчас» — увидишь разницу.
+      </p>
+      <div class="row" style="gap:6px;flex-wrap:wrap;margin-bottom:8px">
+        <label class="ghost" style="flex:1;cursor:pointer;text-align:center;padding:7px">
+          📷 Загрузить «До»
+          <input id="cmp-before" type="file" accept="image/*" style="display:none">
+        </label>
+        <label class="ghost" style="flex:1;cursor:pointer;text-align:center;padding:7px">
+          📷 Загрузить «Сейчас»
+          <input id="cmp-after" type="file" accept="image/*" style="display:none">
+        </label>
+      </div>
+      <div id="cmp-stage" style="position:relative;width:100%;aspect-ratio:3/4;background:hsla(var(--accent-h),60%,8%,.7);border-radius:10px;overflow:hidden;border:1px solid hsla(var(--accent-h),100%,73%,.18);user-select:none">
+        <div id="cmp-empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:hsl(var(--accent-h) 30% 60%);font-size:12.5px;text-align:center;padding:16px">
+          Загрузи хотя бы два фото чтобы увидеть сравнение.
+        </div>
+        <img id="cmp-before-img" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <div id="cmp-after-wrap" style="display:none;position:absolute;inset:0;width:50%;overflow:hidden">
+          <img id="cmp-after-img" style="position:absolute;inset:0;width:200%;height:100%;object-fit:cover;object-position:left center">
+        </div>
+        <div id="cmp-handle" style="display:none;position:absolute;top:0;bottom:0;width:3px;background:#fff;left:50%;transform:translateX(-50%);cursor:ew-resize;box-shadow:0 0 8px rgba(0,0,0,.5);z-index:3">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;color:#000;font-weight:900;font-size:18px">⇔</div>
+        </div>
+        <div id="cmp-label-l" style="display:none;position:absolute;left:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;z-index:4">ДО</div>
+        <div id="cmp-label-r" style="display:none;position:absolute;right:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;z-index:4">СЕЙЧАС</div>
+      </div>
+      <button id="cmp-clear" type="button" class="ghost" style="width:100%;margin-top:8px">Очистить</button>
+    </div>
+
+    <!-- ============= DAILY REFLECTION QUESTION ============= -->
+    <div class="card" id="dq-card" style="margin-top:14px">
+      <h2>Вопрос дня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Один глубокий вопрос каждый день. Запиши хотя бы 2 строки — увидишь паттерны.
+      </p>
+      <blockquote id="dq-text" style="font-style:italic;margin:6px 0 8px;font-size:14px;color:hsl(var(--accent-h) 25% 92%);border-left:3px solid hsl(var(--accent-h) 100% 60%);padding:5px 12px;line-height:1.5">Загрузка…</blockquote>
+      <textarea id="dq-answer" placeholder="твой ответ…" style="width:100%;min-height:80px;padding:8px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px;resize:vertical;font-family:inherit"></textarea>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <button id="dq-prev" type="button" class="ghost" style="flex:1">← вчера</button>
+        <button id="dq-save" type="button" class="pri" style="flex:2">Сохранить ответ</button>
+        <button id="dq-next" type="button" class="ghost" style="flex:1">завтра →</button>
+      </div>
+      <div style="font-size:11px;color:hsl(var(--accent-h) 30% 65%);margin-top:6px;text-align:center">
+        Отвечено вопросов: <b id="dq-count">0</b>
+      </div>
+    </div>
+
+    <!-- ============= HABIT GALLERY ============= -->
+    <div class="card" id="habits-card" style="margin-top:14px">
+      <h2>Идеи привычек</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        50 привычек по 6 категориям. Тапни — скопируется в текстовое поле, можешь добавить в Top-3.
+      </p>
+      <div class="row" style="gap:5px;flex-wrap:wrap;margin-bottom:8px;font-size:11px">
+        <button class="hab-cat on" data-cat="all" type="button">Все</button>
+        <button class="hab-cat" data-cat="body" type="button">Тело</button>
+        <button class="hab-cat" data-cat="face" type="button">Лицо</button>
+        <button class="hab-cat" data-cat="food" type="button">Еда</button>
+        <button class="hab-cat" data-cat="mind" type="button">Mindset</button>
+        <button class="hab-cat" data-cat="sleep" type="button">Сон</button>
+        <button class="hab-cat" data-cat="skill" type="button">Скилл</button>
+      </div>
+      <div id="hab-list" style="display:flex;flex-direction:column;gap:5px;max-height:280px;overflow-y:auto"></div>
+      <div id="hab-copied" style="font-size:11px;color:hsl(120 70% 65%);margin-top:6px;text-align:center;min-height:16px"></div>
     </div>
 
     <!-- ============= MONTH CALENDAR ============= -->
@@ -9345,6 +9431,279 @@
       all.push({ name: t, deadline: dl.value || '', pct: 0, created: Date.now() });
       setAll(all); txt.value = ''; dl.value = ''; render();
     });
+    render();
+  })();
+
+  // ========= PHOTO COMPARISON SLIDER =========
+  (function(){
+    const before = document.getElementById('cmp-before');
+    const after = document.getElementById('cmp-after');
+    const beforeImg = document.getElementById('cmp-before-img');
+    const afterImg = document.getElementById('cmp-after-img');
+    const afterWrap = document.getElementById('cmp-after-wrap');
+    const handle = document.getElementById('cmp-handle');
+    const empty = document.getElementById('cmp-empty');
+    const labelL = document.getElementById('cmp-label-l');
+    const labelR = document.getElementById('cmp-label-r');
+    const stage = document.getElementById('cmp-stage');
+    const clear = document.getElementById('cmp-clear');
+    if (!before) return;
+    const KEY_B = 'mogger.cmp.before';
+    const KEY_A = 'mogger.cmp.after';
+    function setData(input, key, target){
+      input.addEventListener('change', e => {
+        const f = e.target.files[0]; if (!f) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try{ localStorage.setItem(key, reader.result); }catch(err){
+            alert('Не помещается в хранилище. Попробуй фото поменьше.');
+          }
+          load();
+        };
+        reader.readAsDataURL(f);
+      });
+    }
+    function load(){
+      const b = localStorage.getItem(KEY_B);
+      const a = localStorage.getItem(KEY_A);
+      if (b && a){
+        beforeImg.src = b; afterImg.src = a;
+        beforeImg.style.display = 'block';
+        afterWrap.style.display = 'block';
+        handle.style.display = 'block';
+        labelL.style.display = 'block';
+        labelR.style.display = 'block';
+        empty.style.display = 'none';
+      } else if (b || a){
+        empty.textContent = 'Загружено 1 фото из 2. Загрузи второе чтобы сравнить.';
+      } else {
+        empty.textContent = 'Загрузи хотя бы два фото чтобы увидеть сравнение.';
+      }
+    }
+    setData(before, KEY_B);
+    setData(after, KEY_A);
+    let dragging = false;
+    function move(x){
+      const rect = stage.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+      const pct = ratio * 100;
+      handle.style.left = pct + '%';
+      afterWrap.style.width = pct + '%';
+      afterImg.style.width = (100/ratio || 100) + '%';
+    }
+    function start(e){ dragging = true; const x = e.clientX || (e.touches && e.touches[0].clientX); if (x !== undefined) move(x); }
+    function end(){ dragging = false; }
+    function drag(e){ if (!dragging) return; const x = e.clientX || (e.touches && e.touches[0].clientX); if (x !== undefined) move(x); }
+    handle.addEventListener('mousedown', start);
+    handle.addEventListener('touchstart', start, {passive:true});
+    stage.addEventListener('mousedown', start);
+    stage.addEventListener('touchstart', start, {passive:true});
+    window.addEventListener('mousemove', drag);
+    window.addEventListener('touchmove', drag, {passive:true});
+    window.addEventListener('mouseup', end);
+    window.addEventListener('touchend', end);
+    clear.addEventListener('click', () => {
+      if (!confirm('Удалить оба фото?')) return;
+      try{ localStorage.removeItem(KEY_B); localStorage.removeItem(KEY_A); }catch(_){}
+      beforeImg.style.display = 'none';
+      afterWrap.style.display = 'none';
+      handle.style.display = 'none';
+      labelL.style.display = 'none';
+      labelR.style.display = 'none';
+      empty.style.display = 'flex';
+      empty.textContent = 'Загрузи хотя бы два фото чтобы увидеть сравнение.';
+    });
+    load();
+  })();
+
+  // ========= DAILY REFLECTION QUESTION =========
+  (function(){
+    const QUESTIONS = [
+      'Что было лучшей частью сегодняшнего дня?',
+      'Что бы я делал по-другому, если бы мог переиграть?',
+      'За что я благодарен прямо сейчас?',
+      'Что я узнал о себе сегодня?',
+      'Какой выбор я сегодня сделал из любви, а какой — из страха?',
+      'Что меня сегодня бесило, и что это говорит о моих границах?',
+      'Если бы я знал что умру через год — что бы я делал прямо сейчас?',
+      'Какую привычку я хочу укрепить на этой неделе?',
+      'Кому я могу написать сегодня просто чтобы сказать «спасибо»?',
+      'Где я сегодня сжульничал с собой?',
+      'Что я отложил сегодня — и какова реальная цена откладывания?',
+      'Если завтра — последний день, как я хочу его прожить?',
+      'Что я делал последний раз просто ради радости?',
+      'Что я делаю чтобы заслужить любовь которой и так заслуживаю?',
+      'Каким человеком я хочу быть в 50? Я двигаюсь туда?',
+      'Что бы я посоветовал себе год назад?',
+      'Какое слово описывает сегодня?',
+      'Что меня сейчас держит в текущем образе жизни?',
+      'Кого я завидую — и что это говорит о моих желаниях?',
+      'Какое моё лучшее качество? Использовал ли я его сегодня?',
+      'Что я игнорировал в своём теле в последнее время?',
+      'Если бы я никого не боялся осуждения — что бы я попробовал?',
+      'Какие 3 вещи я бы взял с собой если бы пришлось уехать навсегда?',
+      'Какой мой главный страх — и реален ли он на самом деле?',
+      'За какое решение мне сегодня нужно простить себя?',
+      'Какое окружение делает меня лучше? Я в нём сейчас?',
+      'Что я делаю каждый день что меня НЕ приближает к цели?',
+      'Как я хочу чтобы меня запомнили?',
+      'Что заставляет меня чувствовать себя по-настоящему живым?',
+      'Где я сейчас застрял, и что мешает мне сдвинуться?',
+      'Кому я могу помочь сегодня — даже мелочью?',
+      'Что я ел сегодня — это меня строило или ломало?',
+      'Какая ложь о себе мне сейчас удобна?',
+      'Что я делаю чтобы быть готовым к удаче?',
+      'За что я готов воевать в своей жизни?',
+      'Какой урок я уже знаю но всё ещё не применяю?',
+      'Что я нашёл в себе нового за последний месяц?',
+      'Если бы я был наставником себе самому — что бы я сказал?',
+      'Какая моя любимая часть моего тела и почему?',
+      'Чьё мнение обо мне меня волнует больше чем должно?',
+      'Где сегодня была моя дисциплина? Где её не было?',
+      'Что у меня получалось всегда? Использую ли я этот талант?',
+      'Что я делаю когда никто не видит — это меня уважает?',
+      'За что я платил вниманием которое не стоило того?',
+      'Какие 3 человека на меня сильнее всего повлияли — и как?',
+      'Что моя 70-летняя версия попросила бы меня сделать сегодня?',
+      'Кому я сегодня улыбнулся искренне?',
+      'Если бы у меня было 24 часа — на что я бы их потратил?',
+      'Что меня сегодня испугало — и что это значит?',
+      'Какая часть меня требует больше внимания?',
+      'Что в моей жизни я не выбирал — но всё ещё держу?',
+      'Где я сегодня вышел из зоны комфорта?',
+      'Какие мои ценности были видны в моих действиях сегодня?',
+      'Что для меня значит «жить хорошо»?',
+      'Какая роль/маска мне сегодня надоела?',
+      'Какая моя суперсила — и кому она нужна?',
+      'Что я делаю чтобы оставаться открытым для нового?',
+      'Когда я последний раз был полностью свободен от телефона?',
+      'Какой комплимент мне сегодня дать самому себе?',
+      'Что я делаю чтобы оставаться благодарным?',
+    ];
+    const text = document.getElementById('dq-text');
+    const answer = document.getElementById('dq-answer');
+    const prev = document.getElementById('dq-prev');
+    const save = document.getElementById('dq-save');
+    const next = document.getElementById('dq-next');
+    const count = document.getElementById('dq-count');
+    if (!text) return;
+    let currentDate = new Date();
+    function dayIdx(d){
+      const start = new Date(d.getFullYear(), 0, 0);
+      return Math.floor((d - start) / 86400000) % QUESTIONS.length;
+    }
+    function load(){
+      const iso = currentDate.toISOString().slice(0,10);
+      text.textContent = '«' + QUESTIONS[dayIdx(currentDate)] + '»';
+      try {
+        answer.value = localStorage.getItem('mogger.dq.'+iso) || '';
+      } catch(_){ answer.value = ''; }
+      // Count distinct days answered
+      let c = 0;
+      for (let i = 0; i < Object.keys(localStorage).length; i++){
+        const k = localStorage.key(i);
+        if (k && k.startsWith('mogger.dq.') && localStorage.getItem(k)) c++;
+      }
+      count.textContent = c;
+    }
+    prev.addEventListener('click', () => { currentDate.setDate(currentDate.getDate()-1); load(); });
+    next.addEventListener('click', () => { currentDate.setDate(currentDate.getDate()+1); load(); });
+    save.addEventListener('click', () => {
+      const iso = currentDate.toISOString().slice(0,10);
+      try{
+        if (answer.value.trim()) localStorage.setItem('mogger.dq.'+iso, answer.value);
+        else localStorage.removeItem('mogger.dq.'+iso);
+      }catch(_){}
+      save.textContent = 'Сохранено ✓';
+      setTimeout(() => save.textContent = 'Сохранить ответ', 1500);
+      load();
+    });
+    load();
+  })();
+
+  // ========= HABIT GALLERY =========
+  (function(){
+    const HABITS = [
+      ['Делай 30 отжиманий сразу после подъёма','body'],
+      ['Прогулка 30 минут на свежем воздухе','body'],
+      ['10000 шагов в день','body'],
+      ['Турник: 3 подхода до отказа','body'],
+      ['Брусья: 3 подхода','body'],
+      ['Берпи 50 за день','body'],
+      ['Растяжка 10 минут','body'],
+      ['Холодный душ финал','body'],
+      ['Mewing весь день','face'],
+      ['Лимфодренаж лица 5 минут утром','face'],
+      ['Лёд на лицо 60 секунд','face'],
+      ['Жевать жёсткую жвачку 20 минут','face'],
+      ['Не трогать лицо руками','face'],
+      ['SPF на лицо утром','face'],
+      ['Ретинол / третиноин вечером','face'],
+      ['Очищение 2 раза в день','face'],
+      ['Гуаша 5 минут','face'],
+      ['Белок 1.6 г/кг минимум','food'],
+      ['Без сахара 1 день','food'],
+      ['Без фастфуда 1 день','food'],
+      ['Без алкоголя','food'],
+      ['3 л воды','food'],
+      ['Готовить дома хотя бы 2 приёма пищи','food'],
+      ['Креатин 5г','food'],
+      ['Omega-3 + D3','food'],
+      ['Фрукты/овощи на каждый приём','food'],
+      ['Не есть после 20:00','food'],
+      ['Медитация 10 минут','mind'],
+      ['Pomodoro 4 цикла','mind'],
+      ['Журнал 5 минут','mind'],
+      ['3 благодарности','mind'],
+      ['Без соц-сетей до обеда','mind'],
+      ['Не открывать телефон первые 30 мин после подъёма','mind'],
+      ['Глубокое дыхание 4-7-8 перед сном','mind'],
+      ['Чтение 20 минут','mind'],
+      ['Box breathing 4 цикла','mind'],
+      ['No-fap','mind'],
+      ['Лечь до 23:00','sleep'],
+      ['Подъём в 7:00 без снуза','sleep'],
+      ['Магний за час до сна','sleep'],
+      ['Без экрана за час до сна','sleep'],
+      ['Прохладная комната 18-20°C','sleep'],
+      ['Тёмная комната + штора','sleep'],
+      ['Утреннее солнце 10 минут сразу','sleep'],
+      ['Без кофе после 14:00','sleep'],
+      ['Учиться 1 час','skill'],
+      ['Сделать 1 шаг к мечте','skill'],
+      ['Английский 15 минут','skill'],
+      ['Написать что-то — 200 слов','skill'],
+      ['Послушать аудиокнигу 30 минут','skill'],
+      ['Решить 1 задачу или урок','skill'],
+      ['Поработать над проектом 1 час','skill'],
+      ['Записать одну идею в дневник идей','skill'],
+    ];
+    const list = document.getElementById('hab-list');
+    const copied = document.getElementById('hab-copied');
+    let cat = 'all';
+    function render(){
+      const filtered = HABITS.filter(([t,c]) => cat === 'all' || c === cat);
+      list.innerHTML = filtered.map(([t,c]) => `
+        <div class="hab-item" data-t="${t.replace(/"/g,'&quot;')}">
+          <span>${t}</span><span class="hb-c">${c}</span>
+        </div>
+      `).join('');
+      list.querySelectorAll('.hab-item').forEach(it => it.addEventListener('click', () => {
+        const t = it.dataset.t;
+        navigator.clipboard?.writeText(t).catch(() => {});
+        // Also fill the first empty top-3 input if exists
+        const t3 = document.querySelectorAll('input[placeholder^="Цель #"]');
+        for (let inp of t3){
+          if (!inp.value){ inp.value = t; inp.dispatchEvent(new Event('input', {bubbles:true})); inp.dispatchEvent(new Event('change', {bubbles:true})); break; }
+        }
+        copied.textContent = '✓ Скопировано + добавлено в Top-3 если есть место';
+        setTimeout(() => copied.textContent = '', 2500);
+      }));
+    }
+    document.querySelectorAll('.hab-cat').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.hab-cat').forEach(x => x.classList.remove('on'));
+      b.classList.add('on'); cat = b.dataset.cat; render();
+    }));
     render();
   })();
 
