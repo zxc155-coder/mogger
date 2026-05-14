@@ -1964,6 +1964,32 @@
   }
   .pin-key:active{ background:hsla(var(--accent-h),60%,22%,.9) }
 
+  /* LONG-TERM GOALS */
+  .ltg-row{
+    background:hsla(var(--accent-h),60%,11%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    border-radius:10px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;
+  }
+  .ltg-row .ltg-top{ display:flex;align-items:center;justify-content:space-between;gap:8px }
+  .ltg-row .ltg-name{ font-size:13.5px;font-weight:700;color:#fff;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap }
+  .ltg-row .ltg-d{ font-size:10px;color:hsl(var(--accent-h) 30% 65%);font-weight:700;letter-spacing:.05em;flex-shrink:0 }
+  .ltg-row .ltg-x{ background:none;border:none;color:hsl(var(--accent-h) 30% 60%);cursor:pointer;font-size:14px;padding:0 4px }
+  .ltg-row .ltg-bar-wrap{ display:flex;align-items:center;gap:8px }
+  .ltg-row input[type="range"]{ flex:1;accent-color:hsl(var(--accent-h) 100% 60%) }
+  .ltg-row .ltg-pct{ font-size:11px;font-weight:700;color:hsl(var(--accent-h) 80% 70%);min-width:34px;text-align:right }
+
+  /* BRUSH */
+  .brush-btn{
+    flex:1;padding:10px 8px;border-radius:10px;font-size:12.5px;font-weight:700;
+    background:hsla(var(--accent-h),60%,14%,.55);
+    border:1px solid hsla(var(--accent-h),100%,73%,.14);
+    color:hsl(var(--accent-h) 30% 75%);cursor:pointer;
+  }
+  .brush-btn.on{
+    background:linear-gradient(135deg,hsl(var(--accent-h) 100% 60%),hsl(var(--accent-h) 90% 45%));
+    color:#fff;border-color:transparent;
+  }
+
   /* preset swatches — each chip previews its own hue */
   .chip[data-h]{
     background:
@@ -3527,6 +3553,69 @@
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(40 90% 60%);margin-right:6px"></span>Углеводы <b id="pie-c-pct">0%</b> · <span id="pie-c-g">0</span>г · <span id="pie-c-kc">0</span>кк</div>
           <div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(0 80% 60%);margin-right:6px"></span>Жиры <b id="pie-f-pct">0%</b> · <span id="pie-f-g">0</span>г · <span id="pie-f-kc">0</span>кк</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ============= LONG-TERM GOALS ============= -->
+    <div class="card" id="ltg-card" style="margin-top:14px">
+      <h2>Долгосрочные цели</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Месяцы/годы. Не сегодня. Прогресс ползёт ползунком.
+      </p>
+      <div id="ltg-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">
+        <input id="ltg-text" type="text" placeholder="напр. Стать HTN" maxlength="80" style="flex:1;min-width:140px;padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:13px">
+        <input id="ltg-deadline" type="date" style="padding:7px 9px;background:hsla(var(--accent-h),60%,11%,.55);border:1px solid hsla(var(--accent-h),100%,73%,.15);border-radius:8px;color:#fff;font-size:12px;color-scheme:dark">
+        <button id="ltg-add" type="button" class="pri">+ Цель</button>
+      </div>
+    </div>
+
+    <!-- ============= AFFIRMATIONS ============= -->
+    <div class="card" id="aff-card" style="margin-top:14px">
+      <h2>Аффирмация дня</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Произнеси про себя 3 раза глядя в зеркало. Каждый день — новая.
+      </p>
+      <blockquote id="aff-text" style="font-style:italic;margin:6px 0;font-size:14.5px;color:hsl(var(--accent-h) 25% 92%);border-left:3px solid hsl(var(--accent-h) 100% 60%);padding:5px 12px">«Я становлюсь сильнее с каждым днём.»</blockquote>
+      <div class="row" style="gap:6px;margin-top:8px">
+        <button id="aff-prev" type="button" class="ghost" style="flex:1">←</button>
+        <button id="aff-done" type="button" class="pri" style="flex:2">Произнёс 3× ✓</button>
+        <button id="aff-next" type="button" class="ghost" style="flex:1">→</button>
+      </div>
+      <div style="font-size:11px;color:hsl(var(--accent-h) 30% 65%);margin-top:6px;text-align:center">
+        Произнесено всего: <b id="aff-count">0</b>
+      </div>
+    </div>
+
+    <!-- ============= SLEEP DEBT ============= -->
+    <div class="card" id="sleepdebt-card" style="margin-top:14px">
+      <h2>Долг по сну</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        За 7 дней. Норма 8ч/ночь = 56ч/нед. Дефицит копится — лицо тёмное, отёк, кортизол.
+      </p>
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi-tile"><div class="lbl">Цель</div><div class="val">56ч</div><div class="sub">8×7 дней</div></div>
+        <div class="kpi-tile"><div class="lbl">Поспал</div><div class="val" id="sd-actual">—</div><div class="sub" id="sd-days">0 дней</div></div>
+        <div class="kpi-tile"><div class="lbl">Долг</div><div class="val" id="sd-debt">—</div><div class="sub" id="sd-status">нет данных</div></div>
+      </div>
+      <div style="margin-top:8px;font-size:12px;color:hsl(var(--accent-h) 30% 75%);line-height:1.4" id="sd-advice">
+        Запиши «Сон, ч» в логе дня минимум 3 дня — появится анализ.
+      </div>
+    </div>
+
+    <!-- ============= BRUSHING TEETH ============= -->
+    <div class="card" id="brush-card" style="margin-top:14px">
+      <h2>Зубы · 2 раза</h2>
+      <p class="muted" style="font-size:12.5px;margin:0 0 8px">
+        Утром и вечером. Зубы белые = halo +1. Нить — каждый день.
+      </p>
+      <div class="row" style="gap:8px">
+        <button id="brush-morning" class="brush-btn" type="button">☀ Утром</button>
+        <button id="brush-evening" class="brush-btn" type="button">🌙 Вечером</button>
+        <button id="brush-floss" class="brush-btn" type="button">🦷 Нить</button>
+      </div>
+      <div style="font-size:11.5px;color:hsl(var(--accent-h) 30% 70%);margin-top:8px;text-align:center">
+        Сегодня: <b id="brush-today">0/3</b> · streak: <b id="brush-streak">0</b> дн
       </div>
     </div>
 
@@ -8980,6 +9069,273 @@
     });
     render();
     document.addEventListener('screen:enter', e => { if (e.detail && e.detail.name === 'stats') render(); });
+  })();
+
+  // ========= LONG-TERM GOALS =========
+  (function(){
+    const list = document.getElementById('ltg-list');
+    const txt = document.getElementById('ltg-text');
+    const dl = document.getElementById('ltg-deadline');
+    const add = document.getElementById('ltg-add');
+    if (!list) return;
+    const KEY = 'mogger.ltg';
+    function getAll(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ return []; } }
+    function setAll(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(_){} }
+    function fmtDeadline(d){
+      if (!d) return '';
+      const today = new Date(); today.setHours(0,0,0,0);
+      const t = new Date(d); t.setHours(0,0,0,0);
+      const diff = Math.round((t-today)/86400000);
+      if (diff < 0) return `просрочено ${-diff}д`;
+      if (diff === 0) return 'сегодня';
+      if (diff < 31) return `${diff}д`;
+      if (diff < 365) return `${Math.round(diff/30)}мес`;
+      return `${(diff/365).toFixed(1)}л`;
+    }
+    function render(){
+      const all = getAll();
+      if (!all.length){
+        list.innerHTML = '<div class="muted" style="padding:8px;font-size:11.5px;text-align:center">Нет долгосрочных целей. Добавь первую ниже.</div>';
+        return;
+      }
+      list.innerHTML = all.map((g,i) => `
+        <div class="ltg-row">
+          <div class="ltg-top">
+            <span class="ltg-name">${(g.name||'').replace(/</g,'&lt;')}</span>
+            <span class="ltg-d">${fmtDeadline(g.deadline)}</span>
+            <button class="ltg-x" data-i="${i}" type="button" title="Удалить">×</button>
+          </div>
+          <div class="ltg-bar-wrap">
+            <input type="range" min="0" max="100" value="${g.pct||0}" data-i="${i}" class="ltg-r">
+            <span class="ltg-pct">${g.pct||0}%</span>
+          </div>
+        </div>
+      `).join('');
+      list.querySelectorAll('.ltg-r').forEach(r => r.addEventListener('input', e => {
+        const i = +e.target.dataset.i;
+        const all = getAll();
+        if (all[i]){ all[i].pct = +e.target.value; setAll(all); render(); }
+      }));
+      list.querySelectorAll('.ltg-x').forEach(b => b.addEventListener('click', e => {
+        const i = +e.target.dataset.i;
+        const all = getAll();
+        all.splice(i,1); setAll(all); render();
+      }));
+    }
+    add.addEventListener('click', () => {
+      const t = txt.value.trim(); if (!t) return;
+      const all = getAll();
+      all.push({ name: t, deadline: dl.value || '', pct: 0, created: Date.now() });
+      setAll(all); txt.value = ''; dl.value = ''; render();
+    });
+    render();
+  })();
+
+  // ========= AFFIRMATIONS =========
+  (function(){
+    const text = document.getElementById('aff-text');
+    const prev = document.getElementById('aff-prev');
+    const next = document.getElementById('aff-next');
+    const done = document.getElementById('aff-done');
+    const cnt = document.getElementById('aff-count');
+    if (!text) return;
+    const AFFS = [
+      'Я становлюсь сильнее с каждым днём.',
+      'Я хозяин своих эмоций.',
+      'Каждый отказ делает меня жёстче.',
+      'Я заслуживаю быть лучшей версией себя.',
+      'Дисциплина важнее мотивации.',
+      'Моё тело отзывается на то, что я с ним делаю.',
+      'Я выбираю — и я делаю.',
+      'Боль временна. Гордость постоянна.',
+      'Я не жду — я создаю.',
+      'Сегодня — это новая попытка.',
+      'Я не сравниваю себя с другими — только с собой вчерашним.',
+      'Чем больше я работаю, тем тише голос сомнения.',
+      'Я лидер своей жизни.',
+      'Я уважаю себя.',
+      'Я говорю «нет» тому что меня ослабляет.',
+      'Каждый день я ближе к моей цели.',
+      'Мой результат — следствие моих привычек.',
+      'Я делаю, даже когда не хочется.',
+      'Моя честность с самим собой — моя сила.',
+      'Я выбираю долгосрочную выгоду.',
+      'Никто не несёт ответственность за моё состояние кроме меня.',
+      'Я строю — а не жалею себя.',
+      'Я учусь на своих ошибках, а не топчусь на них.',
+      'Я ценю своё время.',
+      'Я благодарен за всё что у меня есть.',
+      'Сила приходит к терпеливым.',
+      'Тишина внутри = ясность снаружи.',
+      'Я не должен никому ничего доказывать.',
+      'Каждая тренировка — это инвестиция в моё будущее.',
+      'Я выбираю быть здоровым.',
+      'Я доверяю процессу.',
+      'Малое усилие сегодня = большая разница завтра.',
+      'Я не контролирую обстоятельства — я контролирую реакцию.',
+      'Я расту через дискомфорт.',
+      'Мой потенциал безграничен.',
+      'Я не боюсь начинать с нуля.',
+      'Я живу в настоящем.',
+      'Сравнение — вор радости.',
+      'Я делаю то что должен, а не то что хочется.',
+      'Мой характер важнее моего настроения.',
+      'Я строю фундамент, а не декорацию.',
+      'Прошлое не определяет меня.',
+      'Я говорю с собой как с другом.',
+      'Я заслужил отдых после работы — не после лени.',
+      'Я не оправдываюсь — я действую.',
+      'Я уважаю своё слово.',
+      'Здоровое тело = ясный ум.',
+      'Я работаю на свою лучшую версию.',
+      'Поражение — это data. Не приговор.',
+      'Я живу свою жизнь, а не чужую.',
+      'Я понимаю что я в долгой игре.',
+      'Каждое утро — новый старт.',
+      'Я создан для большего.',
+      'Я знаю свою ценность.',
+      'Мой страх — не мой хозяин.',
+      'Я несу свою ношу с достоинством.',
+      'Я инвестирую в себя каждый день.',
+      'Я заслуживаю любовь — начиная с себя.',
+      'Не сегодня означает не «никогда».',
+      'Я ребрэндю себя.',
+      'Маленькие победы складываются в большую.',
+      'Я отвечаю за свой выбор.',
+      'Я возвращаюсь к себе.',
+      'Я строю человека которым горжусь.',
+      'Я выбираю — и я не оглядываюсь.',
+      'Я знаю куда иду.',
+      'Я сильнее своих оправданий.',
+      'Я уважаю своё тело и кормлю его соответственно.',
+      'Я не убегаю от себя.',
+      'Я заслуживаю своё внимание.',
+      'Я ценю каждый день жизни.',
+      'Сила воли — это мышца. Я её качаю.',
+      'Я не средний. Я выбираю быть лучше.',
+      'Я работаю в тишине — успех говорит за меня.',
+      'Я благодарен за вызовы.',
+      'Я говорю меньше — делаю больше.',
+      'Я учусь у каждого.',
+      'Я выбираю долгий путь к настоящей силе.',
+      'Я знаю свою миссию.',
+      'Я мой главный союзник.',
+      'Каждый шаг ценен.',
+      'Я строю — и я добьюсь.',
+    ];
+    let idx = +localStorage.getItem('mogger.aff.idx') || 0;
+    function setIdx(i){ idx = ((i % AFFS.length) + AFFS.length) % AFFS.length; try{ localStorage.setItem('mogger.aff.idx', idx); }catch(_){} render(); }
+    function render(){
+      text.textContent = '«' + AFFS[idx] + '»';
+      cnt.textContent = +localStorage.getItem('mogger.aff.count') || 0;
+    }
+    prev.addEventListener('click', () => setIdx(idx-1));
+    next.addEventListener('click', () => setIdx(idx+1));
+    done.addEventListener('click', () => {
+      const cur = +localStorage.getItem('mogger.aff.count') || 0;
+      try{ localStorage.setItem('mogger.aff.count', cur+1); }catch(_){}
+      done.textContent = 'Произнёс ✓'; setTimeout(() => done.textContent = 'Произнёс 3× ✓', 1500);
+      setIdx(idx+1);
+    });
+    // Auto-rotate daily
+    const lastDay = localStorage.getItem('mogger.aff.day');
+    const today = new Date().toISOString().slice(0,10);
+    if (lastDay !== today){
+      try{ localStorage.setItem('mogger.aff.day', today); }catch(_){}
+      setIdx(idx+1);
+    } else render();
+  })();
+
+  // ========= SLEEP DEBT =========
+  (function(){
+    const a = document.getElementById('sd-actual');
+    const d = document.getElementById('sd-debt');
+    const days = document.getElementById('sd-days');
+    const status = document.getElementById('sd-status');
+    const adv = document.getElementById('sd-advice');
+    if (!a) return;
+    function render(){
+      const hours = [];
+      const now = new Date();
+      for (let i = 0; i < 7; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        const k = 'mogger.dailylog.' + dt.toISOString().slice(0,10);
+        try {
+          const log = JSON.parse(localStorage.getItem(k) || '{}');
+          if (log.sleep) hours.push(+log.sleep);
+        } catch(_){}
+      }
+      if (hours.length < 3){
+        a.textContent = '—'; d.textContent = '—'; status.textContent = `${hours.length} дн.`; days.textContent = `${hours.length} дней`;
+        adv.textContent = 'Запиши «Сон, ч» в логе дня минимум 3 дня — появится анализ.';
+        return;
+      }
+      const sum = hours.reduce((s,v)=>s+v, 0);
+      const goal = hours.length * 8;
+      const debt = goal - sum;
+      a.textContent = sum.toFixed(1) + 'ч';
+      days.textContent = `${hours.length} дней`;
+      if (debt > 0){
+        d.textContent = '+' + debt.toFixed(1) + 'ч';
+        d.style.color = 'hsl(0 80% 65%)';
+        status.textContent = 'недосып';
+        if (debt > 10) adv.textContent = '⚠️ Серьёзный долг. Лицо тёмное, отёк, выпадение волос — следствие. Сегодня — спать 9-10ч если можешь.';
+        else if (debt > 5) adv.textContent = 'Долг средний. Ляг на 1ч раньше — догонишь за 5 дней.';
+        else adv.textContent = 'Мини-долг. Не критично, но не копи.';
+      } else {
+        d.textContent = debt.toFixed(1) + 'ч';
+        d.style.color = 'hsl(120 70% 65%)';
+        status.textContent = 'норма';
+        adv.textContent = 'Сон в норме. Это база — лицо, тестостерон, мышцы, кожа.';
+      }
+    }
+    render();
+    window.addEventListener('storage', render);
+    window.addEventListener('mogger:stats-changed', render);
+    setInterval(render, 30000);
+  })();
+
+  // ========= BRUSH TEETH =========
+  (function(){
+    const m = document.getElementById('brush-morning');
+    const e = document.getElementById('brush-evening');
+    const f = document.getElementById('brush-floss');
+    const today = document.getElementById('brush-today');
+    const streak = document.getElementById('brush-streak');
+    if (!m) return;
+    const tKey = () => 'mogger.brush.' + new Date().toISOString().slice(0,10);
+    function get(){ try{ return JSON.parse(localStorage.getItem(tKey())||'{}'); }catch(_){ return {}; } }
+    function set(o){ try{ localStorage.setItem(tKey(), JSON.stringify(o)); }catch(_){} }
+    function update(){
+      const d = get();
+      m.classList.toggle('on', !!d.morning);
+      e.classList.toggle('on', !!d.evening);
+      f.classList.toggle('on', !!d.floss);
+      const done = (d.morning?1:0)+(d.evening?1:0)+(d.floss?1:0);
+      today.textContent = `${done}/3`;
+      // streak: count consecutive days with morning+evening
+      let s = 0; const now = new Date();
+      for (let i = 0; i < 365; i++){
+        const dt = new Date(now); dt.setDate(dt.getDate()-i);
+        try {
+          const obj = JSON.parse(localStorage.getItem('mogger.brush.'+dt.toISOString().slice(0,10))||'{}');
+          if (obj.morning && obj.evening) s++;
+          else if (i === 0) continue;
+          else break;
+        } catch(_){ break; }
+      }
+      streak.textContent = s;
+    }
+    [m,e,f].forEach((b, idx) => {
+      const key = ['morning','evening','floss'][idx];
+      b.addEventListener('click', () => {
+        const d = get();
+        d[key] = !d[key];
+        set(d);
+        update();
+      });
+    });
+    update();
   })();
 
   // ========= WINS / MISTAKES / LESSONS =========
